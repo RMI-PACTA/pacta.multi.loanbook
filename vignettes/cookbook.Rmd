@@ -367,7 +367,7 @@ The manual matching process is not automated and will require some time and effo
 
 You can find more detaied information about the matching process in the training material on the [PACTA for Banks website](https://pacta.rmi.org/pacta-for-banks-2020/) in the section "PACTA for Banks Training Webinar 2" and in the [corresponding slide deck](https://pacta.rmi.org/wp-content/uploads/2020/12/PACTA-for-Banks-Training-Webinar-2-Matching-a-loan-book-to-physical-assets-in-the-real-economy-.pdf).
 
-Some suggestions for the matching process are:
+#### Some expectations for the matching process
 
 - It is unlikely that you will be able to match all of the loans from your raw loan books to the ABCD data set. This is expected and has the following reasons:
   - Raw loan books often include companies that are not in scope of the PACTA analysis, for example there may be companies active in the financial sector or in manufacturing of IT products. Both these sectors are fully out of scope. There may also be companies that are active in upstream or downstream activities of the sectors covered by PACTA. This means that the company activities are not at the part of the value chain that is covered my PACTA and accordingly the companies are not matched. Examples for this are power distribution companies or companies that manufacture air crafts.
@@ -375,6 +375,15 @@ Some suggestions for the matching process are:
   - If you are using sector classifications for the matching process (which is recommended whenever possible), some matches may not be identified in case the companies in the raw loan book are misclassified. For example, if a utility that is focused on coal-fired power generation is classified as a coal mining company, the matching function will not suggest a match.
 - Given that it is unlikely to match all loans, it is recommended to try and match the companies with the largest financial exposures first, as this ensures the best possible financial coverage of the loan book in the analysis.
 - It is also recommended to run multiple iterations of the matching process, potentially adjusting the matching parameters in the `config.yml` file, to see if you can improve the match success rate. The match success rate can be obtained based on the manually validated matched loan books and the raw loan books as described in [the next section on prioritization and diagnostics](### Prioritization of loan books; Match success and coverage diagnostics).
+
+#### Addressing misclassfied loans
+
+There are two ways to appropriately handle misclassified loans that are identified as in-scope in the raw data set but are then not matched.
+
+1. Correct the classification in the raw loan book and re-run the matching process. If the loan was clearly mis-classified, this may be the most appropriate way to handle the issue. It may be a good idea to record any such changes made in the input data though. The upsdie of this approach is that the loan will now either be matched correctly, as it will be assigned the sector that the company should have and therefore find an entry in the ABCD data set to match against. Or, if there is still no match to be found in the ABCD, the loan will correctly be missing in the appropriate sector and therefore indicate a lower match success rate where it should.
+2. If a manual re-classification of the raw loan book is not possible or desired, the calculation of the match success rate can be corrected by adding a file `loans_to_remove.csv` to the input directory. This file should include the columns `id_loan` and `group_id` to indicate the precise mis-classified loan and the loan book in which it was found. This combnation of loan and loan book will then be excluded from the match success calculation.
+
+The reason why it is a good idea to either correct mis-classified loans or disregard them in the calculation of the match success rate is that a mis-classified loan cannot possibly be matched in a given sector. Therefore, no amount of work would be sufficient to improve the sector match success rate, because it is calculated against an incorrect baseline. Technically, the user is not forced to correct misclassifications, and there may be a limit to how much time should be spent on this, but it is recommended to at least correct large mis-classified loans.
 
 #### Options for the `match_loanbooks()` function
 
