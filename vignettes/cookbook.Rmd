@@ -376,6 +376,13 @@ You can find more detaied information about the matching process in the training
 - Given that it is unlikely to match all loans, it is recommended to try and match the companies with the largest financial exposures first, as this ensures the best possible financial coverage of the loan book in the analysis.
 - It is also recommended to run multiple iterations of the matching process, potentially adjusting the matching parameters in the `config.yml` file, to see if you can improve the match success rate. The match success rate can be obtained based on the manually validated matched loan books and the raw loan books as described in [the next section on prioritization and diagnostics](### Prioritization of loan books; Match success and coverage diagnostics).
 
+#### Options for the `match_loanbooks()` function
+
+The `match_loanbooks()` function has a number of options that can be set in the `config.yml` file. These options include:
+
+- specifications for the approach to matching the raw loan book with the ABCD [relevant section on matching](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/config_yml.html#matching) in the `vignette("config_yml")`). Note that these parameters are all based on the `r2dii.match::match_name` function and pass the parameters directly to that function. For more information on the options available, see the [documentation of the r2dii.match package](https://rmi-pacta.github.io/r2dii.match/reference/match_name.html). This also covers matching based on unique identifiers, which is the most reliable way to match companies, but requires that both the raw loan books and the ABCD contain such identifiers.
+- whether to use a manually prepared sector classification system for matching the loan books to in-scope PACTA sectors, see the [relevant section on matching](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/config_yml.html#matching) in the `vignette("config_yml")`), or not. If not, the sector classification systems provided in `r2dii.data::sector_classifications` can be used.
+ 
 #### Addressing misclassfied loans
 
 There are two ways to appropriately handle misclassified loans that are identified as in-scope in the raw data set but are then not matched.
@@ -385,13 +392,6 @@ There are two ways to appropriately handle misclassified loans that are identifi
 
 The reason why it is a good idea to either correct mis-classified loans or disregard them in the calculation of the match success rate is that a mis-classified loan cannot possibly be matched in a given sector. Therefore, no amount of work would be sufficient to improve the sector match success rate, because it is calculated against an incorrect baseline. Technically, the user is not forced to correct misclassifications, and there may be a limit to how much time should be spent on this, but it is recommended to at least correct large mis-classified loans.
 
-#### Options for the `match_loanbooks()` function
-
-The `match_loanbooks()` function has a number of options that can be set in the `config.yml` file. These options include:
-
-- specifications for the approach to matching the raw loan book with the ABCD [relevant section on matching](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/config_yml.html#matching) in the `vignette("config_yml")`). Note that these parameters are all based on the `r2dii.match::match_name` function and pass the parameters directly to that function. For more information on the options available, see the [documentation of the r2dii.match package](https://rmi-pacta.github.io/r2dii.match/reference/match_name.html). This also covers matching based on unique identifiers, which is the most reliable way to match companies, but requires that both the raw loan books and the ABCD contain such identifiers.
-- whether to use a manually prepared sector classification system for matching the loan books to in-scope PACTA sectors, see the [relevant section on matching](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/config_yml.html#matching) in the `vignette("config_yml")`), or not. If not, the sector classification systems provided in `r2dii.data::sector_classifications` can be used.
- 
 ### Prioritization of loan books; Match success and coverage diagnostics
 
 The next step is to prioritize the manually verified matched loan books and analyze their coverage, both relative to the raw loan book inputs (the "match success rate") and to the production capacity in the wider economy (the "loan book production coverage"). Prioritizing the loan books means that you will only keep the best identified match for each loan and use that in the following steps of the analysis.
