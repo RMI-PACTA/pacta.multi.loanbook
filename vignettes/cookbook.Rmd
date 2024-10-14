@@ -433,14 +433,6 @@ All these options are documented in more detail the [section on project paramete
 
 Usually, it will be interesting to run the analysis for more than one by_group, possibly also for multiple combinations of the other parameters. You will therefore have to run the analysis as many times as there are combinations of interest that you wish to generate results for.
 
-## Details - Data Preparation
-
-## Details - Matching Process
-
-## Details - Prioritization of loan books; Match success and coverage diagnostics
-
-## Details - Run PACTA for Supervisors analysis
-
 # Interpretation of Results
 
 ## Data Dictionary
