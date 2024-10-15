@@ -321,7 +321,9 @@ The PACTA for Supervisors analysis consists of four main steps:
 
 The following diagram illustrates the structure of the workflow:
 
-![structure of the PACTA for Supervisors analysis](../man/figures/logo.png)
+```{r echo=FALSE, fig.cap='Structure of the Workflow', fig.align='center', out.width=200}
+knitr::include_graphics("../man/figures/p4s_workflow_structure.png")
+```
 
 The following sub sections will provide detailed information on each of the steps of the analysis, starting with a brief explanation of the setup, as each of the functions will require the path to the `config.yml` file as an input argument.
 
