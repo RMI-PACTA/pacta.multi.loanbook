@@ -223,7 +223,7 @@ pak::pak("RMI-PACTA/pacta.multi.loanbook")
 
 The `pacta.multi.loanbook` package depends on a number of other R packages. These dependencies will be installed automatically when you install the `pacta.multi.loanbook` package. The required packages are:
 
-```{r imports, echo = FALSE}
+```{r imports, echo = FALSE, results = 'asis'}
 cat(utils::packageDescription("pacta.multi.loanbook")[["Imports"]])
 ```
 
@@ -231,7 +231,7 @@ cat(utils::packageDescription("pacta.multi.loanbook")[["Imports"]])
 
 The suggested packages are not required to run the analysis, but they are used in the examples and vignettes provided with the package:
 
-```{r suggests, echo = FALSE}
+```{r suggests, echo = FALSE, results = 'asis'}
 cat(utils::packageDescription("pacta.multi.loanbook")[["Suggests"]])
 ```
 
