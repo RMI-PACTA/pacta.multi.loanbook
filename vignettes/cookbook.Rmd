@@ -439,10 +439,53 @@ Usually, it will be interesting to run the analysis for more than one by_group, 
 
 # Interpretation of Results
 
+Running the analysis will produce a number of outputs that can be used to gain insights into the alignment of financial institutions with climate transition scenarios and to approximate transition risk. The two main pieces of the analysis are the PACTA for Banks analysis and the net aggregate alignment metric. The PACTA for Banks analysis will provide insights into the alignment of the financial institution with the climate transition scenarios for each of the sectors covered by PACTA. The net aggregate alignment metric is intended be used as a high level overview alignment metric for the financial sector. The analyses thus complement each other where the net aggregate alignment metric can serve as a starting point to identify sectors or groups of financial institutions that seem to require particular attention. The PACTA for Banks analysis can then be used to drill down into the details of the alignment of the financial institution with the climate transition scenarios.
+
+The following sections will provide an overview of results that are generated using this analysis and how to interpret them. It will briefly explain each of the relevant metrics, it will mention the plots that correspond to the metrics, and it will explain how the output data sets map to the values shown in the plots. The same will be provided for the coverage statistics that are generated for the analysis.
+
+## Coverage Diagnostics
+
+The coverage diagnostics include both a comparison of the number and value of matched loan books with the raw loan books and a comparison of the production capacity of companies in the matched loan books with the production capacity of companies in the wider economy. The coverage diagnostics are intended to provide insights into the quality of the matching process and the coverage of the loan books in the analysis.
+
+### Match Success Rate
+
+The match success rate is calculated per sector and can be calculated based on either of the number of loans, the outstanding value of the loans, or the credit limit of the loans. In either case, the sum value of the matched loans is compared with that of the raw loan books.
+
+The output data set contains all three versions of the metric and can be found in the `output/prioritized_loanbooks_and_diagnostics/lbk_match_success_rate<...>.csv` file, where <...> will be replaced with the name of the variable set in the by_group parameter.
+
+An example plot of the match success rate for the number of loans can look as follows:
+**PLOT**
+
+Another example plot of the match success rate for the loan size outstanding might look like this:
+**PLOT**
+
+The underlying data set used to generate these plots contains the following information:
+
+```{r dd_lbk_match_success_rate_table, echo = FALSE}
+table <- dplyr::filter(data_dictionary, .data[["dataset"]] == "lbk_match_success_rate")
+plot_table(table)
+```
+
+The variables ... **MAP**
+
+### Loan Book Production Coverage
+
+The loan book production coverage is calculated per sector and region (for all regions available in the given `scenario_source`). For a given combination of sector and region, it provides the total number of companies with operations in the sector and region in the wider economy. It then provides the number of matched companies in the loan book with operations in that sector and region. A ratio of the two values tells you the share of companies in the sector and region that you have identified in the matched loan book. Similarly, the data set provides the total production capacity of a sector in a region in the wider economy and the production by companies in the matched loan book in that sector and region. Notice that it only matters THAT the company was matched in the loan book, NOT how large the granted loan is. The ratio of the two values then tells us what percentage of the production capacity of a sector in a region the financial institution is involved in. Again, being involved in that production capacity is decidedly not a full responsibility, because many matched companies will likely have additional sources of funding. Lastly, the output provides the sum of the loan size outstanding to the matched companies in each of the sectors and regions.
+
+The output data set can be found in the `output/prioritized_loanbooks_and_diagnostics/summary_statistics_loanbook_coverage<...>.csv` file, where <...> will be replaced with the name of the variable set in the by_group parameter.
+
+The data set contains the following information:
+
+```{r dd_summary_statistics_loanbook_coverage_table, echo = FALSE}
+table <- dplyr::filter(data_dictionary, .data[["dataset"]] == "summary_statistics_loanbook_coverage")
+plot_table(table)
+```
+
+There is no standard plot that this package provides for visualizing the loan book production coverage.
+
+## PACTA for Banks Outputs and Graphs
+
+## Net Aggregate Alignment Metric Outputs and Graphs
+
 ## Data Dictionary
 
-## Interpreting the Coverage Diagnostics
-
-## Interpreting the PACTA Outputs and Graphs
-
-## Interpreting the Net Aggregate Alignment Metric Outputs and Graphs
