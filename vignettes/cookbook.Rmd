@@ -261,18 +261,20 @@ The `config.yml` file then points to an input and an output directory that the u
 
 An example of how the project folder could be structured:
 
-- project_folder
-  - config.yml
-  - input
-    - loanbooks
-      - raw_loanbook_1.csv
-      - raw_loanbook_2.csv
-      - ...
-    - ABCD.xlsx
-    - scenario_data_tms.csv
-    - scenario_data_sda.csv
-    - ...
-  - output
+```
+project_folder
+├── config.yml
+├── input
+│   ├── loanbooks
+│   │   ├── raw_loanbook_1.csv
+│   │   ├── raw_loanbook_2.csv
+│   │   └── ...
+│   ├── ABCD.xlsx
+│   ├── scenario_data_tms.csv
+│   ├── scenario_data_sda.csv
+│   └── ...
+└── output
+```
 
 ## Checklist of Preparatory Steps
 
