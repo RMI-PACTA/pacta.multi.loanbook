@@ -505,29 +505,18 @@ above, with the raw loan books being placed in a sub-directory that must
 be named <code>"loanbooks"</code>. The output folder can remain empty.
 It will be populated by running the analysis.</p>
 <p>An example of how the project folder could be structured:</p>
-<ul>
-<li>project_folder
-<ul>
-<li>config.yml</li>
-<li>input
-<ul>
-<li>loanbooks
-<ul>
-<li>raw_loanbook_1.csv</li>
-<li>raw_loanbook_2.csv</li>
-<li>…</li>
-</ul>
-</li>
-<li>ABCD.xlsx</li>
-<li>scenario_data_tms.csv</li>
-<li>scenario_data_sda.csv</li>
-<li>…</li>
-</ul>
-</li>
-<li>output</li>
-</ul>
-</li>
-</ul>
+<pre><code>project_folder
+├── config.yml
+├── input
+│   ├── loanbooks
+│   │   ├── raw_loanbook_1.csv
+│   │   ├── raw_loanbook_2.csv
+│   │   └── ...
+│   ├── ABCD.xlsx
+│   ├── scenario_data_tms.csv
+│   ├── scenario_data_sda.csv
+│   └── ...
+└── output</code></pre>
 </div>
 </div>
 <div class="section level3">
@@ -658,7 +647,7 @@ setup, as each of the functions will require the path to the
 may have prepared, you will likely want to load the
 <code>pacta.multi.loanbook</code> package and save the path to the
 <code>config.yml</code> file in a variable first:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rmi-pacta.github.io/pacta.multi.loanbook/">pacta.multi.loanbook</a></span><span class="op">)</span></span>
 <span><span class="va">config_path</span> <span class="op">&lt;-</span> <span class="st">"config.yml"</span></span></code></pre></div>
 <p>This allows you passing the relevant config information easily to
@@ -676,7 +665,7 @@ also need to be prepared. The relevant function is
 intermediary files in a sub-directory, <code>prepare_abcd</code>, in
 your <code>output</code> folder. This step only has to be run once for
 an analysis. You can run this function as follows:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">pacta.multi.loanbook</span><span class="fu">::</span><span class="fu"><a href="../reference/prepare_abcd.html">prepare_abcd</a></span><span class="op">(</span><span class="va">config_path</span><span class="op">)</span></span></code></pre></div>
 <div class="section level5">
 <h5 id="options-for-the-prepare_abcd-function">Options for the <code>prepare_abcd()</code> function<a class="anchor" aria-label="anchor" href="#options-for-the-prepare_abcd-function"></a>
@@ -709,7 +698,7 @@ to match them to the prepared ABCD data from the previous step. The
 function will store matched loan book files in a sub-directory,
 <code>matched_loanbooks</code>, in your <code>output</code> folder. You
 can run this function as follows:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">pacta.multi.loanbook</span><span class="fu">::</span><span class="fu"><a href="../reference/match_loanbooks.html">match_loanbooks</a></span><span class="op">(</span><span class="va">config_path</span><span class="op">)</span></span></code></pre></div>
 <p>After the matching process is complete, you will need to do some
 manual matching. This means that you will need to manually inspect the
@@ -866,7 +855,7 @@ store matched prioritized loan book files and coverage diagnostics in a
 sub-directory, <code>prioritized_loanbooks_and_diagnostics</code>, in
 your <code>output</code> folder. You can then run the function as
 follows:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">pacta.multi.loanbook</span><span class="fu">::</span><span class="fu"><a href="../reference/prioritise_and_diagnose.html">prioritise_and_diagnose</a></span><span class="op">(</span><span class="va">config_path</span><span class="op">)</span></span></code></pre></div>
 <div class="section level5">
 <h5 id="options-for-the-prioritise_and_diagnose-function">Options for the <code>prioritise_and_diagnose()</code> function<a class="anchor" aria-label="anchor" href="#options-for-the-prioritise_and_diagnose-function"></a>
@@ -899,7 +888,7 @@ for the net aggregate alignment metric in your <code>output</code>
 folder and comprise tabular outputs and plots. To run the analysis on
 all of your previously matched and prioritized loan books, you will use
 the <code><a href="../reference/analyse.html">analyse()</a></code> function as follows:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">pacta.multi.loanbook</span><span class="fu">::</span><span class="fu"><a href="../reference/analyse.html">analyse</a></span><span class="op">(</span><span class="va">config_path</span><span class="op">)</span></span></code></pre></div>
 <div class="section level5">
 <h5 id="options-for-the-analysis-function-and-the-overall-analysis">Options for the <code>analysis()</code> function and the overall
