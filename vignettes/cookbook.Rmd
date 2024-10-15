@@ -308,59 +308,130 @@ Before running the PACTA for Supervisors analysis, you should make sure that you
 
 # Running the Analysis
 
-## Simple Overview of the Workflow
+This section provides a step-by-step guide to running the PACTA for Supervisors analysis using the `pacta.multi.loanbook` package. It includes information on the structure of the workflow, the required functions, and the interpretation of the results.
+
+## Structure of the Workflow
+
+The PACTA for Supervisors analysis consists of four main steps:
+
+- Data preparation: Preparing the input data sets for the requirements of the analysis.
+- Matching process: Matching the raw loan books to the ABCD data and validating the matches manually.
+- Prioritization of loan books: Selecting the correct matches for further analysis and diagnosing match success and coverage statistics
+- Run PACTA for Supervisors analysis: Running the analysis based on the parameters set in the `config.yml` file to generate the production-based alignment analysis.
+
+The following diagram illustrates the structure of the workflow:
+
+![structure of the PACTA for Supervisors analysis](../man/figures/logo.png)
+
+The following sub sections will provide detailed information on each of the steps of the analysis, starting with a brief explanation of the setup, as each of the functions will require the path to the `config.yml` file as an input argument.
 
 ### Setup
 
-You'll likely want to load the package and save the path to the `config.yml` file in a variable first:
+If you run PACTA for Supervisors interactively or from a script you may have prepared, you will likely want to load the `pacta.multi.loanbook` package and save the path to the `config.yml` file in a variable first:
 
 ```r
 library(pacta.multi.loanbook)
 config_path <- "config.yml"
 ```
 
+This allows you passing the relevant config information easily to each of the four main functions.
+
 ### Data preparation
 
-The first step of the analysis is to prepare your input data sets for the requirements of the analysis. Your ABCD data will need to be prepared and you can optionally use a custom sector split, that will also need to be prepared. The relevant function is `prepare_abcd()`, which takes configurations from the `config.yml` that you have prepared. The function will store intermediary files in a sub-directory in your `output` folder. You can run this function as follows:
+The first step of the analysis is to prepare your input data sets for the requirements of the analysis. Your ABCD data will need to be prepared and you can optionally use a custom sector split, that will also need to be prepared. The relevant function is `prepare_abcd()`, which takes configurations from the `config.yml` that you have prepared. The function will store intermediary files in a sub-directory, `prepare_abcd`, in your `output` folder. This step only has to be run once for an analysis. You can run this function as follows:
 
 ```r
 pacta.multi.loanbook::prepare_abcd(config_path)
 ```
 
+#### Options for the `prepare_abcd()` function
+
+The `prepare_abcd()` function has a number of options that can be set in the `config.yml` file. These options include:
+
+- whether or not inactive companies should be removed from the ABCD data (For more information on the options available, see the [relevant section on preparing the ABCD](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/config_yml.html#prepare_abcd) in the `vignette("config_yml")`.)
+- if and how a company sector split should be applied in the calculations (For more information on the options available, see the [relevant section on the sector split](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/config_yml.html#sector_split) in the `vignette("config_yml")`). Additionally, see the [documentation of the sector split methodology](https://github.com/RMI-PACTA/workflow.aggregate.loanbooks?tab=readme-ov-file#methodological-note-sector-split-for-energy-companies).
+
+<!--- TODO: move sector split documentation to this repository-->
+
 ### Matching process
 
-To run the matching process, you will use the `match_loanbooks()` function. This will read the raw loan books from yout inputs and attempt to match them to the prepared ABCD data from the previous step. The function will store matched loan book files in a sub-directory in your `output` folder. You can run this function as follows:
+The next step in the analysis is to run the matching process. Assuming you have prepared the raw loan books as explained in [the section on preparing the input data sets](### Raw Loan Books), you can now use the `match_loanbooks()` function. This will read the raw loan books from your inputs and attempt to match them to the prepared ABCD data from the previous step. The function will store matched loan book files in a sub-directory, `matched_loanbooks`, in your `output` folder. You can run this function as follows:
 
 ```r
 pacta.multi.loanbook::match_loanbooks(config_path)
 ```
 
-After the matching process is complete, you will need to do some manual matching.
+After the matching process is complete, you will need to do some manual matching. This means that you will need to manually inspect the suggested matches that the tool has found and decide which ones to keep or to remove. This is especially important when using text based matching, as there is no guarantee that similar company names as identified by the algorithms will actually refer to the same companies in the raw loan books and the ABCD. Thus, a manually validation step is crucial in the analysis, as the quality of the matches will determine the quality of the results of any further calculations.
+
+The manual matching process is not automated and will require some time and effort on your part. You can find the matched loan books in the `output/matched_loanbooks` folder. The matched loan books will be stored in CSV files, one for each raw loan book. You can open these files in a spreadsheet program to verify the matches. Importantly, you will need to make a copy for each of the matched loan book files in the same `output/matched_loanbooks` folder and rename that copy by adding the suffix `_manual` to the file name. The following steps of the analysis expect this pattern, so it is important to follow this naming convention.
+
+You can find more detaied information about the matching process in the training material on the [PACTA for Banks website](https://pacta.rmi.org/pacta-for-banks-2020/) in the section "PACTA for Banks Training Webinar 2" and in the [corresponding slide deck](https://pacta.rmi.org/wp-content/uploads/2020/12/PACTA-for-Banks-Training-Webinar-2-Matching-a-loan-book-to-physical-assets-in-the-real-economy-.pdf).
+
+#### Some expectations for the matching process
+
+- It is unlikely that you will be able to match all of the loans from your raw loan books to the ABCD data set. This is expected and has the following reasons:
+  - Raw loan books often include companies that are not in scope of the PACTA analysis, for example there may be companies active in the financial sector or in manufacturing of IT products. Both these sectors are fully out of scope. There may also be companies that are active in upstream or downstream activities of the sectors covered by PACTA. This means that the company activities are not at the part of the value chain that is covered my PACTA and accordingly the companies are not matched. Examples for this are power distribution companies or companies that manufacture air crafts.
+  - The ABCD data set may not cover all companies that are in scope of the PACTA analysis. While coverage of the real economy sectors is usually rather high in the data sets that are commonly used for PACTA, there are gaps. This implies that some in-scope companies cannot be matched because the ABCD data set does not include them. Advanced users may research the production profiles of such companies by themselves and add them to the ABCD data manually, however this is a very involved process and not standard procedure and will therefore not be covered in this cookbook.
+  - If you are using sector classifications for the matching process (which is recommended whenever possible), some matches may not be identified in case the companies in the raw loan book are misclassified. For example, if a utility that is focused on coal-fired power generation is classified as a coal mining company, the matching function will not suggest a match.
+- Given that it is unlikely to match all loans, it is recommended to try and match the companies with the largest financial exposures first, as this ensures the best possible financial coverage of the loan book in the analysis.
+- It is also recommended to run multiple iterations of the matching process, potentially adjusting the matching parameters in the `config.yml` file, to see if you can improve the match success rate. The match success rate can be obtained based on the manually validated matched loan books and the raw loan books as described in [the next section on prioritization and diagnostics](### Prioritization of loan books; Match success and coverage diagnostics).
+
+#### Options for the `match_loanbooks()` function
+
+The `match_loanbooks()` function has a number of options that can be set in the `config.yml` file. These options include:
+
+- specifications for the approach to matching the raw loan book with the ABCD [relevant section on matching](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/config_yml.html#matching) in the `vignette("config_yml")`). Note that these parameters are all based on the `r2dii.match::match_name` function and pass the parameters directly to that function. For more information on the options available, see the [documentation of the r2dii.match package](https://rmi-pacta.github.io/r2dii.match/reference/match_name.html). This also covers matching based on unique identifiers, which is the most reliable way to match companies, but requires that both the raw loan books and the ABCD contain such identifiers.
+- whether to use a manually prepared sector classification system for matching the loan books to in-scope PACTA sectors, see the [relevant section on matching](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/config_yml.html#matching) in the `vignette("config_yml")`), or not. If not, the sector classification systems provided in `r2dii.data::sector_classifications` can be used.
+ 
+#### Addressing misclassfied loans
+
+There are two ways to appropriately handle misclassified loans that are identified as in-scope in the raw data set but are then not matched.
+
+1. Correct the classification in the raw loan book and re-run the matching process. If the loan was clearly mis-classified, this may be the most appropriate way to handle the issue. It may be a good idea to record any such changes made in the input data though. The upsdie of this approach is that the loan will now either be matched correctly, as it will be assigned the sector that the company should have and therefore find an entry in the ABCD data set to match against. Or, if there is still no match to be found in the ABCD, the loan will correctly be missing in the appropriate sector and therefore indicate a lower match success rate where it should.
+2. If a manual re-classification of the raw loan book is not possible or desired, the calculation of the match success rate can be corrected by adding a file `loans_to_remove.csv` to the input directory. This file should include the columns `id_loan` and `group_id` to indicate the precise mis-classified loan and the loan book in which it was found. This combnation of loan and loan book will then be excluded from the match success calculation.
+
+The reason why it is a good idea to either correct mis-classified loans or disregard them in the calculation of the match success rate is that a mis-classified loan cannot possibly be matched in a given sector. Therefore, no amount of work would be sufficient to improve the sector match success rate, because it is calculated against an incorrect baseline. Technically, the user is not forced to correct misclassifications, and there may be a limit to how much time should be spent on this, but it is recommended to at least correct large mis-classified loans.
 
 ### Prioritization of loan books; Match success and coverage diagnostics
 
-The next step is to prioritize the manually verified matched loan books and analyze their coverage, both relative to the raw loan book inputs and to the production capacity in the wider economy. Prioritizing the loan books means that you will only keep the best identified match for each loan and use that in the following steps of the analysis. You will probably want to check the status of your loan book and production coverage several times, as it is rare to get to the desired level of matching in one iteration. This means you may want to repeat the previous step and this step a number of times to reach the best possible outcome. To prioritize your matched loan books and calculate display the coverage diagnostics, you will use the `prioritise_and_diagnose()` function. This call will store matched prioritized loan book files and coverage diagnostics in a sub-directory in your `output` folder.
+The next step is to prioritize the manually verified matched loan books and analyze their coverage, both relative to the raw loan book inputs (the "match success rate") and to the production capacity in the wider economy (the "loan book production coverage"). Prioritizing the loan books means that you will only keep the best identified match for each loan and use that in the following steps of the analysis.
+
+You will probably want to check the status of your loan book and production coverage several times, as it is rare to get to the desired level of matching in one iteration. This means you may want to repeat the previous step (matching the loan books, likely using different parameters for different iterations) and this step (prioritizing the matched loan books and analyzing their match success rate) a number of times to reach the best possible outcome. To prioritize your matched loan books and calculate display the coverage diagnostics, you will use the `prioritise_and_diagnose()` function. This call will store matched prioritized loan book files and coverage diagnostics in a sub-directory, `prioritized_loanbooks_and_diagnostics`, in your `output` folder. You can then run the function as follows:
 
 ```r
 pacta.multi.loanbook::prioritise_and_diagnose(config_path)
 ```
 
+#### Options for the `prioritise_and_diagnose()` function
+
+The `prioritise_and_diagnose()` function has a number of options that can be set in the `config.yml` file. These options include:
+
+- the option to set a specific order for prioritizing the matches. This is an option that is passed directly to the `r2dii.match::prioritize` function. `NULL` is a valid default value and is usually a setting that works well, at least as a starting point. For more information, see the [relevant section on the prioritization of matched loan books](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/config_yml.html#match_prioritize) in the `vignette("config_yml")` or the [documentation of the r2dii.match::prioritize() function here](https://rmi-pacta.github.io/r2dii.match/reference/prioritize.html).
+
+
 ### Run PACTA for Supervisors analysis
 
-The final step is running the analysis based on the parameters you have set in the `config.yml` file. This entails both a standard PACTA for Banks analysis and the calculation of the net aggregate alignment metric. For both parts of the analysis, outputs will be stored in a sub-directory in your `output` folder and comprise tabular outputs and plots.
-To run the analysis on all of your previously matched and prioritized loan books, you will use the `analyse()` function.
+The final step is running the analysis based on the parameters you have set in the `config.yml` file. This entails both a standard PACTA for Banks analysis and the calculation of the net aggregate alignment metric. For both parts of the analysis, outputs will be stored in the sub-directories `analysis/standard` (for standard PACTA for Banks results) and `analysis/aggregated/` for the net aggregate alignment metric in your `output` folder and comprise tabular outputs and plots. To run the analysis on all of your previously matched and prioritized loan books, you will use the `analyse()` function as follows:
 
 ```r
 pacta.multi.loanbook::analyse(config_path)
 ```
 
-## Details - Data Preparation
+#### Options for the `analysis()` function and the overall analysis
 
-## Details - Matching Process
+The `analysis()` function has a number of options that can be set in the `config.yml` file. These options include:
 
-## Details - Prioritization of loan books; Match success and coverage diagnostics
+- which source should be used for allocating climate transition scenario pathways to the companies and loan books. This refers to the relevant scenario publication and usually contains the name and the year of the publication, e.g.: `"weo_2023"` or `"geco_2023"`.
+- which scenario should be used for reference in the net aggregate alignment metric. This must be a scenario that is included in the source indicated above.
+- which region to use as a reference for the analysis. This will filter the underlying production capacity to assets in the relevant region and will measure alignment against the scenario trajectory for the relevant region. It must therefore be a region, for which scenario data is available in the source selected above.
+- the start year of the analysis. This must be a year that is available both in the ABCD data and for which the scenario data has been prepared. The loan book data is assumed to be a snapshot of the end of the same year.
+- the time frame of the analysis, which refers to the number of forward looking years after the start year that are to be considered in the alignment analysis. Usually this time frame is set to 5 years. Specifically, it must be a time frame for which scenario data values and ABCD data values are available for all sectors that are to be analyzed. There are not many cases, in which it is expected to change the time frame to something else than its default value of 5 years.
+- by which variables to group the loan books to produce grouped results of the analysis. This parameter is used across multiple steps of the analysis, both in the diagnostics and in the analysis. This is because it slices and/or aggregates the loan books such that the analysis will produce results along the indicated dimension. If no `by_group` parameter is passed (i.e. `NULL`), all loan books will be aggregated. Otherwise, loan books can either be kept separate (`group_id`) or grouped by any other variable that is provided in each of the raw loan books.
+<!---TODO: maybe some of the project_parameters should be in the config section analysis, if thei are not used in other parts of the workflow--->
 
-## Details - Run PACTA for Supervisors analysis
+All these options are documented in more detail the [section on project parameters](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/config_yml.html#project_parameters) in the `vignette("config_yml")`.
+
+Usually, it will be interesting to run the analysis for more than one by_group, possibly also for multiple combinations of the other parameters. You will therefore have to run the analysis as many times as there are combinations of interest that you wish to generate results for.
 
 # Interpretation of Results
 
