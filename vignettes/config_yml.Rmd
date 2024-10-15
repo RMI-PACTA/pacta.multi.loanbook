@@ -325,7 +325,7 @@ A full example `match_prioritize`{.yaml} section might look like:
     priority: NULL
 ```
 
-### priority
+#### priority
 
 `priority`{.yaml} indicates the level of matching that should be prioritized when a loan can be matched at multiple levels. It must be a single string/character value or `NULL`{.yaml}, and it must refer to a valid, accessible, local file. Further explanation of this argument can be found in the documentation for [`r2dii.match::priortize()`{.R}](https://rmi-pacta.github.io/r2dii.match/reference/prioritize.html). As an example:
 
@@ -342,7 +342,7 @@ A full example `prepare_abcd`{.yaml} section might look like:
     remove_inactive_companies: TRUE
 ```
 
-### remove_inactive_companies
+#### remove_inactive_companies
 
 `remove_inactive_companies`{.yaml} determines if inactive companies should be removed from the abcd dataset or not. "Companies" here refers to company-sector combinations and "inactive" characterizes such company-sector combinations that are inactive at the end of the time frame analysed. When focusing forward looking analysis on exposures in the end year, such inactive companies may not produce meaningful results. It must be a single logical value (either `TRUE`{.yaml} or `FALSE`{.yaml}). As an example:
 
@@ -362,7 +362,7 @@ A full example `match_success_rate`{.yaml} section might look like:
     plot_resolution: 300
 ```
 
-### plot_width
+#### plot_width
 
 `plot_width`{.yaml} is the desired width of the XXX output plot in units defined by `plot_units`{.yaml}. It must be a single numeric value. Valid values typically look like `10`{.yaml} or `12`{.yaml} (note that this value should *not* be wrapped in quotes). As an example:
 
@@ -370,7 +370,7 @@ A full example `match_success_rate`{.yaml} section might look like:
     plot_width: 12
 ```
 
-### plot_height
+#### plot_height
 
 `plot_height`{.yaml} is the desired height of the XXX output plot in units defined by `plot_units`{.yaml}. It must be a single numeric value. Valid values typically look like `6`{.yaml} or `8`{.yaml} (note that this value should *not* be wrapped in quotes). As an example:
 
@@ -378,7 +378,7 @@ A full example `match_success_rate`{.yaml} section might look like:
     plot_height: 8
 ```
 
-### plot_units
+#### plot_units
 
 `plot_units`{.yaml} is the desired units to express the dimensions of the XXX output plot in `plot_width`{.yaml} and `plot_height`{.yaml}. It must be a single string/character value, and it must refer to a valid unit identifier. Valid values typically look like `"in"`{.yaml} or `"px"`{.yaml}. As an example:
 
@@ -386,7 +386,7 @@ A full example `match_success_rate`{.yaml} section might look like:
     plot_units: "in"
 ```
 
-### plot_resolution
+#### plot_resolution
 
 `plot_resolution`{.yaml} is the desired resolution of the XXX output plot in dpi. It must be a single numeric value. Valid values typically look like `72`{.yaml} or `300`{.yaml} (note that this value should *not* be wrapped in quotes). As an example:
 
