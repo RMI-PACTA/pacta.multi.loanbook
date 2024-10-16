@@ -323,7 +323,7 @@ The PACTA for Supervisors analysis consists of four main steps:
 
 The following diagram illustrates the structure of the workflow:
 
-```{r echo=FALSE, fig.cap='Structure of the Workflow', fig.align='center', out.width=200}
+```{r workflow_structure, echo=FALSE, fig.cap='Fig. 1: Structure of the Workflow', fig.align='center', out.width=200}
 knitr::include_graphics("../man/figures/p4s_workflow_structure.png")
 ```
 
@@ -453,11 +453,40 @@ The match success rate is calculated per sector and can be calculated based on e
 
 The output data set contains all three versions of the metric and can be found in the `output/prioritized_loanbooks_and_diagnostics/lbk_match_success_rate<...>.csv` file, where <...> will be replaced with the name of the variable set in the by_group parameter.
 
-An example plot of the match success rate for the number of loans can look as follows:
-**PLOT**
+#### Example Plots Match Success Rate
 
-Another example plot of the match success rate for the loan size outstanding might look like this:
-**PLOT**
+An example plot of the match success rate for the number of loans, in this case grouped by banks types (credit unions, less significant institutions and significant institutions), can look as follows:
+
+```{r match_success_rate_n_rel, echo=FALSE, fig.cap='Fig. 2: Relative match success rate in number of loans by different bank types. Data is based on simulated test loan books.', fig.align='center', out.width='80%'}
+knitr::include_graphics("../man/figures/plot_match_success_rate_rel_n_bank_type.png")
+```
+
+```{r match_success_rate_n_abs, echo=FALSE, fig.cap='Fig. 3: Absolute match success rate in number of loans by different bank types. Data is based on simulated test loan books.', fig.align='center', out.width='80%'}
+knitr::include_graphics("../man/figures/plot_match_success_rate_abs_n_bank_type.png")
+```
+
+Another example plot of the match success rate for the loan size outstanding, in this case an ungrouped meta view on the entire set of analyzed loan books, might look like this:
+
+```{r match_success_rate_outstanding_rel, echo=FALSE, fig.cap='Fig. 4: Relative match success rate in number of loans aggregated over all loan books. Data is based on simulated test loan books.', fig.align='center', out.width='80%'}
+knitr::include_graphics("../man/figures/plot_match_success_rate_rel_outstanding_meta.png")
+```
+
+```{r match_success_rate_outstanding_abs, echo=FALSE, fig.cap='Fig. 5: Absolute match success rate in number of loans aggregated over all loan books. Data is based on simulated test loan books.', fig.align='center', out.width='80%'}
+knitr::include_graphics("../man/figures/plot_match_success_rate_abs_outstanding_meta.png")
+```
+
+#### Interpretation of the Match Success Rate
+
+The match success rate is a coverage metric of properly identified loans relative to the raw input loan books. It is always provided by sector, because a company in the loan book can only be expected to be matched to the ABCD if it operates in the same sector. Since PACTA only covers a subset of economic sectors, judging the success of the matching process should only take into account the loans that fall within the scope of the PACTA analysis. Of course, the extent of exposure to these sectors may vary significantly between input loan books. But this has more to do with the strategy of the bank than with the quality of the matching process.
+
+Generally, it is desirable to reach as high a match success rate as possible for each sector. It was mentioned before that the time spent to maximize the match success rate is at the discretion of the user. However, it is recommended to aim for a match success rate of more than 80% of the loan value within each sector that you are interested in. The steps to achieve this are described in the section on the matching process **LINK**.
+
+If after following and concluding the matching procedure the match success rate is high for a given sector or the entire loan book, this indicates that you can draw conclusions from the PACTA analysis for the loan books with higher confidence. If it remains low for some sectors, this can point to one of several issues:
+
+- There may be data quality issues in the raw loan book. For example, the company names may have been entered wrongly, or the sector classification may be incorrect. Problems with the sector classification may be corrected to some degree through desk research. However, there are limits to inferring sector codes like that and it is a time consuming process.
+- There may be coverage issues in the ABCD. It is possible that all entries in the raw loan book are correct and the match success rate remains low, because the companies the loan book is exposed to are not covered in the ABCD. Since the ABCD is an externally sourced data set, there are two main approaches to tackling this. One is to reach out to the data provider and try to understand/add the missing data points. The other is to try and add the relevant data points manually based on your own data or research. This is a very involved process and not standard procedure and will therefore not be covered in this cookbook. Beyond those options, it is recommended to highlight coverage issues, if they cannot be fixed.
+
+#### Data Dictionary Match Success Rate
 
 The underlying data set used to generate these plots contains the following information:
 
@@ -466,13 +495,35 @@ table <- dplyr::filter(data_dictionary, .data[["dataset"]] == "lbk_match_success
 plot_table(table)
 ```
 
-The variables ... **MAP**
+#### Mapping the Data Dictionary to the Match Success Rate Plots
+
+The variables in the table map to the figures as follows:
+
+- `<by_group>:` The variable that the loan books are split by. This determines the number of panes in the plot. E.g. in figures 2 and 3, the loan books are split by bank type, generating one pane per type. In figures 4 and 5, the loan books are not split by any variable, generating a single pane for the entire set of loan books.
+- `sector`: The match success rate is analysed by sector, with the sectors shown in separate columns. This is because a loan in the raw loan book can only be matched to the ABCD if the company operates in the sector covered by the ABCD. This highlights the importance of good data quality in the sector classification of the raw loan book. The target should be to have a sufficiently high match success rate for any sector that you want to make robust statements about.
+- `match_n`: When showing the absolute number of loans matched (figure 3), this determines the size of the matched part of each column. 
+- `total_n`: When showing the absolute number of loans matched (figure 3), this determines the total size (matched + unmatched) of each column.
+- `match_success_rate_rel`: When showing the relative number of loans matched (figure 2), this determines the size of the matched part of each column.
+- `match_outstanding`: When showing the absolute matched value of loans outstanding (figure 5), this determines the size of the matched part of each column. 
+- `total_outstanding`: When showing the absolute matched value of loans outstanding (figure 5), this determines the total size (matched + unmatched) of each column.
+- `match_success_outstanding_rel`: When showing the relative matched value of loans outstanding (figure 4), this determines the size of the matched part of each column.
+- `match_credit_limit`: When showing the absolute matched credit limit of loans (not shown in figure), this determines the size of the matched part of each column. 
+- `total_credit_limit`: When showing the absolute matched credit limit of loans (not shown in figure), this determines the total size (matched + unmatched) of each column.
+- `match_success_credit_limit_rel`: When showing the relative matched credit limit of loans (not shown in figure), this determines the size of the matched part of each column.
 
 ### Loan Book Production Coverage
 
 The loan book production coverage is calculated per sector and region (for all regions available in the given `scenario_source`). For a given combination of sector and region, it provides the total number of companies with operations in the sector and region in the wider economy. It then provides the number of matched companies in the loan book with operations in that sector and region. A ratio of the two values tells you the share of companies in the sector and region that you have identified in the matched loan book. Similarly, the data set provides the total production capacity of a sector in a region in the wider economy and the production by companies in the matched loan book in that sector and region. Notice that it only matters THAT the company was matched in the loan book, NOT how large the granted loan is. The ratio of the two values then tells us what percentage of the production capacity of a sector in a region the financial institution is involved in. Again, being involved in that production capacity is decidedly not a full responsibility, because many matched companies will likely have additional sources of funding. Lastly, the output provides the sum of the loan size outstanding to the matched companies in each of the sectors and regions.
 
 The output data set can be found in the `output/prioritized_loanbooks_and_diagnostics/summary_statistics_loanbook_coverage<...>.csv` file, where <...> will be replaced with the name of the variable set in the by_group parameter.
+
+#### Interpretation of the Loan Book Production Coverage
+
+The loan book production coverage is a coverage metric of the production capacity of companies in the loan book relative to the production capacity of companies in the wider economy. It is always provided by sector and region. Comparisons across sectors need to be separate, because of differing output units. And the coverage by region allows highlighting the regional focus of a bank for the given sector. The production coverage compares matched companies only, hence it depends on the quality of the matching process and any statements about the share of economic activity covered by the matched loan book should take this relationship into account.
+
+Assuming a solid match success rate, the loan book production coverage tells you if the loan book is exposed to a large share of production capacity within a certain sector and region. This information can be relevant when assessing the impact of regional economic trends and policies that may affect the sector. For example, the loan book more susceptible to transition risk in one region than in another even when the introduced policies are very similar, because companies financed may operate a larger share of the production capacity in the first region.
+
+#### Data Dictionary Loan Book Production Coverage
 
 The data set contains the following information:
 
@@ -485,7 +536,92 @@ There is no standard plot that this package provides for visualizing the loan bo
 
 ## PACTA for Banks Outputs and Graphs
 
+Below you will find a description of the standard PACTA for Banks data outputs and graphs. Some of the data outputs are intermediate files that do not directly map to a plot. These are only mentioned briefly. A detailed description can be found in the **data dictionary**. The plots are discussed in more detail, including the relevant table from the data dictionary and how the variables map to the plots.
+
+### Target Market Share Results
+
+The target market share results provide the intermediate format output required to generate the technology mix and volume trajectory plots. The output data set can be found in the `output/analysis/standard/tms_results<...>.csv` file, where <...> will be replaced with the name of the variable set in the `by_group` parameter.
+
+More information on the target market share results data set can be found in the [data dictionary](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/data_dictionary.html#target-market-share-results-all-groups).
+
+### Technology Mix
+
+The technology mix metric compares the technology mix of the production capacity of companies in the loan book with that of the production capacity of companies in the wider economy and the scenario technology mix five years into the future. The output data set can be found in the `output/analysis/standard/<...>/data_tech_mix_<sector>.csv` file, where <...> will be replaced with the names of each of the groups in the variable set in the `by_group` parameter. This means that the technology mix results always only show results for one group at a time.
+
+**LINK** to some more general tech mix explanation?
+
+#### Example Plots Technology Mix
+
+This plot shows the technology mix for the automotive sector of a loan book. We can see that the exposure to automotive production of different engine types in the loan book shifts from 2022 to 2027. The exposure to electric vehicle production increases, while the exposure to internal combustion engine production decreases. A similar shift can be observed in the wider economy, although the shift starts from a smaller share in 2022, which implies the companies that are being financed have a relatively strong focus on electric vehicle production compared to the overall economy. We can also see what the technology mix looks like for the scenario in 2027. In this case, the shift of automotive production from internal combustion engines to electric vehicles in the portfolio exposure is not as strong as it ought to be to be in line with the scenario.
+
+```{r tech_mix_auto, echo=FALSE, fig.cap='Fig. 6: Technology mix for the automotive sector of a loan book. Data is based on simulated test loan books.', fig.align='center', out.width='80%'}
+knitr::include_graphics("../man/figures/plot_tech_mix_automotive_meta.png")
+```
+
+In another example of the technology mix plot for the power sector, we can again see a loan book that is exposed to a much higher share of low carbon technologies than the wider economy, mainly due to the large exposure to companies operating renewable energy power. The plot shows only a marginal shift for the loan book between 2022 and 2027, which means that the share of technologies does not quite align with the scenario values in 2027. However, we can again see that the loan book as far ahead of the wider economy in terms of low carbon technology exposure in the power sector, with nuclear power being the only notable exception of smaller exposure in the loan book.
+
+```{r tech_mix_power, echo=FALSE, fig.cap='Fig. 7: Technology mix for the power generation sector of a loan book. Data is based on simulated test loan books.', fig.align='center', out.width='80%'}
+knitr::include_graphics("../man/figures/plot_tech_mix_power_meta.png")
+```
+
+#### Interpretation of the Technology Mix Plots
+
+The technology mix plots show the exposure to underlying technologies by sector, where the technology mix of the financed companies is combined using the portfolio weight of each loan to generate the aggregate technology mix at the loan book level. This means that a technology mix at the company level reflects the underlying production of the company in terms of real economic output units, whereas the technology mix at the loan book level reflects the financial exposure of the bank to these technologies through its lending activities. As such, the overall size of the production activities of the underlying companies does not impact the technology mix of the loan book. It is a weighted average of relative production numbers. The technology mix at the loan book level therefore works better as a risk indicator than as a measure of impact.
+
+For the corporate economy bars, the technology mix is based on the unweighted sum of underlying physical production capacity and for the scenario bar, the technology mix is based on the initial technology mix of the portfolio, extrapolated with required changes based on the market share approach that assumes all companies maintain their overall production shares in the sector.
+
+#### Data Dictionary Technology Mix
+
+The underlying data set used to generate the technology mix plots contains the following information:
+
+```{r dd_data_tech_mix_table, echo = FALSE}
+table <- dplyr::filter(data_dictionary, .data[["dataset"]] == "data_tech_mix")
+plot_table(table)
+```
+
+#### Mapping the Data Dictionary to the Technology Mix Plots
+
+### Production Volume Trajectory
+
+#### Example Plots ...
+#### Interpretation of the ...
+#### Data Dictionary ...
+#### Mapping the Data Dictionary to the ... Plots
+
+### Sectoral Decarbonization Approach Results
+
+The sectoral decarbonization approach (SDA) results provide the intermediate format output required to generate the emission intensity plot. The output data set can be found in the `output/analysis/standard/sda_results<...>.csv` file, where <...> will be replaced with the name of the variable set in the `by_group` parameter.
+
+More information on the SDA results data set can be found in the [data dictionary](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/data_dictionary.html#sectoral-decarbonization-approach-results-all-groups).
+
+### Emission Intensity Pathway
+
+#### Example Plots ...
+#### Interpretation of the ...
+#### Data Dictionary ...
+#### Mapping the Data Dictionary to the ... Plots
+
 ## Net Aggregate Alignment Metric Outputs and Graphs
 
-## Data Dictionary
+This section provides a description of the data outputs and graphs related to the Net Aggregate Alignment Metrics. Some of the data outputs are intermediate files that do not directly map to a plot. These are only mentioned briefly. A detailed description can be found in the **data dictionary**. The plots are discussed in more detail, including the relevant table from the data dictionary and how the variables map to the plots.
+
+### sankey
+#### Example Plots ...
+#### Interpretation of the ...
+#### Data Dictionary ...
+#### Mapping the Data Dictionary to the ... Plots
+
+
+### alignment-by-exposure
+#### Example Plots ...
+#### Interpretation of the ...
+#### Data Dictionary ...
+#### Mapping the Data Dictionary to the ... Plots
+
+
+### scatter buildout-phaseout
+#### Example Plots ...
+#### Interpretation of the ...
+#### Data Dictionary ...
+#### Mapping the Data Dictionary to the ... Plots
 
