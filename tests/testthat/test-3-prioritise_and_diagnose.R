@@ -14,11 +14,8 @@ test_that("", {
         by_group = "group_id"
       ),
       sector_split = list(
-        apply_sector_split = TRUE,
-        sector_split_type = "equal_weights",
-        filename_split_company_id = "split_company_ids.csv",
-        filename_advanced_company_indicators = "test-cmpy-indicators.xlsx",
-        sheet_advanced_company_indicators = "Company Activities"
+        apply_sector_split = FALSE,
+        sector_split_type = "equal_weights"
       ),
       matching = list(
         params_match_name = list(
