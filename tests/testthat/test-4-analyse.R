@@ -6,9 +6,9 @@ test_that("", {
         dir_output = test_path("test-data", "output")
       ),
       file_names = list(
-        filename_scenario_tms = "scenarios_2022_p4b.csv",
-        filename_scenario_sda = "scenarios_2022_ei_p4b.csv",
-        filename_abcd = "test-banks-data.xlsx",
+        filename_scenario_tms = "scenario_data_tms.csv",
+        filename_scenario_sda = "scenario_data_sda.csv",
+        filename_abcd = "ABCD.xlsx",
         sheet_abcd = "Company Indicators - PACTA Comp"
       ),
       project_parameters = list(

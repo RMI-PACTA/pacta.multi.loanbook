@@ -6,7 +6,7 @@ test_that("", {
         dir_output = test_path("test-data", "output")
       ),
       file_names = list(
-        filename_abcd = "test-banks-data.xlsx",
+        filename_abcd = "ABCD.xlsx",
         sheet_abcd = "Company Indicators - PACTA Comp"
       ),
       project_parameters = list(
