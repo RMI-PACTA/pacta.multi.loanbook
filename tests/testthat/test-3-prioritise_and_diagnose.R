@@ -44,5 +44,13 @@ test_that("", {
       )
     )
   
+  matched_path <- test_path("test-data/output/matched_loanbooks/matched_lbk_raw_loanbook_1.csv")
+  manual_path <- test_path("test-data/output/matched_loanbooks/matched_lbk_raw_loanbook_1_manual.csv")
+  
+  readr::read_csv(matched_path, show_col_types = FALSE) %>%
+    dplyr::slice_max(order_by = score, by = id_loan) %>% 
+    dplyr::slice_head(by = id_loan) %>% 
+    readr::write_csv(manual_path, na = "")
+  
   expect_no_error(suppressWarnings(prioritise_and_diagnose(config)))
 })
