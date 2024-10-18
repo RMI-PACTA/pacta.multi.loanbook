@@ -548,6 +548,8 @@ More information on the target market share results data set can be found in the
 
 The technology mix metric compares the technology mix of the production capacity of companies in the loan book with that of the production capacity of companies in the wider economy and the scenario technology mix five years into the future. The output data set can be found in the `output/analysis/standard/<...>/data_tech_mix_<sector>.csv` file, where <...> will be replaced with the names of each of the groups in the variable set in the `by_group` parameter. This means that the technology mix results always only show results for one group at a time.
 
+The technology mix can only be calculated for sectors that have technology level scenario pathways. Generally, those tend to be sectors for which scalable low carbon alternatives exist. The technology mix can also be calculated for sectors in which all technologies are projected to phase down or out, but the results are less meaningful in those cases, as the technology mix cannot show the absolute requirements for a phasedown.
+
 **LINK** to some more general tech mix explanation?
 
 #### Example Plots Technology Mix
@@ -581,12 +583,68 @@ plot_table(table)
 
 #### Mapping the Data Dictionary to the Technology Mix Plots
 
+The variables in the table map to the figures as follows:
+
+- `<by_group>:` The variable that the loan books are split by. This determines the group for which the tech mix is shown. E.g. in case the aggregate loan book is displayed as in figures 6 and 7, the variable and value will be "meta". If the calculation had been grouped by `bank_type`, the resulting plots would have been returned for groups, such as credit unions, less significant institutions and significant institutions.
+- `sector`: The PACTA sector that the technology mix is shown for.
+- `technology`/`label_tech`: The technology represents the differences in product or fuel type (depending on the sector). Generally, some of the technologies within a sector are considered low carbon technologies and others are considered high carbon technologies. The technology mix shows the current distribution across these technologies and how that distribution may change. The `label_tech` is the same as the `technology`, but with a more human readable name to be displayed in the plot.
+- `year`: The technology mix chart uses values from the start year of the analysis and contrasts them with values from the end year of the analysis, usually five years into the future.
+- `metric`/`label`: The metric differentiates the types of bars shown in the technology mix plot. `projected` refers to the technology mix of the exposures in the loan book, `corporate_economy` represents the production technology mix of the real economy for the selected region and `target_<scenario>` refers to the technology mix the loan book would need to achieve five years into the future in order to be aligned with the scenario based on the market share approach. `<scenario>` stands for the selected target scenario as set in the `config.yml` file. The `label` is the same as the `metric`, but with a more human readable name to be displayed in the plot.
+- `technology_share`/`value`: The actual value that determines the size of each of the technologies in the bars of the plot. The `technology_share` is the share of the technology in the total production capacity of the sector in the region. The `value` is the same as the `technology_share`, but formatted for display in the plot.
+
 ### Production Volume Trajectory
 
-#### Example Plots ...
-#### Interpretation of the ...
-#### Data Dictionary ...
-#### Mapping the Data Dictionary to the ... Plots
+The production volume trajectory metric compares the future production capacity in a given technology of the companies in the loan book with that of the companies in the wider economy and the scenario trajectories for the loan book five years into the future, based on the market share approach. The output data set can be found in the `output/analysis/standard/<...>/data_trajectory_<sector>_<technology>.csv` file, where <...> will be replaced with the names of each of the groups in the variable set in the `by_group` parameter. This means that the production volume trajectory results always only show results for one group at a time.
+
+The production volume trajectory metric can only be calculated for sectors that have technology level scenario pathways. Generally, those tend to be sectors for which scalable low carbon alternatives exist, or sectors in which all technologies are projected to phase down or out.
+
+**LINK** to some more general volume trajectory explanation?
+
+#### Example Plots Production Volume Trajectory
+
+In this example of the volume trajectory plot for electric vehicle production in the automotive sector, we can see that the exposure to electric vehicle production in the loan book is projected to increase from 2022 to 2027. Electric vehicle production in the real economy is projected to increase as well, but at a slower pace. The scenario trajectories for the IEA NZE by 2050 and IEA APS for the portfolio are also shown, based on the market share approach. The projection of the portfolio falls between the APS and the NZE by 2050 trajectories.
+
+```{r trajectory_auto_ev, echo=FALSE, fig.cap='Fig. 8: Volume trajectory plot for electric vehicle production in the automotive sector of a loan book. Data is based on simulated test loan books.', fig.align='center', out.width='80%'}
+knitr::include_graphics("../man/figures/plot_trajectory_automotive_electric_meta.png")
+```
+
+In another example of the production volume trajectory plot for the coal mining sector, we can see a loan book that reduces its exposed to coal mining activity over the time frame of the analysis. The real economy does so too, but again a t a slower pace. The scenario trajectories for the loan book based on the market share approach are plotted for the IEA STEPS, the IEA APS, and the IEA NZE by 2050 scenarios. The trend of the loan book projection follows the APS trajectory relatively closely over the examined time frame.
+
+```{r trajectory_coal_mining, echo=FALSE, fig.cap='Fig. 9: Volume trajectory plot for for coal mining (technology and sector) of a loan book. Data is based on simulated test loan books.', fig.align='center', out.width='80%'}
+knitr::include_graphics("../man/figures/plot_trajectory_coal_coal_meta.png")
+```
+
+#### Interpretation of the Production Volume Trajectory Plots
+
+The production volume trajectory plots show the exposure of the loan book to production capacity trends of the financed companies for a given technology over the next five years, showing changes in percent relative to the start year. It contrasts this trend with the production trend of the real economy and with the trajectories that the loan book would have to finance in order to be aligned with scenarios based on the market share approach. The shading of the graph represents the direction of the required changes based on the scenario. If the green area is at the top of the graph, the technology needs to increase over time to align with the scenario. If the red area is at the top of the graph, the technology needs to decrease over time to align with the scenario. The required rates of change that apply for the individual loan book are determined using the market share approach, using the target market share ratio (TMSR) for high-carbon technologies and the sector market share percentage (SMSP) for low-carbon technologies. If the projected production trend of the loan book is equal or greater than the highest scenario line for an increasing technology, the loan book is aligned with the most ambitious scenario for that technology.
+
+If it is below that scenario line, the loan book is misalgined with the most ambitious scenario for that technology. It may still be aligned with a less ambitious scenario. Likewise, if the projected production trend of the loan book is equal or lower than the lowest scenario line for a decreasing technology, the loan book is aligned with the most ambitious scenario for that technology. If it is above that scenario line, the loan book is misaligned with the most ambitious scenario for that technology. It may still be aligned with a less ambitious scenario.
+
+For more information on how to calculate the TMSR and the SMSP, see the [PACTA for Banks documentation](https://rmi-pacta.github.io/r2dii.analysis/articles/target-market-share.html).
+
+Also notice that alignment for one technology of a sector does not imply alignment of the entire sector. For example, building out electric vehicle production capacity in line with the IEA NZE by 2050 scenario does not say anything about the alignment of internal combustion engine production capacity. If ICE production does not decrease sufficiently fast, the sector as a whole will not be aligned. This would show both in the technology mix chart, where the slow decrease in ICE production would depress the share of EV production and in the production volume trajectory for the ICE production capacity.
+
+#### Data Dictionary Production Volume Trajectory
+
+The underlying data set used to generate the production volume trajectory plots contains the following information:
+
+```{r dd_data_trajectory_table, echo = FALSE}
+table <- dplyr::filter(data_dictionary, .data[["dataset"]] == "data_trajectory")
+plot_table(table)
+```
+
+#### Mapping the Data Dictionary to the Production Volume Trajectory Plots
+
+The variables in the table map to the figures as follows:
+
+- `<by_group>:` The variable that the loan books are split by. This determines the group for which the production volume trajectory is shown. E.g. in case the aggregate loan book is displayed as in figures 8 and 9, the variable and value will be "meta". If the calculation had been grouped by `bank_type`, the resulting plots would have been returned for groups, such as credit unions, less significant institutions and significant institutions.
+- `sector`: The PACTA sector that the production volume trajectory is shown for.
+- `technology`: The technology within the `sector` that the production volume trajectory is shown for.
+- `year`: The production volume trajectory displays annual rates of change of production volume relative to the start year, with the x-axis showing the years of the analysis.
+- `scenario_source`: The scenario source that the production volume trajectory is shown for. This is the source set in the `config.yml` file. The scenario source determines the scenarios that are shown in the plot. Generally all scenarios available for the `sector` and `technology` are shown and they are represented by the lines that delineate the colored areas in the plot.
+- `metric`/`label`: The metric differentiates the types of lines shown in the production volume trajectory plot. `projected` refers to the production volume trajectory of the exposures in the loan book, `corporate_economy` represents the production volume trajectory of the real economy for the selected region and `target_<scenario>` refers to the production volume trajectory the loan book would need to achieve five years into the future in order to be aligned with the scenario based on the market share approach. `<scenario>` will take all values of scenarios that are available for the `sector` and `technology` in the `scenario_ _source`. The `label` is the same as the `metric`, but with a more human readable name to be displayed in the plot.
+- `percentage_of_initial_production_by_scope`/`value`: The actual value that determines the direction of the lines. The `percentage_of_initial_production_by_scope` is the percentage of the initial production volume that the production volume in the future represents. Hence, a positive value implies a build out of the underlying production capacity and a negative value stands for a decrease of production capacity. The `value` is the same as the `percentage_of_initial_production_by_scope`, but formatted for display in the plot.
+
 
 ### Sectoral Decarbonization Approach Results
 
@@ -596,10 +654,53 @@ More information on the SDA results data set can be found in the [data dictionar
 
 ### Emission Intensity Pathway
 
-#### Example Plots ...
-#### Interpretation of the ...
-#### Data Dictionary ...
-#### Mapping the Data Dictionary to the ... Plots
+The emission intensity metric compares the future emission intensity per real economic output unit in a given sector of the companies in the loan book with that of the companies in the wider economy and the scenario trajectories for the loan book five years into the future, based on the SDA approach. The output data set can be found in the `output/analysis/standard/<...>/data_emission_intensity_<sector>.csv` file, where <...> will be replaced with the names of each of the groups in the variable set in the `by_group` parameter. This means that the emission intensity results always only show results for one group at a time.
+
+The emission intensity metric can be calculated for any sector that has sector level physical emission intensity pathways, defined as absolute emissions divided by absolute real economic output. This is usually available for a broader range of sectors than technology level pathways, including for the so called hard-to-abate sectors, where low carbon alternatives to the most commonly used production technologies are often not available yet, or at least not market ready.
+
+As the emission intensity metric is compared to scenario values based on the SDA approach, the calculation of the scenario values for each portfolio follows different rules than the market share approach used in the technology mix and the production volume trajectory. The SDA approach is a convergence approach and does not necessarily require stable market share for all companies and/or loan books. Rather, it requires that all participants in a sector approach the same emission intensity target at the end year of the scenario. Notice that the end year of the scenario is usually much farther in the future than the five year forward looking horizon of the analysis, which is why the loan book value is not expected to have converged with the scenario value after five years.
+
+**LINK** to some more general SDA/EI explanation?
+
+#### Example Plots Emission Intensity Pathway
+
+This example of the emission intensity pathway plot for cement production shows that the emission intensity of the companies the loan book is exposed to remain relatively stable at a higher level than that of the wider economy over the next five years. It also shows that both the target for the loan book based on the IEA NZE by 2050 scenario and the adjusted target for the wider economy based on the same scenario decrease over that time frame. The specific pathways of both these scenario trajectories converge in the end year of the scenario calculation - in this case 2050 - because they were calculated using a convergence approach, the SDA approach.
+
+```{r emission_intensity_cement, echo=FALSE, fig.cap='Fig. 10: Emission intensity pathway plot for cement production of companies in the loan book. Data is based on simulated test loan books.', fig.align='center', out.width='80%'}
+knitr::include_graphics("../man/figures/plot_emission_intensity_cement_meta.png")
+```
+
+In another example of the emission intensity pathway plot for the steel sector, we can see a loan book with an emission intensity based on its steel company exposure that is below the emission intensity of the real economy. Again, the trend of the emission intensity for both the companies in the loan book as well as the wider economy is rather stable and both would need to decrease over the next five years in order to be aligned with their respective scenario pathways, based on the SDA approach. This also again implies that the target scenario pathway of the loan book and the corporate economy converge in the end year of the scenario calculation.
+
+```{r emission_intensity_steel, echo=FALSE, fig.cap='Fig. 11: Emission intensity pathway plot for steel production of companies in the loan book. Data is based on simulated test loan books.', fig.align='center', out.width='80%'}
+knitr::include_graphics("../man/figures/plot_emission_intensity_steel_meta.png")
+```
+
+#### Interpretation of the Emission Intensity Pathway Plots
+
+The emission intensity pathway plots show the physical emission intensity trajectory of the portfolio weighted companies that the loan book is exposed to and contrast this with the physical emission intensity pathway of all companies in the relevant region of the real economy. Physical emission intensity in this case refers to the amount of CO2(eq) emissions per unit of real economic output from the sector at hand. Since the units of output are interchangeable per sector, but not across sectors, the physical emission intensity is a useful sector level metric. Since the emission intensity metric does not require technology level production pathways to be available, it can be used for sectors that do now have market-ready low carbon alternatives to replace high-carbon technologies yet. For the PACTA sectors, this is the case for the hard-to-abate sectors, such as cement, steel, and aviation. It can be applied to all other PACTA sectors as well though, although it may not be equally meaningful in all cases (for example, for a phaseout of coal mining, the emission intensity of coal mining may not be the most actionable metric).
+
+The emission intensity of different loan books will vary within the same sector, depending on the companies that the loan books are exposed to. Accordingly, the effort required by each of the banks to align their loan books with the target scenario in that sector will differ as well. With the SDA approach being a convergence approach, any loan book with a higher than average emission intensity will be expected to follow a steeper decline in emission intensity than a loan book with a lower than average emission intensity. This is a necessary requirement of the convergence approach to scenario allocation. However, the initial level of the physical emission intensity of the loan book does not impact the alignment of the loan book. Whether or not alignment is achieved, depends solely on the rate of change of the emission intensity relative to the loan book specific decarbonization pathway.
+
+#### Data Dictionary Emission Intensity Pathway
+
+The underlying data set used to generate the emission intensity pathway plots contains the following information:
+
+```{r dd_data_emission_intensity_table, echo = FALSE}
+table <- dplyr::filter(data_dictionary, .data[["dataset"]] == "data_emission_intensity")
+plot_table(table)
+```
+
+#### Mapping the Data Dictionary to the Emission Intensity Pathway Plots
+
+The variables in the table map to the figures as follows:
+
+- `<by_group>:` The variable that the loan books are split by. This determines the group for which the emission intensity pathway is shown. E.g. in case the aggregate loan book is displayed as in figures 10 and 11, the variable and value will be "meta". If the calculation had been grouped by `bank_type`, the resulting plots would have been returned for groups, such as credit unions, less significant institutions and significant institutions.
+- `sector`: The PACTA sector that the emission intensity pathway is shown for.
+- `year`: The emission intensity pathway displays annual physical emission intensities, with the x-axis showing the years of the analysis.
+- `scenario_source`: The scenario source that the emission intensity pathway is shown for. This is the source set in the `config.yml` file.
+- `emission_factor_metric`/`label`: The metric differentiates the types of lines shown in the emission intensity pathway plot. `projected` refers to the emission intensity of the loan book based on its exposures to the underlying companies,  `corporate_economy` represents the emission intensity of the companies in the real economy, `target_<scenario>` refers to the emission intensity pathway the loan book would need to follow to remain aligned with the scenario based on the SDA approach, and `adjusted_scenario_<scenario>` is the emission intensity pathway the corporate economy in the sector would need to follow to remain aligned. `<scenario>` stands for the selected target scenario as set in the `config.yml` file. The `label` is the same as the `emission_factor_metric`, but with a more human readable name to be displayed in the plot.
+- `emission_factor_value`: The actual value that determines the points that the emission intensity lines follow in the plot. The `emission_factor_value` is the ratio of emissions per real economic output unit.
 
 ## Net Aggregate Alignment Metric Outputs and Graphs
 
