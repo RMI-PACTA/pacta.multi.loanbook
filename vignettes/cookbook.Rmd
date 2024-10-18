@@ -704,25 +704,119 @@ The variables in the table map to the figures as follows:
 
 ## Net Aggregate Alignment Metric Outputs and Graphs
 
-This section provides a description of the data outputs and graphs related to the Net Aggregate Alignment Metrics. Some of the data outputs are intermediate files that do not directly map to a plot. These are only mentioned briefly. A detailed description can be found in the **data dictionary**. The plots are discussed in more detail, including the relevant table from the data dictionary and how the variables map to the plots.
+This section provides a description of the data outputs and graphs related to the Net Aggregate Alignment Metrics. Some of the data outputs are intermediate files that do not directly map to a plot. Such outputs are explained in detail in the **data dictionary**. The plots are discussed in more detail, including the relevant table from the data dictionary and how the variables map to the plots.
 
-### sankey
-#### Example Plots ...
-#### Interpretation of the ...
-#### Data Dictionary ...
-#### Mapping the Data Dictionary to the ... Plots
+Please note that all plots in this section build on the Net Aggregate Alignment Metric, which is an aggregation of PACTA results for every sector that allows for a high level overview of sector alignment at the loan book level or higher. An intended use case is to use this metric first at the aggregate financial system level across all loan books and then drill down along different dimensions of interest. The idea behind this approach is to facilitate the comparison of many different banks and loan books using forward-looking production based alignment metrics without producing an excessive amount of plots and results that becomes hard to navigate and that may not reveal higher level patterns easily. The Net Aggregate Alignment Metric was first developed in the ECB Banking Supervision paper ["Risks from misalignment of banks’ financing with the EU climate objectives - Assessment of the alignment of the European banking sector"](https://www.bankingsupervision.europa.eu/ecb/pub/pdf/ssm.bankingsectoralignmentreport202401~49c6513e71.sl.pdf). For a detailed description of the methodology used in this implementation of the Net Aggregate Alignment Metric, see the two-part documentation [here (company level)](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/company_alignment_metric.html) and [here (loan book level)](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/loanbook_aggregated_alignment_metric.html).
 
+### Net Aggregate Alignment Metric - Sankey Plot
 
-### alignment-by-exposure
-#### Example Plots ...
-#### Interpretation of the ...
-#### Data Dictionary ...
-#### Mapping the Data Dictionary to the ... Plots
+The net aggregate alignment sankey plot summarizes the financial exposure of a (grouped or ungrouped) loan book (left node) by financial exposure to PACTA sectors (middle node) and finally by whether or not the exposures are aligned based on the net aggregate alignment metric (right node). Alignment is defined as a binary variable, where any underlying exposure with an alignment metric greater or equal to 0 is considered aligned and any exposure with an alignment metric less than 0 is considered misaligned. The main purpose of this type of visualization is to provide an overview of system level alignment at one quick glance, at the expense of some detail that can be obtained from other plots. The output data set can be found in the `output/analysis/aggregated/data_sankey_sector<...>.csv` file, where <...> will be replaced with the names of each of the groups in the variable set in the `by_group` parameter.
 
+#### Example Plots Net Aggregate Alignment Metric - Sankey Plot
 
-### scatter buildout-phaseout
-#### Example Plots ...
-#### Interpretation of the ...
-#### Data Dictionary ...
-#### Mapping the Data Dictionary to the ... Plots
+This example of the sankey plot looks at the aggregate financial exposure of all analyzed loan books (figure 12, left node). The middle node shows that a large share of the financial exposure can be found the in the power sector, with the automotive and oil & gas sectors also contributing significant chunks. Cement, coal and steel contribute minor parts to the overall financial exposure. The right node, in turn, shows how the sector exposure is distributed with regard to a binary alignment metric, based on the net aggregate alignment metric. Overall, green ribbons indicate the size of the aligned exposure, while red ribbons indicate the size of the misaligned exposure. We can see that aligned exposures make up a much smaller share of the overall exposure than misaligned exposures. The distribution of alignment/misalignment furthermore varies significantly between sectors, with half the exposure value in the oil & gas sector aligned, a much higher share than in any other of the sectors. The nature of this plot as a high level overview means that it does not show all the details. For example, the underlying companies are classified as aligned or misaligned in a binary manner. The net aggregate alignment metric is a continuous variable though, so the binary representation may skew the extent of alignment to some degree and should always be complemented with additional analyses from the following plots.
 
+```{r sankey, echo=FALSE, fig.cap='Fig. 12: Sankey plot of the aggregated loan books by sector and by net aggregate alignment metric. Data is based on simulated test loan books.', fig.align='center', out.width='80%'}
+knitr::include_graphics("../man/figures/plot_sankey_sector.png")
+```
+
+#### Interpretation of the Sankey Plot
+
+The sankey plot emphasizes the distribution of the financial exposure of the analyzed loan books across sectors and aligned or misaligned counterparties. The plot necessitate categorical variables for the types of nodes, which means that the net aggregate alignment metric is transformed into a binary variable. The size of each group in a node along the y axis is the financial exposure to that group and that is the only continuous variable in this plot. In effect, the statements you can make based on this plot are along the lines of "XY USD of the financial exposure of the loan books is concentrated in the power sector. Among the exposure to power companies, the largest share goes to companies that are misaligned with the selected scenario". As we can see, this reveals more about howw much money is lent to how many companies that are misaligned ins oem form. It says nothing about how misaligned these companies are. They might all be very close to, but just behind, the scenario target. Or they might all be grossly off target. The reason why this is still a useful plot is because you get a very quick over view, in which sectors are the largest shares of your misaligned companies. This makes it easier to prioritize which company analytics to look at first. Additionally, you can validate the severity of the misalignment in a given sector, by inspecting the alignment-by-exposure plots, which will be explained next.
+
+#### Data Dictionary Net Aggregate Alignment Metric - Sankey Plot
+
+The underlying data set used to generate the net aggregate alignment sankey plot contains the following information:
+
+```{r dd_data_sankey_table, echo = FALSE}
+table <- dplyr::filter(data_dictionary, .data[["dataset"]] == "data_sankey")
+plot_table(table)
+```
+
+#### Mapping the Data Dictionary to the Sankey Plot
+
+The variables in the table map to the figures as follows:
+
+- `<by_group>`: The variable that the loan books are split by. This corresponds to the leftmost node in the sankey plot and the values can either be all the same for the aggregate view on all analysed loan books or the values corresponding to each of the groups.
+- `middle_node`: The PACTA sectors for which there is some financial exposure in the analyzed loan books.
+- `is_aligned`: Binary variable that can have values "aligned" or "not aligned". All exposures that are aligned are represented as green ribbons, all those that are not aligned are red ribbons. The underlying net alignment metric refers to the five year forward-looking values in the final year of the analysis.
+- `loan_size_outstanding`: The financial exposure of the loan books to the individual sectors and grouped by `ìs_aligned`. This is the continuous variable that determines the size of the ribbons in the plot along the y-axis.
+
+### Net Aggregate Alignment by Financial Exposure
+
+The net aggregate alignment by financial exposure plot summarizes the financial exposure (y-axis) of a (grouped or ungrouped) loan book (dot color) by financial exposure to PACTA sectors (x-axis). Every sector is shown in a separate pane with equal scales, which allows comparing the significance of exposures across sectors. In this plot, the net aggregate alignment metric is presented as a continuous variable along the y axis, which allows for more nuance compared with the sankey plot. Exposures to very misaligned companies will influence the loan book level alignment more negaatively here, because the loan book level net aggregate alignment metric is a weighted mean of the underlying continuous company level net aggregate alignments weighted by the financial exposure. However, this addittional detail makes the plot slightly slower to read than the sankey plot. Generally, this plot emphasizes the scale of the net aggregate alignment more than the exposure and is therefore a good complementary plot to the sankey plot. The output data set can be found in the `output/analysis/aggregated/data_scatter_alignment_exposure<...>.csv` file, where <...> will be replaced with the names of each of the groups in the variable set in the `by_group` parameter.
+
+#### Example Plots Alignment by Exposure
+
+In this example plot, we analyse the net aggregate alignment by different bank types across six of the PACTA sectors. It is immediately obvious, that the exposures of credit unions in the oil & gas sector (misaligned) and in the power sector (aligned), as well as the exposures of less significant institutions in the coal sector (misaligned) have very pronounced net aggregate alignment metrics. This can be a further avenue for research into which specific companies seem to drive these results. It is also evident, that this plot does not make it very easy to compare the financial exposures across sectors, which highlights again one of the strengths of the sankey plot. Within sector however, financial exposure between groups can easily be differentiated.
+
+```{r alignment_by_exposure, echo=FALSE, fig.cap='Fig. 13: Alignment by exposure plot of loan books grouped by bank type. Data is based on simulated test loan books.', fig.align='center', out.width='80%'}
+knitr::include_graphics("../man/figures/plot_scatter_alignment_exposure_bank_type.png")
+```
+
+#### Interpretation of the Alignment by Exposure Plots
+
+Generally, the alignment by exposure sector is very useful for interpretations of net alignment within sectors. Groups (e.g. bank types, but possibly other types of groups) further to the right of the x-axis have a larger financial exposure to companies in this sector than other groups. Dots higher on the y-axis indicate groups for which the loan book level net aggregate alignment is further ahead of the scenario than for groups with a dot lower on the y-axis. The 0 intercept on the y-axis means the weighted average net aggregate alignment of the group is right on target.
+
+Of course, since the net aggregate alignment at loan book level is a weighted average of the underlying company level net aggregate alignments, a positive y-value does not mean that there are no misaligned companies to be found in the loan book for this sector. If individual company level alignment is of concern for your use case, you will have to check company level results to validate that. The most comprehensive output data set to inspect company level net alignment metrics is the `output/analysis/aggregated/company_exposure_net_aggregate_alignment<...>.csv` file. Documentation for its contents can be found [here](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/data_dictionary.html#company-net-aggregate-alignment-metric-with-financial-exposures).
+
+#### Data Dictionary Alignment by Exposure
+
+The underlying data set used to generate the net aggregate alignment by financial exposure plot contains the following information:
+
+```{r dd_data_scatter_alignment_exposure_table, echo = FALSE}
+table <- dplyr::filter(data_dictionary, .data[["dataset"]] == "data_scatter_alignment_exposure")
+plot_table(table)
+```
+
+#### Mapping the Data Dictionary to the Alignment by Exposure Plots
+
+The variables in the table map to the figures as follows:
+
+- `<by_group>`: The variable that the loan books are split by. This corresponds to differently colored dots in each of the panes.
+- `scenario`: The name of the scenario against which the net aggregate alignment is calculated. This is the scenario set in the `config.yml` file.
+- `sector`: Each PACTA sector for which there is some exposure in the analysed loan books is shown in a separate pane.
+- `year`: The net aggregate alignment metric is calculated for the end year of the analysis, that is, five year forward-looking.
+- `exposure_weighted_net_alignment`: The y-axis value of the plot. This is the net aggregate alignment metric for the loan book, calculated as a weighted average of the underlying company level net aggregate alignment metrics. The weight is the financial exposure of the loan book to the companies in the sector.
+- `sum_loan_size_outstanding`: The x-axis value of the plot. This is the financial exposure of the loan book to the companies in the sector.
+
+### Buildout-Phaseout Scatter Plot for Aggregate Alignment Metric
+
+The net aggregate alignment metric can be disaggregated into build out and phase out components for some sectors. Specifically those sectors, that have technology level pathways and both high carbon and low carbon technologies, can be disaggregated in this way. It may be insightful to analyze these components to understand better if any deviations from the scenario value are driven by too much or too little effort on either of the two sides. For example, in the automotive sector, this may reveal that almost all of the misalignment is due to a lack of phasing out high carbon technologies, while low carbon ones may be aligned in their build out. Similar patterns could be detected in the power sector. Such patterns can be understood as a prompt, which of the standard PACTA analyses may be most relevant to inspect for further drill down. The output data set is available both at the loan book level to compare the disaggregation by groups and at the company level to identify individual companies with strong drivers. The loan book level files can be found in the `output/analysis/aggregated/data_scatter_sector<...>.csv` file, where <...> will be replaced with the names of each of the groups in the variable set in the `by_group` parameter. The company level files can be found in the `output/analysis/aggregated/<...>/data_scatter_<sector>_company<...>.csv` file.
+
+#### Example Plots Buildout-Phaseout Aggregate Alignment
+
+This example plot shows the loan book level build out and phaseout disaggregation for three bank types. The y-axis shows that all three bank types have loan books with exposures to misalgined companies in terms of phaseout technologies. This means that high carbon technology production capacity is not decreasing fast enough in the loan books to align with the selected scenario. The build out side (x-axis) of the plot is more varied, with two of the bank types being aligned in terms of exposure to build out technologies and one being misaligned. The color of the dots indicates net alignment (the sum of the build out and phase out values). Only one of the three bank types has a positive net aggregate alignment value, which is indicated by the green hue and its position above the diagonal line. This is a case where the alignment in build out technologies outweighs the misalignment in phase out technologies.
+
+```{r scatter_bo_po_loan_book, echo=FALSE, fig.cap='Fig. 14: Scatter plot showing the buildout/phaseout disaggregation of the net aggregate alignment metric in the automotive sector by bank type at the loan book level. Data is based on simulated test loan books.', fig.align='center', out.width='80%'}
+knitr::include_graphics("../man/figures/plot_scatter_automotive_by_bank_type.png")
+```
+
+For a deeper dive into the company level disaggregation of the build out and phase out components, the following plot shows the same disaggregation for less significant financial institutions at the company level. The less significant institutions are the most misaligned dot in the previous loan book level chart. The plot shows that most of the companies the less significant institutions are exposed to in the automotive sector are firmly in the area of both misaligned build out and phase out technologies with only a few company exposures being closer to any positive alignment components. This means that the misalignment of the automotive sector for less significant financial institutions does not appear to be driven by few outliers, but seems to be rather consistent across exposures. 
+
+```{r scatter_bo_po_company, echo=FALSE, fig.cap='Fig. 15: Scatter plot showing the buildout/phaseout disaggregation of the net aggregate alignment metric in the automotive sector for less significant fiancial institutions at the company level. Data is based on simulated test loan books.', fig.align='center', out.width='80%'}
+knitr::include_graphics("../man/figures/plot_scatter_automotive_company_by_bank_type_less_significant.png")
+```
+
+#### Interpretation of the Buildout-Phaseout Scatter Plots for the Aggregate Alignment Metric
+
+The buildout-phaseout scatter plots show the disaggregation of the net aggregate alignment metric into build out and phase out components. The x-axis shows the alignment of the loan book with the build out technologies of the sector, while the y-axis shows the alignment with the phase out technologies of the sector. The diagonal line from the top left to the bottom right of the plot indicates the threshold above which the sum of the build out and phase out components correspond to a positive net aggregate alignment value. The color of the dots indicates the net aggregate alignment of the loan book. Green dots indicate a positive net aggregate alignment, while red dots indicate a negative net aggregate alignment. The plot is also available at company level. If generated for loan books, one dot corresponds to one group of loan books, e.g. if there are three bank types, the aggregate loan books by bank types will be represented by three dots. It generated for companies, one dot corresponds to one company, where only companies are shown that have any exposure for the given `by_group`, e.g. if results are generated for `by_group = "bank_type"` and there are three bank types, then we will get three company level plots, each one containing only dots for companies that the corresponding bank type has an exposure to. The plot can be used to identify which of the two components of the net aggregate alignment metric is driving the alignment or misalignment of the loan book.
+
+#### Data Dictionary Buildout-Phaseout Aggregate Alignment
+
+The underlying data set used to generate the buildout-phaseout aggregate alignment scatter plot contains the following information:
+
+```{r dd_data_scatter_sector_table, echo = FALSE}
+table <- dplyr::filter(data_dictionary, .data[["dataset"]] == "data_scatter_sector")
+plot_table(table)
+```
+
+#### Mapping the Data Dictionary to the Buildout-Phaseout Scatter Plot for the Aggregate Alignment Metric
+
+The variables in the table map to the figures as follows:
+
+- `name`: For loan book level plots: The names of the groups corresponding to the `by_group` value. For company level plots: The names of the companies that have exposures for the given group result.
+- `buildout`: Net aggregate alignment metric for the build out component of the loan book or company. Maps to the x-axis. Aligned loan books or companies have a positive value, misaligned ones have a negative value.
+- `phaseout`: Net aggregate alignment metric for the phase out component of the loan book or company. Maps to the y-axis. Aligned loan books or companies have a positive value, misaligned ones have a negative value.
+- `net`: The net aggregate alignment metric of the loan book or company. Maps to the hue of the dot. Aligned loan books or companies have a positive value (green hue), misaligned ones have a negative value (red hue).
+- `datapoint`: Indicates if the results are calculated at loan book or company level.
