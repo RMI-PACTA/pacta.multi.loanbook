@@ -105,7 +105,25 @@ run_aggregate_alignment_metric <- function(config) {
   # TODO: check if this needs to be adjusted to remove other by_group columns
   matched_prio_non_standard_cols <- names(matched_prioritized)[!names(matched_prioritized) %in% col_standard_matched_prioritized]
 
+  # only calculate net aggregated aligment results if the selected scenario has a trajectory for at least one sector in the matched_prioritzed loan book
+  sectors_in_matched_prioritized <- matched_prioritized %>%
+    dplyr::pull(.data[["sector"]]) %>%
+    unique()
+
+  sectors_in_scenario_tms <- scenario_input_tms %>%
+    dplyr::filter(.data[["scenario_source"]] == .env[["scenario_source_input"]]) %>%
+    dplyr::pull(.data[["sector"]]) %>%
+    unique()
+
+  sectors_in_scenario_sda <- scenario_input_sda %>%
+    dplyr::filter(.data[["scenario_source"]] == .env[["scenario_source_input"]]) %>%
+    dplyr::pull(.data[["sector"]]) %>%
+    unique()
+
   ## prepare TMS company level P4B results for aggregation----
+  if (
+    length(dplyr::intersect(sectors_in_scenario_tms, sectors_in_matched_prioritized)) > 0
+  ) {
   tms_result_for_aggregation <- r2dii.analysis::target_market_share(
     data = matched_prioritized %>%
       dplyr::select(-dplyr::all_of(matched_prio_non_standard_cols)),
@@ -129,12 +147,6 @@ run_aggregate_alignment_metric <- function(config) {
       time_frame = time_frame
     )
 
-  company_technology_deviation_tms %>%
-    readr::write_csv(
-      file.path(output_analysis_aggregated_dir, "company_technology_deviation_tms.csv"),
-      na = ""
-    )
-
   company_alignment_net_tms <- company_technology_deviation_tms %>%
     calculate_company_aggregate_alignment_tms(
       scenario_source = scenario_source_input,
@@ -142,17 +154,28 @@ run_aggregate_alignment_metric <- function(config) {
       level = "net"
     )
 
-  company_alignment_net_tms %>%
-    readr::write_csv(
-      file.path(output_analysis_aggregated_dir, "company_alignment_net_tms.csv"),
-      na = ""
-    )
-
   company_alignment_bo_po_tms <- company_technology_deviation_tms %>%
     calculate_company_aggregate_alignment_tms(
       scenario_source = scenario_source_input,
       scenario = scenario_select,
       level = "bo_po"
+    )
+  } else {
+    company_technology_deviation_tms <- tibble::tibble()
+    company_alignment_net_tms <- tibble::tibble()
+    company_alignment_bo_po_tms <- tibble::tibble()
+  }
+
+  company_technology_deviation_tms %>%
+    readr::write_csv(
+      file.path(output_analysis_aggregated_dir, "company_technology_deviation_tms.csv"),
+      na = ""
+    )
+
+  company_alignment_net_tms %>%
+    readr::write_csv(
+      file.path(output_analysis_aggregated_dir, "company_alignment_net_tms.csv"),
+      na = ""
     )
 
   company_alignment_bo_po_tms %>%
@@ -162,25 +185,31 @@ run_aggregate_alignment_metric <- function(config) {
     )
 
   ## prepare SDA company level P4B results for aggregation----
-  sda_result_for_aggregation <- r2dii.analysis::target_sda(
-    data = matched_prioritized %>%
-      dplyr::select(-dplyr::all_of(matched_prio_non_standard_cols)),
-    abcd = abcd,
-    co2_intensity_scenario = scenario_input_sda,
-    by_company = TRUE,
-    region_isos = region_isos_select
-  )
-
-  sda_result_for_aggregation <- sda_result_for_aggregation %>%
-    dplyr::filter(.data[["year"]] >= .env[["start_year"]])
-
-  ## aggregate SDA P4B results to company level alignment metric----
-  company_alignment_net_sda <- sda_result_for_aggregation %>%
-    calculate_company_aggregate_alignment_sda(
-      scenario_source = scenario_source_input,
-      scenario = scenario_select,
-      time_frame = time_frame
+  if (
+    length(dplyr::intersect(sectors_in_scenario_sda, sectors_in_matched_prioritized)) > 0
+  ) {
+    sda_result_for_aggregation <- r2dii.analysis::target_sda(
+      data = matched_prioritized %>%
+        dplyr::select(-dplyr::all_of(matched_prio_non_standard_cols)),
+      abcd = abcd,
+      co2_intensity_scenario = scenario_input_sda,
+      by_company = TRUE,
+      region_isos = region_isos_select
     )
+
+    sda_result_for_aggregation <- sda_result_for_aggregation %>%
+      dplyr::filter(.data[["year"]] >= .env[["start_year"]])
+
+    ## aggregate SDA P4B results to company level alignment metric----
+    company_alignment_net_sda <- sda_result_for_aggregation %>%
+      calculate_company_aggregate_alignment_sda(
+        scenario_source = scenario_source_input,
+        scenario = scenario_select,
+        time_frame = time_frame
+      )
+  } else {
+    company_alignment_net_sda <- tibble::tibble()
+  }
 
   company_alignment_net_sda %>%
     readr::write_csv(
@@ -220,32 +249,37 @@ run_aggregate_alignment_metric <- function(config) {
   }
 
   # net
-  aggregated_alignment_net <- company_alignment_net %>%
-    aggregate_alignment_loanbook_exposure(
-      matched = matched_prioritized,
+  if (nrow(company_alignment_net) > 0) {
+    aggregated_alignment_net <- company_alignment_net %>%
+      aggregate_alignment_loanbook_exposure(
+        matched = matched_prioritized,
+        level = "net",
+        .by = by_group
+      )
+
+    write_alignment_metric_to_csv(
+      data = aggregated_alignment_net,
+      output_dir = output_analysis_aggregated_dir,
       level = "net",
       .by = by_group
     )
-
-  write_alignment_metric_to_csv(
-    data = aggregated_alignment_net,
-    output_dir = output_analysis_aggregated_dir,
-    level = "net",
-    .by = by_group
-  )
+  }
 
   # buildout / phaseout
-  aggregated_alignment_bo_po <- company_alignment_bo_po_tms %>%
-    aggregate_alignment_loanbook_exposure(
-      matched = matched_prioritized,
+  if (nrow(company_alignment_bo_po_tms) > 0) {
+    aggregated_alignment_bo_po <- company_alignment_bo_po_tms %>%
+      aggregate_alignment_loanbook_exposure(
+        matched = matched_prioritized,
+        level = "bo_po",
+        .by = by_group
+      )
+
+    write_alignment_metric_to_csv(
+      data = aggregated_alignment_bo_po,
+      output_dir = output_analysis_aggregated_dir,
       level = "bo_po",
       .by = by_group
     )
+  }
 
-  write_alignment_metric_to_csv(
-    data = aggregated_alignment_bo_po,
-    output_dir = output_analysis_aggregated_dir,
-    level = "bo_po",
-    .by = by_group
-  )
 }
