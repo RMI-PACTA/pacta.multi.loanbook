@@ -161,9 +161,9 @@ run_aggregate_alignment_metric <- function(config) {
       level = "bo_po"
     )
   } else {
-    company_technology_deviation_tms <- tibble::tibble()
-    company_alignment_net_tms <- tibble::tibble()
-    company_alignment_bo_po_tms <- tibble::tibble()
+    company_technology_deviation_tms <- create_empty_company_technology_deviation_tms(scenario_select = scenario_select)
+    company_alignment_net_tms <- create_empty_company_alignment()
+    company_alignment_bo_po_tms <- create_empty_company_alignment()
   }
 
   company_technology_deviation_tms %>%
@@ -208,7 +208,7 @@ run_aggregate_alignment_metric <- function(config) {
         time_frame = time_frame
       )
   } else {
-    company_alignment_net_sda <- tibble::tibble()
+    company_alignment_net_sda <- create_empty_company_alignment()
   }
 
   company_alignment_net_sda %>%
@@ -257,10 +257,7 @@ run_aggregate_alignment_metric <- function(config) {
         .by = by_group
       )
   } else {
-    aggregated_alignment_net <- list(
-      company = tibble::tibble(),
-      aggregate = tibble::tibble()
-    )
+    aggregated_alignment_net <- create_empty_aggregated_alignment()
   }
 
   write_alignment_metric_to_csv(
@@ -279,10 +276,7 @@ run_aggregate_alignment_metric <- function(config) {
         .by = by_group
       )
   } else {
-    aggregated_alignment_bo_po <- list(
-      company = tibble::tibble(),
-      aggregate = tibble::tibble()
-    )
+    aggregated_alignment_bo_po <- create_empty_aggregated_alignment()
   }
 
   write_alignment_metric_to_csv(
