@@ -256,14 +256,19 @@ run_aggregate_alignment_metric <- function(config) {
         level = "net",
         .by = by_group
       )
-
-    write_alignment_metric_to_csv(
-      data = aggregated_alignment_net,
-      output_dir = output_analysis_aggregated_dir,
-      level = "net",
-      .by = by_group
+  } else {
+    aggregated_alignment_net <- list(
+      company = tibble::tibble(),
+      aggregate = tibble::tibble()
     )
   }
+
+  write_alignment_metric_to_csv(
+    data = aggregated_alignment_net,
+    output_dir = output_analysis_aggregated_dir,
+    level = "net",
+    .by = by_group
+  )
 
   # buildout / phaseout
   if (nrow(company_alignment_bo_po_tms) > 0) {
@@ -273,13 +278,18 @@ run_aggregate_alignment_metric <- function(config) {
         level = "bo_po",
         .by = by_group
       )
-
-    write_alignment_metric_to_csv(
-      data = aggregated_alignment_bo_po,
-      output_dir = output_analysis_aggregated_dir,
-      level = "bo_po",
-      .by = by_group
+  } else {
+    aggregated_alignment_bo_po <- list(
+      company = tibble::tibble(),
+      aggregate = tibble::tibble()
     )
   }
+
+  write_alignment_metric_to_csv(
+    data = aggregated_alignment_bo_po,
+    output_dir = output_analysis_aggregated_dir,
+    level = "bo_po",
+    .by = by_group
+  )
 
 }
