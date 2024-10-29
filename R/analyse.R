@@ -19,6 +19,16 @@
 #' @examples
 #' # TODO
 analyse <- function(config) {
+  config <- load_config(config)
+
+  output_analysis_dir <- get_output_analysis_dir(config)
+
+  if (dir.exists(output_analysis_dir)) {
+    warning("Output directory `dir_analysis` already exists. The existing directory will be removed and replaced with the output of the current run.")
+    unlink(output_analysis_dir, recursive = TRUE)
+  }
+  dir.create(output_analysis_dir, recursive = TRUE, showWarnings = FALSE)
+
   run_pacta(config)
   run_aggregate_alignment_metric(config)
   plot_aggregate_loanbooks(config)

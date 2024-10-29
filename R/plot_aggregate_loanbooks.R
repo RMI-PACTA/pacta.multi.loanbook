@@ -35,9 +35,6 @@ plot_aggregate_loanbooks <- function(config) {
   by_group <- get_by_group(config)
   by_group <- check_and_prepare_by_group(by_group)
 
-  dir.create(output_analysis_aggregated_dir, recursive = TRUE, showWarnings = FALSE)
-
-
   # load required data----
 
   if (is.null(by_group)) {

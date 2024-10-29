@@ -1,7 +1,10 @@
 default:
   directories:
     dir_input: "path/to/input_folder"
-    dir_output: "path/to/output_folder"
+    dir_prepared_abcd: "path/to/prepared_abcd"
+    dir_matched_loanbooks: "path/to/matched_loanbooks"
+    dir_coverage: "path/to/prioritized_loanbooks_and_diagnostics"
+    dir_analysis: "path/to/analysis"
   file_names:
     filename_scenario_tms: "scenarios_2022_tms.csv"
     filename_scenario_sda: "scenarios_2022_sda.csv"

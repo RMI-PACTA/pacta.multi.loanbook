@@ -33,12 +33,9 @@
 prepare_sector_split <- function(config) {
   config <- load_config(config)
 
+  # input/output paths for prepare_sector_split
   output_prepare_dir <- get_output_prepare_dir(config)
-
-  dir.create(output_prepare_dir, recursive = TRUE, showWarnings = FALSE)
-
   sector_split_path <- get_sector_split_path(config)
-
   advanced_company_indicators_path <- get_advanced_company_indicators_path(config)
   sheet_advanced_company_indicators <- get_advanced_company_indicators_sheet(config)
 

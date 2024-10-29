@@ -1,11 +1,12 @@
 run_match_prioritize <- function(config) {
   config <- load_config(config)
 
+  # input paths for match prioritize
   output_matched_loanbooks_dir <- get_output_matched_loanbooks_dir(config)
   output_prepare_dir <- get_output_prepare_dir(config)
 
+  # output path for match prioritize
   output_prio_diagnostics_dir <- get_output_prio_diagnostics_dir(config)
-  dir.create(output_prio_diagnostics_dir, recursive = TRUE, showWarnings = FALSE)
 
   match_prio_priority <- get_match_priority(config)
 
