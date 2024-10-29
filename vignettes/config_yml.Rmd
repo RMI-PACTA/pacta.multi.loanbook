@@ -33,7 +33,10 @@ The `directories`{.yaml} section contains options to define locally accessible p
 ```yaml
   directories:
     dir_input: "~/Desktop/test/input"
-    dir_output: "~/Desktop/test/output"
+    dir_prepared_abcd: "~/Desktop/test/prepared_abcd"
+    dir_matched_loanbooks: "~/Desktop/test/matched_loanbooks"
+    dir_prioritized_loanbooks_and_diagnostics: "~/Desktop/test/prioritized_loanbooks_and_diagnostics"
+    dir_analysis: "~/Desktop/test/analysis"
 ```
 
 #### dir_input
@@ -44,12 +47,36 @@ The `directories`{.yaml} section contains options to define locally accessible p
     dir_input: "~/Desktop/test/input"
 ```
 
-#### dir_output
+#### dir_prepared_abcd
 
-`dir_output`{.yaml} is a path to a directory where the outputs should be saved. It must be a single string/character value, and it must refer to a valid, accessible, local directory. As an example:
+`dir_prepared_abcd`{.yaml} is a path to a directory where the outputs of the function `prepare_abcd()` should be saved. It must be a single string/character value, and it must refer to a valid, accessible, local directory. As an example:
 
 ```yaml
-    dir_output: "~/Desktop/test/output"
+    dir_prepared_abcd: "~/Desktop/test/prepared_abcd"
+```
+
+#### dir_matched_loanbooks
+
+`dir_matched_loanbooks`{.yaml} is a path to a directory where the outputs of the function `match_loanbooks()` should be saved. It must be a single string/character value, and it must refer to a valid, accessible, local directory. As an example:
+
+```yaml
+    dir_matched_loanbooks: "~/Desktop/test/matched_loanbooks"
+```
+
+#### dir_prioritized_loanbooks_and_diagnostics
+
+`dir_prioritized_loanbooks_and_diagnostics`{.yaml} is a path to a directory where the outputs of the function `prioritise_and_diagnose()` should be saved. It must be a single string/character value, and it must refer to a valid, accessible, local directory. As an example:
+
+```yaml
+    dir_prioritized_loanbooks_and_diagnostics: "~/Desktop/test/prioritized_loanbooks_and_diagnostics"
+```
+
+#### dir_analysis
+
+`dir_analysis`{.yaml} is a path to a directory where the outputs of the function `analyse()` should be saved. It must be a single string/character value, and it must refer to a valid, accessible, local directory. As an example:
+
+```yaml
+    dir_analysis: "~/Desktop/test/analysis"
 ```
 
 ## file_names:
