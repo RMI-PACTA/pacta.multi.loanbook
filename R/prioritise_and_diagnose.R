@@ -23,6 +23,9 @@ prioritise_and_diagnose <- function(config) {
 
   output_prio_diagnostics_dir <- get_output_prio_diagnostics_dir(config)
 
+  stop_if_not_length(output_prio_diagnostics_dir, 1L)
+  stop_if_not_inherits(output_prio_diagnostics_dir, "character")
+
   if (dir.exists(output_prio_diagnostics_dir)) {
     warning("Output directory `dir_prioritized_loanbooks_and_diagnostics` already exists. The existing directory will be removed and replaced with the output of the current run.")
     unlink(output_prio_diagnostics_dir, recursive = TRUE)
