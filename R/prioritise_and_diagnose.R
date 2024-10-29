@@ -24,7 +24,7 @@ prioritise_and_diagnose <- function(config) {
   output_prio_diagnostics_dir <- get_output_prio_diagnostics_dir(config)
 
   if (dir.exists(output_prio_diagnostics_dir)) {
-    warning("Output directory `dir_coverage` already exists. The existing directory will be removed and replaced with the output of the current run.")
+    warning("Output directory `dir_prioritized_loanbooks_and_diagnostics` already exists. The existing directory will be removed and replaced with the output of the current run.")
     unlink(output_prio_diagnostics_dir, recursive = TRUE)
   }
   dir.create(output_prio_diagnostics_dir, recursive = TRUE, showWarnings = FALSE)

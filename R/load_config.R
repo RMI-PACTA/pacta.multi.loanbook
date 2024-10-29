@@ -31,7 +31,7 @@ get_output_matched_loanbooks_dir <- function(params) {
 }
 
 get_output_prio_diagnostics_dir <- function(params) {
-  params[["directories"]][["dir_coverage"]]
+  params[["directories"]][["dir_prioritized_loanbooks_and_diagnostics"]]
 }
 
 get_output_analysis_dir <- function(params) {
