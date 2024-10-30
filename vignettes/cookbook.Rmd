@@ -113,7 +113,7 @@ Further information on how to obtain ABCD for PACTA and documentation of the ind
 
 The scenario data set provides information on the trajectories of technologies/fuel types and of emission intensities pathways for each of (or a subset of) the sectors covered in PACTA.
 
-For sectors with technology level trajectories, the data set provides the TMSR and SMSP pathways based on the Market Share Approach, an allocation rule that implies all companies active in a sector have to adjust their production in a way that keeps market shares constant and solves for the aggregate climate transition scenario (LINK to the market share documentation).
+For sectors with technology level trajectories, the data set provides the TMSR and SMSP pathways based on the Market Share Approach, an allocation rule that implies all companies active in a sector have to adjust their production in a way that keeps market shares constant and solves for the aggregate climate transition scenario (**LINK** to the market share documentation).
 
 The target market share scenario data set must be a CSV file and contains the following columns:
 
@@ -257,7 +257,7 @@ All of the functions needed to run a PACTA for Supervisors analysis take a `conf
 
 ### Input/Output folder structure
 
-The `config.yml` file then points to an input and an output directory that the user can choose anywhere on their system, as long as R has read and write access to these directories. A recommendable choice to structure an analysis project would be to place both these folders and the `config.yml` file in a project folder. The input folder must contain all input files as described above, with the raw loan books being placed in a sub-directory that must be named `"loanbooks"`. The output folder can remain empty. It will be populated by running the analysis.
+The `config.yml` file then points to an input directory and to four output directories, one for each user-facing function, that the user can choose anywhere on their system, as long as R has read and write access to these directories. A recommendable choice to structure an analysis project would be to place all these folders and the `config.yml` file in a project folder. The input folder must contain all input files as described above, with the raw loan books being placed in a sub-directory that must be named `"loanbooks"`. The output folders will automatically be created at the locations indicated in the `config.yml` file. They will be populated by running the analysis. **NOTE:** Re-running a step of the analysis will replace the entire corresponding output directory, if the directory already exists.
 
 An example of how the project folder could be structured:
 
@@ -273,8 +273,13 @@ project_folder
 │   ├── scenario_data_tms.csv
 │   ├── scenario_data_sda.csv
 │   └── ...
-└── output
+├── prepared_abcd
+├── matched_loanbooks
+├── prioritized_loanbooks_and_diagnostics
+└── analysis
 ```
+
+Notice that the names of the directories can be changed to something the user may prefer. The names were chosen for illustrative purposes to reflect the corresponding user-facing functions that create the outputs.
 
 ## Checklist of Preparatory Steps
 
@@ -305,7 +310,7 @@ Before running the PACTA for Supervisors analysis, you should make sure that you
   - [ ] Created an `input` folder in the project folder
   - [ ] Placed the raw loan books in the `input/loanbooks` sub-directory
   - [ ] Placed the other input data sets in the `input` folder
-  - [ ] Created an `output` folder in the project folder
+  - [ ] Created appropriate values for all input and ouput directories in the `config.yml` file
 
 
 # Running the Analysis
@@ -327,6 +332,8 @@ The following diagram illustrates the structure of the workflow:
 knitr::include_graphics("../man/figures/p4s_workflow_structure.png")
 ```
 
+As the diagram shows, there is a logical sequence to how to run the functions. For any of the functions to work, the previous functions must have been run already and their outputs must be accessible as inputs to the next functions. If you want to keep different versions of the calculations, i.e. you want to avoid overwriting past outputs, you will have to (1) ensure that each run is done with a new value for the corresponding output directory set in the `config.yml` and (2) that the relevant function refers to the appropriate directories of upstream outputs. For example, if you want to run the analysis twice and keep both results, all `dir_*` entries of the `config.yml` should remain identical for both runs, except for the `dir_analysis` entry, which should be different for each run.
+
 The following sub sections will provide detailed information on each of the steps of the analysis, starting with a brief explanation of the setup, as each of the functions will require the path to the `config.yml` file as an input argument.
 
 ### Setup
@@ -342,7 +349,7 @@ This allows you passing the relevant config information easily to each of the fo
 
 ### Data preparation
 
-The first step of the analysis is to prepare your input data sets for the requirements of the analysis. Your ABCD data will need to be prepared and you can optionally use a custom sector split, that will also need to be prepared. The relevant function is `prepare_abcd()`, which takes configurations from the `config.yml` that you have prepared. The function will store intermediary files in a sub-directory, `prepare_abcd`, in your `output` folder. This step only has to be run once for an analysis. You can run this function as follows:
+The first step of the analysis is to prepare your input data sets for the requirements of the analysis. Your ABCD data will need to be prepared and you can optionally use a custom sector split, that will also need to be prepared. The relevant function is `prepare_abcd()`, which takes configurations from the `config.yml` that you have prepared. The function will store intermediary files in the directory that you have indicated as the value corresponding to the key `dir_prepared_abcd` in the `config.yml`. This step only has to be run once for an analysis. You can run this function as follows:
 
 ```r
 pacta.multi.loanbook::prepare_abcd(config_path)
@@ -359,7 +366,7 @@ The `prepare_abcd()` function has a number of options that can be set in the `co
 
 ### Matching process
 
-The next step in the analysis is to run the matching process. Assuming you have prepared the raw loan books as explained in [the section on preparing the input data sets](### Raw Loan Books), you can now use the `match_loanbooks()` function. This will read the raw loan books from your inputs and attempt to match them to the prepared ABCD data from the previous step. The function will store matched loan book files in a sub-directory, `matched_loanbooks`, in your `output` folder. You can run this function as follows:
+The next step in the analysis is to run the matching process. Assuming you have prepared the raw loan books as explained in [the section on preparing the input data sets](### Raw Loan Books), you can now use the `match_loanbooks()` function. This will read the raw loan books from your inputs and attempt to match them to the prepared ABCD data from the previous step. The function will store matched loan book files in a directory that you have indicated as the value corresponding to the key `dir_matched_loanbooks` in the `config.yml`. You can run this function as follows:
 
 ```r
 pacta.multi.loanbook::match_loanbooks(config_path)
@@ -367,7 +374,7 @@ pacta.multi.loanbook::match_loanbooks(config_path)
 
 After the matching process is complete, you will need to do some manual matching. This means that you will need to manually inspect the suggested matches that the tool has found and decide which ones to keep or to remove. This is especially important when using text based matching, as there is no guarantee that similar company names as identified by the algorithms will actually refer to the same companies in the raw loan books and the ABCD. Thus, a manually validation step is crucial in the analysis, as the quality of the matches will determine the quality of the results of any further calculations.
 
-The manual matching process is not automated and will require some time and effort on your part. You can find the matched loan books in the `output/matched_loanbooks` folder. The matched loan books will be stored in CSV files, one for each raw loan book. You can open these files in a spreadsheet program to verify the matches. Importantly, you will need to make a copy for each of the matched loan book files in the same `output/matched_loanbooks` folder and rename that copy by adding the suffix `_manual` to the file name. The following steps of the analysis expect this pattern, so it is important to follow this naming convention.
+The manual matching process is not automated and will require some time and effort on your part. You can find the matched loan books in the `.../matched_loanbooks` folder. The matched loan books will be stored in CSV files, one for each raw loan book. You can open these files in a spreadsheet program to verify the matches. Importantly, you will need to make a copy for each of the matched loan book files in the same `.../matched_loanbooks` folder and rename that copy by adding the suffix `_manual` to the file name. The following steps of the analysis expect this pattern, so it is important to follow this naming convention.
 
 You can find more detaied information about the matching process in the training material on the [PACTA for Banks website](https://pacta.rmi.org/pacta-for-banks-2020/) in the section "PACTA for Banks Training Webinar 2" and in the [corresponding slide deck](https://pacta.rmi.org/wp-content/uploads/2020/12/PACTA-for-Banks-Training-Webinar-2-Matching-a-loan-book-to-physical-assets-in-the-real-economy-.pdf).
 
@@ -400,7 +407,7 @@ The reason why it is a good idea to either correct mis-classified loans or disre
 
 The next step is to prioritize the manually verified matched loan books and analyze their coverage, both relative to the raw loan book inputs (the "match success rate") and to the production capacity in the wider economy (the "loan book production coverage"). Prioritizing the loan books means that you will only keep the best identified match for each loan and use that in the following steps of the analysis.
 
-You will probably want to check the status of your loan book and production coverage several times, as it is rare to get to the desired level of matching in one iteration. This means you may want to repeat the previous step (matching the loan books, likely using different parameters for different iterations) and this step (prioritizing the matched loan books and analyzing their match success rate) a number of times to reach the best possible outcome. To prioritize your matched loan books and calculate display the coverage diagnostics, you will use the `prioritise_and_diagnose()` function. This call will store matched prioritized loan book files and coverage diagnostics in a sub-directory, `prioritized_loanbooks_and_diagnostics`, in your `output` folder. You can then run the function as follows:
+You will probably want to check the status of your loan book and production coverage several times, as it is rare to get to the desired level of matching in one iteration. This means you may want to repeat the previous step (matching the loan books, likely using different parameters for different iterations) and this step (prioritizing the matched loan books and analyzing their match success rate) a number of times to reach the best possible outcome. To prioritize your matched loan books and calculate display the coverage diagnostics, you will use the `prioritise_and_diagnose()` function. This call will store matched prioritized loan book files and coverage diagnostics in a directory that you have indicated as the value corresponding to the key `dir_prioritized_loanbooks_and_diagnostics` in the `config.yml`. You can then run the function as follows:
 
 ```r
 pacta.multi.loanbook::prioritise_and_diagnose(config_path)
@@ -415,7 +422,7 @@ The `prioritise_and_diagnose()` function has a number of options that can be set
 
 ### Run PACTA for Supervisors analysis
 
-The final step is running the analysis based on the parameters you have set in the `config.yml` file. This entails both a standard PACTA for Banks analysis and the calculation of the net aggregate alignment metric. For both parts of the analysis, outputs will be stored in the sub-directories `analysis/standard` (for standard PACTA for Banks results) and `analysis/aggregated/` for the net aggregate alignment metric in your `output` folder and comprise tabular outputs and plots. To run the analysis on all of your previously matched and prioritized loan books, you will use the `analyse()` function as follows:
+The final step is running the analysis based on the parameters you have set in the `config.yml` file. This entails both a standard PACTA for Banks analysis and the calculation of the net aggregate alignment metric. For both parts of the analysis, outputs will be stored in the sub-directories `../standard/` (for standard PACTA for Banks results) and `../aggregated/` for the net aggregate alignment metric directory - below the directory that you have indicated as the value corresponding to the key `dir_analysis` in the `config.yml`. Outputs in these sub directories will comprise tabular outputs and plots. To run the analysis on all of your previously matched and prioritized loan books, you will use the `analyse()` function as follows:
 
 ```r
 pacta.multi.loanbook::analyse(config_path)
@@ -451,7 +458,7 @@ The coverage diagnostics include both a comparison of the number and value of ma
 
 The match success rate is calculated per sector and can be calculated based on either of the number of loans, the outstanding value of the loans, or the credit limit of the loans. In either case, the sum value of the matched loans is compared with that of the raw loan books.
 
-The output data set contains all three versions of the metric and can be found in the `output/prioritized_loanbooks_and_diagnostics/lbk_match_success_rate<...>.csv` file, where <...> will be replaced with the name of the variable set in the by_group parameter.
+The output data set contains all three versions of the metric and can be found in the `../prioritized_loanbooks_and_diagnostics/lbk_match_success_rate<...>.csv` file, where <...> will be replaced with the name of the variable set in the by_group parameter.
 
 #### Example Plots Match Success Rate
 
@@ -515,7 +522,7 @@ The variables in the table map to the figures as follows:
 
 The loan book production coverage is calculated per sector and region (for all regions available in the given `scenario_source`). For a given combination of sector and region, it provides the total number of companies with operations in the sector and region in the wider economy. It then provides the number of matched companies in the loan book with operations in that sector and region. A ratio of the two values tells you the share of companies in the sector and region that you have identified in the matched loan book. Similarly, the data set provides the total production capacity of a sector in a region in the wider economy and the production by companies in the matched loan book in that sector and region. Notice that it only matters THAT the company was matched in the loan book, NOT how large the granted loan is. The ratio of the two values then tells us what percentage of the production capacity of a sector in a region the financial institution is involved in. Again, being involved in that production capacity is decidedly not a full responsibility, because many matched companies will likely have additional sources of funding. Lastly, the output provides the sum of the loan size outstanding to the matched companies in each of the sectors and regions.
 
-The output data set can be found in the `output/prioritized_loanbooks_and_diagnostics/summary_statistics_loanbook_coverage<...>.csv` file, where <...> will be replaced with the name of the variable set in the by_group parameter.
+The output data set can be found in the `../prioritized_loanbooks_and_diagnostics/summary_statistics_loanbook_coverage<...>.csv` file, where <...> will be replaced with the name of the variable set in the by_group parameter.
 
 #### Interpretation of the Loan Book Production Coverage
 
@@ -540,13 +547,13 @@ Below you will find a description of the standard PACTA for Banks data outputs a
 
 ### Target Market Share Results
 
-The target market share results provide the intermediate format output required to generate the technology mix and volume trajectory plots. The output data set can be found in the `output/analysis/standard/tms_results<...>.csv` file, where <...> will be replaced with the name of the variable set in the `by_group` parameter.
+The target market share results provide the intermediate format output required to generate the technology mix and volume trajectory plots. The output data set can be found in the `../analysis/standard/tms_results<...>.csv` file, where <...> will be replaced with the name of the variable set in the `by_group` parameter.
 
 More information on the target market share results data set can be found in the [data dictionary](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/data_dictionary.html#target-market-share-results-all-groups).
 
 ### Technology Mix
 
-The technology mix metric compares the technology mix of the production capacity of companies in the loan book with that of the production capacity of companies in the wider economy and the scenario technology mix five years into the future. The output data set can be found in the `output/analysis/standard/<...>/data_tech_mix_<sector>.csv` file, where <...> will be replaced with the names of each of the groups in the variable set in the `by_group` parameter. This means that the technology mix results always only show results for one group at a time.
+The technology mix metric compares the technology mix of the production capacity of companies in the loan book with that of the production capacity of companies in the wider economy and the scenario technology mix five years into the future. The output data set can be found in the `../analysis/standard/<...>/data_tech_mix_<sector>.csv` file, where <...> will be replaced with the names of each of the groups in the variable set in the `by_group` parameter. This means that the technology mix results always only show results for one group at a time.
 
 The technology mix can only be calculated for sectors that have technology level scenario pathways. Generally, those tend to be sectors for which scalable low carbon alternatives exist. The technology mix can also be calculated for sectors in which all technologies are projected to phase down or out, but the results are less meaningful in those cases, as the technology mix cannot show the absolute requirements for a phasedown.
 
@@ -594,7 +601,7 @@ The variables in the table map to the figures as follows:
 
 ### Production Volume Trajectory
 
-The production volume trajectory metric compares the future production capacity in a given technology of the companies in the loan book with that of the companies in the wider economy and the scenario trajectories for the loan book five years into the future, based on the market share approach. The output data set can be found in the `output/analysis/standard/<...>/data_trajectory_<sector>_<technology>.csv` file, where <...> will be replaced with the names of each of the groups in the variable set in the `by_group` parameter. This means that the production volume trajectory results always only show results for one group at a time.
+The production volume trajectory metric compares the future production capacity in a given technology of the companies in the loan book with that of the companies in the wider economy and the scenario trajectories for the loan book five years into the future, based on the market share approach. The output data set can be found in the `../analysis/standard/<...>/data_trajectory_<sector>_<technology>.csv` file, where <...> will be replaced with the names of each of the groups in the variable set in the `by_group` parameter. This means that the production volume trajectory results always only show results for one group at a time.
 
 The production volume trajectory metric can only be calculated for sectors that have technology level scenario pathways. Generally, those tend to be sectors for which scalable low carbon alternatives exist, or sectors in which all technologies are projected to phase down or out.
 
@@ -648,13 +655,13 @@ The variables in the table map to the figures as follows:
 
 ### Sectoral Decarbonization Approach Results
 
-The sectoral decarbonization approach (SDA) results provide the intermediate format output required to generate the emission intensity plot. The output data set can be found in the `output/analysis/standard/sda_results<...>.csv` file, where <...> will be replaced with the name of the variable set in the `by_group` parameter.
+The sectoral decarbonization approach (SDA) results provide the intermediate format output required to generate the emission intensity plot. The output data set can be found in the `../analysis/standard/sda_results<...>.csv` file, where <...> will be replaced with the name of the variable set in the `by_group` parameter.
 
 More information on the SDA results data set can be found in the [data dictionary](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/data_dictionary.html#sectoral-decarbonization-approach-results-all-groups).
 
 ### Emission Intensity Pathway
 
-The emission intensity metric compares the future emission intensity per real economic output unit in a given sector of the companies in the loan book with that of the companies in the wider economy and the scenario trajectories for the loan book five years into the future, based on the SDA approach. The output data set can be found in the `output/analysis/standard/<...>/data_emission_intensity_<sector>.csv` file, where <...> will be replaced with the names of each of the groups in the variable set in the `by_group` parameter. This means that the emission intensity results always only show results for one group at a time.
+The emission intensity metric compares the future emission intensity per real economic output unit in a given sector of the companies in the loan book with that of the companies in the wider economy and the scenario trajectories for the loan book five years into the future, based on the SDA approach. The output data set can be found in the `../analysis/standard/<...>/data_emission_intensity_<sector>.csv` file, where <...> will be replaced with the names of each of the groups in the variable set in the `by_group` parameter. This means that the emission intensity results always only show results for one group at a time.
 
 The emission intensity metric can be calculated for any sector that has sector level physical emission intensity pathways, defined as absolute emissions divided by absolute real economic output. This is usually available for a broader range of sectors than technology level pathways, including for the so called hard-to-abate sectors, where low carbon alternatives to the most commonly used production technologies are often not available yet, or at least not market ready.
 
@@ -710,7 +717,7 @@ Please note that all plots in this section build on the Net Aggregate Alignment 
 
 ### Net Aggregate Alignment Metric - Sankey Plot
 
-The net aggregate alignment sankey plot summarizes the financial exposure of a (grouped or ungrouped) loan book (left node) by financial exposure to PACTA sectors (middle node) and finally by whether or not the exposures are aligned based on the net aggregate alignment metric (right node). Alignment is defined as a binary variable, where any underlying exposure with an alignment metric greater or equal to 0 is considered aligned and any exposure with an alignment metric less than 0 is considered misaligned. The main purpose of this type of visualization is to provide an overview of system level alignment at one quick glance, at the expense of some detail that can be obtained from other plots. The output data set can be found in the `output/analysis/aggregated/data_sankey_sector<...>.csv` file, where <...> will be replaced with the names of each of the groups in the variable set in the `by_group` parameter.
+The net aggregate alignment sankey plot summarizes the financial exposure of a (grouped or ungrouped) loan book (left node) by financial exposure to PACTA sectors (middle node) and finally by whether or not the exposures are aligned based on the net aggregate alignment metric (right node). Alignment is defined as a binary variable, where any underlying exposure with an alignment metric greater or equal to 0 is considered aligned and any exposure with an alignment metric less than 0 is considered misaligned. The main purpose of this type of visualization is to provide an overview of system level alignment at one quick glance, at the expense of some detail that can be obtained from other plots. The output data set can be found in the `../analysis/aggregated/data_sankey_sector<...>.csv` file, where <...> will be replaced with the names of each of the groups in the variable set in the `by_group` parameter.
 
 #### Example Plots Net Aggregate Alignment Metric - Sankey Plot
 
@@ -744,7 +751,7 @@ The variables in the table map to the figures as follows:
 
 ### Net Aggregate Alignment by Financial Exposure
 
-The net aggregate alignment by financial exposure plot summarizes the financial exposure (y-axis) of a (grouped or ungrouped) loan book (dot color) by financial exposure to PACTA sectors (x-axis). Every sector is shown in a separate pane with equal scales, which allows comparing the significance of exposures across sectors. In this plot, the net aggregate alignment metric is presented as a continuous variable along the y axis, which allows for more nuance compared with the sankey plot. Exposures to very misaligned companies will influence the loan book level alignment more negaatively here, because the loan book level net aggregate alignment metric is a weighted mean of the underlying continuous company level net aggregate alignments weighted by the financial exposure. However, this addittional detail makes the plot slightly slower to read than the sankey plot. Generally, this plot emphasizes the scale of the net aggregate alignment more than the exposure and is therefore a good complementary plot to the sankey plot. The output data set can be found in the `output/analysis/aggregated/data_scatter_alignment_exposure<...>.csv` file, where <...> will be replaced with the names of each of the groups in the variable set in the `by_group` parameter.
+The net aggregate alignment by financial exposure plot summarizes the financial exposure (y-axis) of a (grouped or ungrouped) loan book (dot color) by financial exposure to PACTA sectors (x-axis). Every sector is shown in a separate pane with equal scales, which allows comparing the significance of exposures across sectors. In this plot, the net aggregate alignment metric is presented as a continuous variable along the y axis, which allows for more nuance compared with the sankey plot. Exposures to very misaligned companies will influence the loan book level alignment more negaatively here, because the loan book level net aggregate alignment metric is a weighted mean of the underlying continuous company level net aggregate alignments weighted by the financial exposure. However, this addittional detail makes the plot slightly slower to read than the sankey plot. Generally, this plot emphasizes the scale of the net aggregate alignment more than the exposure and is therefore a good complementary plot to the sankey plot. The output data set can be found in the `../analysis/aggregated/data_scatter_alignment_exposure<...>.csv` file, where <...> will be replaced with the names of each of the groups in the variable set in the `by_group` parameter.
 
 #### Example Plots Alignment by Exposure
 
@@ -758,7 +765,7 @@ knitr::include_graphics("../man/figures/plot_scatter_alignment_exposure_bank_typ
 
 Generally, the alignment by exposure sector is very useful for interpretations of net alignment within sectors. Groups (e.g. bank types, but possibly other types of groups) further to the right of the x-axis have a larger financial exposure to companies in this sector than other groups. Dots higher on the y-axis indicate groups for which the loan book level net aggregate alignment is further ahead of the scenario than for groups with a dot lower on the y-axis. The 0 intercept on the y-axis means the weighted average net aggregate alignment of the group is right on target.
 
-Of course, since the net aggregate alignment at loan book level is a weighted average of the underlying company level net aggregate alignments, a positive y-value does not mean that there are no misaligned companies to be found in the loan book for this sector. If individual company level alignment is of concern for your use case, you will have to check company level results to validate that. The most comprehensive output data set to inspect company level net alignment metrics is the `output/analysis/aggregated/company_exposure_net_aggregate_alignment<...>.csv` file. Documentation for its contents can be found [here](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/data_dictionary.html#company-net-aggregate-alignment-metric-with-financial-exposures).
+Of course, since the net aggregate alignment at loan book level is a weighted average of the underlying company level net aggregate alignments, a positive y-value does not mean that there are no misaligned companies to be found in the loan book for this sector. If individual company level alignment is of concern for your use case, you will have to check company level results to validate that. The most comprehensive output data set to inspect company level net alignment metrics is the `../analysis/aggregated/company_exposure_net_aggregate_alignment<...>.csv` file. Documentation for its contents can be found [here](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/data_dictionary.html#company-net-aggregate-alignment-metric-with-financial-exposures).
 
 #### Data Dictionary Alignment by Exposure
 
@@ -782,7 +789,7 @@ The variables in the table map to the figures as follows:
 
 ### Buildout-Phaseout Scatter Plot for Aggregate Alignment Metric
 
-The net aggregate alignment metric can be disaggregated into build out and phase out components for some sectors. Specifically those sectors, that have technology level pathways and both high carbon and low carbon technologies, can be disaggregated in this way. It may be insightful to analyze these components to understand better if any deviations from the scenario value are driven by too much or too little effort on either of the two sides. For example, in the automotive sector, this may reveal that almost all of the misalignment is due to a lack of phasing out high carbon technologies, while low carbon ones may be aligned in their build out. Similar patterns could be detected in the power sector. Such patterns can be understood as a prompt, which of the standard PACTA analyses may be most relevant to inspect for further drill down. The output data set is available both at the loan book level to compare the disaggregation by groups and at the company level to identify individual companies with strong drivers. The loan book level files can be found in the `output/analysis/aggregated/data_scatter_sector<...>.csv` file, where <...> will be replaced with the names of each of the groups in the variable set in the `by_group` parameter. The company level files can be found in the `output/analysis/aggregated/<...>/data_scatter_<sector>_company<...>.csv` file.
+The net aggregate alignment metric can be disaggregated into build out and phase out components for some sectors. Specifically those sectors, that have technology level pathways and both high carbon and low carbon technologies, can be disaggregated in this way. It may be insightful to analyze these components to understand better if any deviations from the scenario value are driven by too much or too little effort on either of the two sides. For example, in the automotive sector, this may reveal that almost all of the misalignment is due to a lack of phasing out high carbon technologies, while low carbon ones may be aligned in their build out. Similar patterns could be detected in the power sector. Such patterns can be understood as a prompt, which of the standard PACTA analyses may be most relevant to inspect for further drill down. The output data set is available both at the loan book level to compare the disaggregation by groups and at the company level to identify individual companies with strong drivers. The loan book level files can be found in the `../analysis/aggregated/data_scatter_sector<...>.csv` file, where <...> will be replaced with the names of each of the groups in the variable set in the `by_group` parameter. The company level files can be found in the `../analysis/aggregated/<...>/data_scatter_<sector>_company<...>.csv` file.
 
 #### Example Plots Buildout-Phaseout Aggregate Alignment
 
