@@ -3,7 +3,9 @@ test_that("", {
     list(
       directories = list(
         dir_input = test_path("test-data", "input"),
-        dir_output = test_path("test-data", "output")
+        dir_prepared_abcd = test_path("test-data", "output", "prepared_abcd"),
+        dir_matched_loanbooks = test_path("test-data", "output", "matched_loanbooks"),
+        dir_prioritized_loanbooks_and_diagnostics = test_path("test-data", "output", "prioritized_loanbooks_and_diagnostics")
       ),
       project_parameters = list(
         scenario_source = "weo_2022",

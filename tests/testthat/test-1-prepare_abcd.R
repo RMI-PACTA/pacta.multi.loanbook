@@ -3,7 +3,7 @@ test_that("", {
     list(
       directories = list(
         dir_input = test_path("test-data", "input"),
-        dir_output = test_path("test-data", "output")
+        dir_prepared_abcd = test_path("test-data", "output", "prepared_abcd")
       ),
       file_names = list(
         filename_abcd = "ABCD.xlsx",
