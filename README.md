@@ -1,4 +1,5 @@
-# pacta.multi.loanbook
+# pacta.multi.loanbook <a href="https://rmi-pacta.github.io/pacta.multi.loanbook"><img src="man/figures/logo.png" align="right" height="31" /></a>
+
 
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
