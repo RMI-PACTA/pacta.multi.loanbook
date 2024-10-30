@@ -152,7 +152,7 @@ plot_aggregate_loanbooks <- function(config) {
       data_sankey_sector <- prep_sankey(
         company_aggregated_alignment_net,
         region = "global",
-        year = 2027,
+        year = start_year + time_frame_select,
         group_var = by_group,
         middle_node = "sector"
       )
@@ -193,7 +193,7 @@ plot_aggregate_loanbooks <- function(config) {
       data_sankey_company_sector <- prep_sankey(
         company_aggregated_alignment_net,
         region = "global",
-        year = 2027,
+        year = start_year + time_frame_select,
         group_var = by_group,
         middle_node = "name_abcd",
         middle_node2 = "sector"
@@ -232,7 +232,7 @@ plot_aggregate_loanbooks <- function(config) {
   }
 
   ### scatter plot alignment by exposure and sector comparison----
-  year_scatter_alignment_exposure <- 2027
+  year_scatter_alignment_exposure <- start_year + time_frame_select
   region_scatter_alignment_exposure <- region_select
   currency <- unique(company_aggregated_alignment_net[["loan_size_outstanding_currency"]])
   if (length(by_group) <= 1) {
@@ -289,7 +289,7 @@ plot_aggregate_loanbooks <- function(config) {
   }
 
   ### scatter plot for group level comparison----
-  year_scatter <- 2027
+  year_scatter <- start_year + time_frame_select
   region_scatter <- region_select
   data_level_group <- "group_var"
   # automotive
@@ -445,7 +445,7 @@ plot_aggregate_loanbooks <- function(config) {
   # for all companies per group, not all companies across groups
 
   # company level, excluding outliers
-  year_scatter <- 2027
+  year_scatter <- start_year + time_frame_select
   region_scatter <- region_select
   data_level_company <- "company"
 
