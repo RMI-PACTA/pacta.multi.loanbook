@@ -22,36 +22,20 @@ get_abcd_sheet <- function(params) {
   params[["file_names"]][["sheet_abcd"]]
 }
 
-get_output_dir <- function(params) {
-  params[["directories"]][["dir_output"]]
-}
-
 get_output_prepare_dir <- function(params) {
-  file.path(
-    params[["directories"]][["dir_output"]],
-    "prepare_abcd"
-  )
+  params[["directories"]][["dir_prepared_abcd"]]
 }
 
 get_output_matched_loanbooks_dir <- function(params) {
-  file.path(
-    params[["directories"]][["dir_output"]],
-    "matched_loanbooks"
-  )
+  params[["directories"]][["dir_matched_loanbooks"]]
 }
 
 get_output_prio_diagnostics_dir <- function(params) {
-  file.path(
-    params[["directories"]][["dir_output"]],
-    "prioritized_loanbooks_and_diagnostics"
-  )
+  params[["directories"]][["dir_prioritized_loanbooks_and_diagnostics"]]
 }
 
 get_output_analysis_dir <- function(params) {
-  file.path(
-    params[["directories"]][["dir_output"]],
-    "analysis"
-  )
+  params[["directories"]][["dir_analysis"]]
 }
 
 get_scenario_tms_filename <- function(params) {

@@ -1,6 +1,7 @@
 run_calculate_loanbook_coverage <- function(config) {
   config <- load_config(config)
 
+  # input/output paths for loan book coverage
   output_prepare_dir <- get_output_prepare_dir(config)
   output_prio_diagnostics_dir <- get_output_prio_diagnostics_dir(config)
 

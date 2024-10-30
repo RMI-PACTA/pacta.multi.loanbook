@@ -1,12 +1,12 @@
 remove_inactive_companies <- function(config) {
   config <- load_config(config)
 
+  # input path for remove_inactive_companies
   path_abcd <- get_abcd_path(config)
   sheet_abcd <- get_abcd_sheet(config)
 
+  # output path for remove_inactive_companies
   output_prepare_dir <- get_output_prepare_dir(config)
-
-  dir.create(output_prepare_dir, recursive = TRUE, showWarnings = FALSE)
 
   remove_inactive_companies <- get_remove_inactive_companies(config)
   start_year <- get_start_year(config)
