@@ -21,9 +21,19 @@
 match_loanbooks <- function(config) {
   config <- load_config(config)
 
+  # input paths for match_loanbooks
   input_loanbooks_dir <- get_loanbook_dir(config)
   output_prepare_dir <- get_output_prepare_dir(config)
+
+  # output path for match_loanbooks
   output_matched_loanbooks_dir <- get_output_matched_loanbooks_dir(config)
+
+  if (dir.exists(output_matched_loanbooks_dir)) {
+    warning(
+      "Output directory `dir_matched_loanbooks` already exists. The existing directory will be removed and replaced with the output of the current run. NOTE: This includes any manually matched loan book files you may have placed in this directory."
+    )
+    unlink(output_matched_loanbooks_dir, recursive = TRUE)
+  }
   dir.create(output_matched_loanbooks_dir, recursive = TRUE, showWarnings = FALSE)
 
   matching_by_sector <- get_match_by_sector(config)

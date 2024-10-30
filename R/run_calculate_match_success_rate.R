@@ -1,6 +1,7 @@
 run_calculate_match_success_rate <- function(config) {
   config <- load_config(config)
 
+  # input/output paths for match success rate
   dir_input <- get_input_dir(config)
   input_loanbooks_dir <- get_loanbook_dir(config)
   output_prio_diagnostics_dir <- get_output_prio_diagnostics_dir(config)
