@@ -160,11 +160,6 @@ run_aggregate_alignment_metric <- function(config) {
       scenario = scenario_select,
       level = "bo_po"
     )
-  } else {
-    company_technology_deviation_tms <- create_empty_company_technology_deviation_tms(scenario_select = scenario_select)
-    company_alignment_net_tms <- create_empty_company_alignment()
-    company_alignment_bo_po_tms <- create_empty_company_alignment()
-  }
 
   company_technology_deviation_tms %>%
     readr::write_csv(
@@ -183,6 +178,17 @@ run_aggregate_alignment_metric <- function(config) {
       file.path(output_analysis_aggregated_dir, "company_alignment_bo_po_tms.csv"),
       na = ""
     )
+  } else {
+    message(
+      paste0(
+        "None of the sectors available for target market share analysis in the ",
+        scenario_select,
+        " scenario of ",
+        scenario_source_input,
+        " are present in the matched and prioritized loan book. Calculation of aggregated TMS results not possible. Skipping!"
+      )
+    )
+  }
 
   ## prepare SDA company level P4B results for aggregation----
   if (
@@ -207,15 +213,24 @@ run_aggregate_alignment_metric <- function(config) {
         scenario = scenario_select,
         time_frame = time_frame
       )
+
+    company_alignment_net_sda %>%
+      readr::write_csv(
+        file.path(output_analysis_aggregated_dir, "company_alignment_net_sda.csv"),
+        na = ""
+      )
   } else {
-    company_alignment_net_sda <- create_empty_company_alignment()
+    message(
+      paste0(
+        "None of the sectors available for SDA analysis in the ",
+        scenario_select,
+        " scenario of ",
+        scenario_source_input,
+        " are present in the matched and prioritized loan book. Calculation of aggregated SDA results not possible. Skipping!"
+      )
+    )
   }
 
-  company_alignment_net_sda %>%
-    readr::write_csv(
-      file.path(output_analysis_aggregated_dir, "company_alignment_net_sda.csv"),
-      na = ""
-    )
 
   ## calculate sector and loan book level aggregate alignment based on company exposures in loan book----
 
@@ -256,16 +271,14 @@ run_aggregate_alignment_metric <- function(config) {
         level = "net",
         .by = by_group
       )
-  } else {
-    aggregated_alignment_net <- create_empty_aggregated_alignment()
-  }
 
-  write_alignment_metric_to_csv(
-    data = aggregated_alignment_net,
-    output_dir = output_analysis_aggregated_dir,
-    level = "net",
-    .by = by_group
-  )
+    write_alignment_metric_to_csv(
+      data = aggregated_alignment_net,
+      output_dir = output_analysis_aggregated_dir,
+      level = "net",
+      .by = by_group
+    )
+  }
 
   # buildout / phaseout
   if (nrow(company_alignment_bo_po_tms) > 0) {
@@ -275,15 +288,13 @@ run_aggregate_alignment_metric <- function(config) {
         level = "bo_po",
         .by = by_group
       )
-  } else {
-    aggregated_alignment_bo_po <- create_empty_aggregated_alignment()
-  }
 
-  write_alignment_metric_to_csv(
-    data = aggregated_alignment_bo_po,
-    output_dir = output_analysis_aggregated_dir,
-    level = "bo_po",
-    .by = by_group
-  )
+    write_alignment_metric_to_csv(
+      data = aggregated_alignment_bo_po,
+      output_dir = output_analysis_aggregated_dir,
+      level = "bo_po",
+      .by = by_group
+    )
+  }
 
 }
