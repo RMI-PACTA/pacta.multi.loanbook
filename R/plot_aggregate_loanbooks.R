@@ -139,7 +139,7 @@ plot_aggregate_loanbooks <- function(config) {
   ### sankey plot----
   # TODO: when benchmarks get re-introduced, they need to be removed here
   # Plot sankey plot of financial flows scenario alignment - examples
-  if (length(by_group) <= 1 & !is.null(company_aggregated_alignment_net)) {
+  if (!is.null(company_aggregated_alignment_net)) {
     data_sankey_sector <- prep_sankey(
       company_aggregated_alignment_net,
       region = "global",
@@ -174,7 +174,7 @@ plot_aggregate_loanbooks <- function(config) {
     print("Sankey plot (by sector) cannot be generated. Skipping!")
   }
 
-  if (length(by_group) <= 1 & !is.null(company_aggregated_alignment_net)) {
+  if (!is.null(company_aggregated_alignment_net)) {
     data_sankey_company_sector <- prep_sankey(
       company_aggregated_alignment_net,
       region = "global",
@@ -214,52 +214,52 @@ plot_aggregate_loanbooks <- function(config) {
   region_scatter_alignment_exposure <- region_select
   currency <- unique(company_aggregated_alignment_net[["loan_size_outstanding_currency"]])
 
-  if (length(by_group) <= 1 & !is.null(loanbook_exposure_aggregated_alignment_net)) {
-      if (
-        nrow(loanbook_exposure_aggregated_alignment_net) > 0
-      ) {
-          data_scatter_alignment_exposure <- loanbook_exposure_aggregated_alignment_net %>%
-            prep_scatter_alignment_exposure(
-              year = year_scatter_alignment_exposure,
-              region = region_scatter_alignment_exposure,
-              scenario = scenario_select,
-              group_var = by_group,
-              exclude_groups = "benchmark"
-            )
-
-          if (is.null(by_group)) {
-            output_file_alignment_exposure <- "scatter_alignment_exposure"
-          } else {
-            output_file_alignment_exposure <- glue::glue("scatter_alignment_exposure_{by_group}")
-          }
-
-          data_scatter_alignment_exposure %>%
-            readr::write_csv(
-              file = file.path(
-                output_analysis_aggregated_dir,
-                glue::glue("data_{output_file_alignment_exposure}.csv")
-              ),
-              na = ""
-            )
-
-          plot_scatter_alignment_exposure <- data_scatter_alignment_exposure %>%
-            plot_scatter_alignment_exposure(
-              floor_outliers = -1,
-              cap_outliers = 1,
-              group_var = by_group,
-              currency = currency
-            )
-
-          ggplot2::ggsave(
-            filename = glue::glue("plot_{output_file_alignment_exposure}.png"),
-            path = output_analysis_aggregated_dir,
-            width = 8,
-            height = 5,
-            dpi = 300,
-            units = "in",
+  if (!is.null(loanbook_exposure_aggregated_alignment_net)) {
+    if (
+      nrow(loanbook_exposure_aggregated_alignment_net) > 0
+    ) {
+        data_scatter_alignment_exposure <- loanbook_exposure_aggregated_alignment_net %>%
+          prep_scatter_alignment_exposure(
+            year = year_scatter_alignment_exposure,
+            region = region_scatter_alignment_exposure,
+            scenario = scenario_select,
+            group_var = by_group,
+            exclude_groups = "benchmark"
           )
-      }
-    } else {
+
+        if (is.null(by_group)) {
+          output_file_alignment_exposure <- "scatter_alignment_exposure"
+        } else {
+          output_file_alignment_exposure <- glue::glue("scatter_alignment_exposure_{by_group}")
+        }
+
+        data_scatter_alignment_exposure %>%
+          readr::write_csv(
+            file = file.path(
+              output_analysis_aggregated_dir,
+              glue::glue("data_{output_file_alignment_exposure}.csv")
+            ),
+            na = ""
+          )
+
+        plot_scatter_alignment_exposure <- data_scatter_alignment_exposure %>%
+          plot_scatter_alignment_exposure(
+            floor_outliers = -1,
+            cap_outliers = 1,
+            group_var = by_group,
+            currency = currency
+          )
+
+        ggplot2::ggsave(
+          filename = glue::glue("plot_{output_file_alignment_exposure}.png"),
+          path = output_analysis_aggregated_dir,
+          width = 8,
+          height = 5,
+          dpi = 300,
+          units = "in",
+        )
+    }
+  } else {
     print("Scatter plot exposure by alignment cannot be generated. Skipping!")
   }
 
@@ -269,7 +269,7 @@ plot_aggregate_loanbooks <- function(config) {
   data_level_group <- "group_var"
   # automotive
   sector_scatter <- "automotive"
-  if (length(by_group) <= 1 &
+  if (
     !is.null(loanbook_exposure_aggregated_alignment_bo_po) &
     !is.null(loanbook_exposure_aggregated_alignment_net)
   ) {
@@ -326,9 +326,9 @@ plot_aggregate_loanbooks <- function(config) {
 
   # power
   sector_scatter <- "power"
-  if (length(by_group) <= 1 &
-      !is.null(loanbook_exposure_aggregated_alignment_bo_po) &
-      !is.null(loanbook_exposure_aggregated_alignment_net)
+  if (
+    !is.null(loanbook_exposure_aggregated_alignment_bo_po) &
+    !is.null(loanbook_exposure_aggregated_alignment_net)
   ) {
     if (
       nrow(loanbook_exposure_aggregated_alignment_bo_po) > 0 &
@@ -387,7 +387,10 @@ plot_aggregate_loanbooks <- function(config) {
   # TODO: Note that this implies that no groups across different .by variables
   # should have the same values, as this will confuse output directories
 
-  if (length(by_group) == 1 & !is.null(loanbook_exposure_aggregated_alignment_net)) {
+  if (
+    length(by_group) == 1 &
+    !is.null(loanbook_exposure_aggregated_alignment_net)
+  ) {
     dirs_for_by_group <- loanbook_exposure_aggregated_alignment_net %>%
       dplyr::filter(
         !grepl("benchmark_corporate_economy_", !!rlang::sym(by_group))
@@ -413,7 +416,10 @@ plot_aggregate_loanbooks <- function(config) {
   # automotive
   sector_scatter <- "automotive"
 
-  if (length(by_group) == 1 & !is.null(company_aggregated_alignment_bo_po)) {
+  if (
+    length(by_group) == 1 &
+    !is.null(company_aggregated_alignment_bo_po)
+  ) {
     unique_by_group <- company_aggregated_alignment_bo_po %>%
       dplyr::filter(
         .data[["sector"]] == .env[["sector_scatter"]],
@@ -476,7 +482,10 @@ plot_aggregate_loanbooks <- function(config) {
   # power
   sector_scatter <- "power"
 
-  if (length(by_group) == 1 & !is.null(company_aggregated_alignment_bo_po)) {
+  if (
+    length(by_group) == 1 &
+    !is.null(company_aggregated_alignment_bo_po)
+  ) {
     unique_by_group <- company_aggregated_alignment_bo_po %>%
       dplyr::filter(
         .data[["sector"]] == .env[["sector_scatter"]],
