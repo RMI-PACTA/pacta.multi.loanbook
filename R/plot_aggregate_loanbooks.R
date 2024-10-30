@@ -63,13 +63,11 @@ plot_aggregate_loanbooks <- function(config) {
   )
   col_select_company_aggregated_alignment <- c(by_group, names(col_types_company_aggregated_alignment[["cols"]]))
 
-  if (file.exists(file.path(output_analysis_aggregated_dir, glue::glue("company_exposure_net_aggregate_alignment{file_by_group}.csv")))) {
+  path_company_exposure_net_aggregate_alignment <- file.path(output_analysis_aggregated_dir, glue::glue("company_exposure_net_aggregate_alignment{file_by_group}.csv"))
+  if (file.exists(path_company_exposure_net_aggregate_alignment)) {
     company_aggregated_alignment_net  <-
       readr::read_csv(
-        file = file.path(
-          output_analysis_aggregated_dir,
-          glue::glue("company_exposure_net_aggregate_alignment{file_by_group}.csv")
-        ),
+        file = path_company_exposure_net_aggregate_alignment,
         col_types = col_types_company_aggregated_alignment,
         col_select = dplyr::all_of(col_select_company_aggregated_alignment)
       )
@@ -77,13 +75,11 @@ plot_aggregate_loanbooks <- function(config) {
     company_aggregated_alignment_net <- NULL
   }
 
-  if (file.exists(file.path(output_analysis_aggregated_dir, glue::glue("company_exposure_bo_po_aggregate_alignment{file_by_group}.csv")))) {
+  patch_company_exposure_bo_po_aggregate_alignment <- file.path(output_analysis_aggregated_dir, glue::glue("company_exposure_bo_po_aggregate_alignment{file_by_group}.csv"))
+  if (file.exists(patch_company_exposure_bo_po_aggregate_alignment)) {
     company_aggregated_alignment_bo_po <-
       readr::read_csv(
-        file = file.path(
-          output_analysis_aggregated_dir,
-          glue::glue("company_exposure_bo_po_aggregate_alignment{file_by_group}.csv")
-        ),
+        file = patch_company_exposure_bo_po_aggregate_alignment,
         col_types = col_types_company_aggregated_alignment,
         col_select = dplyr::all_of(col_select_company_aggregated_alignment)
       )
@@ -92,13 +88,11 @@ plot_aggregate_loanbooks <- function(config) {
   }
 
   ## loanbook level results----
-  if (file.exists(file.path(output_analysis_aggregated_dir, glue::glue("loanbook_exposure_bo_po_aggregate_alignment{file_by_group}.csv")))) {
+  path_loanbook_exposure_bo_po_aggregate_alignment <- file.path(output_analysis_aggregated_dir, glue::glue("loanbook_exposure_bo_po_aggregate_alignment{file_by_group}.csv"))
+  if (file.exists(path_loanbook_exposure_bo_po_aggregate_alignment)) {
     loanbook_exposure_aggregated_alignment_bo_po <-
       readr::read_csv(
-        file = file.path(
-          output_analysis_aggregated_dir,
-          glue::glue("loanbook_exposure_bo_po_aggregate_alignment{file_by_group}.csv")
-        ),
+        file = path_loanbook_exposure_bo_po_aggregate_alignment,
         col_types = readr::cols(
           scenario = "c",
           region = "c",
@@ -116,13 +110,11 @@ plot_aggregate_loanbooks <- function(config) {
     loanbook_exposure_aggregated_alignment_bo_po <- NULL
   }
 
-  if (file.exists(file.path(output_analysis_aggregated_dir, glue::glue("loanbook_exposure_net_aggregate_alignment{file_by_group}.csv")))) {
+  path_loanbook_exposure_net_aggregate_alignment <- file.path(output_analysis_aggregated_dir, glue::glue("loanbook_exposure_net_aggregate_alignment{file_by_group}.csv"))
+  if (file.exists(path_loanbook_exposure_net_aggregate_alignment)) {
     loanbook_exposure_aggregated_alignment_net <-
       readr::read_csv(
-        file = file.path(
-          output_analysis_aggregated_dir,
-          glue::glue("loanbook_exposure_net_aggregate_alignment{file_by_group}.csv")
-        ),
+        file = path_loanbook_exposure_net_aggregate_alignment,
         col_types = readr::cols(
           scenario = "c",
           region = "c",
