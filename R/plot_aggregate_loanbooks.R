@@ -63,69 +63,85 @@ plot_aggregate_loanbooks <- function(config) {
   )
   col_select_company_aggregated_alignment <- c(by_group, names(col_types_company_aggregated_alignment[["cols"]]))
 
-  company_aggregated_alignment_net  <-
-    readr::read_csv(
-      file = file.path(
-        output_analysis_aggregated_dir,
-        glue::glue("company_exposure_net_aggregate_alignment{file_by_group}.csv")
-      ),
-      col_types = col_types_company_aggregated_alignment,
-      col_select = dplyr::all_of(col_select_company_aggregated_alignment)
-    )
+  if (file.exists(file.path(output_analysis_aggregated_dir, glue::glue("company_exposure_net_aggregate_alignment{file_by_group}.csv")))) {
+    company_aggregated_alignment_net  <-
+      readr::read_csv(
+        file = file.path(
+          output_analysis_aggregated_dir,
+          glue::glue("company_exposure_net_aggregate_alignment{file_by_group}.csv")
+        ),
+        col_types = col_types_company_aggregated_alignment,
+        col_select = dplyr::all_of(col_select_company_aggregated_alignment)
+      )
+  } else {
+    company_aggregated_alignment_net <- NULL
+  }
 
-  company_aggregated_alignment_bo_po <-
-    readr::read_csv(
-      file = file.path(
-        output_analysis_aggregated_dir,
-        glue::glue("company_exposure_bo_po_aggregate_alignment{file_by_group}.csv")
-      ),
-      col_types = col_types_company_aggregated_alignment,
-      col_select = dplyr::all_of(col_select_company_aggregated_alignment)
-    )
+  if (file.exists(file.path(output_analysis_aggregated_dir, glue::glue("company_exposure_bo_po_aggregate_alignment{file_by_group}.csv")))) {
+    company_aggregated_alignment_bo_po <-
+      readr::read_csv(
+        file = file.path(
+          output_analysis_aggregated_dir,
+          glue::glue("company_exposure_bo_po_aggregate_alignment{file_by_group}.csv")
+        ),
+        col_types = col_types_company_aggregated_alignment,
+        col_select = dplyr::all_of(col_select_company_aggregated_alignment)
+      )
+  } else {
+    company_aggregated_alignment_bo_po <- NULL
+  }
 
   ## loanbook level results----
-  loanbook_exposure_aggregated_alignment_bo_po <-
-    readr::read_csv(
-      file = file.path(
-        output_analysis_aggregated_dir,
-        glue::glue("loanbook_exposure_bo_po_aggregate_alignment{file_by_group}.csv")
-      ),
-      col_types = readr::cols(
-        scenario = "c",
-        region = "c",
-        sector = "c",
-        year = "i",
-        direction = "c",
-        n_companies = "i",
-        n_companies_aligned = "i",
-        share_companies_aligned = "n",
-        exposure_weighted_net_alignment = "n",
-        .default = "c"
+  if (file.exists(file.path(output_analysis_aggregated_dir, glue::glue("loanbook_exposure_bo_po_aggregate_alignment{file_by_group}.csv")))) {
+    loanbook_exposure_aggregated_alignment_bo_po <-
+      readr::read_csv(
+        file = file.path(
+          output_analysis_aggregated_dir,
+          glue::glue("loanbook_exposure_bo_po_aggregate_alignment{file_by_group}.csv")
+        ),
+        col_types = readr::cols(
+          scenario = "c",
+          region = "c",
+          sector = "c",
+          year = "i",
+          direction = "c",
+          n_companies = "i",
+          n_companies_aligned = "i",
+          share_companies_aligned = "n",
+          exposure_weighted_net_alignment = "n",
+          .default = "c"
+        )
       )
-    )
+  } else {
+    loanbook_exposure_aggregated_alignment_bo_po <- NULL
+  }
 
-  loanbook_exposure_aggregated_alignment_net <-
-    readr::read_csv(
-      file = file.path(
-        output_analysis_aggregated_dir,
-        glue::glue("loanbook_exposure_net_aggregate_alignment{file_by_group}.csv")
-      ),
-      col_types = readr::cols(
-        scenario = "c",
-        region = "c",
-        sector = "c",
-        year = "i",
-        direction = "c",
-        n_companies = "i",
-        n_companies_aligned = "i",
-        share_companies_aligned = "n",
-        exposure_weighted_net_alignment = "n",
-        sum_loan_size_outstanding = "n",
-        sum_exposure_companies_aligned = "n",
-        share_exposure_aligned = "n",
-        .default = "c"
-    )
-  )
+  if (file.exists(file.path(output_analysis_aggregated_dir, glue::glue("loanbook_exposure_net_aggregate_alignment{file_by_group}.csv")))) {
+    loanbook_exposure_aggregated_alignment_net <-
+      readr::read_csv(
+        file = file.path(
+          output_analysis_aggregated_dir,
+          glue::glue("loanbook_exposure_net_aggregate_alignment{file_by_group}.csv")
+        ),
+        col_types = readr::cols(
+          scenario = "c",
+          region = "c",
+          sector = "c",
+          year = "i",
+          direction = "c",
+          n_companies = "i",
+          n_companies_aligned = "i",
+          share_companies_aligned = "n",
+          exposure_weighted_net_alignment = "n",
+          sum_loan_size_outstanding = "n",
+          sum_exposure_companies_aligned = "n",
+          share_exposure_aligned = "n",
+          .default = "c"
+        )
+      )
+  } else {
+    loanbook_exposure_aggregated_alignment_net <- NULL
+  }
 
   # generate plots for system-wide analysis----
   ### sankey plot----
@@ -208,6 +224,8 @@ plot_aggregate_loanbooks <- function(config) {
         save_png_to = path.expand(output_analysis_aggregated_dir),
         png_name = glue::glue("plot_{output_file_sankey_company_sector}.png")
       )
+    } else {
+      print("Sankey plot cannot be generated because of missing inputs. Skipping!")
     }
   } else {
     print("Sankey plot cannot process more than one group_var at a time. Skipping!")
@@ -218,55 +236,57 @@ plot_aggregate_loanbooks <- function(config) {
   region_scatter_alignment_exposure <- region_select
   currency <- unique(company_aggregated_alignment_net[["loan_size_outstanding_currency"]])
   if (length(by_group) <= 1) {
-    if (
-      nrow(loanbook_exposure_aggregated_alignment_net) > 0
-    ) {
-      data_scatter_alignment_exposure <- loanbook_exposure_aggregated_alignment_net %>%
-        prep_scatter_alignment_exposure(
-          year = year_scatter_alignment_exposure,
-          region = region_scatter_alignment_exposure,
-          scenario = scenario_select,
-          group_var = by_group,
-          exclude_groups = "benchmark"
-        )
+    if (!is.null(loanbook_exposure_aggregated_alignment_net)) {
+      if (
+        nrow(loanbook_exposure_aggregated_alignment_net) > 0
+      ) {
+        data_scatter_alignment_exposure <- loanbook_exposure_aggregated_alignment_net %>%
+          prep_scatter_alignment_exposure(
+            year = year_scatter_alignment_exposure,
+            region = region_scatter_alignment_exposure,
+            scenario = scenario_select,
+            group_var = by_group,
+            exclude_groups = "benchmark"
+          )
 
-      if (is.null(by_group)) {
-        output_file_alignment_exposure <- "scatter_alignment_exposure"
-      } else {
-        output_file_alignment_exposure <- glue::glue("scatter_alignment_exposure_{by_group}")
+        if (is.null(by_group)) {
+          output_file_alignment_exposure <- "scatter_alignment_exposure"
+        } else {
+          output_file_alignment_exposure <- glue::glue("scatter_alignment_exposure_{by_group}")
+        }
+
+        data_scatter_alignment_exposure %>%
+          readr::write_csv(
+            file = file.path(
+              output_analysis_aggregated_dir,
+              glue::glue("data_{output_file_alignment_exposure}.csv")
+            ),
+            na = ""
+          )
+
+        plot_scatter_alignment_exposure <- data_scatter_alignment_exposure %>%
+          plot_scatter_alignment_exposure(
+            floor_outliers = -1,
+            cap_outliers = 1,
+            group_var = by_group,
+            currency = currency
+          )
+
+        ggplot2::ggsave(
+          filename = glue::glue("plot_{output_file_alignment_exposure}.png"),
+          path = output_analysis_aggregated_dir,
+          width = 8,
+          height = 5,
+          dpi = 300,
+          units = "in",
+        )
       }
-
-      data_scatter_alignment_exposure %>%
-        readr::write_csv(
-          file = file.path(
-            output_analysis_aggregated_dir,
-            glue::glue("data_{output_file_alignment_exposure}.csv")
-          ),
-          na = ""
-        )
-
-      plot_scatter_alignment_exposure <- data_scatter_alignment_exposure %>%
-        plot_scatter_alignment_exposure(
-          floor_outliers = -1,
-          cap_outliers = 1,
-          group_var = by_group,
-          currency = currency
-        )
-
-      ggplot2::ggsave(
-        filename = glue::glue("plot_{output_file_alignment_exposure}.png"),
-        path = output_analysis_aggregated_dir,
-        width = 8,
-        height = 5,
-        dpi = 300,
-        units = "in",
-      )
+    } else {
+      print("Scatter plot exposure by alignment cannot be generated, because of missing input files. Skipping!")
     }
   } else {
     print("Scatter plot exposure by alignment cannot process more than one group_var at a time. Skipping!")
   }
-
-
 
   ### scatter plot for group level comparison----
   year_scatter <- 2027
@@ -276,48 +296,57 @@ plot_aggregate_loanbooks <- function(config) {
   sector_scatter <- "automotive"
   if (length(by_group) <= 1) {
     if (
-      nrow(loanbook_exposure_aggregated_alignment_bo_po) > 0 &
-      nrow(loanbook_exposure_aggregated_alignment_net) > 0
+      !is.null(loanbook_exposure_aggregated_alignment_bo_po) &
+      !is.null(loanbook_exposure_aggregated_alignment_net)
     ) {
-      data_scatter_automotive_group <- prep_scatter(
-        loanbook_exposure_aggregated_alignment_bo_po,
-        loanbook_exposure_aggregated_alignment_net,
-        year = year_scatter,
-        sector = sector_scatter,
-        region = region_scatter,
-        group_var = by_group,
-        data_level = data_level_group
-      )
-
-      if (is.null(by_group)) {
-        output_file_scatter_sector <- glue::glue("scatter_{sector_scatter}")
-      } else {
-        output_file_scatter_sector <- glue::glue("scatter_{sector_scatter}_by_{by_group}")
-      }
-
-      data_scatter_automotive_group %>%
-        readr::write_csv(
-          file = file.path(
-            output_analysis_aggregated_dir,
-            glue::glue("data_{output_file_scatter_sector}.csv")
-          ),
-          na = ""
+      if (
+        nrow(loanbook_exposure_aggregated_alignment_bo_po) > 0 &
+        nrow(loanbook_exposure_aggregated_alignment_net) > 0
+      ) {
+        data_scatter_automotive_group <- prep_scatter(
+          loanbook_exposure_aggregated_alignment_bo_po,
+          loanbook_exposure_aggregated_alignment_net,
+          year = year_scatter,
+          sector = sector_scatter,
+          region = region_scatter,
+          group_var = by_group,
+          data_level = data_level_group
         )
 
-      plot_scatter(
-        data_scatter_automotive_group,
-        data_level = data_level_group,
-        year = year_scatter,
-        sector = sector_scatter,
-        region = region_scatter,
-        scenario_source = scenario_source_input,
-        scenario = scenario_select
-      )
-      ggplot2::ggsave(
-        filename = glue::glue("plot_{output_file_scatter_sector}.png"),
-        path = output_analysis_aggregated_dir,
-        width = 8,
-        height = 5
+        if (is.null(by_group)) {
+          output_file_scatter_sector <- glue::glue("scatter_{sector_scatter}")
+        } else {
+          output_file_scatter_sector <- glue::glue("scatter_{sector_scatter}_by_{by_group}")
+        }
+
+        data_scatter_automotive_group %>%
+          readr::write_csv(
+            file = file.path(
+              output_analysis_aggregated_dir,
+              glue::glue("data_{output_file_scatter_sector}.csv")
+            ),
+            na = ""
+          )
+
+        plot_scatter(
+          data_scatter_automotive_group,
+          data_level = data_level_group,
+          year = year_scatter,
+          sector = sector_scatter,
+          region = region_scatter,
+          scenario_source = scenario_source_input,
+          scenario = scenario_select
+        )
+        ggplot2::ggsave(
+          filename = glue::glue("plot_{output_file_scatter_sector}.png"),
+          path = output_analysis_aggregated_dir,
+          width = 8,
+          height = 5
+        )
+      }
+    } else {
+      print(
+        glue::glue("Scatter plot BO/PO cannot be generated, because of missing input files. Skipping!")
       )
     }
   } else {
@@ -330,49 +359,58 @@ plot_aggregate_loanbooks <- function(config) {
   sector_scatter <- "power"
   if (length(by_group) <= 1) {
     if (
-      nrow(loanbook_exposure_aggregated_alignment_bo_po) > 0 &
-      nrow(loanbook_exposure_aggregated_alignment_net) > 0
+      !is.null(loanbook_exposure_aggregated_alignment_bo_po) &
+      !is.null(loanbook_exposure_aggregated_alignment_net)
     ) {
-      data_scatter_power_group <- prep_scatter(
-        loanbook_exposure_aggregated_alignment_bo_po,
-        loanbook_exposure_aggregated_alignment_net,
-        year = year_scatter,
-        sector = sector_scatter,
-        region = region_scatter,
-        group_var = by_group,
-        data_level = data_level_group
-      )
-
-      if (is.null(by_group)) {
-        output_file_scatter_sector <- glue::glue("scatter_{sector_scatter}")
-      } else {
-        output_file_scatter_sector <- glue::glue("scatter_{sector_scatter}_by_{by_group}")
-      }
-
-      data_scatter_power_group %>%
-        readr::write_csv(
-          file = file.path(
-            output_analysis_aggregated_dir,
-            glue::glue("data_{output_file_scatter_sector}.csv")
-          ),
-          na = ""
+      if (
+        nrow(loanbook_exposure_aggregated_alignment_bo_po) > 0 &
+        nrow(loanbook_exposure_aggregated_alignment_net) > 0
+      ) {
+        data_scatter_power_group <- prep_scatter(
+          loanbook_exposure_aggregated_alignment_bo_po,
+          loanbook_exposure_aggregated_alignment_net,
+          year = year_scatter,
+          sector = sector_scatter,
+          region = region_scatter,
+          group_var = by_group,
+          data_level = data_level_group
         )
 
-      plot_scatter(
-        data_scatter_power_group,
-        data_level = data_level_group,
-        year = year_scatter,
-        sector = sector_scatter,
-        region = region_scatter,
-        scenario_source = scenario_source_input,
-        scenario = scenario_select
-      )
+        if (is.null(by_group)) {
+          output_file_scatter_sector <- glue::glue("scatter_{sector_scatter}")
+        } else {
+          output_file_scatter_sector <- glue::glue("scatter_{sector_scatter}_by_{by_group}")
+        }
 
-      ggplot2::ggsave(
-        filename = glue::glue("plot_{output_file_scatter_sector}.png"),
-        path = output_analysis_aggregated_dir,
-        width = 8,
-        height = 5
+        data_scatter_power_group %>%
+          readr::write_csv(
+            file = file.path(
+              output_analysis_aggregated_dir,
+              glue::glue("data_{output_file_scatter_sector}.csv")
+            ),
+            na = ""
+          )
+
+        plot_scatter(
+          data_scatter_power_group,
+          data_level = data_level_group,
+          year = year_scatter,
+          sector = sector_scatter,
+          region = region_scatter,
+          scenario_source = scenario_source_input,
+          scenario = scenario_select
+        )
+
+        ggplot2::ggsave(
+          filename = glue::glue("plot_{output_file_scatter_sector}.png"),
+          path = output_analysis_aggregated_dir,
+          width = 8,
+          height = 5
+        )
+      }
+    } else {
+      print(
+        glue::glue("Scatter plot BO/PO cannot be generated, because of missing input files. Skipping!")
       )
     }
   } else {
@@ -387,15 +425,17 @@ plot_aggregate_loanbooks <- function(config) {
   # should have the same values, as this will confuse output directories
 
   if (length(by_group) == 1) {
-    dirs_for_by_group <- loanbook_exposure_aggregated_alignment_net %>%
-      dplyr::filter(
-        !grepl("benchmark_corporate_economy_", !!rlang::sym(by_group))
-      ) %>%
-      dplyr::pull(!!rlang::sym(by_group)) %>%
-      unique()
+    if (!is.null(loanbook_exposure_aggregated_alignment_net)) {
+      dirs_for_by_group <- loanbook_exposure_aggregated_alignment_net %>%
+        dplyr::filter(
+          !grepl("benchmark_corporate_economy_", !!rlang::sym(by_group))
+        ) %>%
+        dplyr::pull(!!rlang::sym(by_group)) %>%
+        unique()
 
-    for (i in dirs_for_by_group) {
-      dir.create(file.path(output_analysis_aggregated_dir, i), recursive = TRUE, showWarnings = FALSE)
+      for (i in dirs_for_by_group) {
+        dir.create(file.path(output_analysis_aggregated_dir, i), recursive = TRUE, showWarnings = FALSE)
+      }
     }
   }
 
@@ -413,58 +453,64 @@ plot_aggregate_loanbooks <- function(config) {
   sector_scatter <- "automotive"
 
   if (length(by_group) == 1) {
-    unique_by_group <- company_aggregated_alignment_bo_po %>%
-      dplyr::filter(
-        .data[["sector"]] == .env[["sector_scatter"]],
-        !grepl("benchmark_corporate_economy_", !!rlang::sym(by_group))
-      ) %>%
-      dplyr::pull(!!rlang::sym(by_group)) %>%
-      unique()
+    if (!is.null(company_aggregated_alignment_bo_po)) {
+      unique_by_group <- company_aggregated_alignment_bo_po %>%
+        dplyr::filter(
+          .data[["sector"]] == .env[["sector_scatter"]],
+          !grepl("benchmark_corporate_economy_", !!rlang::sym(by_group))
+        ) %>%
+        dplyr::pull(!!rlang::sym(by_group)) %>%
+        unique()
 
-    for (i in unique_by_group) {
-      data_scatter_automotive_company_i <- prep_scatter(
-        company_aggregated_alignment_bo_po,
-        company_aggregated_alignment_net,
-        year = year_scatter,
-        sector = sector_scatter,
-        region = region_scatter,
-        group_var = by_group,
-        groups_to_plot = i,
-        data_level = data_level_company
-      )
-
-      if (nrow(data_scatter_automotive_company_i) > 0) {
-        data_scatter_automotive_company_i %>%
-          readr::write_csv(
-            file = file.path(
-              output_analysis_aggregated_dir,
-              i,
-              glue::glue("data_scatter_automotive_company_by_{by_group}_{i}.csv")
-            ),
-            na = ""
-          )
-
-        plot_scatter(
-          data_scatter_automotive_company_i,
-          data_level = data_level_company,
+      for (i in unique_by_group) {
+        data_scatter_automotive_company_i <- prep_scatter(
+          company_aggregated_alignment_bo_po,
+          company_aggregated_alignment_net,
           year = year_scatter,
           sector = sector_scatter,
           region = region_scatter,
-          scenario_source = scenario_source_input,
-          scenario = scenario_select,
-          cap_outliers = 2,
-          floor_outliers = -2
+          group_var = by_group,
+          groups_to_plot = i,
+          data_level = data_level_company
         )
 
-        ggplot2::ggsave(
-          filename = glue::glue("plot_scatter_automotive_company_by_{by_group}_{i}.png"),
-          path = file.path(output_analysis_aggregated_dir, i),
-          width = 8,
-          height = 5
-        )
-      } else {
-        next()
+        if (nrow(data_scatter_automotive_company_i) > 0) {
+          data_scatter_automotive_company_i %>%
+            readr::write_csv(
+              file = file.path(
+                output_analysis_aggregated_dir,
+                i,
+                glue::glue("data_scatter_automotive_company_by_{by_group}_{i}.csv")
+              ),
+              na = ""
+            )
+
+          plot_scatter(
+            data_scatter_automotive_company_i,
+            data_level = data_level_company,
+            year = year_scatter,
+            sector = sector_scatter,
+            region = region_scatter,
+            scenario_source = scenario_source_input,
+            scenario = scenario_select,
+            cap_outliers = 2,
+            floor_outliers = -2
+          )
+
+          ggplot2::ggsave(
+            filename = glue::glue("plot_scatter_automotive_company_by_{by_group}_{i}.png"),
+            path = file.path(output_analysis_aggregated_dir, i),
+            width = 8,
+            height = 5
+          )
+        } else {
+          next()
+        }
       }
+    } else {
+      print(
+        glue::glue("Scatter plot BO/PO cannot be generated at company level, because of missing input files. Skipping!")
+      )
     }
   } else {
     print(
@@ -476,58 +522,64 @@ plot_aggregate_loanbooks <- function(config) {
   sector_scatter <- "power"
 
   if (length(by_group) == 1) {
-    unique_by_group <- company_aggregated_alignment_bo_po %>%
-      dplyr::filter(
-        .data[["sector"]] == .env[["sector_scatter"]],
-        !grepl("benchmark_corporate_economy_", !!rlang::sym(by_group))
-      ) %>%
-      dplyr::pull(!!rlang::sym(by_group)) %>%
-      unique()
+    if (!is.null(company_aggregated_alignment_bo_po)) {
+      unique_by_group <- company_aggregated_alignment_bo_po %>%
+        dplyr::filter(
+          .data[["sector"]] == .env[["sector_scatter"]],
+          !grepl("benchmark_corporate_economy_", !!rlang::sym(by_group))
+        ) %>%
+        dplyr::pull(!!rlang::sym(by_group)) %>%
+        unique()
 
-    for (i in unique_by_group) {
-      data_scatter_power_company_i <- prep_scatter(
-        company_aggregated_alignment_bo_po,
-        company_aggregated_alignment_net,
-        year = year_scatter,
-        sector = sector_scatter,
-        region = region_scatter,
-        group_var = by_group,
-        groups_to_plot = i,
-        data_level = data_level_company
-      )
-
-      if (nrow(data_scatter_power_company_i) > 0) {
-        data_scatter_power_company_i %>%
-          readr::write_csv(
-            file = file.path(
-              output_analysis_aggregated_dir,
-              i,
-              glue::glue("data_scatter_power_company_by_{by_group}_{i}.csv")
-            ),
-            na = ""
-          )
-
-        plot_scatter(
-          data_scatter_power_company_i,
-          data_level = data_level_company,
+      for (i in unique_by_group) {
+        data_scatter_power_company_i <- prep_scatter(
+          company_aggregated_alignment_bo_po,
+          company_aggregated_alignment_net,
           year = year_scatter,
           sector = sector_scatter,
           region = region_scatter,
-          scenario_source = scenario_source_input,
-          scenario = scenario_select,
-          cap_outliers = 2,
-          floor_outliers = -2
+          group_var = by_group,
+          groups_to_plot = i,
+          data_level = data_level_company
         )
 
-        ggplot2::ggsave(
-          filename = glue::glue("plot_scatter_power_company_by_{by_group}_{i}.png"),
-          path = file.path(output_analysis_aggregated_dir, i),
-          width = 8,
-          height = 5
-        )
-      } else {
-        next()
+        if (nrow(data_scatter_power_company_i) > 0) {
+          data_scatter_power_company_i %>%
+            readr::write_csv(
+              file = file.path(
+                output_analysis_aggregated_dir,
+                i,
+                glue::glue("data_scatter_power_company_by_{by_group}_{i}.csv")
+              ),
+              na = ""
+            )
+
+          plot_scatter(
+            data_scatter_power_company_i,
+            data_level = data_level_company,
+            year = year_scatter,
+            sector = sector_scatter,
+            region = region_scatter,
+            scenario_source = scenario_source_input,
+            scenario = scenario_select,
+            cap_outliers = 2,
+            floor_outliers = -2
+          )
+
+          ggplot2::ggsave(
+            filename = glue::glue("plot_scatter_power_company_by_{by_group}_{i}.png"),
+            path = file.path(output_analysis_aggregated_dir, i),
+            width = 8,
+            height = 5
+          )
+        } else {
+          next()
+        }
       }
+    } else {
+      print(
+        glue::glue("Scatter plot BO/PO cannot be generated at company level, because of missing input files. Skipping!")
+      )
     }
   } else {
     print(
