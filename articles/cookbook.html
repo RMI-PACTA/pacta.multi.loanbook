@@ -230,8 +230,8 @@ technologies/fuel types and of emission intensities pathways for each of
 the TMSR and SMSP pathways based on the Market Share Approach, an
 allocation rule that implies all companies active in a sector have to
 adjust their production in a way that keeps market shares constant and
-solves for the aggregate climate transition scenario (LINK to the market
-share documentation).</p>
+solves for the aggregate climate transition scenario
+(<strong>LINK</strong> to the market share documentation).</p>
 <p>The target market share scenario data set must be a CSV file and
 contains the following columns:</p>
 <ul>
@@ -494,15 +494,19 @@ with this <code>config.yml</code> file.</p>
 <div class="section level4">
 <h4 id="inputoutput-folder-structure">Input/Output folder structure<a class="anchor" aria-label="anchor" href="#inputoutput-folder-structure"></a>
 </h4>
-<p>The <code>config.yml</code> file then points to an input and an
-output directory that the user can choose anywhere on their system, as
-long as R has read and write access to these directories. A
-recommendable choice to structure an analysis project would be to place
-both these folders and the <code>config.yml</code> file in a project
-folder. The input folder must contain all input files as described
-above, with the raw loan books being placed in a sub-directory that must
-be named <code>"loanbooks"</code>. The output folder can remain empty.
-It will be populated by running the analysis.</p>
+<p>The <code>config.yml</code> file then points to an input directory
+and to four output directories, one for each user-facing function, that
+the user can choose anywhere on their system, as long as R has read and
+write access to these directories. A recommendable choice to structure
+an analysis project would be to place all these folders and the
+<code>config.yml</code> file in a project folder. The input folder must
+contain all input files as described above, with the raw loan books
+being placed in a sub-directory that must be named
+<code>"loanbooks"</code>. The output folders will automatically be
+created at the locations indicated in the <code>config.yml</code> file.
+They will be populated by running the analysis. <strong>NOTE:</strong>
+Re-running a step of the analysis will replace the entire corresponding
+output directory, if the directory already exists.</p>
 <p>An example of how the project folder could be structured:</p>
 <pre><code>project_folder
 ├── config.yml
@@ -515,7 +519,14 @@ It will be populated by running the analysis.</p>
 │   ├── scenario_data_tms.csv
 │   ├── scenario_data_sda.csv
 │   └── ...
-└── output</code></pre>
+├── prepared_abcd
+├── matched_loanbooks
+├── prioritized_loanbooks_and_diagnostics
+└── analysis</code></pre>
+<p>Notice that the names of the directories can be changed to something
+the user may prefer. The names were chosen for illustrative purposes to
+reflect the corresponding user-facing functions that create the
+outputs.</p>
 </div>
 </div>
 <div class="section level3">
@@ -600,8 +611,9 @@ in the project folder</label></li>
 <code>input/loanbooks</code> sub-directory</label></li>
 <li><label><input type="checkbox">Placed the other input data sets in
 the <code>input</code> folder</label></li>
-<li><label><input type="checkbox">Created an <code>output</code>
-folder in the project folder</label></li>
+<li><label><input type="checkbox">Created appropriate values for all
+input and ouput directories in the <code>config.yml</code>
+file</label></li>
 </ul>
 </li>
 </ul>
@@ -636,6 +648,19 @@ production-based alignment analysis.</li>
 Fig. 1: Structure of the Workflow
 </p>
 </div>
+<p>As the diagram shows, there is a logical sequence to how to run the
+functions. For any of the functions to work, the previous functions must
+have been run already and their outputs must be accessible as inputs to
+the next functions. If you want to keep different versions of the
+calculations, i.e. you want to avoid overwriting past outputs, you will
+have to (1) ensure that each run is done with a new value for the
+corresponding output directory set in the <code>config.yml</code> and
+(2) that the relevant function refers to the appropriate directories of
+upstream outputs. For example, if you want to run the analysis twice and
+keep both results, all <code>dir_*</code> entries of the
+<code>config.yml</code> should remain identical for both runs, except
+for the <code>dir_analysis</code> entry, which should be different for
+each run.</p>
 <p>The following sub sections will provide detailed information on each
 of the steps of the analysis, starting with a brief explanation of the
 setup, as each of the functions will require the path to the
@@ -662,9 +687,10 @@ prepared and you can optionally use a custom sector split, that will
 also need to be prepared. The relevant function is
 <code><a href="../reference/prepare_abcd.html">prepare_abcd()</a></code>, which takes configurations from the
 <code>config.yml</code> that you have prepared. The function will store
-intermediary files in a sub-directory, <code>prepare_abcd</code>, in
-your <code>output</code> folder. This step only has to be run once for
-an analysis. You can run this function as follows:</p>
+intermediary files in the directory that you have indicated as the value
+corresponding to the key <code>dir_prepared_abcd</code> in the
+<code>config.yml</code>. This step only has to be run once for an
+analysis. You can run this function as follows:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">pacta.multi.loanbook</span><span class="fu">::</span><span class="fu"><a href="../reference/prepare_abcd.html">prepare_abcd</a></span><span class="op">(</span><span class="va">config_path</span><span class="op">)</span></span></code></pre></div>
 <div class="section level5">
@@ -695,8 +721,9 @@ Assuming you have prepared the raw loan books as explained in <a href="#id_##%20
 data sets</a>, you can now use the <code><a href="../reference/match_loanbooks.html">match_loanbooks()</a></code>
 function. This will read the raw loan books from your inputs and attempt
 to match them to the prepared ABCD data from the previous step. The
-function will store matched loan book files in a sub-directory,
-<code>matched_loanbooks</code>, in your <code>output</code> folder. You
+function will store matched loan book files in a directory that you have
+indicated as the value corresponding to the key
+<code>dir_matched_loanbooks</code> in the <code>config.yml</code>. You
 can run this function as follows:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">pacta.multi.loanbook</span><span class="fu">::</span><span class="fu"><a href="../reference/match_loanbooks.html">match_loanbooks</a></span><span class="op">(</span><span class="va">config_path</span><span class="op">)</span></span></code></pre></div>
@@ -711,14 +738,14 @@ crucial in the analysis, as the quality of the matches will determine
 the quality of the results of any further calculations.</p>
 <p>The manual matching process is not automated and will require some
 time and effort on your part. You can find the matched loan books in the
-<code>output/matched_loanbooks</code> folder. The matched loan books
-will be stored in CSV files, one for each raw loan book. You can open
-these files in a spreadsheet program to verify the matches. Importantly,
-you will need to make a copy for each of the matched loan book files in
-the same <code>output/matched_loanbooks</code> folder and rename that
-copy by adding the suffix <code>_manual</code> to the file name. The
-following steps of the analysis expect this pattern, so it is important
-to follow this naming convention.</p>
+<code>.../matched_loanbooks</code> folder. The matched loan books will
+be stored in CSV files, one for each raw loan book. You can open these
+files in a spreadsheet program to verify the matches. Importantly, you
+will need to make a copy for each of the matched loan book files in the
+same <code>.../matched_loanbooks</code> folder and rename that copy by
+adding the suffix <code>_manual</code> to the file name. The following
+steps of the analysis expect this pattern, so it is important to follow
+this naming convention.</p>
 <p>You can find more detaied information about the matching process in
 the training material on the <a href="https://pacta.rmi.org/pacta-for-banks-2020/" class="external-link">PACTA for Banks
 website</a> in the section “PACTA for Banks Training Webinar 2” and in
@@ -852,9 +879,9 @@ times to reach the best possible outcome. To prioritize your matched
 loan books and calculate display the coverage diagnostics, you will use
 the <code><a href="../reference/prioritise_and_diagnose.html">prioritise_and_diagnose()</a></code> function. This call will
 store matched prioritized loan book files and coverage diagnostics in a
-sub-directory, <code>prioritized_loanbooks_and_diagnostics</code>, in
-your <code>output</code> folder. You can then run the function as
-follows:</p>
+directory that you have indicated as the value corresponding to the key
+<code>dir_prioritized_loanbooks_and_diagnostics</code> in the
+<code>config.yml</code>. You can then run the function as follows:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">pacta.multi.loanbook</span><span class="fu">::</span><span class="fu"><a href="../reference/prioritise_and_diagnose.html">prioritise_and_diagnose</a></span><span class="op">(</span><span class="va">config_path</span><span class="op">)</span></span></code></pre></div>
 <div class="section level5">
@@ -882,12 +909,14 @@ of the r2dii.match::prioritize() function here</a>.</li>
 have set in the <code>config.yml</code> file. This entails both a
 standard PACTA for Banks analysis and the calculation of the net
 aggregate alignment metric. For both parts of the analysis, outputs will
-be stored in the sub-directories <code>analysis/standard</code> (for
-standard PACTA for Banks results) and <code>analysis/aggregated/</code>
-for the net aggregate alignment metric in your <code>output</code>
-folder and comprise tabular outputs and plots. To run the analysis on
-all of your previously matched and prioritized loan books, you will use
-the <code><a href="../reference/analyse.html">analyse()</a></code> function as follows:</p>
+be stored in the sub-directories <code>../standard/</code> (for standard
+PACTA for Banks results) and <code>../aggregated/</code> for the net
+aggregate alignment metric directory - below the directory that you have
+indicated as the value corresponding to the key
+<code>dir_analysis</code> in the <code>config.yml</code>. Outputs in
+these sub directories will comprise tabular outputs and plots. To run
+the analysis on all of your previously matched and prioritized loan
+books, you will use the <code><a href="../reference/analyse.html">analyse()</a></code> function as follows:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">pacta.multi.loanbook</span><span class="fu">::</span><span class="fu"><a href="../reference/analyse.html">analyse</a></span><span class="op">(</span><span class="va">config_path</span><span class="op">)</span></span></code></pre></div>
 <div class="section level5">
@@ -987,7 +1016,7 @@ loans, or the credit limit of the loans. In either case, the sum value
 of the matched loans is compared with that of the raw loan books.</p>
 <p>The output data set contains all three versions of the metric and can
 be found in the
-<code>output/prioritized_loanbooks_and_diagnostics/lbk_match_success_rate&lt;...&gt;.csv</code>
+<code>../prioritized_loanbooks_and_diagnostics/lbk_match_success_rate&lt;...&gt;.csv</code>
 file, where &lt;…&gt; will be replaced with the name of the variable set
 in the by_group parameter.</p>
 <div class="section level5">
@@ -1610,7 +1639,7 @@ additional sources of funding. Lastly, the output provides the sum of
 the loan size outstanding to the matched companies in each of the
 sectors and regions.</p>
 <p>The output data set can be found in the
-<code>output/prioritized_loanbooks_and_diagnostics/summary_statistics_loanbook_coverage&lt;...&gt;.csv</code>
+<code>../prioritized_loanbooks_and_diagnostics/summary_statistics_loanbook_coverage&lt;...&gt;.csv</code>
 file, where &lt;…&gt; will be replaced with the name of the variable set
 in the by_group parameter.</p>
 <div class="section level5">
@@ -2113,9 +2142,9 @@ the plots.</p>
 <p>The target market share results provide the intermediate format
 output required to generate the technology mix and volume trajectory
 plots. The output data set can be found in the
-<code>output/analysis/standard/tms_results&lt;...&gt;.csv</code> file,
-where &lt;…&gt; will be replaced with the name of the variable set in
-the <code>by_group</code> parameter.</p>
+<code>../analysis/standard/tms_results&lt;...&gt;.csv</code> file, where
+&lt;…&gt; will be replaced with the name of the variable set in the
+<code>by_group</code> parameter.</p>
 <p>More information on the target market share results data set can be
 found in the <a href="https://rmi-pacta.github.io/pacta.multi.loanbook/articles/data_dictionary.html#target-market-share-results-all-groups">data
 dictionary</a>.</p>
@@ -2128,7 +2157,7 @@ production capacity of companies in the loan book with that of the
 production capacity of companies in the wider economy and the scenario
 technology mix five years into the future. The output data set can be
 found in the
-<code>output/analysis/standard/&lt;...&gt;/data_tech_mix_&lt;sector&gt;.csv</code>
+<code>../analysis/standard/&lt;...&gt;/data_tech_mix_&lt;sector&gt;.csv</code>
 file, where &lt;…&gt; will be replaced with the names of each of the
 groups in the variable set in the <code>by_group</code> parameter. This
 means that the technology mix results always only show results for one
@@ -2721,7 +2750,7 @@ production capacity in a given technology of the companies in the loan
 book with that of the companies in the wider economy and the scenario
 trajectories for the loan book five years into the future, based on the
 market share approach. The output data set can be found in the
-<code>output/analysis/standard/&lt;...&gt;/data_trajectory_&lt;sector&gt;_&lt;technology&gt;.csv</code>
+<code>../analysis/standard/&lt;...&gt;/data_trajectory_&lt;sector&gt;_&lt;technology&gt;.csv</code>
 file, where &lt;…&gt; will be replaced with the names of each of the
 groups in the variable set in the <code>by_group</code> parameter. This
 means that the production volume trajectory results always only show
@@ -3333,9 +3362,9 @@ formatted for display in the plot.</li>
 <p>The sectoral decarbonization approach (SDA) results provide the
 intermediate format output required to generate the emission intensity
 plot. The output data set can be found in the
-<code>output/analysis/standard/sda_results&lt;...&gt;.csv</code> file,
-where &lt;…&gt; will be replaced with the name of the variable set in
-the <code>by_group</code> parameter.</p>
+<code>../analysis/standard/sda_results&lt;...&gt;.csv</code> file, where
+&lt;…&gt; will be replaced with the name of the variable set in the
+<code>by_group</code> parameter.</p>
 <p>More information on the SDA results data set can be found in the <a href="https://rmi-pacta.github.io/pacta.multi.loanbook/articles/data_dictionary.html#sectoral-decarbonization-approach-results-all-groups">data
 dictionary</a>.</p>
 </div>
@@ -3347,7 +3376,7 @@ per real economic output unit in a given sector of the companies in the
 loan book with that of the companies in the wider economy and the
 scenario trajectories for the loan book five years into the future,
 based on the SDA approach. The output data set can be found in the
-<code>output/analysis/standard/&lt;...&gt;/data_emission_intensity_&lt;sector&gt;.csv</code>
+<code>../analysis/standard/&lt;...&gt;/data_emission_intensity_&lt;sector&gt;.csv</code>
 file, where &lt;…&gt; will be replaced with the names of each of the
 groups in the variable set in the <code>by_group</code> parameter. This
 means that the emission intensity results always only show results for
@@ -3991,7 +4020,7 @@ is considered misaligned. The main purpose of this type of visualization
 is to provide an overview of system level alignment at one quick glance,
 at the expense of some detail that can be obtained from other plots. The
 output data set can be found in the
-<code>output/analysis/aggregated/data_sankey_sector&lt;...&gt;.csv</code>
+<code>../analysis/aggregated/data_sankey_sector&lt;...&gt;.csv</code>
 file, where &lt;…&gt; will be replaced with the names of each of the
 groups in the variable set in the <code>by_group</code> parameter.</p>
 <div class="section level5">
@@ -4555,7 +4584,7 @@ slightly slower to read than the sankey plot. Generally, this plot
 emphasizes the scale of the net aggregate alignment more than the
 exposure and is therefore a good complementary plot to the sankey plot.
 The output data set can be found in the
-<code>output/analysis/aggregated/data_scatter_alignment_exposure&lt;...&gt;.csv</code>
+<code>../analysis/aggregated/data_scatter_alignment_exposure&lt;...&gt;.csv</code>
 file, where &lt;…&gt; will be replaced with the names of each of the
 groups in the variable set in the <code>by_group</code> parameter.</p>
 <div class="section level5">
@@ -4599,7 +4628,7 @@ individual company level alignment is of concern for your use case, you
 will have to check company level results to validate that. The most
 comprehensive output data set to inspect company level net alignment
 metrics is the
-<code>output/analysis/aggregated/company_exposure_net_aggregate_alignment&lt;...&gt;.csv</code>
+<code>../analysis/aggregated/company_exposure_net_aggregate_alignment&lt;...&gt;.csv</code>
 file. Documentation for its contents can be found <a href="https://rmi-pacta.github.io/pacta.multi.loanbook/articles/data_dictionary.html#company-net-aggregate-alignment-metric-with-financial-exposures">here</a>.</p>
 </div>
 <div class="section level5">
@@ -5112,11 +5141,11 @@ drill down. The output data set is available both at the loan book level
 to compare the disaggregation by groups and at the company level to
 identify individual companies with strong drivers. The loan book level
 files can be found in the
-<code>output/analysis/aggregated/data_scatter_sector&lt;...&gt;.csv</code>
+<code>../analysis/aggregated/data_scatter_sector&lt;...&gt;.csv</code>
 file, where &lt;…&gt; will be replaced with the names of each of the
 groups in the variable set in the <code>by_group</code> parameter. The
 company level files can be found in the
-<code>output/analysis/aggregated/&lt;...&gt;/data_scatter_&lt;sector&gt;_company&lt;...&gt;.csv</code>
+<code>../analysis/aggregated/&lt;...&gt;/data_scatter_&lt;sector&gt;_company&lt;...&gt;.csv</code>
 file.</p>
 <div class="section level5">
 <h5 id="example-plots-buildout-phaseout-aggregate-alignment">Example Plots Buildout-Phaseout Aggregate Alignment<a class="anchor" aria-label="anchor" href="#example-plots-buildout-phaseout-aggregate-alignment"></a>
