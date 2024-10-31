@@ -32,6 +32,11 @@
 
 prepare_sector_split <- function(config) {
   config <- load_config(config)
+  
+  if (!get_apply_sector_split(config)) {
+    warning("`apply_sector_split` is `FALSE` in your config, so the `prepare_sector_split()` function will do nothing.")
+    return(invisible())
+  }
 
   # input/output paths for prepare_sector_split
   output_prepare_dir <- get_output_prepare_dir(config)
