@@ -188,6 +188,10 @@ run_aggregate_alignment_metric <- function(config) {
         " are present in the matched and prioritized loan book. Calculation of aggregated TMS results not possible. Skipping!"
       )
     )
+
+    company_technology_deviation_tms <- NULL
+    company_alignment_net_tms <- NULL
+    company_alignment_bo_po_tms <- NULL
   }
 
   ## prepare SDA company level P4B results for aggregation----
@@ -229,6 +233,8 @@ run_aggregate_alignment_metric <- function(config) {
         " are present in the matched and prioritized loan book. Calculation of aggregated SDA results not possible. Skipping!"
       )
     )
+
+    company_alignment_net_sda <- NULL
   }
 
 
@@ -264,37 +270,41 @@ run_aggregate_alignment_metric <- function(config) {
   }
 
   # net
-  if (nrow(company_alignment_net) > 0) {
-    aggregated_alignment_net <- company_alignment_net %>%
-      aggregate_alignment_loanbook_exposure(
-        matched = matched_prioritized,
+  if (!is.null(company_alignment_net)) {
+    if (nrow(company_alignment_net) > 0) {
+      aggregated_alignment_net <- company_alignment_net %>%
+        aggregate_alignment_loanbook_exposure(
+          matched = matched_prioritized,
+          level = "net",
+          .by = by_group
+        )
+
+      write_alignment_metric_to_csv(
+        data = aggregated_alignment_net,
+        output_dir = output_analysis_aggregated_dir,
         level = "net",
         .by = by_group
       )
-
-    write_alignment_metric_to_csv(
-      data = aggregated_alignment_net,
-      output_dir = output_analysis_aggregated_dir,
-      level = "net",
-      .by = by_group
-    )
+    }
   }
 
   # buildout / phaseout
-  if (nrow(company_alignment_bo_po_tms) > 0) {
-    aggregated_alignment_bo_po <- company_alignment_bo_po_tms %>%
-      aggregate_alignment_loanbook_exposure(
-        matched = matched_prioritized,
+  if (!is.null(company_alignment_bo_po_tms)) {
+    if (nrow(company_alignment_bo_po_tms) > 0) {
+      aggregated_alignment_bo_po <- company_alignment_bo_po_tms %>%
+        aggregate_alignment_loanbook_exposure(
+          matched = matched_prioritized,
+          level = "bo_po",
+          .by = by_group
+        )
+
+      write_alignment_metric_to_csv(
+        data = aggregated_alignment_bo_po,
+        output_dir = output_analysis_aggregated_dir,
         level = "bo_po",
         .by = by_group
       )
-
-    write_alignment_metric_to_csv(
-      data = aggregated_alignment_bo_po,
-      output_dir = output_analysis_aggregated_dir,
-      level = "bo_po",
-      .by = by_group
-    )
+    }
   }
 
 }
