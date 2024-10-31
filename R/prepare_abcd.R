@@ -26,7 +26,7 @@ prepare_abcd <- function(config) {
   stop_if_not_inherits(output_prepare_dir, "character")
 
   if (dir.exists(output_prepare_dir)) {
-    warning("Output directory `dir_prepared_abcd` already exists. The existing directory will be removed and replaced with the output of the current run.")
+    warning("Output directory `output_prepare_dir` already exists. The existing directory will be removed and replaced with the output of the current run.")
     unlink(output_prepare_dir, recursive = TRUE)
   }
   dir.create(output_prepare_dir, recursive = TRUE, showWarnings = FALSE)
