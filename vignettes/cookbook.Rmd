@@ -827,3 +827,117 @@ The variables in the table map to the figures as follows:
 - `phaseout`: Net aggregate alignment metric for the phase out component of the loan book or company. Maps to the y-axis. Aligned loan books or companies have a positive value, misaligned ones have a negative value.
 - `net`: The net aggregate alignment metric of the loan book or company. Maps to the hue of the dot. Aligned loan books or companies have a positive value (green hue), misaligned ones have a negative value (red hue).
 - `datapoint`: Indicates if the results are calculated at loan book or company level.
+
+# Advanced Use Cases
+
+This section provides a ore detailed look at some of the more advanced use cases of the `pacta.multi.loanbook` package for PACTA for Supervisors analysis. First, we will touch on the technical side of adjusting the analysis to your needs. Then, we will look at some research questions that may occur in the field of banking supervision with regard to climate transition risk and how the `pacta.multi.loanbook` package can help answer them.
+
+## Tailoring the P4S Analysis to Your Needs
+
+bla bla
+
+## Use Case: Identify Transition Risks at the System Level
+
+**Rationale:** Supervisors need a systemic overview of transition risks across the financial sector to understand vulnerabilities that could affect financial stability.
+
+**Method:** By analyzing different types of banks (e.g., systemically important banks, credit unions, specialized banks - lending to specific sectors, or banks with public commitments (e.g., targets, transition plans), supervisors can determine if transition risks are concentrated within particular bank categories. For instance, specialized banks focusing on fossil fuel sectors may face a higher transition risk if these exposures are significant across the sector. Identifying these patterns helps pinpoint specific areas of the financial system that could destabilize the broader economy.
+
+The `pacta.multi.loanbook` package can help supervisors check if certain bank types show significant patterns of misalignment and exposure that could warrant additional focus. For example, if we know that certain specialized banks are focused on fossil fuel sectors, we can check if these banks are more misaligned than others and if they have a higher exposure to misaligned companies. This can be done by comparing the net aggregate alignment metrics of different bank types and also comparing this to the system-wide misalignment.
+
+In terms of implementation, suppose we want to run the analysis at the aggregate system level as a reference and then determine how the different bank types compare to this. We can obtain the required results, by running the functions `prioritise_and_diagnose()` and `analyse()` twice, with different parameter settings, using the following steps:
+
+- We need to group the underlying loan books once by bank type and once aggregated across all banks. The parameter for that is the `by_group` parameter. The aggregate result can be obtained by setting `by_group = "NULL"` (this always works) and the bank type results can be obtained by setting `by_group = "bank_type"` (this assumes that the raw and matched loan books contain a variable called `bank_type` with the relevant classification). The results can then be compared to see if there are any significant differences in the net aggregate alignment metrics between the different bank types and the aggregate system level.
+- We also need to update the output directories for each of the runs to ensure the results of one configuration are not overwritten with the results of the other when rerunning the functions. For `prioritise_and_diagnose()`, we first set the output to something like: `dir_prioritized_loanbooks_and_diagnostics: "path/to/prioritized_loanbooks_and_diagnostics_aggregate"` and in the second run to `dir_prioritized_loanbooks_and_diagnostics: "path/to/prioritized_loanbooks_and_diagnostics_bank_type"`. For `analyse()`, we set the output to something like: `dir_analysis: "path/to/analysis_aggregate"` and in the second run to `dir_analysis: "path/to/analysis_bank_type"`. We also need to make sure that when we run analysis(), the config.yml file points to the correct output directories for both the `prioritized_loanbooks_and_diagnostics` and `analysis` functions, so the correct input files can be accessed.
+- After successfully running the functions for both sets of parameters, we have analysis results both at the aggregate system level and for the different bank types, based on the exact same input loan books and keeping all other model parameters constant. We can then compare the results to see if there are any significant differences in the net aggregate alignment metrics between the different bank types and the aggregate system level.
+
+Assuming you have followed the naming convention described here, your project folder should look something like this:
+
+```
+project_folder
+├── config.yml
+├── input
+│   ├── ABCD.xlsx
+│   ├── loanbooks
+│   │   ├── raw_loanbook_1.csv
+│   │   ├── raw_loanbook_2.csv
+│   │   └── ...
+│   ├── scenario_data_tms.csv
+│   ├── scenario_data_sda.csv
+│   └── ...
+├── prepared_abcd
+├── matched_loanbooks
+├── prioritized_loanbooks_and_diagnostics_aggregate
+├── prioritized_loanbooks_and_diagnostics_bank_type
+├── analysis_aggregate
+└── analysis_bank_type
+```
+
+Example interpretation:
+
+With our example results, we examine how the sectoral alignment differs between bank types and compared to the overall alignment at the aggregate financial sector level.
+
+```{r alignment_by_sector_aggregate, echo=FALSE, fig.cap='Fig. 16: Alignment by sector plot of loan books at the aggregate level. Data is based on simulated test loan books.', fig.align='center', out.width='80%'}
+knitr::include_graphics("../man/figures/use_cases_plot_scatter_alignment_exposure_aggregate.png")
+```
+
+```{r alignment_by_sector_bank_type, echo=FALSE, fig.cap='Fig. 17: Alignment by sector plot of loan books grouped by bank type. Data is based on simulated test loan books.', fig.align='center', out.width='80%'}
+knitr::include_graphics("../man/figures/use_cases_plot_scatter_alignment_exposure_bank_type.png")
+```
+
+## Use Case: Assess Individual Financial Institutions' Alignment and Transition Risk
+
+**Rationale:** Understanding the transition alignment of individual institutions supports targeted oversight and informed dialogue with entities facing significant transition exposures by tailoring their engagement and expectations based on each institution’s specific risk profile and capabilities.
+
+**Method:** Comparing institutions against benchmarks (e.g., industry benchmarks -corporate economy-; financial benchmarks -rest of banks-.) also highlights those needing improvement or with best practices. This enables a more precise understanding of each institution’s potential for transition risk and informs supervisory assessments and actions.
+
+The `pacta.multi.loanbook` package can help supervisors assess individual financial institutions' alignment and transition risk by providing detailed insights into the exposure and alignment of each institution. For example, supervisors can compare the net aggregate alignment metrics by financial exposure split by each of the banks and the sectors they operate in. This helps identify which banks have material exposures that are especially misaligned. Once identified, the standard PACTA for banks results can be used for a deep dive into the source of the misalignment of the identified institutions. For some sectors, this will be especially helpful, when PACTA can be used to identify misalignment at the technology level. If any particularly material sources of misalignment can be found for a bank, the supervisor may want to consider using this insight as part of their supervisory review and urge the bank to clarify if and how this exposure is accounted for in their risk management.
+
+The implementation of this use case is relatively straight-forward:
+
+- We simply need to run the full sequence of functions once, with the results grouped at the bank level. Recall that each loan book is automatically assigned a variable `"group_id"`, which can be used here. We thus set `by_group: "group_id"` in the `config.yml`.
+- We set output paths to something like: `dir_analysis: "path/to/analysis_group_id"` and `dir_prioritized_loanbooks_and_diagnostics: "path/to/prioritized_loanbooks_and_diagnostics_group_id"` to ensure that the results are not overwritten when rerunning the functions, in case any other calculations have been made before.
+- After running the functions, we have detailed results for each of the banks, which can be used to identify any material sources of misalignment and transition risk. The results can be used to inform supervisory assessments and actions.
+
+Assuming you have followed the naming convention described here, your project folder should look something like this:
+
+```
+project_folder
+├── config.yml
+├── input
+│   ├── ABCD.xlsx
+│   ├── loanbooks
+│   │   ├── raw_loanbook_1.csv
+│   │   ├── raw_loanbook_2.csv
+│   │   └── ...
+│   ├── scenario_data_tms.csv
+│   ├── scenario_data_sda.csv
+│   └── ...
+├── prepared_abcd
+├── matched_loanbooks
+├── prioritized_loanbooks_and_diagnostics_group_id
+└── analysis_group_id
+```
+
+Example interpretation:
+
+afnjafa
+
+## Use Case: Identify Hotspots and Interlinkages of Risk Exposure
+
+**Rationale:** Supervisors need to identify concentrations of transition risks within certain sectors or interlinkages across institutions to prevent risk contagion.
+
+**Method:** Pinpointing sectors with heightened risk exposures and identifying companies with high exposure across institutions. This could be a proxy to identify concentrated risk exposures.
+
+The `pacta.multi.loanbook` package can help supervisors identify hotspots and interlinkages of risk exposure by providing detailed insights into the exposure and alignment of each institution. For example, supervisors can compare the net aggregate alignment metrics by financial exposure split by each of the sectors and the banks that operate in them. This helps identify which sectors have material exposures that are especially misaligned. Once identified, the company level net aggregate alignment results can be used to analyze, if the banks have similar exposures to misaligned sectors and companies.
+**IDEALLY expand with demo company level results**
+
+## Use Case: Identify Potential Reputation Risks from Transition Misalignment
+
+**Rationale:** Many banks have made public commitments to align their portfolios with the Paris Agreement and signed up to initiatives that proclaim this target. Not following up on such commitments could lead to reputational risks for the banks, which should be managed.
+
+**Method:** Depending on the type of commitment made, it may be relevant to check if future alignment is broadly aligned across sectors for a bank, or alternatively, if the relevant sectors are aligned with the bank's commitments. The caveat to this exercise is that forward looking alignment does not capture past efforts the bank may already have made to align its portfolio. However, it can be a useful complementary tool to check if the bank is on track to meet its commitments in the future.
+
+**Expand**
+
+
+
