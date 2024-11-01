@@ -32,5 +32,8 @@ prepare_abcd <- function(config) {
   dir.create(output_prepare_dir, recursive = TRUE, showWarnings = FALSE)
 
   remove_inactive_companies(config)
-  prepare_sector_split(config)
+  
+  if (get_apply_sector_split(config)) {
+    prepare_sector_split(config)
+  }
 }

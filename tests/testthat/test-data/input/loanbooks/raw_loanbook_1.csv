@@ -1,0 +1,101 @@
+id_direct_loantaker,name_direct_loantaker,id_intermediate_parent_1,name_intermediate_parent_1,id_ultimate_parent,name_ultimate_parent,loan_size_outstanding,loan_size_outstanding_currency,loan_size_credit_limit,loan_size_credit_limit_currency,sector_classification_system,sector_classification_input_type,sector_classification_direct_loantaker,fi_type,flag_project_finance_loan,name_project,lei_direct_loantaker,isin_direct_loantaker,id_loan,foo
+C1673634,"Battaglia, Battaglia e Battaglia e figli",,,UP1673634,akita drilling ltd.,200327,EUR,1001634,EUR,NACE,Code,D35.11,Loan,No,,9845008F8E3FCC4CB850,,L1,No
+C13175,Boucsein KG,,,UP13175,athabasca oil corp.,1002641,EUR,5013204,EUR,NACE,Code,B06.1,Loan,No,,,,L2,No
+C1708642,Caputo SPA,,,UP1708642,axium foto light lp,385374,EUR,1926872,EUR,NACE,Code,D35.11,Loan,No,,,,L3,No
+C919,Tintzmann,,,UP919,"berkshire hathaway, inc.",26344,EUR,131720,EUR,NACE,Code,C29.10,Loan,No,,5493000C01ZX7D35SD85,,L4,No
+C37820,D'amico-D'amico SPA (hdv),,,UP37820,"byd co., ltd.",1336668,EUR,6683341,EUR,NACE,Code,C29.10,Loan,No,,5299005557VL7ULJ7A69,,L5,No
+C11654,"Marchetti, Marchetti e Marchetti Group",,,UP11654,calpine corp.,769409,EUR,3847043,EUR,NACE,Code,D35.11,Loan,No,,43R4VPJBXTU2O15HEF41,,L6,No
+C249809,Schmidt AG,,,UP249809,canada hibernia holding corp.,1469312,EUR,7346558,EUR,NACE,Code,B06.1,Loan,No,,,,L7,No
+C49291,Kassulke-Kassulke,,,UP49291,"canadian power holdings, inc.",917412,EUR,4587061,EUR,NACE,Code,D35.11,Loan,No,,54930098PJ4TABDHOT18,,L8,No
+C3431,"Cassin, Cassin and Cassin",,,UP3431,canadian utilities ltd.,430636,EUR,2153178,EUR,NACE,Code,D35.11,Loan,No,,LWV4QIQODEH3VBHUFX07,,L9,No
+C32294,O'Hara Inc,,,UP32294,ck hutchison holdings ltd.,2095910,EUR,10479551,EUR,NACE,Code,D35.11,Loan,No,,254900Z8HM1VEPOQ2G79,,L10,No
+C2575590,Kohler KG (hdv),,,UP2575590,cnrl,920909,EUR,4604546,EUR,NACE,Code,D35.11,Loan,No,,,,L11,No
+C1710857,Caruso Group,,,UP1710857,cnrl horizon,490773,EUR,2453867,EUR,NACE,Code,D35.11,Loan,No,,,,L12,No
+C510447,Giordano-Giordano e figli,,,UP510447,compagnia investimenti e sviluppo spa,289201,EUR,1446005,EUR,NACE,Code,D35.11,Loan,No,,,,L13,No
+C1502,Mariani-Mariani s.r.l.,,,UP1502,conocophillips,4332,EUR,21659,EUR,NACE,Code,D35.11,Loan,No,,WPTL2Z3FIYTHSP5V2253,,L14,No
+C1711202,Christiansen PLC,,,UP1711202,constance lake first nation,1178454,EUR,5892268,EUR,NACE,Code,D35.11,Loan,No,,,,L15,No
+C1656190,Wunsch LLC,,,UP1656190,csi gp glenarm ltd.,203869,EUR,1019347,EUR,NACE,Code,D35.11,Loan,No,,,,L16,No
+C507798,Lower Lower e.V.,,,UP507798,denso corp.,113455,EUR,567273,EUR,NACE,Code,C29.10,Loan,No,,549300RYPA10CQM3QK38,,L17,No
+C507798,Soding Soding Stiftung & Co. KG,,,UP507798,denso corp.,2158429,EUR,10792144,EUR,NACE,Code,C24.1,Loan,No,,549300RYPA10CQM3QK38,,L18,No
+C269800,Bolzmann KG,,,UP269800,dim wind lp,419699,EUR,2098494,EUR,NACE,Code,D35.11,Loan,No,,,,L19,No
+C8876,"Heaney, Heaney and Heaney",,,UP8876,emirate of abu dhabi (united arab emirates),877417,EUR,4387083,EUR,NACE,Code,B06.1,Loan,No,,213800FER4348CINTA77,,L20,No
+C1665453,"Rinaldi, Rinaldi e Rinaldi SPA",,,UP1665453,"enature greenhouses, inc.",589490,EUR,2947449,EUR,NACE,Code,D35.11,Loan,No,,,,L21,No
+C1713375,Sorgatz KGaA,,,UP1713375,erieau wind lp,1002325,EUR,5011624,EUR,NACE,Code,D35.11,Loan,No,,,,L22,No
+C2583435,"Cassin, Cassin and Cassin",,,UP2583435,estate of david sanford gottesman,254690,EUR,1273451,EUR,NACE,Code,D35.11,Loan,No,,,,L23,No
+C1498,Steckel GmbH,,,UP1498,exelon corp.,209160,EUR,1045798,EUR,NACE,Code,D35.11,Loan,No,,3SOUA6IRML7435B56G12,,L24,No
+C514897,Pacocha PLC,,,UP514897,exor nv (private equity),179418,EUR,897088,EUR,NACE,Code,C29.10,Loan,No,,,,L25,No
+C514897,"Sala, Sala e Sala e figli",,,UP514897,exor nv (private equity),854631,EUR,4273156,EUR,NACE,Code,D35.11,Loan,No,,,,L26,No
+C1126,"Romano, Romano e Romano Group (hdv)",,,UP1126,ford motor co.,530918,EUR,2654588,EUR,NACE,Code,D35.11,Loan,No,,20S05OYHG0MQM4VUIC57,,L27,No
+C1713837,Hoffmann (hdv),,,UP1713837,fort nelson first nation,123058,EUR,615291,EUR,NACE,Code,D35.11,Loan,No,,,,L28,No
+C7061,"Lockman, Lockman and Lockman",,,UP7061,geely automobile holdings ltd.,2789956,EUR,13949782,EUR,NACE,Code,C29.10,Loan,No,,549300YS3T1KVQ2SNI84,,L29,No
+C15545,"Kassulke, Kassulke and Kassulke",,,UP15545,general motors co.,2250139,EUR,11250693,EUR,NACE,Code,C29.10,Loan,No,,54930070NSV60J38I987,,L30,No
+C295164,Beahan-Beahan (hdv),,,UP295164,goldbeck gmbh,1298133,EUR,6490664,EUR,NACE,Code,D35.11,Loan,No,,39120001QDL61KJDKT09,,L31,No
+C19191,Ferrari s.r.l.,,,UP19191,government of china,2294843,EUR,11474217,EUR,NACE,Code,C29.10,Loan,No,,,,L32,No
+C78782,Hovel Hovel GmbH & Co. KGaA,,,UP78782,government of france,1974826,EUR,9874129,EUR,NACE,Code,C29.10,Loan,No,,,,L33,No
+C56234,Wiek KG,,,UP56234,government of india,1866392,EUR,9331959,EUR,NACE,Code,D35.11,Loan,No,,,,L34,No
+C512071,Butte e.V.,,,UP512071,government of italy,373289,EUR,1866446,EUR,NACE,Code,H51.1,Loan,No,,815600DE60799F5A9309,,L35,No
+C22863,Mende,,,UP22863,government of malaysia,679823,EUR,3399114,EUR,NACE,Code,C29.10,Loan,No,,254900GSIL471JOBYY43,,L36,No
+C26584,Caruso-Caruso e figli,,,UP26584,government of qatar,1083747,EUR,5418737,EUR,NACE,Code,C29.10,Loan,No,,52990074F6OJOAXK4P65,,L37,No
+C26584,Caruso Group,,,UP26584,government of qatar,575516,EUR,2877582,EUR,NACE,Code,D35.11,Loan,No,,52990074F6OJOAXK4P65,,L38,No
+C26586,"Grassi, Grassi e Grassi s.r.l.",,,UP26586,government of saudi arabia,1852843,EUR,9264213,EUR,NACE,Code,C29.10,Loan,No,,635400FMICXSM3SI3H65,,L39,No
+C78785,Pellegrino s.r.l.,,,UP78785,government of the netherlands,954449,EUR,4772244,EUR,NACE,Code,B06.1,Loan,No,,254900G14ALGVKORFN62,,L40,No
+C507699,Giordano-Giordano e figli (hdv),,,UP507699,groupe bruxelles lambert sa,2224694,EUR,11123472,EUR,NACE,Code,D35.11,Loan,No,,549300KV0ZEHT2KVU152,,L41,No
+C511422,Hess Hess AG,,,UP511422,"guolian securities co., ltd.",291556,EUR,1457781,EUR,NACE,Code,C29.10,Loan,No,,529900KPCMJWM8DFU805,,L42,No
+C1716386,Heinz,,,UP1716386,irrican hydro,1556791,EUR,7783956,EUR,NACE,Code,D35.11,Loan,No,,,,L43,No
+C88440,Lubowitz-Lubowitz,,,UP88440,jameson resources ltd.,1756738,EUR,8783692,EUR,NACE,Code,B05.1,Loan,No,,,,L44,No
+C518789,Soding Soding Stiftung & Co. KG,,,UP518789,"kimmeridge energy management co., inc.",779429,EUR,3897143,EUR,NACE,Code,D35.11,Loan,No,,,,L45,No
+C325577,Nette e.G.,,,UP325577,"kumiai senpaku co., ltd.",1834880,EUR,9174401,EUR,NACE,Code,D35.11,Loan,No,,,,L46,No
+C1717588,Montanari-Montanari Group,,,UP1717588,lfg power corporation,1066585,EUR,5332927,EUR,NACE,Code,D35.11,Loan,No,,,,L47,No
+C2493678,"Hauck, Hauck and Hauck",,,UP2493678,lundin family,1490391,EUR,7451957,EUR,NACE,Code,D35.11,Loan,No,,,,L48,No
+C1718053,"Ferretti, Ferretti e Ferretti SPA (hdv)",,,UP1718053,manulife,876718,EUR,4383588,EUR,NACE,Code,D35.11,Loan,No,,,,L49,No
+C5627,"King, King and King",,,UP5627,marubeni corp.,1366216,EUR,6831082,EUR,NACE,Code,B06.1,Loan,No,,4P4N3ORD02UGQT1T1W12,,L50,No
+C507673,"Cassin, Cassin and Cassin",,,UP507673,meiji yasuda life insurance co.,357361,EUR,1786804,EUR,NACE,Code,C29.10,Loan,No,,549300SLU4LP6YMRLK07,,L51,No
+C507673,D'amico-D'amico SPA,,,UP507673,meiji yasuda life insurance co.,460695,EUR,2303474,EUR,NACE,Code,B06.1,Loan,No,,549300SLU4LP6YMRLK07,,L52,No
+C1718377,Mante-Mante,,,UP1718377,met fiera solar midhurst 3 lp,1799061,EUR,8995306,EUR,NACE,Code,D35.11,Loan,No,,,,L53,No
+C1718381,"Pagano, Pagano e Pagano s.r.l.",,,UP1718381,met fiera solar orillia 2 lp,435651,EUR,2178253,EUR,NACE,Code,D35.11,Loan,No,,,,L54,No
+C5673,Franke Franke AG & Co. KG,,,UP5673,mitsubishi corp.,456782,EUR,2283911,EUR,NACE,Code,C23.51,Loan,No,,KVIPTY4PULAPGC1VVD26,,L55,No
+C5673,Schlosser GmbH & Co. KG,,,UP5673,mitsubishi corp.,212279,EUR,1061395,EUR,NACE,Code,D35.11,Loan,No,,KVIPTY4PULAPGC1VVD26,,L56,No
+C12131,Armstrong-Armstrong,,,UP12131,"mitsubishi ufj financial group, inc.",2091399,EUR,10456997,EUR,NACE,Code,D35.11,Loan,No,,353800V2V8PUY9TK3E06,,L57,No
+C510681,Kassulke-Kassulke,,,UP510681,"ms&ad insurance group holdings, inc.",373084,EUR,1865422,EUR,NACE,Code,H51.1,Loan,No,,529900CXROT5S2HMMP26,,L58,No
+C1389,Kris-Kris,,,UP1389,murphy oil corp.,1273807,EUR,6369034,EUR,NACE,Code,B06.1,Loan,No,,,,L59,No
+C1707345,D'amico-D'amico SPA,,,UP1707345,nipiy-wof hydrokap l p,834010,EUR,4170051,EUR,NACE,Code,D35.11,Loan,No,,,,L60,No
+C506752,"Cassin, Cassin and Cassin",,,UP506752,nippon life insurance co.,217253,EUR,1086267,EUR,NACE,Code,D35.11,Loan,No,,549300Y0HHMFW3EVWY08,,L61,No
+C5892,Santoro SPA,,,UP5892,nippon steel corp.,567761,EUR,2838806,EUR,NACE,Code,C29.10,Loan,No,,35380065QWQ4U2V3PA33,,L62,No
+C259263,Reichmann Stiftung & Co. KGaA,,,UP259263,north coal pty ltd.,2232384,EUR,11161918,EUR,NACE,Code,B05.1,Loan,No,,,,L63,No
+C506756,Hellwig AG,,,UP506756,northern trust corp.,2140152,EUR,10700762,EUR,NACE,Code,B06.1,Loan,No,,549300GLF98S992BC502,,L64,No
+C1719380,Zobel (hdv),,,UP1719380,nova chemicals,708219,EUR,3541097,EUR,NACE,Code,D35.11,Loan,No,,,,L65,No
+C358899,Costantini-Costantini SPA,,,UP358899,pbc,263285,EUR,1316426,EUR,NACE,Code,D35.11,Loan,No,,,,L66,No
+C1701321,Bailey LLC,,,UP1701321,pieridae energy ltd.,967401,EUR,4837003,EUR,NACE,Code,D35.11,Loan,No,,,,L67,No
+C1720431,Coppola SPA,,,UP1720431,pituvik,2733563,EUR,13667816,EUR,NACE,Code,D35.11,Loan,No,,,,L68,No
+C6813,Raynor-Raynor (hdv),,,UP6813,power assets holdings ltd.,524982,EUR,2624909,EUR,NACE,Code,D35.11,Loan,No,,254900JOWYUW1ZX4DF47,,L69,No
+C88785,"Pagano, Pagano e Pagano s.r.l.",,,UP88785,"real goods solar, inc.",2086835,EUR,10434173,EUR,NACE,Code,D35.11,Loan,No,,549300EM7GDZLPMNEX47,,L70,No
+C1534,"Schinner, Schinner and Schinner (hdv)",,,UP1534,repsol sa,564824,EUR,2824121,EUR,NACE,Code,D35.11,Loan,No,,BSYCX13Y0NOTV14V9N85,,L71,No
+C1721352,Gulgowski and Sons,,,UP1721352,riegîm,56628,EUR,283141,EUR,NACE,Code,D35.11,Loan,No,,,,L72,No
+C1656584,Heidrich GmbH,,,UP1656584,roseplain solar farm partnership,1078955,EUR,5394775,EUR,NACE,Code,D35.11,Loan,No,,549300JZ485ECNGIRW89,,L73,No
+C507948,Damico SPA,,,UP507948,sacyr sa,428179,EUR,2140897,EUR,NACE,Code,D35.11,Loan,No,,959800XKAB9VNAVN9425,,L74,No
+C506786,"Cassin, Cassin and Cassin",,,UP506786,"samsung electronics co., ltd.",492710,EUR,2463551,EUR,NACE,Code,C29.10,Loan,No,,9884007ER46L6N7EI764,,L75,No
+C506786,Soding Soding Stiftung & Co. KG,,,UP506786,"samsung electronics co., ltd.",2966429,EUR,14832143,EUR,NACE,Code,D35.11,Loan,No,,9884007ER46L6N7EI764,,L76,No
+C4505,Friesen PLC,,,UP4505,sasol ltd.,71973,EUR,359865,EUR,NACE,Code,B06.1,Loan,No,,378900F4544561A97588,,L77,No
+C4505,Lockman-Lockman,,,UP4505,sasol ltd.,411951,EUR,2059754,EUR,NACE,Code,D35.11,Loan,No,,378900F4544561A97588,,L78,No
+C390237,Kaster AG,,,UP390237,slave lake pulp,809472,EUR,4047359,EUR,NACE,Code,D35.11,Loan,No,,,,L79,No
+C514900,"Marchetti, Marchetti e Marchetti Group",,,UP514900,spreadex ltd.,43278,EUR,216389,EUR,NACE,Code,D35.11,Loan,No,,213800D8Y3L51SB9F532,,L80,No
+C511963,Kruschwitz,,,UP511963,stellantis nv,498305,EUR,2491523,EUR,NACE,Code,C29.10,Loan,No,,549300LKT9PW7ZIBDF31,,L81,No
+C38085,Pechel,,,UP38085,"sumitomo mitsui financial group, inc.",895666,EUR,4478328,EUR,NACE,Code,C23.51,Loan,No,,35380028MYWPB6AUO129,,L82,No
+C510441,Wende Wende AG & Co. OHG,,,UP510441,"sumitomo mitsui trust holdings, inc.",672974,EUR,3364872,EUR,NACE,Code,C29.10,Loan,No,,353800P843RLCDBLNT17,,L83,No
+C507874,"Sorrentino, Sorrentino e Sorrentino e figli (hdv)",,,UP507874,"sumitomo realty & development co., ltd.",683236,EUR,3416182,EUR,NACE,Code,D35.11,Loan,No,,,,L84,No
+C3960,"Maggio, Maggio and Maggio",,,UP3960,"suncor energy, inc.",883079,EUR,4415396,EUR,NACE,Code,D35.11,Loan,No,,549300W70ZOQDVLCHY06,,L85,No
+C1723533,D'angelo-D'angelo Group,,,UP1723533,sune alfred lp,1822538,EUR,9112691,EUR,NACE,Code,D35.11,Loan,No,,,,L86,No
+C1723552,Lorch AG & Co. KG,,,UP1723552,sune odessa lp,1610657,EUR,8053283,EUR,NACE,Code,D35.11,Loan,No,,,,L87,No
+C512261,Rinaldi-Rinaldi s.r.l.,,,UP512261,temagami mining co. ltd.,439120,EUR,2195598,EUR,NACE,Code,B06.1,Loan,No,,,,L88,No
+C508864,Ullrich-Ullrich,,,UP508864,the heico cos. llc,648902,EUR,3244508,EUR,NACE,Code,C24.1,Loan,No,,1TI3K7RW3ADNAY6GWN41,,L89,No
+C507792,Milani-Milani SPA,,,UP507792,"tokio marine holdings, inc.",1168052,EUR,5840260,EUR,NACE,Code,B05.1,Loan,No,,5299009QN2NZ191KLS29,,L90,No
+C507829,Vitali-Vitali Group,,,UP507829,toyota industries corp.,409990,EUR,2049949,EUR,NACE,Code,C29.10,Loan,No,,35380000WKGEAHEMW830,,L91,No
+C507829,Soding Soding Stiftung & Co. KG,,,UP507829,toyota industries corp.,3075824,EUR,15379120,EUR,NACE,Code,C24.1,Loan,No,,35380000WKGEAHEMW830,,L92,No
+C6459,Kassulke-Kassulke,,,UP6459,toyota motor corp.,152691,EUR,763454,EUR,NACE,Code,C29.10,Loan,No,,5493006W3QUS5LMH6R84,,L93,No
+C4014,"Cassin, Cassin and Cassin",,,UP4014,transalta corp.,37740,EUR,188698,EUR,NACE,Code,D35.11,Loan,No,,GJZNVO2UY6DNFNIYH321,,L94,No
+C2571637,Neri e figli,,,UP2571637,"under sun acres green energy, inc.",1045575,EUR,5227877,EUR,NACE,Code,D35.11,Loan,No,,,,L95,No
+C1698597,"Messina, Messina e Messina e figli",,,UP1698597,"vineland power, inc.",2280961,EUR,11404804,EUR,NACE,Code,D35.11,Loan,No,,549300XNE6U21PAXTI03,,L96,No
+C6729,"Gutkowski, Gutkowski and Gutkowski",,,UP6729,volvo ab,3073450,EUR,15367248,EUR,NACE,Code,C29.10,Loan,No,,549300HGV012CNC8JD22,,L97,No
+C1725837,Rohleder AG,,,UP1725837,wm québec,267581,EUR,1337905,EUR,NACE,Code,D35.11,Loan,No,,,,L98,No
+C1725867,Schuler,,,UP1725867,wpd sumac ridge wind incorporated,2078418,EUR,10392088,EUR,NACE,Code,D35.11,Loan,No,,,,L99,No
+C1725929,Neri e figli,,,UP1725929,xeitl,322664,EUR,1613320,EUR,NACE,Code,D35.11,Loan,No,,,,L100,No
