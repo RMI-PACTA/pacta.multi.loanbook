@@ -44,7 +44,7 @@ Imports:
     networkD3,
     r2dii.analysis,
     r2dii.data (>= 0.5.0),
-    r2dii.match,
+    r2dii.match (>= 0.2.0),
     r2dii.plot (>= 0.4.0),
     readr (>= 2.0.0),
     readxl,
