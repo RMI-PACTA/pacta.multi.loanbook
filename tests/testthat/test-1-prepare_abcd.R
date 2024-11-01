@@ -1,4 +1,4 @@
-test_that("", {
+test_that("with known input, runs without error", {
   config <-
     list(
       directories = list(
