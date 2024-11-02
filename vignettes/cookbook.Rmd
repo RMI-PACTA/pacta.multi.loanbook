@@ -920,7 +920,22 @@ project_folder
 
 Example interpretation:
 
-afnjafa
+Firstly, we can see that the total exposure of the loan books 7 & 8 (the specialized banks) is comparatively high for the coal mining and the oil and gas sectors. However, the match success rate is not very high, especially in oil and gas. This would warrant special caution in interpreting any results and should be taken as a prompt to revisit options on increasing the match success rate (**LINK**).
+```{r exposure_by_sector_group_id, echo=FALSE, fig.cap='Fig. 18: Match success rate in loan size outstanding at the individual bank level. Data is based on simulated test loan books.', fig.align='center', out.width='80%'}
+knitr::include_graphics("../man/figures/use_cases_plot_match_success_rate_abs_outstanding_group_id.png")
+```
+
+
+The analysis then reveals two things about the specialized banks, which focus on fossil fuel lending. Firstly, bank 7 has a comparatively good net alignment in oil & gas for the matched exposure and easily leads the sector in total matched exposure across banks. In coal mining it is not performing as well and looks to be middle-of-the-pack overall. In the power sector, it has by far the best net alignment, but the matched exposure is not among the highest across all banks.
+In summary, it seems like bank 7 is using its specialization to fund companies that are performing well in terms of aligning with ambitious transition scenarios.
+
+Bank 8, on the other hand, has a much lower matched exposure to the oil & gas sector (due to a low match success rate) and is among the worst performers in terms of net alignment in this sector. Before making quick conclusions, it would be important to analyse the impact of the poor matching result on the net aggregate metric in this sector. Bank 8 is middle-of-the-pack in the coal and power sectors, both in terms of exposure and alignment.
+
+```{r alignment_by_sector_group_id, echo=FALSE, fig.cap='Fig. 19: Alignment by sector plot of loan books at the aggregate level. Data is based on simulated test loan books.', fig.align='center', out.width='80%'}
+knitr::include_graphics("../man/figures/use_cases_plot_scatter_alignment_exposure_group_id.png")
+```
+
+**DEEP DIVE 7 & 8**
 
 ## Use Case: Identify Hotspots and Interlinkages of Risk Exposure
 
