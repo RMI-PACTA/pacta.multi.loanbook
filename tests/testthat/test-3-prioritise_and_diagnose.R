@@ -20,14 +20,6 @@ test_that("with known input, runs without error", {
         sector_split_type = "equal_weights"
       ),
       matching = list(
-        params_match_name = list(
-          by_sector = TRUE,
-          min_score = 0.9,
-          method = "jw",
-          p = 0.1,
-          overwrite = NULL,
-          join_id = NULL
-        ),
         manual_sector_classification = list(
           use_manual_sector_classification = FALSE
         )
