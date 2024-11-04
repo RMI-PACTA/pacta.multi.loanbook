@@ -16,8 +16,7 @@ test_that("with known input, runs without error", {
         by_group = "group_id"
       ),
       sector_split = list(
-        apply_sector_split = FALSE,
-        sector_split_type = "equal_weights"
+        apply_sector_split = FALSE
       ),
       matching = list(
         params_match_name = list(
