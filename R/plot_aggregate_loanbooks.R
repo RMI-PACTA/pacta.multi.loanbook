@@ -175,7 +175,7 @@ plot_aggregate_loanbooks <- function(config) {
       nodes_order_from_data = TRUE
     )
   } else {
-    print("Sankey plot (by sector) cannot be generated. Skipping!")
+    warning("Sankey plot (by sector) cannot be generated. Skipping!")
   }
 
   if (!is.null(company_aggregated_alignment_net)) {
@@ -210,7 +210,7 @@ plot_aggregate_loanbooks <- function(config) {
       png_name = glue::glue("plot_{output_file_sankey_company_sector}.png")
     )
   } else {
-    print("Sankey plot (by sector and company) cannot be generated. Skipping!")
+    warning("Sankey plot (by sector and company) cannot be generated. Skipping!")
   }
 
   ### scatter plot alignment by exposure and sector comparison----
@@ -264,7 +264,7 @@ plot_aggregate_loanbooks <- function(config) {
       )
     }
   } else {
-    print("Scatter plot exposure by alignment cannot be generated. Skipping!")
+    warning("Scatter plot exposure by alignment cannot be generated. Skipping!")
   }
 
   ### scatter plot for group level comparison----
@@ -323,7 +323,7 @@ plot_aggregate_loanbooks <- function(config) {
       )
     }
   } else {
-    print(
+    warning(
       glue::glue("Scatter plot BO/PO cannot be generated. Skipping!")
     )
   }
@@ -381,7 +381,7 @@ plot_aggregate_loanbooks <- function(config) {
       )
     }
   } else {
-    print(
+    warning(
       glue::glue("Scatter plot BO/PO cannot be generated. Skipping!")
     )
   }
@@ -478,7 +478,7 @@ plot_aggregate_loanbooks <- function(config) {
       }
     }
   } else {
-    print(
+    warning(
       glue::glue("Scatter plot BO/PO cannot be generated at company level. Skipping!")
     )
   }
@@ -544,7 +544,7 @@ plot_aggregate_loanbooks <- function(config) {
       }
     }
   } else {
-    print(
+    warning(
       glue::glue("Scatter plot BO/PO cannot be generated at company level. Skipping!")
     )
   }
