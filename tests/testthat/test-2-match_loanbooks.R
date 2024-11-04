@@ -2,9 +2,9 @@ test_that("with known input, runs without error", {
   config <-
     list(
       directories = list(
-        dir_input = test_path("test-data", "input"),
-        dir_prepared_abcd = test_path("test-data", "output", "prepared_abcd"),
-        dir_matched_loanbooks = test_path("test-data", "output", "matched_loanbooks")
+        dir_input = file.path(test_tmpdir, "input"),
+        dir_prepared_abcd = file.path(test_tmpdir, "output", "prepared_abcd"),
+        dir_matched_loanbooks = file.path(test_tmpdir, "output", "matched_loanbooks")
       ),
       matching = list(
         params_match_name = list(
