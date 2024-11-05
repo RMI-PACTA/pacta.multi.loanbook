@@ -830,7 +830,7 @@ The variables in the table map to the figures as follows:
 
 # Advanced Use Cases
 
-This section provides a ore detailed look at some of the more advanced use cases of the `pacta.multi.loanbook` package for PACTA for Supervisors analysis. First, we will touch on the technical side of adjusting the analysis to your needs. Then, we will look at some research questions that may occur in the field of banking supervision with regard to climate transition risk and how the `pacta.multi.loanbook` package can help answer them.
+This section provides a more detailed look at some of the more advanced use cases of the `pacta.multi.loanbook` package for PACTA for Supervisors analysis. First, we will touch on the technical side of adjusting the analysis to your needs. Then, we will look at some research questions that may occur in the field of banking supervision with regard to climate transition risk and how the `pacta.multi.loanbook` package can help answer them.
 
 ## Tailoring the P4S Analysis to Your Needs
 
