@@ -10,12 +10,6 @@ reference:
   - match_loanbooks
   - prioritise_and_diagnose
   - analyse
-  - run_pacta
-
-- title: Plotting
-  desc:  Make plots with the results of the analysis.
-- contents:
-  - starts_with("plot_|prep_")
 
 - title: Data
   desc:  Datasets that are included.

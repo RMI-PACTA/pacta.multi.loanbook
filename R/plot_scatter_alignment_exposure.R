@@ -14,10 +14,9 @@
 #' @param currency Character. Currency to display in the plot labels.
 #'
 #' @return object of type "ggplot"
-#' @export
 #'
-#' @examples
-#' # TODO
+#' @noRd
+
 plot_scatter_alignment_exposure <- function(data,
                                             floor_outliers,
                                             cap_outliers,

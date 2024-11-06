@@ -6,6 +6,9 @@
 #' @return `NULL` (called for side effects)
 #'
 #' @importFrom rlang :=
+#'
+#' @noRd
+
 run_pacta <- function(config) {
   config <- load_config(config)
 

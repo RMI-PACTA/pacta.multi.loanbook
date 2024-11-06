@@ -15,10 +15,9 @@
 #'   better looking plot) or should they be ordered based on data.
 #'
 #' @return NULL
-#' @export
 #'
-#' @examples
-#' # TODO
+#' @noRd
+
 plot_sankey <- function(data,
                         group_var,
                         capitalise_node_labels = TRUE,
