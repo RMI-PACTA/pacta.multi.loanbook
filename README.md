@@ -9,7 +9,7 @@ status](https://www.r-pkg.org/badges/version/pacta.multi.loanbook)](https://CRAN
 [![pacta.multi.loanbook status badge](https://rmi-pacta.r-universe.dev/badges/pacta.multi.loanbook)](https://rmi-pacta.r-universe.dev/pacta.multi.loanbook)
 <!-- badges: end -->
 
-The goal of `pacta.multi.loanbook` is to provide a standardized and user-friendly interface for anyone who wants to run PACTA on multiple loan books. The main use case in mind is facilitating alignment analysis in a financial supervisory context, where many financial institutions and/or loan books will be analyzed. The package aims to streamline the required steps as much as possible to avoid cumbersome repetitions of as many steps as possible. It also aims to remain flexible for tailoring the analysis to the individual needs of a project to provide useful insights for many research questions around transition alignment and transition risk.
+The goal of `pacta.multi.loanbook` is to provide a standardized and user-friendly interface for anyone who wants to run PACTA on multiple loan books. The main use case in mind is facilitating alignment analysis in a financial supervisory context, where many financial institutions and/or loan books will be analyzed. The package aims to streamline the required steps as much as possible to avoid cumbersome repetitions. It also aims to remain flexible for tailoring the analysis to the individual needs of a project to provide useful insights for many research questions around transition alignment and transition risk.
 
 ## Installation
 
