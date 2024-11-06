@@ -665,9 +665,10 @@ each run.</p>
 of the steps of the analysis, starting with a brief explanation of the
 setup, as each of the functions will require the path to the
 <code>config.yml</code> file as an input argument.</p>
-<div class="section level4">
-<h4 id="setup">Setup<a class="anchor" aria-label="anchor" href="#setup"></a>
-</h4>
+</div>
+<div class="section level3">
+<h3 id="setup">Setup<a class="anchor" aria-label="anchor" href="#setup"></a>
+</h3>
 <p>If you run PACTA for Supervisors interactively or from a script you
 may have prepared, you will likely want to load the
 <code>pacta.multi.loanbook</code> package and save the path to the
@@ -678,9 +679,9 @@ may have prepared, you will likely want to load the
 <p>This allows you passing the relevant config information easily to
 each of the four main functions.</p>
 </div>
-<div class="section level4">
-<h4 id="data-preparation">Data preparation<a class="anchor" aria-label="anchor" href="#data-preparation"></a>
-</h4>
+<div class="section level3">
+<h3 id="data-preparation">Data preparation<a class="anchor" aria-label="anchor" href="#data-preparation"></a>
+</h3>
 <p>The first step of the analysis is to prepare your input data sets for
 the requirements of the analysis. Your ABCD data will need to be
 prepared and you can optionally use a custom sector split, that will
@@ -693,9 +694,9 @@ corresponding to the key <code>dir_prepared_abcd</code> in the
 analysis. You can run this function as follows:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">pacta.multi.loanbook</span><span class="fu">::</span><span class="fu"><a href="../reference/prepare_abcd.html">prepare_abcd</a></span><span class="op">(</span><span class="va">config_path</span><span class="op">)</span></span></code></pre></div>
-<div class="section level5">
-<h5 id="options-for-the-prepare_abcd-function">Options for the <code>prepare_abcd()</code> function<a class="anchor" aria-label="anchor" href="#options-for-the-prepare_abcd-function"></a>
-</h5>
+<div class="section level4">
+<h4 id="options-for-the-prepare_abcd-function">Options for the <code>prepare_abcd()</code> function<a class="anchor" aria-label="anchor" href="#options-for-the-prepare_abcd-function"></a>
+</h4>
 <p>The <code><a href="../reference/prepare_abcd.html">prepare_abcd()</a></code> function has a number of options that
 can be set in the <code>config.yml</code> file. These options
 include:</p>
@@ -713,9 +714,9 @@ of the sector split methodology</a>.</li>
 <!--- TODO: move sector split documentation to this repository-->
 </div>
 </div>
-<div class="section level4">
-<h4 id="matching-process">Matching process<a class="anchor" aria-label="anchor" href="#matching-process"></a>
-</h4>
+<div class="section level3">
+<h3 id="matching-process">Matching process<a class="anchor" aria-label="anchor" href="#matching-process"></a>
+</h3>
 <p>The next step in the analysis is to run the matching process.
 Assuming you have prepared the raw loan books as explained in <a href="#id_##%20Raw%20Loan%20Books">the section on preparing the input
 data sets</a>, you can now use the <code><a href="../reference/match_loanbooks.html">match_loanbooks()</a></code>
@@ -751,9 +752,9 @@ the training material on the <a href="https://pacta.rmi.org/pacta-for-banks-2020
 website</a> in the section “PACTA for Banks Training Webinar 2” and in
 the <a href="https://pacta.rmi.org/wp-content/uploads/2020/12/PACTA-for-Banks-Training-Webinar-2-Matching-a-loan-book-to-physical-assets-in-the-real-economy-.pdf" class="external-link">corresponding
 slide deck</a>.</p>
-<div class="section level5">
-<h5 id="some-expectations-for-the-matching-process">Some expectations for the matching process<a class="anchor" aria-label="anchor" href="#some-expectations-for-the-matching-process"></a>
-</h5>
+<div class="section level4">
+<h4 id="some-expectations-for-the-matching-process">Some expectations for the matching process<a class="anchor" aria-label="anchor" href="#some-expectations-for-the-matching-process"></a>
+</h4>
 <ul>
 <li>It is unlikely that you will be able to match all of the loans from
 your raw loan books to the ABCD data set. This is expected and has the
@@ -798,9 +799,9 @@ described in <a href="#id_##%20Prioritization%20of%20loan%20books;%20Match%20suc
 next section on prioritization and diagnostics</a>.</li>
 </ul>
 </div>
-<div class="section level5">
-<h5 id="options-for-the-match_loanbooks-function">Options for the <code>match_loanbooks()</code> function<a class="anchor" aria-label="anchor" href="#options-for-the-match_loanbooks-function"></a>
-</h5>
+<div class="section level4">
+<h4 id="options-for-the-match_loanbooks-function">Options for the <code>match_loanbooks()</code> function<a class="anchor" aria-label="anchor" href="#options-for-the-match_loanbooks-function"></a>
+</h4>
 <p>The <code><a href="../reference/match_loanbooks.html">match_loanbooks()</a></code> function has a number of options
 that can be set in the <code>config.yml</code> file. These options
 include:</p>
@@ -823,9 +824,9 @@ not. If not, the sector classification systems provided in
 <code><a href="https://rmi-pacta.github.io/r2dii.data/reference/sector_classifications.html" class="external-link">r2dii.data::sector_classifications</a></code> can be used.</li>
 </ul>
 </div>
-<div class="section level5">
-<h5 id="addressing-misclassfied-loans">Addressing misclassfied loans<a class="anchor" aria-label="anchor" href="#addressing-misclassfied-loans"></a>
-</h5>
+<div class="section level4">
+<h4 id="addressing-misclassfied-loans">Addressing misclassfied loans<a class="anchor" aria-label="anchor" href="#addressing-misclassfied-loans"></a>
+</h4>
 <p>There are two ways to appropriately handle misclassified loans that
 are identified as in-scope in the raw data set but are then not
 matched.</p>
@@ -859,10 +860,10 @@ spent on this, but it is recommended to at least correct large
 mis-classified loans.</p>
 </div>
 </div>
-<div class="section level4">
-<h4 id="prioritization-of-loan-books-match-success-and-coverage-diagnostics">Prioritization of loan books; Match success and coverage
+<div class="section level3">
+<h3 id="prioritization-of-loan-books-match-success-and-coverage-diagnostics">Prioritization of loan books; Match success and coverage
 diagnostics<a class="anchor" aria-label="anchor" href="#prioritization-of-loan-books-match-success-and-coverage-diagnostics"></a>
-</h4>
+</h3>
 <p>The next step is to prioritize the manually verified matched loan
 books and analyze their coverage, both relative to the raw loan book
 inputs (the “match success rate”) and to the production capacity in the
@@ -884,9 +885,9 @@ directory that you have indicated as the value corresponding to the key
 <code>config.yml</code>. You can then run the function as follows:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">pacta.multi.loanbook</span><span class="fu">::</span><span class="fu"><a href="../reference/prioritise_and_diagnose.html">prioritise_and_diagnose</a></span><span class="op">(</span><span class="va">config_path</span><span class="op">)</span></span></code></pre></div>
-<div class="section level5">
-<h5 id="options-for-the-prioritise_and_diagnose-function">Options for the <code>prioritise_and_diagnose()</code> function<a class="anchor" aria-label="anchor" href="#options-for-the-prioritise_and_diagnose-function"></a>
-</h5>
+<div class="section level4">
+<h4 id="options-for-the-prioritise_and_diagnose-function">Options for the <code>prioritise_and_diagnose()</code> function<a class="anchor" aria-label="anchor" href="#options-for-the-prioritise_and_diagnose-function"></a>
+</h4>
 <p>The <code><a href="../reference/prioritise_and_diagnose.html">prioritise_and_diagnose()</a></code> function has a number of
 options that can be set in the <code>config.yml</code> file. These
 options include:</p>
@@ -902,9 +903,9 @@ of the r2dii.match::prioritize() function here</a>.</li>
 </ul>
 </div>
 </div>
-<div class="section level4">
-<h4 id="run-pacta-for-supervisors-analysis">Run PACTA for Supervisors analysis<a class="anchor" aria-label="anchor" href="#run-pacta-for-supervisors-analysis"></a>
-</h4>
+<div class="section level3">
+<h3 id="run-pacta-for-supervisors-analysis">Run PACTA for Supervisors analysis<a class="anchor" aria-label="anchor" href="#run-pacta-for-supervisors-analysis"></a>
+</h3>
 <p>The final step is running the analysis based on the parameters you
 have set in the <code>config.yml</code> file. This entails both a
 standard PACTA for Banks analysis and the calculation of the net
@@ -919,10 +920,10 @@ the analysis on all of your previously matched and prioritized loan
 books, you will use the <code><a href="../reference/analyse.html">analyse()</a></code> function as follows:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">pacta.multi.loanbook</span><span class="fu">::</span><span class="fu"><a href="../reference/analyse.html">analyse</a></span><span class="op">(</span><span class="va">config_path</span><span class="op">)</span></span></code></pre></div>
-<div class="section level5">
-<h5 id="options-for-the-analysis-function-and-the-overall-analysis">Options for the <code>analysis()</code> function and the overall
+<div class="section level4">
+<h4 id="options-for-the-analysis-function-and-the-overall-analysis">Options for the <code>analysis()</code> function and the overall
 analysis<a class="anchor" aria-label="anchor" href="#options-for-the-analysis-function-and-the-overall-analysis"></a>
-</h5>
+</h4>
 <p>The <code>analysis()</code> function has a number of options that can
 be set in the <code>config.yml</code> file. These options include:</p>
 <ul>
@@ -970,7 +971,6 @@ by_group, possibly also for multiple combinations of the other
 parameters. You will therefore have to run the analysis as many times as
 there are combinations of interest that you wish to generate results
 for.</p>
-</div>
 </div>
 </div>
 </div>
