@@ -20,7 +20,7 @@ Or install the development version of r2dii.analysis from GitHub with:
 
 ``` r
 # install.packages("pak")
-pak::pak("RMI-PACTA/r2dii.analysis")
+pak::pak("RMI-PACTA/pacta.multi.loanbook")
 ```
 
 ## Resources and documentation
