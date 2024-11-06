@@ -9,27 +9,42 @@ status](https://www.r-pkg.org/badges/version/pacta.multi.loanbook)](https://CRAN
 [![pacta.multi.loanbook status badge](https://rmi-pacta.r-universe.dev/badges/pacta.multi.loanbook)](https://rmi-pacta.r-universe.dev/pacta.multi.loanbook)
 <!-- badges: end -->
 
-The goal of `pacta.multi.loanbook` is to provide an easy-to-use
-interface for anyone who wants to run PACTA on multiple loan books. It
-allows tailoring the analysis to the individual needs of a project in a
-simple and straight-forward manner.
+The goal of `pacta.multi.loanbook` is to provide a standardized and user-friendly interface for anyone who wants to run PACTA on multiple loan books. The main use case in mind is facilitating alignment analysis in a financial supervisory context, where many financial institutions and/or loan books will be analyzed. The package aims to streamline the required steps as much as possible to avoid cumbersome repetitions of as many steps as possible. It also aims to remain flexible for tailoring the analysis to the individual needs of a project to provide useful insights for many research questions around transition alignment and transition risk.
 
-## Run in RStudio
+## Installation
 
-### R package dependencies
+Install the released version of r2dii.analysis from CRAN with:
 
-Running `pacta.multi.loanbook` has a number of R package dependencies that are listed in the `DESCRIPTION` file. These can be installed manually or by using something like `pak::local_install_deps()`.
+``` r
+install.packages("r2dii.analysis")
+```
 
-### Setting config options
+Or install the development version of r2dii.analysis from GitHub with:
 
-You will need to set options in a config.yml file that should be placed at the root level of the repository. You can use `example.config.yml` as a template to set options in your `config.yml`. The config file is used to set up project parameters, such as paths and file names, and to decide which modules to run with which individual settings. This allows tailoring the calculations to individual research questions while ensuring that project-wide parameters are used consistently across all modules.
+``` r
+# install.packages("pak")
+pak::pak("RMI-PACTA/r2dii.analysis")
+```
 
-### Detailed documentation of parameters in config.yml
+## Resources and documentation
 
-to be added...
+Please refer to the following resources for information on how to use the package. There is a comprehensive overview of everything from setting up the required software environment, to obtaining and preparing input data, to running the analysis and interpreting the results in the cookbook.
 
-### Running the multi loan book analysis
+- [Cookbook](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/cookbook.html)
 
-The analysis is run in two steps. The first step is to run the process of matching the raw input loan books with the asset/based company data (ABCD), using the `run_matching.R` script. Initial matching results will be saved in the `matched/` directory specified in the `config.yml`. These files need to be validated manually. Once the manual validation of the matched loan books is completed, the checked files are further processed, using the script `run_pacta_multi_loanbook.R`, which calculates standard PACTA results for the loan books and additional related metrics and analytics.
+At the absolute minimum, it is recommended to read the following setions:
 
-Both these scripts can either be run line-by-line, or by calling `source("run_matching.R")` and `source("run_pacta_multi_loanbook.R")`.
+- [Preparatory Steps](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/cookbook.html#preparatory-steps), which touches on data preparation, required software, project set up and the configuration file.
+  - [Data Preparation](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/cookbook.html#required-input-data-sets) is a guide on how to prepare the necessary input data for the analysis or which external sources to obtain the data from.
+  - [Software Requirements](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/cookbook.html#required-software) is a guide on how to install the necessary software to run the analysis.
+  - [Project Set Up](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/cookbook.html#project-setup) is a guide on how to set up the project directory and the necessary files.
+  - [Configuration File](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/config_yml.html) is an in-depth overview of the different paths and parameters you can set in the `config.yml` file. Most of these are mandatory entries, so it is recommended you read the section carefully.
+  - [Checklist of Preparatory Steps](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/cookbook.html#checklist-of-preparatory-steps) can help you validate you have all the necessary data and software in place for running the analysis.
+- [Running the Analysis](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/cookbook.html#running-the-analysis) describes the required steps you will need to follow to generate analysis outputs.
+
+Beyond these fundamental sections, the following sections are recommended to make the most of the package:
+
+- [Interpretation of Results](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/cookbook.html#interpretation-of-results) provides an overview of the different outputs generated by the analysis and how to interpret them.
+- [Understanding the Data](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/data_dictionary.html) is a detailed data dictionary for all output files generated and can be understood as a reference for the interpretation section of the cookbook.
+- [Advanced Use Cases](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/cookbook.html#advanced-use-cases) demonstrates how to use the package for helping to answer real-world research questions. It demonstrates how to tailor the analysis to such use cases, focusing in particular on adjusting the config file to suit the research question. It is not a comprehensive guide for all research questions, but will give you a good starting point for how to adjust the analysis to your needs.
+
