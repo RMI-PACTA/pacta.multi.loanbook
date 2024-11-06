@@ -16,7 +16,7 @@ The goal of `pacta.multi.loanbook` is to provide a standardized and user-friendl
 Install the released version of r2dii.analysis from CRAN with:
 
 
-Or install the development version of r2dii.analysis from GitHub with:
+Install the development version of the package from GitHub with:
 
 ``` r
 # install.packages("pak")
