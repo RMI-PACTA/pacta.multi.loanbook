@@ -23,10 +23,8 @@
 #'   the plot.
 #'
 #' @return object of type "ggplot"
-#' @export
 #'
-#' @examples
-#' # TODO
+#' @noRd
 
 plot_scatter <- function(data,
                          sector = NULL,

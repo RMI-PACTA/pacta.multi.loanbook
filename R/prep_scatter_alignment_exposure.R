@@ -14,9 +14,9 @@
 #'
 #' @return data.frame
 #'
-#' @export
-#'
 #' @rdname plot_scatter_alignment_exposure
+#' 
+#' @noRd
 
 prep_scatter_alignment_exposure <- function(data,
                                             year,

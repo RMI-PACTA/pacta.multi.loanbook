@@ -16,9 +16,9 @@
 #'
 #' @return data.frame
 #'
-#' @export
-#'
 #' @rdname plot_scatter
+#' 
+#' @noRd
 
 prep_scatter <- function(data_bopo,
                          data_net,

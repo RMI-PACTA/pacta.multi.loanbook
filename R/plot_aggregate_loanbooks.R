@@ -7,6 +7,8 @@
 #'
 #' @importFrom dplyr %>%
 #' @importFrom rlang .data .env
+#' 
+#' @noRd
 
 plot_aggregate_loanbooks <- function(config) {
   config <- load_config(config)

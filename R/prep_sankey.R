@@ -11,9 +11,9 @@
 #'
 #' @return data.frame
 #'
-#' @export
-#'
 #' @rdname plot_sankey
+#' 
+#' @noRd
 
 prep_sankey <- function(data_alignment,
                         region,
