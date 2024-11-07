@@ -3,8 +3,7 @@ write_manifest <- function(config, path, prior_input_paths = NULL) {
     as.character(
       format(
         x = Sys.time(),
-        format = "%Y-%m-%d %H:%M:%OS6",
-        tz = "UTC"
+        format = "%Y-%m-%d %H:%M:%OS6"
       )
     )
   
