@@ -170,5 +170,12 @@ match_loanbooks <- function(config) {
       )
     cli::cli_progress_update()
   }
+  
+  write_manifest(
+    config = config,
+    path = file.path(output_matched_loanbooks_dir, "manifest.yml"),
+    prior_input_paths = c(output_prepare_dir)
+  )
+  
   cli::cli_progress_done()
 }

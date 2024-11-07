@@ -35,6 +35,16 @@ analyse <- function(config) {
   run_pacta(config)
   run_aggregate_alignment_metric(config)
   plot_aggregate_loanbooks(config)
+  
+  write_manifest(
+    config = config,
+    path = file.path(output_analysis_dir, "manifest.yml"),
+    prior_input_paths = c(
+      get_output_prepare_dir(config),
+      get_output_matched_loanbooks_dir(config),
+      get_output_prio_diagnostics_dir(config)
+    )
+  )
 }
 
 #' @rdname analyse
