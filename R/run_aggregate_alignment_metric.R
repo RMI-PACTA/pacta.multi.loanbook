@@ -5,15 +5,6 @@ run_aggregate_alignment_metric <- function(config) {
   output_prio_diagnostics_dir <- get_output_prio_diagnostics_dir(config)
   output_analysis_dir <- get_output_analysis_dir(config)
   output_analysis_aggregated_dir <- file.path(output_analysis_dir, "aggregated")
-  apply_sector_split <- get_apply_sector_split(config)
-
-  if (apply_sector_split) {
-    output_analysis_aggregated_dir <- file.path(
-      output_analysis_dir,
-      get_sector_split_type(config),
-      "aggregated"
-    )
-  }
 
   dir.create(output_analysis_aggregated_dir, recursive = TRUE)
 
