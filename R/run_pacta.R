@@ -23,23 +23,15 @@ run_pacta <- function(config) {
   output_analysis_dir <- get_output_analysis_dir(config)
   output_analysis_standard_dir <- file.path(output_analysis_dir, "standard")
 
+  dir.create(output_analysis_standard_dir, recursive = TRUE, showWarnings = FALSE)
+
   scenario_source_input <- get_scenario_source(config)
   scenario_select <- get_scenario_select(config)
   region_select <- get_region_select(config)
   start_year <- get_start_year(config)
   time_frame_select <- get_time_frame(config)
-  apply_sector_split <- get_apply_sector_split(config)
-  if (is.null(apply_sector_split)) { apply_sector_split <- FALSE }
-  sector_split_type_select <- get_sector_split_type(config)
   remove_inactive_companies <- get_remove_inactive_companies(config)
   if (is.null(remove_inactive_companies)) { remove_inactive_companies <- FALSE }
-
-  # if a sector split is applied, write results into a directory that states the type
-  if (apply_sector_split) {
-    output_analysis_standard_dir <- file.path(output_analysis_dir, sector_split_type_select, "standard")
-  }
-
-  dir.create(output_analysis_standard_dir, recursive = TRUE, showWarnings = FALSE)
 
   by_group <- get_by_group(config)
   by_group <- check_and_prepare_by_group(by_group)
