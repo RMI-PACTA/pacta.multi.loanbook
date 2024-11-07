@@ -28,7 +28,7 @@ prioritise_and_diagnose <- function(config) {
 
   if (dir.exists(output_prio_diagnostics_dir)) {
     ask_for_permission(
-      "The output directory defined by the {.var dir_prioritized_loanbooks_and_diagnostics} parameter in your config) already exists.\n
+      "The output directory defined by the {.var dir_prioritized_loanbooks_and_diagnostics} parameter in your config already exists.\n
       {.path {output_prio_diagnostics_dir}}\n
       Would you like to delete it and replace it with the output of the current run?"
     )

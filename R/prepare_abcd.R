@@ -27,7 +27,7 @@ prepare_abcd <- function(config) {
 
   if (dir.exists(output_prepare_dir)) {
     ask_for_permission(
-      "The output directory defined by the {.var dir_prepared_abcd} parameter in your config) already exists.\n
+      "The output directory defined by the {.var dir_prepared_abcd} parameter in your config already exists.\n
       {.path {output_prepare_dir}}\n
       Would you like to delete it and replace it with the output of the current run?"
     )

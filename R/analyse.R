@@ -28,7 +28,7 @@ analyse <- function(config) {
 
   if (dir.exists(output_analysis_dir)) {
     ask_for_permission(
-      "The output directory defined by the {.var dir_analysis} parameter in your config) already exists.\n
+      "The output directory defined by the {.var dir_analysis} parameter in your config already exists.\n
       {.path {output_analysis_dir}}\n
       Would you like to delete it and replace it with the output of the current run?"
     )

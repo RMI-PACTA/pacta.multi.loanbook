@@ -30,7 +30,7 @@ match_loanbooks <- function(config) {
 
   if (dir.exists(output_matched_loanbooks_dir)) {
     ask_for_permission(
-      "The output directory defined by the {.var dir_matched_loanbooks} parameter in your config) already exists.\n
+      "The output directory defined by the {.var dir_matched_loanbooks} parameter in your config already exists.\n
       {.path {output_matched_loanbooks_dir}}\n
       Would you like to delete it and replace it with the output of the current run?"
     )
