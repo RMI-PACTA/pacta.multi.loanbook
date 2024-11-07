@@ -30,12 +30,16 @@ prepare_abcd <- function(config) {
     unlink(output_prepare_dir, recursive = TRUE)
   }
   dir.create(output_prepare_dir, recursive = TRUE, showWarnings = FALSE)
-
-  write_manifest(config, file.path(output_prepare_dir, "manifest.yml"))
   
   remove_inactive_companies(config)
   
   if (get_apply_sector_split(config)) {
     prepare_sector_split(config)
   }
+  
+  write_manifest(
+    config = config,
+    path = file.path(output_prepare_dir, "manifest.yml"),
+    prior_input_paths = NULL
+  )
 }
