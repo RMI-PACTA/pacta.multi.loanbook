@@ -27,7 +27,11 @@ analyse <- function(config) {
   stop_if_not_inherits(output_analysis_dir, "character")
 
   if (dir.exists(output_analysis_dir)) {
-    warning("Output directory `dir_analysis` already exists. The existing directory will be removed and replaced with the output of the current run.")
+    ask_for_permission(
+      "The output directory defined by the {.var dir_analysis} parameter in your config) already exists.\n
+      {.path {output_analysis_dir}}\n
+      Would you like to delete it and replace it with the output of the current run?"
+    )
     unlink(output_analysis_dir, recursive = TRUE)
   }
   dir.create(output_analysis_dir, recursive = TRUE, showWarnings = FALSE)
