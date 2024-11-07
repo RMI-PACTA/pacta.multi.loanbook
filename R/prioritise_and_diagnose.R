@@ -35,6 +35,15 @@ prioritise_and_diagnose <- function(config) {
   run_match_prioritize(config)
   run_calculate_match_success_rate(config)
   run_calculate_loanbook_coverage(config)
+  
+  write_manifest(
+    config = config,
+    path = file.path(output_prio_diagnostics_dir, "manifest.yml"),
+    prior_input_paths = c(
+      get_output_prepare_dir(config),
+      get_output_matched_loanbooks_dir(config)
+    )
+  )
 }
 
 #' @rdname prioritise_and_diagnose
