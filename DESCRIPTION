@@ -52,7 +52,8 @@ Imports:
     scales,
     tidyr,
     webshot,
-    withr
+    withr,
+    yaml
 Depends:
     R (>= 4.1.0)
 License: MIT + file LICENSE
