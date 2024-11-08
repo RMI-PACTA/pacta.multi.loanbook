@@ -53,7 +53,8 @@ Imports:
     tidyr,
     webshot,
     withr,
-    yaml
+    yaml,
+    yesno
 Depends:
     R (>= 4.1.0)
 License: MIT + file LICENSE

@@ -29,8 +29,10 @@ match_loanbooks <- function(config) {
   output_matched_loanbooks_dir <- get_output_matched_loanbooks_dir(config)
 
   if (dir.exists(output_matched_loanbooks_dir)) {
-    warning(
-      "Output directory `dir_matched_loanbooks` already exists. The existing directory will be removed and replaced with the output of the current run. NOTE: This includes any manually matched loan book files you may have placed in this directory."
+    ask_for_permission(
+      "The output directory defined by the {.var dir_matched_loanbooks} parameter in your config already exists.\n
+      {.path {output_matched_loanbooks_dir}}\n
+      Would you like to delete it and replace it with the output of the current run?"
     )
     unlink(output_matched_loanbooks_dir, recursive = TRUE)
   }
