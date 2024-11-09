@@ -93,7 +93,7 @@ The `file_names`{.yaml} section contains options to define the file names of loc
 
 #### filename_scenario_tms
 
-`filename_scenario_tms`{.yaml} is the filename of the file that contains production based scenario data. It must be a single string/character value, and it must refer to a valid, accessible, local file. As an example:
+`filename_scenario_tms`{.yaml} is the filename of the file that contains production based scenario data. The file specified by `filename_scenario_tms`{.yaml} must exist in the directory specified by the `dir_input`{.yaml} parameter. It must be a single string/character value, and it must refer to a valid, accessible, local file. As an example:
 
 ```yaml
     filename_scenario_tms: "scenarios_2022_p4b.csv
@@ -101,7 +101,7 @@ The `file_names`{.yaml} section contains options to define the file names of loc
 
 #### filename_scenario_sda
 
-`filename_scenario_sda`{.yaml} is the filename of the file that contains emission intensity based scenario data. It must be a single string/character value, and it must refer to a valid, accessible, local file. As an example:
+`filename_scenario_sda`{.yaml} is the filename of the file that contains emission intensity based scenario data. The file specified by `filename_scenario_sda`{.yaml} must exist in the directory specified by the `dir_input`{.yaml} parameter. It must be a single string/character value, and it must refer to a valid, accessible, local file. As an example:
 
 ```yaml
     filename_scenario_sda: "scenarios_2022_ei_p4b.csv"
@@ -216,7 +216,7 @@ A full example `sector_split`{.yaml} section might look like:
 
 #### filename_split_company_id
 
-`filename_split_company_id`{.yaml} is the filename of the CSV file that contains the split company ID data. It must be a single string/character value, and it must refer to a valid, accessible, local file. As an example:
+`filename_split_company_id`{.yaml} is the filename of the CSV file that contains the split company ID data. The file specified by `filename_split_company_id`{.yaml} must exist in the directory specified by the `dir_input`{.yaml} parameter. It must be a single string/character value, and it must refer to a valid, accessible, local file. As an example:
 
 ```yaml
     filename_split_company_id: "split_company_ids.csv"
@@ -224,7 +224,7 @@ A full example `sector_split`{.yaml} section might look like:
 
 #### filename_advanced_company_indicators
 
-`filename_advanced_company_indicators`{.yaml} is the filename of the XLSX file that contains the Advanced Company Indicators. It must be a single string/character value, and it must refer to a valid, accessible, local file. As an example:
+`filename_advanced_company_indicators`{.yaml} is the filename of the XLSX file that contains the Advanced Company Indicators. The file specified by `filename_advanced_company_indicators`{.yaml} must exist in the directory specified by the `dir_input`{.yaml} parameter. It must be a single string/character value, and it must refer to a valid, accessible, local file. As an example:
 
 ```yaml
     filename_advanced_company_indicators: "2024-02-14_AI_2023Q4_RMI-Company-Indicators.xlsx"
@@ -337,7 +337,7 @@ A full example `manual_sector_classification`{.yaml} section might look like:
 
 #### filename_manual_sector_classification
 
-`filename_manual_sector_classification`{.yaml} is the filename of the CSV that contains the manual sector classification data. It must be a single string/character value, and it must refer to a valid, accessible, local file. As an example:
+`filename_manual_sector_classification`{.yaml} is the filename of the CSV that contains the manual sector classification data. The file specified by `filename_manual_sector_classification`{.yaml} must exist in the directory specified by the `dir_input`{.yaml} parameter. It must be a single string/character value, and it must refer to a valid, accessible, local file. As an example:
 
 ```yaml
       filename_manual_sector_classification: "manual_sector_classification.csv"
