@@ -79,7 +79,8 @@
 </div>
 <!-- badges: start -->
 
-<p>The goal of <code>pacta.multi.loanbook</code> is to provide a standardized and user-friendly interface for anyone who wants to run PACTA on multiple loan books. The main use case in mind is facilitating alignment analysis in a financial supervisory context, where many financial institutions and/or loan books will be analyzed. The package aims to streamline the required steps as much as possible to avoid cumbersome repetitions. It also aims to remain flexible for tailoring the analysis to the individual needs of a project to provide useful insights for many research questions around transition alignment and transition risk.</p>
+<p>The <code>pacta.multi.loanbook</code> package offers a standardized, user-friendly way to calculate climate alignment metrics for multiple loan books, based on the PACTA methodology.</p>
+<p>Designed for financial supervisory contexts, it simplifies climate alignment analysis across many lending institutions. The package streamlines steps to prevent repetition while allowing flexibility to tailor the analysis for specific project needs, providing valuable insights into transition alignment and risk.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -87,42 +88,37 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
 <span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"RMI-PACTA/pacta.multi.loanbook"</span><span class="op">)</span></span></code></pre></div>
+<p>Verify the installation with:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rmi-pacta.github.io/pacta.multi.loanbook/">pacta.multi.loanbook</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="resources-and-documentation">Resources and documentation<a class="anchor" aria-label="anchor" href="#resources-and-documentation"></a>
+<h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h2>
-<p>Please refer to the following resources for information on how to use the package. There is a comprehensive overview of everything from setting up the required software environment, to obtaining and preparing input data, to running the analysis and interpreting the results in the cookbook.</p>
+<p>Please consult the following resources for instructions on using the package. The cookbook provides a detailed overview covering the setup of the necessary software environment, obtaining and preparing input data, running the analysis, and interpreting the results.</p>
 <ul>
-<li><a href="https://rmi-pacta.github.io/pacta.multi.loanbook/articles/cookbook.html">Cookbook</a></li>
+<li>
+<a href="https://rmi-pacta.github.io/pacta.multi.loanbook/articles/cookbook.html">Cookbook</a>: A comprehensive guide for setting up and running the analysis.</li>
 </ul>
-<p>At the absolute minimum, it is recommended to read the following setions:</p>
+<p>In particular, we recommend focusing on the sections:</p>
 <ul>
 <li>
-<a href="https://rmi-pacta.github.io/pacta.multi.loanbook/articles/cookbook.html#preparatory-steps">Preparatory Steps</a>, which touches on data preparation, required software, project set up and the configuration file.
-<ul>
+<a href="https://rmi-pacta.github.io/pacta.multi.loanbook/articles/cookbook.html#preparatory-steps">Preparatory Steps</a>: for setting up required input data and software.</li>
 <li>
-<a href="https://rmi-pacta.github.io/pacta.multi.loanbook/articles/cookbook.html#required-input-data-sets">Data Preparation</a> is a guide on how to prepare the necessary input data for the analysis or which external sources to obtain the data from.</li>
-<li>
-<a href="https://rmi-pacta.github.io/pacta.multi.loanbook/articles/cookbook.html#required-software">Software Requirements</a> is a guide on how to install the necessary software to run the analysis.</li>
-<li>
-<a href="https://rmi-pacta.github.io/pacta.multi.loanbook/articles/cookbook.html#project-setup">Project Set Up</a> is a guide on how to set up the project directory and the necessary files.</li>
-<li>
-<a href="https://rmi-pacta.github.io/pacta.multi.loanbook/articles/config_yml.html">Configuration File</a> is an in-depth overview of the different paths and parameters you can set in the <code>config.yml</code> file. Most of these are mandatory entries, so it is recommended you read the section carefully.</li>
-<li>
-<a href="https://rmi-pacta.github.io/pacta.multi.loanbook/articles/cookbook.html#checklist-of-preparatory-steps">Checklist of Preparatory Steps</a> can help you validate you have all the necessary data and software in place for running the analysis.</li>
+<a href="https://rmi-pacta.github.io/pacta.multi.loanbook/articles/cookbook.html#running-the-analysis">Running the Analysis</a> for generating outputs.</li>
 </ul>
-</li>
-<li>
-<a href="https://rmi-pacta.github.io/pacta.multi.loanbook/articles/cookbook.html#running-the-analysis">Running the Analysis</a> describes the required steps you will need to follow to generate analysis outputs.</li>
-</ul>
-<p>Beyond these fundamental sections, the following sections are recommended to make the most of the package:</p>
+</div>
+<div class="section level2">
+<h2 id="intepretation">Intepretation<a class="anchor" aria-label="anchor" href="#intepretation"></a>
+</h2>
+<p>Understanding your analysis outputs is key to drawing meaningful conclusions. The following sections of the cookbook guide how to read and interpret the generated outputs:</p>
 <ul>
 <li>
-<a href="https://rmi-pacta.github.io/pacta.multi.loanbook/articles/cookbook.html#interpretation-of-results">Interpretation of Results</a> provides an overview of the different outputs generated by the analysis and how to interpret them.</li>
+<a href="https://rmi-pacta.github.io/pacta.multi.loanbook/articles/cookbook.html#interpretation-of-results">Interpretation of Results</a>: for guidance on how to interpret the generated outputs</li>
 <li>
-<a href="https://rmi-pacta.github.io/pacta.multi.loanbook/articles/data_dictionary.html">Understanding the Data</a> is a detailed data dictionary for all output files generated and can be understood as a reference for the interpretation section of the cookbook.</li>
+<a href="https://rmi-pacta.github.io/pacta.multi.loanbook/articles/data_dictionary.html">Understanding the Data</a>: for a precise description of every dataset.</li>
 <li>
-<a href="https://rmi-pacta.github.io/pacta.multi.loanbook/articles/cookbook.html#advanced-use-cases">Advanced Use Cases</a> demonstrates how to use the package for helping to answer real-world research questions. It demonstrates how to tailor the analysis to such use cases, focusing in particular on adjusting the config file to suit the research question. It is not a comprehensive guide for all research questions, but will give you a good starting point for how to adjust the analysis to your needs.</li>
+<a href="https://rmi-pacta.github.io/pacta.multi.loanbook/articles/cookbook.html#advanced-use-cases">Advanced Use Cases</a>: for complex, real-world scenarios, with guidance on adapting analyses to address specific research questions.</li>
 </ul>
 </div>
 </div>
