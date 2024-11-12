@@ -16,7 +16,7 @@ lost_companies_sector_split <- function(abcd, companies_sector_split) {
 apply_sector_split_to_loans <- function(data,
                                         abcd,
                                         companies_sector_split) {
-  unique_companies_pre_split <- dplyr::distinct(.data = data, "name_abcd")
+  unique_companies_pre_split <- dplyr::distinct(.data = data, .data[["name_abcd"]])
 
   abcd_id <-
     dplyr::distinct(
