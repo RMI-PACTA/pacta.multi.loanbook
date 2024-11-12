@@ -30,8 +30,6 @@ run_pacta <- function(config) {
   region_select <- get_region_select(config)
   start_year <- get_start_year(config)
   time_frame_select <- get_time_frame(config)
-  remove_inactive_companies <- get_remove_inactive_companies(config)
-  if (is.null(remove_inactive_companies)) { remove_inactive_companies <- FALSE }
 
   by_group <- get_by_group(config)
   by_group <- check_and_prepare_by_group(by_group)
