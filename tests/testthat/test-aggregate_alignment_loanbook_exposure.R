@@ -155,8 +155,7 @@ test_that("net aggregate results with .by arg as crucial variable returns error"
           .by = "loan_size_outstanding"
         )
     },
-    regexp = "It is not possible to group by the critical columns of the `data` and
-        `matched` inputs."
+    regexp = "It is not possible to group by the critical columns of the"
   )
 })
 
