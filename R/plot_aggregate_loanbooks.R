@@ -14,8 +14,8 @@ plot_aggregate_loanbooks <- function(config) {
   config <- load_config(config)
 
   # paths
-  output_analysis_dir <- get_output_analysis_dir(config)
-  output_analysis_aggregated_dir <- file.path(output_analysis_dir, "aggregated")
+  analysis_dir <- get_dir_analysis(config)
+  analysis_aggregated_dir <- file.path(analysis_dir, "aggregated")
 
   # project parameters
   scenario_source_input <- get_scenario_source(config)
@@ -55,7 +55,7 @@ plot_aggregate_loanbooks <- function(config) {
   )
   col_select_company_aggregated_alignment <- c(by_group, names(col_types_company_aggregated_alignment[["cols"]]))
 
-  path_company_exposure_net_aggregate_alignment <- file.path(output_analysis_aggregated_dir, glue::glue("company_exposure_net_aggregate_alignment{file_by_group}.csv"))
+  path_company_exposure_net_aggregate_alignment <- file.path(analysis_aggregated_dir, glue::glue("company_exposure_net_aggregate_alignment{file_by_group}.csv"))
   if (file.exists(path_company_exposure_net_aggregate_alignment)) {
     company_aggregated_alignment_net <-
       readr::read_csv(
@@ -67,7 +67,7 @@ plot_aggregate_loanbooks <- function(config) {
     company_aggregated_alignment_net <- NULL
   }
 
-  patch_company_exposure_bo_po_aggregate_alignment <- file.path(output_analysis_aggregated_dir, glue::glue("company_exposure_bo_po_aggregate_alignment{file_by_group}.csv"))
+  patch_company_exposure_bo_po_aggregate_alignment <- file.path(analysis_aggregated_dir, glue::glue("company_exposure_bo_po_aggregate_alignment{file_by_group}.csv"))
   if (file.exists(patch_company_exposure_bo_po_aggregate_alignment)) {
     company_aggregated_alignment_bo_po <-
       readr::read_csv(
@@ -80,7 +80,7 @@ plot_aggregate_loanbooks <- function(config) {
   }
 
   ## loanbook level results----
-  path_loanbook_exposure_bo_po_aggregate_alignment <- file.path(output_analysis_aggregated_dir, glue::glue("loanbook_exposure_bo_po_aggregate_alignment{file_by_group}.csv"))
+  path_loanbook_exposure_bo_po_aggregate_alignment <- file.path(analysis_aggregated_dir, glue::glue("loanbook_exposure_bo_po_aggregate_alignment{file_by_group}.csv"))
   if (file.exists(path_loanbook_exposure_bo_po_aggregate_alignment)) {
     loanbook_exposure_aggregated_alignment_bo_po <-
       readr::read_csv(
@@ -102,7 +102,7 @@ plot_aggregate_loanbooks <- function(config) {
     loanbook_exposure_aggregated_alignment_bo_po <- NULL
   }
 
-  path_loanbook_exposure_net_aggregate_alignment <- file.path(output_analysis_aggregated_dir, glue::glue("loanbook_exposure_net_aggregate_alignment{file_by_group}.csv"))
+  path_loanbook_exposure_net_aggregate_alignment <- file.path(analysis_aggregated_dir, glue::glue("loanbook_exposure_net_aggregate_alignment{file_by_group}.csv"))
   if (file.exists(path_loanbook_exposure_net_aggregate_alignment)) {
     loanbook_exposure_aggregated_alignment_net <-
       readr::read_csv(
@@ -149,7 +149,7 @@ plot_aggregate_loanbooks <- function(config) {
     data_sankey_sector %>%
       readr::write_csv(
         file = file.path(
-          output_analysis_aggregated_dir,
+          analysis_aggregated_dir,
           glue::glue("data_{output_file_sankey_sector}.csv")
         ),
         na = ""
@@ -158,7 +158,7 @@ plot_aggregate_loanbooks <- function(config) {
     plot_sankey(
       data_sankey_sector,
       group_var = by_group,
-      save_png_to = path.expand(output_analysis_aggregated_dir),
+      save_png_to = path.expand(analysis_aggregated_dir),
       png_name = glue::glue("plot_{output_file_sankey_sector}.png"),
       nodes_order_from_data = TRUE
     )
@@ -185,7 +185,7 @@ plot_aggregate_loanbooks <- function(config) {
     data_sankey_company_sector %>%
       readr::write_csv(
         file = file.path(
-          output_analysis_aggregated_dir,
+          analysis_aggregated_dir,
           glue::glue("data_{output_file_sankey_company_sector}.csv")
         ),
         na = ""
@@ -194,7 +194,7 @@ plot_aggregate_loanbooks <- function(config) {
     plot_sankey(
       data_sankey_company_sector,
       group_var = by_group,
-      save_png_to = path.expand(output_analysis_aggregated_dir),
+      save_png_to = path.expand(analysis_aggregated_dir),
       png_name = glue::glue("plot_{output_file_sankey_company_sector}.png")
     )
   } else {
@@ -228,7 +228,7 @@ plot_aggregate_loanbooks <- function(config) {
       data_scatter_alignment_exposure %>%
         readr::write_csv(
           file = file.path(
-            output_analysis_aggregated_dir,
+            analysis_aggregated_dir,
             glue::glue("data_{output_file_alignment_exposure}.csv")
           ),
           na = ""
@@ -244,7 +244,7 @@ plot_aggregate_loanbooks <- function(config) {
 
       ggplot2::ggsave(
         filename = glue::glue("plot_{output_file_alignment_exposure}.png"),
-        path = output_analysis_aggregated_dir,
+        path = analysis_aggregated_dir,
         width = 8,
         height = 5,
         dpi = 300,
@@ -288,7 +288,7 @@ plot_aggregate_loanbooks <- function(config) {
       data_scatter_automotive_group %>%
         readr::write_csv(
           file = file.path(
-            output_analysis_aggregated_dir,
+            analysis_aggregated_dir,
             glue::glue("data_{output_file_scatter_sector}.csv")
           ),
           na = ""
@@ -305,7 +305,7 @@ plot_aggregate_loanbooks <- function(config) {
       )
       ggplot2::ggsave(
         filename = glue::glue("plot_{output_file_scatter_sector}.png"),
-        path = output_analysis_aggregated_dir,
+        path = analysis_aggregated_dir,
         width = 8,
         height = 5
       )
@@ -345,7 +345,7 @@ plot_aggregate_loanbooks <- function(config) {
       data_scatter_power_group %>%
         readr::write_csv(
           file = file.path(
-            output_analysis_aggregated_dir,
+            analysis_aggregated_dir,
             glue::glue("data_{output_file_scatter_sector}.csv")
           ),
           na = ""
@@ -363,7 +363,7 @@ plot_aggregate_loanbooks <- function(config) {
 
       ggplot2::ggsave(
         filename = glue::glue("plot_{output_file_scatter_sector}.png"),
-        path = output_analysis_aggregated_dir,
+        path = analysis_aggregated_dir,
         width = 8,
         height = 5
       )
@@ -391,7 +391,7 @@ plot_aggregate_loanbooks <- function(config) {
       unique()
 
     for (i in dirs_for_by_group) {
-      dir.create(file.path(output_analysis_aggregated_dir, i), recursive = TRUE, showWarnings = FALSE)
+      dir.create(file.path(analysis_aggregated_dir, i), recursive = TRUE, showWarnings = FALSE)
     }
   }
 
@@ -436,7 +436,7 @@ plot_aggregate_loanbooks <- function(config) {
         data_scatter_automotive_company_i %>%
           readr::write_csv(
             file = file.path(
-              output_analysis_aggregated_dir,
+              analysis_aggregated_dir,
               i,
               glue::glue("data_scatter_automotive_company_by_{by_group}_{i}.csv")
             ),
@@ -457,7 +457,7 @@ plot_aggregate_loanbooks <- function(config) {
 
         ggplot2::ggsave(
           filename = glue::glue("plot_scatter_automotive_company_by_{by_group}_{i}.png"),
-          path = file.path(output_analysis_aggregated_dir, i),
+          path = file.path(analysis_aggregated_dir, i),
           width = 8,
           height = 5
         )
@@ -502,7 +502,7 @@ plot_aggregate_loanbooks <- function(config) {
         data_scatter_power_company_i %>%
           readr::write_csv(
             file = file.path(
-              output_analysis_aggregated_dir,
+              analysis_aggregated_dir,
               i,
               glue::glue("data_scatter_power_company_by_{by_group}_{i}.csv")
             ),
@@ -523,7 +523,7 @@ plot_aggregate_loanbooks <- function(config) {
 
         ggplot2::ggsave(
           filename = glue::glue("plot_scatter_power_company_by_{by_group}_{i}.png"),
-          path = file.path(output_analysis_aggregated_dir, i),
+          path = file.path(analysis_aggregated_dir, i),
           width = 8,
           height = 5
         )

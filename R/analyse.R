@@ -21,32 +21,32 @@
 analyse <- function(config) {
   config <- load_config(config)
 
-  output_analysis_dir <- get_output_analysis_dir(config)
+  dir_analysis <- get_dir_analysis(config)
 
-  assert_length(output_analysis_dir, 1L)
-  assert_inherits(output_analysis_dir, "character")
+  assert_length(dir_analysis, 1L)
+  assert_inherits(dir_analysis, "character")
 
-  if (dir.exists(output_analysis_dir)) {
+  if (dir.exists(dir_analysis)) {
     ask_for_permission(
       "The output directory defined by the {.var dir_analysis} parameter in your config already exists.\n
-      {.path {output_analysis_dir}}\n
+      {.path {dir_analysis}}\n
       Would you like to delete it and replace it with the output of the current run?"
     )
-    unlink(output_analysis_dir, recursive = TRUE)
+    unlink(dir_analysis, recursive = TRUE)
   }
-  dir.create(output_analysis_dir, recursive = TRUE, showWarnings = FALSE)
+  dir.create(dir_analysis, recursive = TRUE, showWarnings = FALSE)
 
   run_pacta(config)
   run_aggregate_alignment_metric(config)
   plot_aggregate_loanbooks(config)
-  
+
   write_manifest(
     config = config,
-    path = file.path(output_analysis_dir, "manifest.yml"),
+    path = file.path(dir_analysis, "manifest.yml"),
     prior_input_paths = c(
-      get_output_prepare_dir(config),
-      get_output_matched_loanbooks_dir(config),
-      get_output_prio_diagnostics_dir(config)
+      get_dir_prepared_abcd(config),
+      get_dir_matched_loanbooks(config),
+      get_dir_prioritized_loanbooks_and_diagnostics(config)
     )
   )
 }

@@ -12,18 +12,18 @@
 run_pacta <- function(config) {
   config <- load_config(config)
 
-  output_prepare_dir <- get_output_prepare_dir(config)
-  output_prio_diagnostics_dir <- get_output_prio_diagnostics_dir(config)
+  dir_prepared_abcd <- get_dir_prepared_abcd(config)
+  dir_prioritized_loanbooks_and_diagnostics <- get_dir_prioritized_loanbooks_and_diagnostics(config)
 
-  input_path_scenario_tms <- get_scenario_tms_path(config)
-  input_path_scenario_sda <- get_scenario_sda_path(config)
+  path_scenario_tms <- get_path_scenario_tms(config)
+  path_scenario_sda <- get_path_scenario_sda(config)
 
-  input_path_abcd <- file.path(output_prepare_dir, "abcd_final.csv")
+  path_abcd <- file.path(dir_prepared_abcd, "abcd_final.csv")
 
-  output_analysis_dir <- get_output_analysis_dir(config)
-  output_analysis_standard_dir <- file.path(output_analysis_dir, "standard")
+  dir_analysis <- get_dir_analysis(config)
+  dir_analysis_standard <- file.path(dir_analysis, "standard")
 
-  dir.create(output_analysis_standard_dir, recursive = TRUE, showWarnings = FALSE)
+  dir.create(dir_analysis_standard, recursive = TRUE, showWarnings = FALSE)
 
   scenario_source_input <- get_scenario_source(config)
   scenario_select <- get_scenario_select(config)
@@ -45,29 +45,29 @@ run_pacta <- function(config) {
     )
 
   scenario_input_tms <- readr::read_csv(
-    input_path_scenario_tms,
+    path_scenario_tms,
     col_types = col_types_scenario_tms,
     col_select = dplyr::all_of(col_select_scenario_tms)
   )
 
   scenario_input_sda <- readr::read_csv(
-    input_path_scenario_sda,
+    path_scenario_sda,
     col_types = col_types_scenario_sda,
     col_select = dplyr::all_of(col_select_scenario_sda)
   )
 
   abcd <- readr::read_csv(
-    input_path_abcd,
+    path_abcd,
     col_select = dplyr::all_of(cols_abcd),
     col_types = col_types_abcd_final
   )
 
   # read matched and prioritized loan book----
-  list_matched_prioritized <- list.files(path = output_prio_diagnostics_dir, pattern = "^matched_prio_.*csv$")
-  assert_any_file_exists(list_matched_prioritized, output_prio_diagnostics_dir, "output_prio_diagnostics_dir", "matched prioritized loan book CSVs")
+  list_matched_prioritized <- list.files(path = dir_prioritized_loanbooks_and_diagnostics, pattern = "^matched_prio_.*csv$")
+  assert_any_file_exists(list_matched_prioritized, dir_prioritized_loanbooks_and_diagnostics, "dir_prioritized_loanbooks_and_diagnostics", "matched prioritized loan book CSVs")
 
   matched_prioritized <- readr::read_csv(
-    file = file.path(output_prio_diagnostics_dir, list_matched_prioritized),
+    file = file.path(dir_prioritized_loanbooks_and_diagnostics, list_matched_prioritized),
     col_types = col_types_matched_prioritized,
     col_select = dplyr::all_of(c(by_group, col_select_matched_prioritized))
   )
@@ -110,7 +110,7 @@ run_pacta <- function(config) {
   # write SDA results to csv
   results_sda_total %>%
     readr::write_csv(
-      file.path(output_analysis_standard_dir, paste0("sda_results", by_group_ext, ".csv")),
+      file.path(dir_analysis_standard, paste0("sda_results", by_group_ext, ".csv")),
       na = ""
     )
 
@@ -140,7 +140,7 @@ run_pacta <- function(config) {
   # write TMS results to csv
   results_tms_total %>%
     readr::write_csv(
-      file.path(output_analysis_standard_dir, paste0("tms_results", by_group_ext, ".csv")),
+      file.path(dir_analysis_standard, paste0("tms_results", by_group_ext, ".csv")),
       na = ""
     )
 
@@ -169,7 +169,7 @@ run_pacta <- function(config) {
       generate_individual_outputs(
         data = results_tms_total,
         matched_prioritized = matched_prioritized,
-        output_directory = output_analysis_standard_dir,
+        output_directory = dir_analysis_standard,
         target_type = "tms",
         by_group = by_group,
         by_group_value = tms_i,
@@ -200,7 +200,7 @@ run_pacta <- function(config) {
       generate_individual_outputs(
         data = results_tms_total,
         matched_prioritized = matched_prioritized,
-        output_directory = output_analysis_standard_dir,
+        output_directory = dir_analysis_standard,
         target_type = "tms",
         by_group = by_group,
         by_group_value = tms_i,
@@ -231,7 +231,7 @@ run_pacta <- function(config) {
       generate_individual_outputs(
         data = results_tms_total,
         matched_prioritized = matched_prioritized,
-        output_directory = output_analysis_standard_dir,
+        output_directory = dir_analysis_standard,
         target_type = "tms",
         by_group = by_group,
         by_group_value = tms_i,
@@ -262,7 +262,7 @@ run_pacta <- function(config) {
       generate_individual_outputs(
         data = results_tms_total,
         matched_prioritized = matched_prioritized,
-        output_directory = output_analysis_standard_dir,
+        output_directory = dir_analysis_standard,
         target_type = "tms",
         by_group = by_group,
         by_group_value = tms_i,
@@ -294,7 +294,7 @@ run_pacta <- function(config) {
       generate_individual_outputs(
         data = results_sda_total,
         matched_prioritized = matched_prioritized,
-        output_directory = output_analysis_standard_dir,
+        output_directory = dir_analysis_standard,
         target_type = "sda",
         by_group = by_group,
         by_group_value = sda_i,
@@ -325,7 +325,7 @@ run_pacta <- function(config) {
       generate_individual_outputs(
         data = results_sda_total,
         matched_prioritized = matched_prioritized,
-        output_directory = output_analysis_standard_dir,
+        output_directory = dir_analysis_standard,
         target_type = "sda",
         by_group = by_group,
         by_group_value = sda_i,
@@ -356,7 +356,7 @@ run_pacta <- function(config) {
       generate_individual_outputs(
         data = results_sda_total,
         matched_prioritized = matched_prioritized,
-        output_directory = output_analysis_standard_dir,
+        output_directory = dir_analysis_standard,
         target_type = "sda",
         by_group = by_group,
         by_group_value = sda_i,
