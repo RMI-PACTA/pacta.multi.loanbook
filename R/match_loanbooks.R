@@ -51,47 +51,47 @@ match_loanbooks <- function(config) {
   }
 
   # validate config values----
-  stop_if_not_length(dir_loanbooks, 1L)
-  stop_if_not_inherits(dir_loanbooks, "character")
-  stop_if_dir_not_found(dir_loanbooks, desc = "Input - loanbooks")
+  assert_length(dir_loanbooks, 1L)
+  assert_inherits(dir_loanbooks, "character")
+  assert_dir_exists(dir_loanbooks, desc = "Input - loanbooks")
 
-  stop_if_not_length(dir_prepared_abcd, 1L)
-  stop_if_not_inherits(dir_prepared_abcd, "character")
-  stop_if_dir_not_found(dir_prepared_abcd, desc = "Output - prepare ABCD")
-  stop_if_file_not_found(file.path(dir_prepared_abcd, "abcd_final.csv"), desc = "ABCD final")
+  assert_length(dir_prepared_abcd, 1L)
+  assert_inherits(dir_prepared_abcd, "character")
+  assert_dir_exists(dir_prepared_abcd, desc = "Output - prepare ABCD")
+  assert_file_exists(file.path(dir_prepared_abcd, "abcd_final.csv"), desc = "ABCD final")
 
-  stop_if_not_length(dir_matched_loanbooks, 1L)
-  stop_if_not_inherits(dir_matched_loanbooks, "character")
-  stop_if_dir_not_found(dir_matched_loanbooks, desc = "Output - Matched loanbooks")
+  assert_length(dir_matched_loanbooks, 1L)
+  assert_inherits(dir_matched_loanbooks, "character")
+  assert_dir_exists(dir_matched_loanbooks, desc = "Output - Matched loanbooks")
 
-  stop_if_not_length(matching_by_sector, 1L)
-  stop_if_not_inherits(matching_by_sector, "logical")
+  assert_length(matching_by_sector, 1L)
+  assert_inherits(matching_by_sector, "logical")
 
-  stop_if_not_length(matching_min_score, 1L)
-  stop_if_not_inherits(matching_min_score, "numeric")
+  assert_length(matching_min_score, 1L)
+  assert_inherits(matching_min_score, "numeric")
 
-  stop_if_not_length(matching_method, 1L)
-  stop_if_not_inherits(matching_method, "character")
+  assert_length(matching_method, 1L)
+  assert_inherits(matching_method, "character")
 
-  stop_if_not_length(matching_p, 1L)
-  stop_if_not_inherits(matching_p, "numeric")
+  assert_length(matching_p, 1L)
+  assert_inherits(matching_p, "numeric")
 
   # TODO: check for data.frame
-  # stop_if_not_length(matching_overwrite, 1L)
-  # stop_if_not_inherits(matching_overwrite, "numeric")
+  # assert_length(matching_overwrite, 1L)
+  # assert_inherits(matching_overwrite, "numeric")
   #
   # TODO: check for join_object
-  # stop_if_not_length(matching_join_id, 1L)
-  # stop_if_not_inherits(matching_join_id, "numeric")
+  # assert_length(matching_join_id, 1L)
+  # assert_inherits(matching_join_id, "numeric")
 
-  stop_if_not_length(matching_use_manual_sector_classification, 1L)
-  stop_if_not_inherits(matching_use_manual_sector_classification, "logical")
+  assert_length(matching_use_manual_sector_classification, 1L)
+  assert_inherits(matching_use_manual_sector_classification, "logical")
 
   # path to manual sector classification only required if boolean TRUE
   if (matching_use_manual_sector_classification) {
-    stop_if_not_length(path_manual_sector_classification, 1L)
-    stop_if_not_inherits(path_manual_sector_classification, "character")
-    stop_if_file_not_found(path_manual_sector_classification, desc = "Manual sector classification")
+    assert_length(path_manual_sector_classification, 1L)
+    assert_inherits(path_manual_sector_classification, "character")
+    assert_file_exists(path_manual_sector_classification, desc = "Manual sector classification")
   }
 
   # load data----
@@ -114,7 +114,7 @@ match_loanbooks <- function(config) {
 
   ## load raw loan books----
   list_raw <- list.files(path = dir_loanbooks, pattern = "[.]csv$")
-  stop_if_no_files_found(list_raw, dir_loanbooks, "dir_input", "raw loan book CSVs")
+  assert_any_file_exists(list_raw, dir_loanbooks, "dir_input", "raw loan book CSVs")
 
   raw_lbk <- readr::read_csv(
     file = file.path(dir_loanbooks, list_raw),

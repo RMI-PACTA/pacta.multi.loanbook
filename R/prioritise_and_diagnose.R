@@ -23,8 +23,8 @@ prioritise_and_diagnose <- function(config) {
 
   dir_prioritized_loanbooks_and_diagnostics <- get_dir_prioritized_loanbooks_and_diagnostics(config)
 
-  stop_if_not_length(dir_prioritized_loanbooks_and_diagnostics, 1L)
-  stop_if_not_inherits(dir_prioritized_loanbooks_and_diagnostics, "character")
+  assert_length(dir_prioritized_loanbooks_and_diagnostics, 1L)
+  assert_inherits(dir_prioritized_loanbooks_and_diagnostics, "character")
 
   if (dir.exists(dir_prioritized_loanbooks_and_diagnostics)) {
     ask_for_permission(
