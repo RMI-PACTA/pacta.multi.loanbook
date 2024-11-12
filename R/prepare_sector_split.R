@@ -188,7 +188,7 @@ prepare_sector_split <- function(config) {
     )
 
   ### check that the sum of the sector split of each company is 1----
-  stop_if_sector_split_not_one(sector_split_all_companies)
+  assert_sector_split_is_one(sector_split_all_companies)
 
   ## calculate primary energy-based sector split for energy sectors----
   # keep only companies that are active in multiple energy sectors
@@ -261,7 +261,7 @@ prepare_sector_split <- function(config) {
     dplyr::filter(.data[["company_id"]] %in% .env[["company_ids_primary_energy_split"]])
 
   ### check that the sum of the primary energy based sector split of each company is 1----
-  stop_if_sector_split_not_one(sector_split_multi_energy_companies)
+  assert_sector_split_is_one(sector_split_multi_energy_companies)
 
   ## combine the sector splits----
   # we want to use the plain equal weights split for companies that do not operate in more than one energy sector
@@ -288,7 +288,7 @@ prepare_sector_split <- function(config) {
     )
 
   ### check that the sum of the combined sector split of each company is 1----
-  stop_if_sector_split_not_one(sector_split_all_companies_final)
+  assert_sector_split_is_one(sector_split_all_companies_final)
 
   ## write output----
   sector_split_multi_energy_companies %>%

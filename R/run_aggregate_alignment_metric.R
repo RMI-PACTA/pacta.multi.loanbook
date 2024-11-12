@@ -46,7 +46,7 @@ run_aggregate_alignment_metric <- function(config) {
 
   # read matched and prioritized loan book----
   list_matched_prioritized <- list.files(path = output_prio_diagnostics_dir, pattern = "^matched_prio_.*csv$")
-  stop_if_no_files_found(list_matched_prioritized, output_prio_diagnostics_dir, "output_prio_diagnostics_dir", "matched prioritized loan book CSVs")
+  assert_any_file_exists(list_matched_prioritized, output_prio_diagnostics_dir, "output_prio_diagnostics_dir", "matched prioritized loan book CSVs")
 
   matched_prioritized <- readr::read_csv(
     file = file.path(output_prio_diagnostics_dir, list_matched_prioritized),

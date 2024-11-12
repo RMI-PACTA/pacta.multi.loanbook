@@ -13,15 +13,15 @@ run_calculate_loanbook_coverage <- function(config) {
   by_group_ext <- if (is.null(by_group)) { "_meta" } else { paste0("_", by_group) }
 
   # validate config values----
-  stop_if_not_length(output_prio_diagnostics_dir, 1L)
-  stop_if_not_inherits(output_prio_diagnostics_dir, "character")
-  stop_if_dir_not_found(output_prio_diagnostics_dir, desc = "Output - Matched loanbooks")
+  assert_length(output_prio_diagnostics_dir, 1L)
+  assert_inherits(output_prio_diagnostics_dir, "character")
+  assert_dir_exists(output_prio_diagnostics_dir, desc = "Output - Matched loanbooks")
 
-  stop_if_not_length(scenario_source_input, 1L)
-  stop_if_not_inherits(scenario_source_input, "character")
+  assert_length(scenario_source_input, 1L)
+  assert_inherits(scenario_source_input, "character")
 
-  stop_if_not_length(start_year, 1L)
-  stop_if_not_inherits(start_year, "integer")
+  assert_length(start_year, 1L)
+  assert_inherits(start_year, "integer")
 
   # load data ----
   ## read abcd data----
@@ -38,7 +38,7 @@ run_calculate_loanbook_coverage <- function(config) {
 
   ## read matched prioritized loan books----
   list_matched_prioritized <- list.files(path = output_prio_diagnostics_dir, pattern = "^matched_prio_.*csv$")
-  stop_if_no_files_found(list_matched_prioritized, output_prio_diagnostics_dir, "output_prio_diagnostics_dir", "matched prioritized loan book CSVs")
+  assert_any_file_exists(list_matched_prioritized, output_prio_diagnostics_dir, "output_prio_diagnostics_dir", "matched prioritized loan book CSVs")
 
   matched_prioritized <- readr::read_csv(
     file = file.path(output_prio_diagnostics_dir, list_matched_prioritized),

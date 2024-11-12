@@ -23,8 +23,8 @@ prioritise_and_diagnose <- function(config) {
 
   output_prio_diagnostics_dir <- get_output_prio_diagnostics_dir(config)
 
-  stop_if_not_length(output_prio_diagnostics_dir, 1L)
-  stop_if_not_inherits(output_prio_diagnostics_dir, "character")
+  assert_length(output_prio_diagnostics_dir, 1L)
+  assert_inherits(output_prio_diagnostics_dir, "character")
 
   if (dir.exists(output_prio_diagnostics_dir)) {
     ask_for_permission(

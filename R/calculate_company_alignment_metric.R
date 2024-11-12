@@ -592,7 +592,7 @@ validate_input_args_calculate_company_tech_deviation <- function(scenario_source
 
 validate_input_data_calculate_company_tech_deviation <- function(data,
                                                                  technology_direction) {
-  stop_if_not_expected_columns(
+  assert_expected_columns(
     data = data,
     cols = c(
       "sector", "technology", "year", "region", "scenario_source", "name_abcd",
@@ -601,7 +601,7 @@ validate_input_data_calculate_company_tech_deviation <- function(data,
     )
   )
 
-  stop_if_not_expected_columns(
+  assert_expected_columns(
     data = technology_direction,
     cols = c(
       "scenario_source", "scenario", "sector", "technology", "region",
@@ -656,7 +656,7 @@ validate_input_args_calculate_company_aggregate_alignment_tms <- function(scenar
 
 validate_input_data_calculate_company_aggregate_alignment_tms <- function(data,
                                                                           scenario) {
-  stop_if_not_expected_columns(
+  assert_expected_columns(
     data = data,
     cols = c(
       "sector", "technology", "year", "region", "scenario_source", "name_abcd",
@@ -735,7 +735,7 @@ validate_input_args_calculate_company_aggregate_alignment_sda <- function(scenar
 
 
 validate_input_data_calculate_company_aggregate_alignment_sda <- function(data) {
-  stop_if_not_expected_columns(
+  assert_expected_columns(
     data = data,
     cols = c(
       "sector", "year", "region", "scenario_source", "name_abcd",

@@ -14,16 +14,16 @@ run_match_prioritize <- function(config) {
   sector_split_type_select <- get_sector_split_type(config)
 
   # validate config values----
-  stop_if_not_length(output_prepare_dir, 1L)
-  stop_if_not_inherits(output_prepare_dir, "character")
-  stop_if_dir_not_found(output_prepare_dir, desc = "Output - prepare ABCD")
-  stop_if_file_not_found(file.path(output_prepare_dir, "abcd_final.csv"), desc = "ABCD final")
-  stop_if_not_length(output_matched_loanbooks_dir, 1L)
-  stop_if_not_inherits(output_matched_loanbooks_dir, "character")
-  stop_if_dir_not_found(output_matched_loanbooks_dir, desc = "Output - Matched loanbooks")
-  stop_if_not_inherits(apply_sector_split, "logical")
+  assert_length(output_prepare_dir, 1L)
+  assert_inherits(output_prepare_dir, "character")
+  assert_dir_exists(output_prepare_dir, desc = "Output - prepare ABCD")
+  assert_file_exists(file.path(output_prepare_dir, "abcd_final.csv"), desc = "ABCD final")
+  assert_length(output_matched_loanbooks_dir, 1L)
+  assert_inherits(output_matched_loanbooks_dir, "character")
+  assert_dir_exists(output_matched_loanbooks_dir, desc = "Output - Matched loanbooks")
+  assert_inherits(apply_sector_split, "logical")
   if (apply_sector_split) {
-    stop_if_not_inherits(sector_split_type_select, "character")
+    assert_inherits(sector_split_type_select, "character")
   }
 
   if (!is.null(match_prio_priority)) {
@@ -50,7 +50,7 @@ run_match_prioritize <- function(config) {
   # load data----
   ## load manually matched files----
   list_matched_manual <- list.files(path = output_matched_loanbooks_dir, pattern = "^matched_lbk_.*_manual[.]csv$")
-  stop_if_no_files_found(list_matched_manual, output_matched_loanbooks_dir, "dir_output", "manually matched loan book CSVs matching the pattern {.code ^matched_lbk_.*_manual[.]csv$}")
+  assert_any_file_exists(list_matched_manual, output_matched_loanbooks_dir, "dir_output", "manually matched loan book CSVs matching the pattern {.code ^matched_lbk_.*_manual[.]csv$}")
 
   matched_lbk_manual <- readr::read_csv(
     file = file.path(output_matched_loanbooks_dir, list_matched_manual),

@@ -22,8 +22,8 @@ prepare_abcd <- function(config) {
 
   output_prepare_dir <- get_output_prepare_dir(config)
 
-  stop_if_not_length(output_prepare_dir, 1L)
-  stop_if_not_inherits(output_prepare_dir, "character")
+  assert_length(output_prepare_dir, 1L)
+  assert_inherits(output_prepare_dir, "character")
 
   if (dir.exists(output_prepare_dir)) {
     ask_for_permission(
