@@ -13,29 +13,29 @@ remove_inactive_companies <- function(config) {
   time_frame <- get_time_frame(config)
 
   # validate config values----
-  stop_if_not_length(path_abcd, 1L)
-  stop_if_not_inherits(path_abcd, "character")
-  stop_if_file_not_found(path_abcd, desc = "ABCD")
+  assert_length(path_abcd, 1L)
+  assert_inherits(path_abcd, "character")
+  assert_file_exists(path_abcd, desc = "ABCD")
 
-  stop_if_not_length(sheet_abcd, 1L)
-  stop_if_not_inherits(sheet_abcd, "character")
-  stop_if_sheet_not_found(sheet_abcd, path_abcd)
+  assert_length(sheet_abcd, 1L)
+  assert_inherits(sheet_abcd, "character")
+  assert_sheet_exists(sheet_abcd, path_abcd)
 
   if (!is.null(remove_inactive_companies)) {
-    stop_if_not_length(remove_inactive_companies, 1L)
-    stop_if_not_inherits(remove_inactive_companies, "logical")
+    assert_length(remove_inactive_companies, 1L)
+    assert_inherits(remove_inactive_companies, "logical")
   }
 
-  stop_if_not_length(start_year, 1L)
-  stop_if_not_inherits(start_year, "integer")
+  assert_length(start_year, 1L)
+  assert_inherits(start_year, "integer")
 
-  stop_if_not_length(time_frame, 1L)
-  stop_if_not_inherits(time_frame, "integer")
+  assert_length(time_frame, 1L)
+  assert_inherits(time_frame, "integer")
 
 
   # load data----
   abcd <- read_abcd_raw(path_abcd, sheet_abcd)
-  stop_if_not_expected_columns(abcd, cols_abcd, desc = "ABCD")
+  assert_expected_columns(abcd, cols_abcd, desc = "ABCD")
 
   # optional: remove inactive companies----
 

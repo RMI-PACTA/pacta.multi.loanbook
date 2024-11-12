@@ -21,41 +21,41 @@ run_calculate_match_success_rate <- function(config) {
   match_success_rate_plot_resolution <- get_match_plot_resolution(config)
 
   # validate config values----
-  stop_if_not_length(dir_loanbooks, 1L)
-  stop_if_not_inherits(dir_loanbooks, "character")
-  stop_if_dir_not_found(dir_loanbooks, desc = "Input - loanbooks")
+  assert_length(dir_loanbooks, 1L)
+  assert_inherits(dir_loanbooks, "character")
+  assert_dir_exists(dir_loanbooks, desc = "Input - loanbooks")
 
-  stop_if_not_length(dir_prioritized_loanbooks_and_diagnostics, 1L)
-  stop_if_not_inherits(dir_prioritized_loanbooks_and_diagnostics, "character")
-  stop_if_dir_not_found(dir_prioritized_loanbooks_and_diagnostics, desc = "Output - Prioritized loanbooks and diagnostics")
+  assert_length(dir_prioritized_loanbooks_and_diagnostics, 1L)
+  assert_inherits(dir_prioritized_loanbooks_and_diagnostics, "character")
+  assert_dir_exists(dir_prioritized_loanbooks_and_diagnostics, desc = "Output - Prioritized loanbooks and diagnostics")
 
-  stop_if_not_length(matching_use_manual_sector_classification, 1L)
-  stop_if_not_inherits(matching_use_manual_sector_classification, "logical")
+  assert_length(matching_use_manual_sector_classification, 1L)
+  assert_inherits(matching_use_manual_sector_classification, "logical")
 
   # path to manual sector classification only required if boolean TRUE
   if (matching_use_manual_sector_classification) {
-    stop_if_not_length(path_manual_sector_classification, 1L)
-    stop_if_not_inherits(path_manual_sector_classification, "character")
-    stop_if_file_not_found(path_manual_sector_classification, desc = "Manual sector classification")
+    assert_length(path_manual_sector_classification, 1L)
+    assert_inherits(path_manual_sector_classification, "character")
+    assert_file_exists(path_manual_sector_classification, desc = "Manual sector classification")
   }
 
-  stop_if_not_length(match_success_rate_plot_width, 1L)
-  stop_if_not_inherits(match_success_rate_plot_width, "integer")
+  assert_length(match_success_rate_plot_width, 1L)
+  assert_inherits(match_success_rate_plot_width, "integer")
 
-  stop_if_not_length(match_success_rate_plot_height, 1L)
-  stop_if_not_inherits(match_success_rate_plot_height, "integer")
+  assert_length(match_success_rate_plot_height, 1L)
+  assert_inherits(match_success_rate_plot_height, "integer")
 
-  stop_if_not_length(match_success_rate_plot_units, 1L)
-  stop_if_not_inherits(match_success_rate_plot_units, "character")
+  assert_length(match_success_rate_plot_units, 1L)
+  assert_inherits(match_success_rate_plot_units, "character")
 
-  stop_if_not_length(match_success_rate_plot_resolution, 1L)
-  stop_if_not_inherits(match_success_rate_plot_resolution, "integer")
+  assert_length(match_success_rate_plot_resolution, 1L)
+  assert_inherits(match_success_rate_plot_resolution, "integer")
 
   # load data----
 
   ## load raw loan books----
   list_raw <- list.files(dir_loanbooks)[grepl("csv$", list.files(dir_loanbooks))]
-  stop_if_no_files_found(list_raw, dir_loanbooks, "dir_loanbooks", "raw loan book CSVs")
+  assert_any_file_exists(list_raw, dir_loanbooks, "dir_loanbooks", "raw loan book CSVs")
 
   if (is.null(by_group) || by_group != "group_id") {
     raw_lbk <- readr::read_csv(
@@ -81,7 +81,7 @@ run_calculate_match_success_rate <- function(config) {
 
   ## load matched prioritized loan books----
   list_matched_prioritized <- list.files(path = dir_prioritized_loanbooks_and_diagnostics, pattern = "^matched_prio_.*csv$")
-  stop_if_no_files_found(list_matched_prioritized, dir_prioritized_loanbooks_and_diagnostics, "dir_prioritized_loanbooks_and_diagnostics", "matched prioritized loan book CSVs")
+  assert_any_file_exists(list_matched_prioritized, dir_prioritized_loanbooks_and_diagnostics, "dir_prioritized_loanbooks_and_diagnostics", "matched prioritized loan book CSVs")
 
   matched_prioritized <- readr::read_csv(
     file = file.path(dir_prioritized_loanbooks_and_diagnostics, list_matched_prioritized),

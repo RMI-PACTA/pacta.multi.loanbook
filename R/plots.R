@@ -5,7 +5,7 @@ plot_match_success_rate <- function(data,
                                     currency,
                                     by_group) {
   # validate inputs
-  stop_if_not_inherits(data, "data.frame")
+  assert_inherits(data, "data.frame")
   expected_cols <- c(
     by_group,
     "sector",
@@ -14,14 +14,14 @@ plot_match_success_rate <- function(data,
     "match_success_rate",
     "metric_type"
   )
-  stop_if_not_expected_columns(data, expected_cols, desc = "Input")
+  assert_expected_columns(data, expected_cols, desc = "Input")
 
-  stop_if_not_inherits(metric_type, "character")
+  assert_inherits(metric_type, "character")
 
-  stop_if_not_inherits(match_success_type, "character")
+  assert_inherits(match_success_type, "character")
 
-  stop_if_not_length(currency, 1L)
-  stop_if_not_inherits(currency, "character")
+  assert_length(currency, 1L)
+  assert_inherits(currency, "character")
 
   data <- data %>%
     dplyr::filter(.data[["sector"]] != "not in scope") %>%
@@ -379,30 +379,30 @@ validate_input_args_generate_individual_outputs <- function(output_directory,
                                                             sector,
                                                             start_year,
                                                             time_horizon) {
-  stop_if_not_length(output_directory, 1L)
-  stop_if_not_inherits(output_directory, "character")
+  assert_length(output_directory, 1L)
+  assert_inherits(output_directory, "character")
 
-  stop_if_not_length(by_group, 1L)
+  assert_length(by_group, 1L)
 
-  stop_if_not_length(by_group_value, 1L)
+  assert_length(by_group_value, 1L)
 
-  stop_if_not_length(scenario_source, 1L)
-  stop_if_not_inherits(scenario_source, "character")
+  assert_length(scenario_source, 1L)
+  assert_inherits(scenario_source, "character")
 
-  stop_if_not_length(target_scenario, 1L)
-  stop_if_not_inherits(target_scenario, "character")
+  assert_length(target_scenario, 1L)
+  assert_inherits(target_scenario, "character")
 
-  stop_if_not_length(region, 1L)
-  stop_if_not_inherits(region, "character")
+  assert_length(region, 1L)
+  assert_inherits(region, "character")
 
-  stop_if_not_length(sector, 1L)
-  stop_if_not_inherits(sector, "character")
+  assert_length(sector, 1L)
+  assert_inherits(sector, "character")
 
-  stop_if_not_length(start_year, 1L)
-  stop_if_not_inherits(start_year, "integer")
+  assert_length(start_year, 1L)
+  assert_inherits(start_year, "integer")
 
-  stop_if_not_length(time_horizon, 1L)
-  stop_if_not_inherits(time_horizon, "integer")
+  assert_length(time_horizon, 1L)
+  assert_inherits(time_horizon, "integer")
 
   invisible()
 }
@@ -413,7 +413,7 @@ validate_input_data_generate_individual_outputs <- function(data,
                                                             target_type,
                                                             by_group) {
   if (target_type == "sda") {
-    stop_if_not_expected_columns(
+    assert_expected_columns(
       data = data,
       cols = c(
         "sector", "year", "region", "scenario_source", "emission_factor_metric",
@@ -421,7 +421,7 @@ validate_input_data_generate_individual_outputs <- function(data,
       )
     )
   } else if (target_type == "tms") {
-    stop_if_not_expected_columns(
+    assert_expected_columns(
       data = data,
       cols = c(
         "sector", "technology", "year", "region", "scenario_source", "metric",
@@ -431,7 +431,7 @@ validate_input_data_generate_individual_outputs <- function(data,
     )
   }
 
-  stop_if_not_expected_columns(
+  assert_expected_columns(
     data = matched_prioritized,
     cols = c(
       by_group, "name_abcd", "sector", "sector_abcd", "loan_size_outstanding",
