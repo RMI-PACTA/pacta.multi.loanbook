@@ -23,8 +23,8 @@ analyse <- function(config) {
 
   dir_analysis <- get_dir_analysis(config)
 
-  stop_if_not_length(dir_analysis, 1L)
-  stop_if_not_inherits(dir_analysis, "character")
+  assert_length(dir_analysis, 1L)
+  assert_inherits(dir_analysis, "character")
 
   if (dir.exists(dir_analysis)) {
     ask_for_permission(
