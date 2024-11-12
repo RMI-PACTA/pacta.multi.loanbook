@@ -22,8 +22,19 @@ beautify_scenario_label <- function(label) {
 #' @noRd
 
 abort_if_missing_names <- function(data, expected_names) {
-  stopifnot(rlang::is_named(data))
-  stopifnot(is.character(expected_names))
+  if (!rlang::is_named(data)) {
+    cli::cli_abort(
+      message = c(x = "{.arg data} must be named"),
+      .envir = rlang::env_parent()
+    )
+  }
+
+  if (!is.character(expected_names)) {
+    cli::cli_abort(
+      message = c(x = "{.arg expected_names} must be of type {.cls character}"),
+      .envir = rlang::env_parent()
+    )
+  }
 
   if (!all(unique(expected_names) %in% names(data))) {
     missing_names <- sort(setdiff(expected_names, names(data)))
