@@ -211,7 +211,7 @@ plot_scatter <- function(data,
 
 
 check_plot_scatter <- function(data, alignment_limit, cap_outliers, floor_outliers) {
-  abort_if_missing_names(data, c(
+  assert_missing_names(data, c(
     "name", "buildout",
     "phaseout", "net"
   ))

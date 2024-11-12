@@ -7,7 +7,7 @@ beautify_scenario_label <- function(label) {
 
 #' Check if a named object contains expected names
 #'
-#' Based on fgeo.tool::abort_if_missing_names()
+#' Based on fgeo.tool::assert_missing_names()
 #'
 #' @param x A named object.
 #' @param expected_names String; expected names of `x`.
@@ -16,12 +16,12 @@ beautify_scenario_label <- function(label) {
 #'
 #' @examples
 #' x <- c(a = 1)
-#' abort_if_missing_names(x, "a")
-#' try(abort_if_missing_names(x, "bad"))
+#' assert_missing_names(x, "a")
+#' try(assert_missing_names(x, "bad"))
 #'
 #' @noRd
 
-abort_if_missing_names <- function(data, expected_names) {
+assert_missing_names <- function(data, expected_names) {
   if (!rlang::is_named(data)) {
     cli::cli_abort(
       message = c(x = "{.arg data} must be named"),
@@ -38,10 +38,10 @@ abort_if_missing_names <- function(data, expected_names) {
 
   if (!all(unique(expected_names) %in% names(data))) {
     missing_names <- sort(setdiff(expected_names, names(data)))
-    rlang::abort(
+    cli::cli_abort(
       c(
-        "`data` must have all the expected names.",
-        x = glue::glue("Missing names: {toString(missing_names)}.")
+        x = "{.arg data} must have all the expected names",
+        i = "Missing names: {.val {missing_names}}"
       ),
       class = "missing_names"
     )
@@ -51,7 +51,7 @@ abort_if_missing_names <- function(data, expected_names) {
 }
 
 
-abort_if_unknown_values <- function(value, data, column) {
+assert_unknown_values <- function(value, data, column) {
   if (is.null(value)) {
     return(invisible(value))
   }
@@ -62,11 +62,11 @@ abort_if_unknown_values <- function(value, data, column) {
   valid <- unique(data[[column]])
   if (!all(value %in% valid)) {
     msg <- c(
-      glue::glue("Each value of `{.value}` must be one of these:\n{toString(valid)}."),
-      x = glue::glue("You passed: {toString(value)}."),
-      i = glue::glue("Do you need to see valid values in this dataset?:\n{.data}")
+      x = "Each value of {.arg {(.value)}} must be one of these: {.val {value}}",
+      i = "You passed: {.val {value}}",
+      i = "Do you need to see valid values in this dataset?: {.arg {(.data)}}"
     )
-    rlang::abort(msg, class = "unknown_value")
+    cli::cli_abort(msg, class = "unknown_value")
   }
 
   invisible(value)
