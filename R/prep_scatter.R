@@ -17,7 +17,7 @@
 #' @return data.frame
 #'
 #' @rdname plot_scatter
-#' 
+#'
 #' @noRd
 
 prep_scatter <- function(data_bopo,
@@ -32,10 +32,10 @@ prep_scatter <- function(data_bopo,
 
   if (!is.null(group_var)) {
     if (!inherits(group_var, "character")) {
-      stop("group_var must be of class character")
+      cli::cli_abort("{.arg group_var} must be of class {.cls character}")
     }
     if (!length(group_var) == 1) {
-      stop("group_var must be of length 1")
+      cli::cli_abort("{.arg group_var} must be of length 1")
     }
   } else {
     data_bopo <- data_bopo %>%
