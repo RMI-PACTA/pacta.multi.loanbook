@@ -1,15 +1,15 @@
 run_aggregate_alignment_metric <- function(config) {
   config <- load_config(config)
 
-  output_prepare_dir <- get_output_prepare_dir(config)
-  output_prio_diagnostics_dir <- get_output_prio_diagnostics_dir(config)
-  output_analysis_dir <- get_output_analysis_dir(config)
-  output_analysis_aggregated_dir <- file.path(output_analysis_dir, "aggregated")
+  dir_prepared_abcd <- get_dir_prepared_abcd(config)
+  dir_prio_diagnostics <- get_dir_prioritized_loanbooks_and_diagnostics(config)
+  dir_analysis <- get_dir_analysis(config)
+  dir_analysis_aggregated <- file.path(dir_analysis, "aggregated")
 
-  dir.create(output_analysis_aggregated_dir, recursive = TRUE)
+  dir.create(dir_analysis_aggregated, recursive = TRUE)
 
-  path_scenario_tms <- get_scenario_tms_path(config)
-  path_scenario_sda <- get_scenario_sda_path(config)
+  path_scenario_tms <- get_path_scenario_tms(config)
+  path_scenario_sda <- get_path_scenario_sda(config)
 
   scenario_source_input <- get_scenario_source(config)
   scenario_select <- get_scenario_select(config)
@@ -39,17 +39,17 @@ run_aggregate_alignment_metric <- function(config) {
   )
 
   abcd <- readr::read_csv(
-    file.path(output_prepare_dir, "abcd_final.csv"),
+    file.path(dir_prepared_abcd, "abcd_final.csv"),
     col_types = col_types_abcd_final,
     col_select = dplyr::all_of(cols_abcd)
   )
 
   # read matched and prioritized loan book----
-  list_matched_prioritized <- list.files(path = output_prio_diagnostics_dir, pattern = "^matched_prio_.*csv$")
-  stop_if_no_files_found(list_matched_prioritized, output_prio_diagnostics_dir, "output_prio_diagnostics_dir", "matched prioritized loan book CSVs")
+  list_matched_prioritized <- list.files(path = dir_prio_diagnostics, pattern = "^matched_prio_.*csv$")
+  stop_if_no_files_found(list_matched_prioritized, dir_prio_diagnostics, "dir_prio_diagnostics", "matched prioritized loan book CSVs")
 
   matched_prioritized <- readr::read_csv(
-    file = file.path(output_prio_diagnostics_dir, list_matched_prioritized),
+    file = file.path(dir_prio_diagnostics, list_matched_prioritized),
     col_types = col_types_matched_prioritized,
     col_select = dplyr::all_of(c(by_group, col_select_matched_prioritized))
   )
@@ -154,19 +154,19 @@ run_aggregate_alignment_metric <- function(config) {
 
   company_technology_deviation_tms %>%
     readr::write_csv(
-      file.path(output_analysis_aggregated_dir, "company_technology_deviation_tms.csv"),
+      file.path(dir_analysis_aggregated, "company_technology_deviation_tms.csv"),
       na = ""
     )
 
   company_alignment_net_tms %>%
     readr::write_csv(
-      file.path(output_analysis_aggregated_dir, "company_alignment_net_tms.csv"),
+      file.path(dir_analysis_aggregated, "company_alignment_net_tms.csv"),
       na = ""
     )
 
   company_alignment_bo_po_tms %>%
     readr::write_csv(
-      file.path(output_analysis_aggregated_dir, "company_alignment_bo_po_tms.csv"),
+      file.path(dir_analysis_aggregated, "company_alignment_bo_po_tms.csv"),
       na = ""
     )
   } else {
@@ -211,7 +211,7 @@ run_aggregate_alignment_metric <- function(config) {
 
     company_alignment_net_sda %>%
       readr::write_csv(
-        file.path(output_analysis_aggregated_dir, "company_alignment_net_sda.csv"),
+        file.path(dir_analysis_aggregated, "company_alignment_net_sda.csv"),
         na = ""
       )
   } else {
@@ -272,7 +272,7 @@ run_aggregate_alignment_metric <- function(config) {
 
       write_alignment_metric_to_csv(
         data = aggregated_alignment_net,
-        output_dir = output_analysis_aggregated_dir,
+        output_dir = dir_analysis_aggregated,
         level = "net",
         .by = by_group
       )
@@ -291,7 +291,7 @@ run_aggregate_alignment_metric <- function(config) {
 
       write_alignment_metric_to_csv(
         data = aggregated_alignment_bo_po,
-        output_dir = output_analysis_aggregated_dir,
+        output_dir = dir_analysis_aggregated,
         level = "bo_po",
         .by = by_group
       )
