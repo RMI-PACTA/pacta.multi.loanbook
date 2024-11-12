@@ -16,7 +16,7 @@ lost_companies_sector_split <- function(abcd, companies_sector_split) {
 apply_sector_split_to_loans <- function(data,
                                         abcd,
                                         companies_sector_split) {
-  unique_companies_pre_split <- dplyr::distinct(.data = data, "name_abcd")
+  unique_companies_pre_split <- dplyr::distinct(.data = data, .data[["name_abcd"]])
 
   abcd_id <-
     dplyr::distinct(
@@ -77,8 +77,8 @@ apply_sector_split_to_loans <- function(data,
 
 check_and_prepare_by_group <- function(by_group) {
   if (!is.null(by_group)) {
-    stop_if_not_inherits(by_group, "character")
-    stop_if_not_length(by_group, 1)
+    assert_inherits(by_group, "character")
+    assert_length(by_group, 1)
     if (by_group == "NULL") {
       by_group <- NULL
     } else {

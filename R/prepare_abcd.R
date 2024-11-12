@@ -20,30 +20,30 @@
 prepare_abcd <- function(config) {
   config <- load_config(config)
 
-  output_prepare_dir <- get_output_prepare_dir(config)
+  dir_prepared_abcd <- get_dir_prepared_abcd(config)
 
-  stop_if_not_length(output_prepare_dir, 1L)
-  stop_if_not_inherits(output_prepare_dir, "character")
+  assert_length(dir_prepared_abcd, 1L)
+  assert_inherits(dir_prepared_abcd, "character")
 
-  if (dir.exists(output_prepare_dir)) {
+  if (dir.exists(dir_prepared_abcd)) {
     ask_for_permission(
       "The output directory defined by the {.var dir_prepared_abcd} parameter in your config already exists.\n
-      {.path {output_prepare_dir}}\n
+      {.path {dir_prepared_abcd}}\n
       Would you like to delete it and replace it with the output of the current run?"
     )
-    unlink(output_prepare_dir, recursive = TRUE)
+    unlink(dir_prepared_abcd, recursive = TRUE)
   }
-  dir.create(output_prepare_dir, recursive = TRUE, showWarnings = FALSE)
-  
+  dir.create(dir_prepared_abcd, recursive = TRUE, showWarnings = FALSE)
+
   remove_inactive_companies(config)
-  
+
   if (get_apply_sector_split(config)) {
     prepare_sector_split(config)
   }
-  
+
   write_manifest(
     config = config,
-    path = file.path(output_prepare_dir, "manifest.yml"),
+    path = file.path(dir_prepared_abcd, "manifest.yml"),
     prior_input_paths = NULL
   )
 }

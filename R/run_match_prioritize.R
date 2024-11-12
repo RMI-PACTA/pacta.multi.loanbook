@@ -2,11 +2,11 @@ run_match_prioritize <- function(config) {
   config <- load_config(config)
 
   # input paths for match prioritize
-  output_matched_loanbooks_dir <- get_output_matched_loanbooks_dir(config)
-  output_prepare_dir <- get_output_prepare_dir(config)
+  dir_matched_loanbooks <- get_dir_matched_loanbooks(config)
+  dir_prepared_abcd <- get_dir_prepared_abcd(config)
 
   # output path for match prioritize
-  output_prio_diagnostics_dir <- get_output_prio_diagnostics_dir(config)
+  output_prio_diagnostics_dir <- get_dir_prioritized_loanbooks_and_diagnostics(config)
 
   match_prio_priority <- get_match_priority(config)
 
@@ -14,16 +14,17 @@ run_match_prioritize <- function(config) {
   sector_split_type_select <- get_sector_split_type(config)
 
   # validate config values----
-  stop_if_not_length(output_prepare_dir, 1L)
-  stop_if_not_inherits(output_prepare_dir, "character")
-  stop_if_dir_not_found(output_prepare_dir, desc = "Output - prepare ABCD")
-  stop_if_file_not_found(file.path(output_prepare_dir, "abcd_final.csv"), desc = "ABCD final")
-  stop_if_not_length(output_matched_loanbooks_dir, 1L)
-  stop_if_not_inherits(output_matched_loanbooks_dir, "character")
-  stop_if_dir_not_found(output_matched_loanbooks_dir, desc = "Output - Matched loanbooks")
-  stop_if_not_inherits(apply_sector_split, "logical")
+  assert_length(dir_prepared_abcd, 1L)
+  assert_inherits(dir_prepared_abcd, "character")
+  assert_dir_exists(dir_prepared_abcd, desc = "Output - prepare ABCD")
+  assert_file_exists(file.path(dir_prepared_abcd, "abcd_final.csv"), desc = "ABCD final")
+  assert_length(dir_matched_loanbooks, 1L)
+  assert_inherits(dir_matched_loanbooks, "character")
+  assert_dir_exists(dir_matched_loanbooks, desc = "Output - Matched loanbooks")
+  assert_inherits(apply_sector_split, "logical")
+
   if (apply_sector_split) {
-    stop_if_not_inherits(sector_split_type_select, "character")
+    assert_inherits(sector_split_type_select, "character")
   }
 
   if (!is.null(match_prio_priority)) {
@@ -49,11 +50,11 @@ run_match_prioritize <- function(config) {
 
   # load data----
   ## load manually matched files----
-  list_matched_manual <- list.files(path = output_matched_loanbooks_dir, pattern = "^matched_lbk_.*_manual[.]csv$")
-  stop_if_no_files_found(list_matched_manual, output_matched_loanbooks_dir, "dir_output", "manually matched loan book CSVs matching the pattern {.code ^matched_lbk_.*_manual[.]csv$}")
+  list_matched_manual <- list.files(path = dir_matched_loanbooks, pattern = "^matched_lbk_.*_manual[.]csv$")
+  assert_any_file_exists(list_matched_manual, dir_matched_loanbooks, "dir_output", "manually matched loan book CSVs matching the pattern {.code ^matched_lbk_.*_manual[.]csv$}")
 
   matched_lbk_manual <- readr::read_csv(
-    file = file.path(output_matched_loanbooks_dir, list_matched_manual),
+    file = file.path(dir_matched_loanbooks, list_matched_manual),
     col_types = col_types_matched_manual
   ) %>%
     dplyr::group_split(.data[["group_id"]])
@@ -62,13 +63,13 @@ run_match_prioritize <- function(config) {
   if (apply_sector_split) {
     if (sector_split_type_select == "equal_weights") {
       companies_sector_split <- readr::read_csv(
-        file.path(output_prepare_dir, "companies_sector_split.csv"),
+        file.path(dir_prepared_abcd, "companies_sector_split.csv"),
         col_types = col_types_companies_sector_split,
         col_select = dplyr::all_of(col_select_companies_sector_split)
       )
-  
+
       abcd <- readr::read_csv(
-        file.path(output_prepare_dir, "abcd_final.csv"),
+        file.path(dir_prepared_abcd, "abcd_final.csv"),
         col_select = dplyr::all_of(cols_abcd),
         col_types = col_types_abcd_final
       )

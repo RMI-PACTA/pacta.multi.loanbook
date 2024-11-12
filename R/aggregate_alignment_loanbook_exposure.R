@@ -222,7 +222,7 @@ validate_input_data_aggregate_alignment_loanbook_exposure <- function(data,
                                                                       matched,
                                                                       group_vars,
                                                                       .by = NULL) {
-  stop_if_not_expected_columns(
+  assert_expected_columns(
     data = data,
     cols = c(
       group_vars,
@@ -233,7 +233,7 @@ validate_input_data_aggregate_alignment_loanbook_exposure <- function(data,
     )
   )
 
-  stop_if_not_expected_columns(
+  assert_expected_columns(
     data = matched,
     cols = c(
       "id_loan",

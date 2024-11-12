@@ -2,40 +2,40 @@ remove_inactive_companies <- function(config) {
   config <- load_config(config)
 
   # input path for remove_inactive_companies
-  path_abcd <- get_abcd_path(config)
-  sheet_abcd <- get_abcd_sheet(config)
+  path_abcd <- get_path_abcd(config)
+  sheet_abcd <- get_sheet_abcd(config)
 
   # output path for remove_inactive_companies
-  output_prepare_dir <- get_output_prepare_dir(config)
+  dir_prepared_abcd <- get_dir_prepared_abcd(config)
 
   remove_inactive_companies <- get_remove_inactive_companies(config)
   start_year <- get_start_year(config)
   time_frame <- get_time_frame(config)
 
   # validate config values----
-  stop_if_not_length(path_abcd, 1L)
-  stop_if_not_inherits(path_abcd, "character")
-  stop_if_file_not_found(path_abcd, desc = "ABCD")
+  assert_length(path_abcd, 1L)
+  assert_inherits(path_abcd, "character")
+  assert_file_exists(path_abcd, desc = "ABCD")
 
-  stop_if_not_length(sheet_abcd, 1L)
-  stop_if_not_inherits(sheet_abcd, "character")
-  stop_if_sheet_not_found(sheet_abcd, path_abcd)
+  assert_length(sheet_abcd, 1L)
+  assert_inherits(sheet_abcd, "character")
+  assert_sheet_exists(sheet_abcd, path_abcd)
 
   if (!is.null(remove_inactive_companies)) {
-    stop_if_not_length(remove_inactive_companies, 1L)
-    stop_if_not_inherits(remove_inactive_companies, "logical")
+    assert_length(remove_inactive_companies, 1L)
+    assert_inherits(remove_inactive_companies, "logical")
   }
 
-  stop_if_not_length(start_year, 1L)
-  stop_if_not_inherits(start_year, "integer")
+  assert_length(start_year, 1L)
+  assert_inherits(start_year, "integer")
 
-  stop_if_not_length(time_frame, 1L)
-  stop_if_not_inherits(time_frame, "integer")
+  assert_length(time_frame, 1L)
+  assert_inherits(time_frame, "integer")
 
 
   # load data----
   abcd <- read_abcd_raw(path_abcd, sheet_abcd)
-  stop_if_not_expected_columns(abcd, cols_abcd, desc = "ABCD")
+  assert_expected_columns(abcd, cols_abcd, desc = "ABCD")
 
   # optional: remove inactive companies----
 
@@ -113,7 +113,7 @@ remove_inactive_companies <- function(config) {
     # write removed inactive companies to file for inspection
     abcd_removed %>%
       readr::write_csv(
-        file.path(output_prepare_dir, "abcd_removed_inactive_companies.csv"),
+        file.path(dir_prepared_abcd, "abcd_removed_inactive_companies.csv"),
         na = ""
       )
 
@@ -125,7 +125,7 @@ remove_inactive_companies <- function(config) {
   # write final version of abcd to file for use PACTA analysis
   abcd %>%
     readr::write_csv(
-      file.path(output_prepare_dir, "abcd_final.csv"),
+      file.path(dir_prepared_abcd, "abcd_final.csv"),
       na = ""
     )
 }

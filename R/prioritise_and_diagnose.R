@@ -21,31 +21,31 @@
 prioritise_and_diagnose <- function(config) {
   config <- load_config(config)
 
-  output_prio_diagnostics_dir <- get_output_prio_diagnostics_dir(config)
+  dir_prioritized_loanbooks_and_diagnostics <- get_dir_prioritized_loanbooks_and_diagnostics(config)
 
-  stop_if_not_length(output_prio_diagnostics_dir, 1L)
-  stop_if_not_inherits(output_prio_diagnostics_dir, "character")
+  assert_length(dir_prioritized_loanbooks_and_diagnostics, 1L)
+  assert_inherits(dir_prioritized_loanbooks_and_diagnostics, "character")
 
-  if (dir.exists(output_prio_diagnostics_dir)) {
+  if (dir.exists(dir_prioritized_loanbooks_and_diagnostics)) {
     ask_for_permission(
       "The output directory defined by the {.var dir_prioritized_loanbooks_and_diagnostics} parameter in your config already exists.\n
-      {.path {output_prio_diagnostics_dir}}\n
+      {.path {dir_prioritized_loanbooks_and_diagnostics}}\n
       Would you like to delete it and replace it with the output of the current run?"
     )
-    unlink(output_prio_diagnostics_dir, recursive = TRUE)
+    unlink(dir_prioritized_loanbooks_and_diagnostics, recursive = TRUE)
   }
-  dir.create(output_prio_diagnostics_dir, recursive = TRUE, showWarnings = FALSE)
+  dir.create(dir_prioritized_loanbooks_and_diagnostics, recursive = TRUE, showWarnings = FALSE)
 
   run_match_prioritize(config)
   run_calculate_match_success_rate(config)
   run_calculate_loanbook_coverage(config)
-  
+
   write_manifest(
     config = config,
-    path = file.path(output_prio_diagnostics_dir, "manifest.yml"),
+    path = file.path(dir_prioritized_loanbooks_and_diagnostics, "manifest.yml"),
     prior_input_paths = c(
-      get_output_prepare_dir(config),
-      get_output_matched_loanbooks_dir(config)
+      get_dir_prepared_abcd(config),
+      get_dir_matched_loanbooks(config)
     )
   )
 }

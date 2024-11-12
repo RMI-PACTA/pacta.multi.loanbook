@@ -1,4 +1,4 @@
-#' stop_if_not_inherits
+#' assert_inherits
 #'
 #' @param x an object to be checked
 #' @param cls a string defining the expected object class
@@ -7,7 +7,7 @@
 #'
 #' @noRd
 
-stop_if_not_inherits <- function(x, cls) {
+assert_inherits <- function(x, cls) {
   if (isFALSE(inherits(x, cls))) {
     arg <- deparse(substitute(x))
     cli::cli_abort(
@@ -21,7 +21,7 @@ stop_if_not_inherits <- function(x, cls) {
 }
 
 
-#' stop_if_not_length
+#' assert_length
 #'
 #' @param x an object to be checked
 #' @param len an integer defining the expected length of the object
@@ -30,7 +30,7 @@ stop_if_not_inherits <- function(x, cls) {
 #'
 #' @noRd
 
-stop_if_not_length <- function(x, len) {
+assert_length <- function(x, len) {
   if (length(x) != len) {
     arg <- deparse(substitute(x))
     cli::cli_abort(
@@ -44,7 +44,7 @@ stop_if_not_length <- function(x, len) {
 }
 
 
-#' stop_if_dir_not_found
+#' assert_dir_exists
 #'
 #' @param path a string defining the path to a directory
 #' @param desc a string describing the type of directory to be added to the
@@ -54,7 +54,7 @@ stop_if_not_length <- function(x, len) {
 #'
 #' @noRd
 
-stop_if_dir_not_found <- function(path, desc = NULL) {
+assert_dir_exists <- function(path, desc = NULL) {
   if (isFALSE(dir.exists(path))) {
     if (is.null(desc)) {
       msg <- "Directory not found at path:"
@@ -73,7 +73,7 @@ stop_if_dir_not_found <- function(path, desc = NULL) {
 }
 
 
-#' stop_if_file_not_found
+#' assert_file_exists
 #'
 #' @param path a string defining the path to a file
 #' @param desc a string describing the type of file to be added to the error msg
@@ -82,7 +82,7 @@ stop_if_dir_not_found <- function(path, desc = NULL) {
 #'
 #' @noRd
 
-stop_if_file_not_found <- function(path, desc = NULL) {
+assert_file_exists <- function(path, desc = NULL) {
   if (isFALSE(file.exists(path))) {
     if (is.null(desc)) {
       msg <- "File not found at path:"
@@ -101,7 +101,7 @@ stop_if_file_not_found <- function(path, desc = NULL) {
 }
 
 
-#' stop_if_sheet_not_found
+#' assert_sheet_exists
 #'
 #' @param sheet a string defining the name of a sheet
 #' @param path a string defining the path to a XLS/X file
@@ -110,7 +110,7 @@ stop_if_file_not_found <- function(path, desc = NULL) {
 #'
 #' @noRd
 
-stop_if_sheet_not_found <- function(sheet, path) {
+assert_sheet_exists <- function(sheet, path) {
   if (isFALSE(sheet %in% readxl::excel_sheets(path))) {
     cli::cli_abort(
       message = c(
@@ -124,7 +124,7 @@ stop_if_sheet_not_found <- function(sheet, path) {
 }
 
 
-#' stop_if_not_expected_columns
+#' assert_expected_columns
 #'
 #' @param data a data frame to be checked
 #' @param cols a vector of expected column names
@@ -134,7 +134,7 @@ stop_if_sheet_not_found <- function(sheet, path) {
 #'
 #' @noRd
 
-stop_if_not_expected_columns <- function(data, cols, desc = NULL) {
+assert_expected_columns <- function(data, cols, desc = NULL) {
   if (isFALSE(all(cols %in% names(data)))) {
     if (is.null(desc)) {
       msg <- "Data does not contain all of the expected columns."
@@ -153,7 +153,7 @@ stop_if_not_expected_columns <- function(data, cols, desc = NULL) {
 }
 
 
-#' stop_if_no_files_found
+#' assert_any_file_exists
 #'
 #' @param files a vector of files found
 #' @param dir a dir where files were not found
@@ -165,7 +165,7 @@ stop_if_not_expected_columns <- function(data, cols, desc = NULL) {
 #'
 #' @noRd
 
-stop_if_no_files_found <- function(files, dir, dir_param, desc) {
+assert_any_file_exists <- function(files, dir, dir_param, desc) {
   if (length(files) == 0) {
     cli::cli_abort(
       message = c(
@@ -179,7 +179,7 @@ stop_if_no_files_found <- function(files, dir, dir_param, desc) {
 }
 
 
-#' stop_if_sector_split_not_one
+#' assert_sector_split_is_one
 #'
 #' @param data a data frame to be checked
 #'
@@ -187,7 +187,7 @@ stop_if_no_files_found <- function(files, dir, dir_param, desc) {
 #'
 #' @noRd
 
-stop_if_sector_split_not_one <- function(data) {
+assert_sector_split_is_one <- function(data) {
   check_sector_split <-
     dplyr::summarise(
       data,

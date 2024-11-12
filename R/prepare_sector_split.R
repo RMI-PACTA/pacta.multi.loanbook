@@ -32,17 +32,17 @@
 
 prepare_sector_split <- function(config) {
   config <- load_config(config)
-  
+
   if (!get_apply_sector_split(config)) {
     warning("`apply_sector_split` is `FALSE` in your config, so the `prepare_sector_split()` function will do nothing.")
     return(invisible())
   }
 
   # input/output paths for prepare_sector_split
-  output_prepare_dir <- get_output_prepare_dir(config)
-  sector_split_path <- get_sector_split_path(config)
-  advanced_company_indicators_path <- get_advanced_company_indicators_path(config)
-  sheet_advanced_company_indicators <- get_advanced_company_indicators_sheet(config)
+  dir_prepared_abcd <- get_dir_prepared_abcd(config)
+  path_sector_split <- get_path_sector_split(config)
+  path_advanced_company_indicators <- get_path_advanced_company_indicators(config)
+  sheet_advanced_company_indicators <- get_sheet_advanced_company_indicators(config)
 
   start_year <- get_start_year(config)
   time_frame <- get_time_frame(config)
@@ -50,12 +50,12 @@ prepare_sector_split <- function(config) {
 
   ## load input data----
   advanced_company_indicators_raw <- readxl::read_xlsx(
-    path = advanced_company_indicators_path,
+    path = path_advanced_company_indicators,
     sheet = sheet_advanced_company_indicators
   )
 
   company_ids_primary_energy_split <- readr::read_csv(
-    sector_split_path,
+    path_sector_split,
     col_types = readr::cols_only(company_id = "d"),
     col_select = "company_id"
   ) %>%
@@ -64,7 +64,7 @@ prepare_sector_split <- function(config) {
   # optional: remove inactive companies
   if (remove_inactive_companies) {
     abcd_removed_inactive_companies <- readr::read_csv(
-      file.path(output_prepare_dir, "abcd_removed_inactive_companies.csv"),
+      file.path(dir_prepared_abcd, "abcd_removed_inactive_companies.csv"),
       col_select = dplyr::all_of(cols_abcd),
       col_types = col_types_abcd_final
     )
@@ -188,7 +188,7 @@ prepare_sector_split <- function(config) {
     )
 
   ### check that the sum of the sector split of each company is 1----
-  stop_if_sector_split_not_one(sector_split_all_companies)
+  assert_sector_split_is_one(sector_split_all_companies)
 
   ## calculate primary energy-based sector split for energy sectors----
   # keep only companies that are active in multiple energy sectors
@@ -261,7 +261,7 @@ prepare_sector_split <- function(config) {
     dplyr::filter(.data[["company_id"]] %in% .env[["company_ids_primary_energy_split"]])
 
   ### check that the sum of the primary energy based sector split of each company is 1----
-  stop_if_sector_split_not_one(sector_split_multi_energy_companies)
+  assert_sector_split_is_one(sector_split_multi_energy_companies)
 
   ## combine the sector splits----
   # we want to use the plain equal weights split for companies that do not operate in more than one energy sector
@@ -288,7 +288,7 @@ prepare_sector_split <- function(config) {
     )
 
   ### check that the sum of the combined sector split of each company is 1----
-  stop_if_sector_split_not_one(sector_split_all_companies_final)
+  assert_sector_split_is_one(sector_split_all_companies_final)
 
   ## write output----
   sector_split_multi_energy_companies %>%
@@ -303,7 +303,7 @@ prepare_sector_split <- function(config) {
       )
     ) %>%
     readr::write_csv(
-      file.path(output_prepare_dir, "companies_sector_split_primary_energy_only.csv"),
+      file.path(dir_prepared_abcd, "companies_sector_split_primary_energy_only.csv"),
       na = ""
     )
 
@@ -319,7 +319,7 @@ prepare_sector_split <- function(config) {
       )
     ) %>%
     readr::write_csv(
-      file.path(output_prepare_dir, "companies_sector_split_equal_weights_only.csv"),
+      file.path(dir_prepared_abcd, "companies_sector_split_equal_weights_only.csv"),
       na = ""
     )
 
@@ -335,7 +335,7 @@ prepare_sector_split <- function(config) {
       )
     ) %>%
     readr::write_csv(
-      file.path(output_prepare_dir, "companies_sector_split.csv"),
+      file.path(dir_prepared_abcd, "companies_sector_split.csv"),
       na = ""
     )
 }
