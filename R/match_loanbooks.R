@@ -22,21 +22,21 @@ match_loanbooks <- function(config) {
   config <- load_config(config)
 
   # input paths for match_loanbooks
-  input_loanbooks_dir <- get_loanbook_dir(config)
-  output_prepare_dir <- get_output_prepare_dir(config)
+  dir_loanbooks <- get_dir_loanbooks(config)
+  dir_prepared_abcd <- get_dir_prepared_abcd(config)
 
   # output path for match_loanbooks
-  output_matched_loanbooks_dir <- get_output_matched_loanbooks_dir(config)
+  dir_matched_loanbooks <- get_dir_matched_loanbooks(config)
 
-  if (dir.exists(output_matched_loanbooks_dir)) {
+  if (dir.exists(dir_matched_loanbooks)) {
     ask_for_permission(
       "The output directory defined by the {.var dir_matched_loanbooks} parameter in your config already exists.\n
-      {.path {output_matched_loanbooks_dir}}\n
+      {.path {dir_matched_loanbooks}}\n
       Would you like to delete it and replace it with the output of the current run?"
     )
-    unlink(output_matched_loanbooks_dir, recursive = TRUE)
+    unlink(dir_matched_loanbooks, recursive = TRUE)
   }
-  dir.create(output_matched_loanbooks_dir, recursive = TRUE, showWarnings = FALSE)
+  dir.create(dir_matched_loanbooks, recursive = TRUE, showWarnings = FALSE)
 
   matching_by_sector <- get_match_by_sector(config)
   matching_min_score <- get_match_min_score(config)
@@ -47,22 +47,22 @@ match_loanbooks <- function(config) {
 
   matching_use_manual_sector_classification <- get_use_manual_sector_classification(config)
   if (matching_use_manual_sector_classification) {
-    path_manual_sector_classification <- get_manual_sector_classification_path(config)
+    path_manual_sector_classification <- get_path_manual_sector_classification(config)
   }
 
   # validate config values----
-  stop_if_not_length(input_loanbooks_dir, 1L)
-  stop_if_not_inherits(input_loanbooks_dir, "character")
-  stop_if_dir_not_found(input_loanbooks_dir, desc = "Input - loanbooks")
+  stop_if_not_length(dir_loanbooks, 1L)
+  stop_if_not_inherits(dir_loanbooks, "character")
+  stop_if_dir_not_found(dir_loanbooks, desc = "Input - loanbooks")
 
-  stop_if_not_length(output_prepare_dir, 1L)
-  stop_if_not_inherits(output_prepare_dir, "character")
-  stop_if_dir_not_found(output_prepare_dir, desc = "Output - prepare ABCD")
-  stop_if_file_not_found(file.path(output_prepare_dir, "abcd_final.csv"), desc = "ABCD final")
+  stop_if_not_length(dir_prepared_abcd, 1L)
+  stop_if_not_inherits(dir_prepared_abcd, "character")
+  stop_if_dir_not_found(dir_prepared_abcd, desc = "Output - prepare ABCD")
+  stop_if_file_not_found(file.path(dir_prepared_abcd, "abcd_final.csv"), desc = "ABCD final")
 
-  stop_if_not_length(output_matched_loanbooks_dir, 1L)
-  stop_if_not_inherits(output_matched_loanbooks_dir, "character")
-  stop_if_dir_not_found(output_matched_loanbooks_dir, desc = "Output - Matched loanbooks")
+  stop_if_not_length(dir_matched_loanbooks, 1L)
+  stop_if_not_inherits(dir_matched_loanbooks, "character")
+  stop_if_dir_not_found(dir_matched_loanbooks, desc = "Output - Matched loanbooks")
 
   stop_if_not_length(matching_by_sector, 1L)
   stop_if_not_inherits(matching_by_sector, "logical")
@@ -98,7 +98,7 @@ match_loanbooks <- function(config) {
 
   ## load abcd----
   abcd <- readr::read_csv(
-    file.path(output_prepare_dir, "abcd_final.csv"),
+    file.path(dir_prepared_abcd, "abcd_final.csv"),
     col_select = dplyr::all_of(cols_abcd),
     col_types = col_types_abcd_final
   )
@@ -113,11 +113,11 @@ match_loanbooks <- function(config) {
   }
 
   ## load raw loan books----
-  list_raw <- list.files(path = input_loanbooks_dir, pattern = "[.]csv$")
-  stop_if_no_files_found(list_raw, input_loanbooks_dir, "dir_input", "raw loan book CSVs")
+  list_raw <- list.files(path = dir_loanbooks, pattern = "[.]csv$")
+  stop_if_no_files_found(list_raw, dir_loanbooks, "dir_input", "raw loan book CSVs")
 
   raw_lbk <- readr::read_csv(
-    file = file.path(input_loanbooks_dir, list_raw),
+    file = file.path(dir_loanbooks, list_raw),
     col_types = col_types_raw,
     id = "group_id"
   ) %>%
@@ -167,17 +167,17 @@ match_loanbooks <- function(config) {
     ## write matched data to file----
     matched_lbk_i %>%
       readr::write_csv(
-        file = file.path(output_matched_loanbooks_dir, glue::glue("matched_lbk_{group_name}.csv")),
+        file = file.path(dir_matched_loanbooks, glue::glue("matched_lbk_{group_name}.csv")),
         na = ""
       )
     cli::cli_progress_update()
   }
-  
+
   cli::cli_progress_done()
-  
+
   write_manifest(
     config = config,
-    path = file.path(output_matched_loanbooks_dir, "manifest.yml"),
-    prior_input_paths = c(output_prepare_dir)
+    path = file.path(dir_matched_loanbooks, "manifest.yml"),
+    prior_input_paths = c(dir_prepared_abcd)
   )
 }
