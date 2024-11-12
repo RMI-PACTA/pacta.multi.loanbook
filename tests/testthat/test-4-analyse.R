@@ -24,9 +24,6 @@ test_that("with known input, runs without error", {
       ),
       sector_split = list(
         apply_sector_split = FALSE
-      ),
-      prepare_abcd = list(
-        remove_inactive_companies = TRUE
       )
     )
 
