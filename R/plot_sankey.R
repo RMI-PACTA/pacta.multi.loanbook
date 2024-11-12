@@ -153,12 +153,10 @@ plot_sankey <- function(data,
       # you convert it as png
       webshot::webshot(temp_html, path.expand(file_name), vwidth = 1000, vheight = 900)
     } else {
-      rlang::abort(
-        glue::glue(
-          "In order to save the plot as .png you need to have `phantomjs`
-          installed. Please run `webshot::install_phantomjs()` if you don't and
-          try running the function again."
-        )
+      cli::cli_abort(
+        "In order to save the plot as PNG, you need to have {.pkg phantomjs}
+        installed. Please run {.run webshot::install_phantomjs()} if you don't
+        and try running the function again."
       )
     }
   }
@@ -171,11 +169,9 @@ check_plot_sankey <- function(data,
   crucial_names <- c(group_var, "middle_node", "is_aligned", "loan_size_outstanding")
   abort_if_missing_names(data, crucial_names)
   if (!is.logical(capitalise_node_labels)) {
-    rlang::abort(
-      c(
-        "`capitalise_node_labels` must have a logical value.",
-        x = glue::glue("You provided: {capitalise_node_labels}.")
-      )
-    )
+    cli::cli_abort(c(
+      x = "`capitalise_node_labels` must have a {.cls logical} value.",
+      i = "capitalise_node_labels` contains the value{?s}: {.val {capitalise_node_labels}}."
+    ))
   }
 }

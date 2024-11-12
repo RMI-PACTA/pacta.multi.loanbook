@@ -12,7 +12,7 @@
 #' @return data.frame
 #'
 #' @rdname plot_sankey
-#' 
+#'
 #' @noRd
 
 prep_sankey <- function(data_alignment,
@@ -94,20 +94,20 @@ check_prep_sankey <- function(data_alignment,
   names_aggergate <- c("region", "year")
   abort_if_missing_names(data_alignment, c(names_all, names_aggergate))
   if (!(region %in% unique(data_alignment$region))) {
-    rlang::abort(c(
-      "`region_tms` value not found in `data_alignment` dataset.",
-      i = glue::glue("Regions in `data_alignment` are: {toString(unique(data_alignment$region))}"),
-      x = glue::glue("You provided region = {region}.")
+    cli::cli_abort(c(
+      x = "{.arg region} value not found in {.var data_alignment} dataset",
+      i = "{cli::qty(length(unique(data_alignment$region)))}region{?s} in
+           {.var data_alignment} {?is/are}:
+          {.val {as.character(unique(data_alignment$region))}}",
+      i = "the value{?s} in {.arg region} {?is/are}: {.val {region}}"
     ))
   }
   if (!(year %in% unique(data_alignment$year))) {
-    rlang::abort(c(
-      "`year` value not found in `data_alignment`.",
-      i = glue::glue(
-        "Years in `data_alignment` are: {toString(unique(data_alignment$year))}
-        "
-      ),
-      x = glue::glue("You provided year = {year}.")
+    cli::cli_abort(c(
+      x = "{.arg year} value not found in {.var data_alignment} dataset",
+      i = "{cli::qty(length(unique(data_alignment$year)))}year{?s} in
+           {.var data_alignment} {?is/are}: {.val {unique(data_alignment$year)}}",
+      i = "the value{?s} in {.arg year} {?is/are}: {.val {unique(year)}}"
     ))
   }
   abort_if_middle_node_column_not_found(data_alignment, middle_node, env = list(data = substitute(data_alignment)))
@@ -120,12 +120,11 @@ abort_if_middle_node_column_not_found <- function(data, name, env = parent.frame
   .data <- deparse1(substitute(data, env = env))
 
   if (!(name %in% names(data))) {
-    rlang::abort(c(
-      glue::glue("Column name you passed as one of the middle nodes not found in {.data}."),
-      i = glue::glue(
-        "Column names in `{.data}` are: {toString(names(data))}"
-      ),
-      x = glue::glue("You asked to use column named: `{name}`.")
+    cli::cli_abort(c(
+      x = "column name you passed as one of the middle nodes not found in {.var {(.data)}}",
+      i = "{cli::qty(length(names(data)))}column name{?s} in
+           {.var {(.data)}} {?is/are}: {.val {names(data)}}",
+      i = "you asked to use column named: {.val {name}}"
     ))
   }
 }
