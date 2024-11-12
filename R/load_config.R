@@ -3,46 +3,46 @@ load_config <- function(config) {
   config
 }
 
-get_input_dir <- function(params) {
+get_dir_input <- function(params) {
   params[["directories"]][["dir_input"]]
 }
 
-get_loanbook_dir <- function(params) {
+get_dir_loanbooks <- function(params) {
   file.path(
     params[["directories"]][["dir_input"]],
     "loanbooks"
   )
 }
 
-get_abcd_filename <- function(params) {
+get_filename_abcd <- function(params) {
   params[["file_names"]][["filename_abcd"]]
 }
 
-get_abcd_sheet <- function(params) {
+get_sheet_abcd <- function(params) {
   params[["file_names"]][["sheet_abcd"]]
 }
 
-get_output_prepare_dir <- function(params) {
+get_dir_prepared_abcd <- function(params) {
   params[["directories"]][["dir_prepared_abcd"]]
 }
 
-get_output_matched_loanbooks_dir <- function(params) {
+get_dir_matched_loanbooks <- function(params) {
   params[["directories"]][["dir_matched_loanbooks"]]
 }
 
-get_output_prio_diagnostics_dir <- function(params) {
+get_dir_prioritized_loanbooks_and_diagnostics <- function(params) {
   params[["directories"]][["dir_prioritized_loanbooks_and_diagnostics"]]
 }
 
-get_output_analysis_dir <- function(params) {
+get_dir_analysis <- function(params) {
   params[["directories"]][["dir_analysis"]]
 }
 
-get_scenario_tms_filename <- function(params) {
+get_filename_scenario_tms <- function(params) {
   params[["file_names"]][["filename_scenario_tms"]]
 }
 
-get_scenario_sda_filename <- function(params) {
+get_filename_scenario_sda <- function(params) {
   params[["file_names"]][["filename_scenario_sda"]]
 }
 
@@ -130,52 +130,52 @@ get_use_manual_sector_classification <- function(params) {
   params[["matching"]][["manual_sector_classification"]][["use_manual_sector_classification"]]
 }
 
-get_manual_sector_classification_filename <- function(params) {
+get_filename_manual_sector_classification <- function(params) {
   params[["matching"]][["manual_sector_classification"]][["filename_manual_sector_classification"]]
 }
 
-get_manual_sector_classification_path <- function(params) {
+get_path_manual_sector_classification <- function(params) {
   file.path(
-    get_input_dir(params),
-    get_manual_sector_classification_filename(params)
+    get_dir_input(params),
+    get_filename_manual_sector_classification(params)
   )
 }
 
-get_abcd_path <- function(config) {
+get_path_abcd <- function(config) {
   file.path(
-    get_input_dir(config),
-    get_abcd_filename(config)
+    get_dir_input(config),
+    get_filename_abcd(config)
   )
 }
 
-get_sector_split_path <- function(config) {
+get_path_sector_split <- function(config) {
   file.path(
-    get_input_dir(config),
+    get_dir_input(config),
     config[["sector_split"]][["filename_split_company_id"]]
   )
 }
 
-get_advanced_company_indicators_path <- function(config) {
+get_path_advanced_company_indicators <- function(config) {
   file.path(
-    get_input_dir(config),
+    get_dir_input(config),
     config[["sector_split"]][["filename_advanced_company_indicators"]]
   )
 }
 
-get_advanced_company_indicators_sheet <- function(config) {
+get_sheet_advanced_company_indicators <- function(config) {
   config[["sector_split"]][["sheet_advanced_company_indicators"]]
 }
 
-get_scenario_tms_path <- function(config) {
+get_path_scenario_tms <- function(config) {
   file.path(
-    get_input_dir(config),
-    get_scenario_tms_filename(config)
+    get_dir_input(config),
+    get_filename_scenario_tms(config)
   )
 }
 
-get_scenario_sda_path <- function(config) {
+get_path_scenario_sda <- function(config) {
   file.path(
-    get_input_dir(config),
-    get_scenario_sda_filename(config)
+    get_dir_input(config),
+    get_filename_scenario_sda(config)
   )
 }
