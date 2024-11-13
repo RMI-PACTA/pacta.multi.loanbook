@@ -43,7 +43,10 @@ aggregate_alignment_loanbook_exposure <- function(data,
 
   if (!is.null(.by)) {
     if (!inherits(.by, "character")) {
-      stop(glue::glue("`.by` must be a character vector. Your input is {class(.by)}."))
+      cli::cli_abort(c(
+        x = "{.arg .by} must be a {.cls character} vector",
+        i = "your input is a{.cls {typeof(.by)}}"
+      ))
     }
     group_vars <- c(.by, group_vars)
   }
@@ -259,9 +262,9 @@ validate_input_data_aggregate_alignment_loanbook_exposure <- function(data,
         )
       )
     ) {
-      stop(
-        "It is not possible to group by the critical columns of the `data` and
-        `matched` inputs. Please check your .by argument!"
+      cli::cli_abort(
+        "It is not possible to group by the critical columns of the {.arg data}
+        and {.arg matched} inputs. Please check your {.arg .by} argument!"
       )
     }
   }

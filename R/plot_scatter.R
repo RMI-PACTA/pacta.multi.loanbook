@@ -211,23 +211,32 @@ plot_scatter <- function(data,
 
 
 check_plot_scatter <- function(data, alignment_limit, cap_outliers, floor_outliers) {
-  abort_if_missing_names(data, c(
+  assert_no_missing_names(data, c(
     "name", "buildout",
     "phaseout", "net"
   ))
   if (!is.null(alignment_limit)) {
     if ((length(alignment_limit) != 1) || (!is.numeric(alignment_limit))) {
-      rlang::abort("'alignment_limit' must be a numeric value.")
+      cli::cli_abort(c(
+        x = "{.arg alignment_limit} must be a {.cls numeric} value.",
+        i = "{.arg alignment_limit} contains the value{?s}: {.val {alignment_limit}}"
+      ))
     }
   }
   if (!is.null(cap_outliers)) {
     if ((length(cap_outliers) != 1) || (!is.numeric(cap_outliers))) {
-      rlang::abort("'cap_outliers' must be a numeric value.")
+      cli::cli_abort(c(
+        x = "{.arg cap_outliers} must be a {.cls numeric} value.",
+        i = "{.arg cap_outliers} contains the value{?s}: {.val {cap_outliers}}"
+      ))
     }
   }
   if (!is.null(floor_outliers)) {
     if ((length(floor_outliers) != 1) || (!is.numeric(floor_outliers))) {
-      rlang::abort("'floor_outliers' must be a numeric value.")
+      cli::cli_abort(c(
+        x = "{.arg floor_outliers} must be a {.cls numeric} value.",
+        i = "{.arg floor_outliers} contains the value{?s}: {.val {floor_outliers}}"
+      ))
     }
   }
 }

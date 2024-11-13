@@ -513,44 +513,47 @@ validate_input_calculate_company_tech_deviation <- function(data,
 
   # consistency checks
   if (!scenario_source %in% unique(data$scenario_source)) {
-    stop(
-      paste0(
-        "input value of `scenario_source` not found in `data`. You provided ",
-        scenario_source, ". Available values are: ",
-        toString(unique(data$scenario_source))
+    cli::cli_abort(
+      message = c(
+        x = "input value of {.arg scenario_source} not found in {.arg data}",
+        i = "You provided: {scenario_source}",
+        i = "Available values are: {unique(data$scenario_source)}"
       )
     )
   }
   if (!any(grepl(pattern = scenario, x = unique(data$metric)))) {
-    stop(
-      paste0(
-        "input value of `scenario` not matched to any sub string in
-        `data$metric`. You provided ", scenario, ". Available values are: ",
-        data %>%
-          dplyr::filter(grepl("target_", .data$metric)) %>%
-          dplyr::pull(.data$metric) %>%
-          unique() %>%
-          gsub(pattern = "target_", replacement = "") %>%
-          toString()
+    available_scenarios <-
+      data %>%
+      dplyr::filter(grepl("target_", .data$metric)) %>%
+      dplyr::pull(.data$metric) %>%
+      unique() %>%
+      gsub(pattern = "target_", replacement = "") %>%
+      toString()
+
+    cli::cli_abort(
+      message = c(
+        x = "input value of {.arg scenario} not matched to any sub string in {.arg data$metric}",
+        i = "You provided: {scenario}",
+        i = "Available values are: {available_scenarios}"
       )
     )
   }
 
   if (!scenario_source %in% unique(technology_direction$scenario_source)) {
-    stop(
-      paste0(
-        "input value of `scenario_source` not found in `technology_direction`
-        dataset. You provided ", scenario_source, ". Available values are: ",
-        toString(unique(technology_direction$scenario_source))
+    cli::cli_abort(
+      message = c(
+        x = "input value of {.arg scenario_source} not found in {.arg technology_direction}",
+        i = "You provided: {scenario_source}",
+        i = "Available values are: {unique(technology_direction$scenario_source)}"
       )
     )
   }
   if (!scenario %in% unique(technology_direction$scenario)) {
-    stop(
-      paste0(
-        "input value of `scenario` not found in `technology_direction`
-        dataset. You provided ", scenario, ". Available values are: ",
-        toString(unique(technology_direction$scenario))
+    cli::cli_abort(
+      message = c(
+        x = "input value of {.arg scenario} not found in {.arg technology_direction}",
+        i = "You provided: {scenario}",
+        i = "Available values are: {unique(technology_direction$scenario)}"
       )
     )
   }
@@ -563,28 +566,28 @@ validate_input_args_calculate_company_tech_deviation <- function(scenario_source
                                                                  bridge_tech,
                                                                  time_frame) {
   if (!length(scenario_source) == 1) {
-    stop("Argument scenario_source must be of length 1. Please check your input.")
+    cli::cli_abort("Argument scenario_source must be of length 1. Please check your input.")
   }
   if (!inherits(scenario_source, "character")) {
-    stop("Argument scenario_source must be of class character. Please check your input.")
+    cli::cli_abort("Argument scenario_source must be of class character. Please check your input.")
   }
   if (!length(scenario) == 1) {
-    stop("Argument scenario must be of length 1. Please check your input.")
+    cli::cli_abort("Argument scenario must be of length 1. Please check your input.")
   }
   if (!inherits(scenario, "character")) {
-    stop("Argument scenario must be of class character. Please check your input.")
+    cli::cli_abort("Argument scenario must be of class character. Please check your input.")
   }
   if (!length(bridge_tech) == 1) {
-    stop("Argument bridge_tech must be of length 1. Please check your input.")
+    cli::cli_abort("Argument bridge_tech must be of length 1. Please check your input.")
   }
   if (!inherits(bridge_tech, "character")) {
-    stop("Argument bridge_tech must be of class character. Please check your input.")
+    cli::cli_abort("Argument bridge_tech must be of class character. Please check your input.")
   }
   if (!length(time_frame) == 1) {
-    stop("Argument time_frame must be of length 1. Please check your input.")
+    cli::cli_abort("Argument time_frame must be of length 1. Please check your input.")
   }
   if (!inherits(time_frame, "integer")) {
-    stop("Argument time_frame must be of class integer Please check your input.")
+    cli::cli_abort("Argument time_frame must be of class integer Please check your input.")
   }
 
   invisible()
@@ -639,16 +642,16 @@ validate_input_calculate_company_aggregate_alignment_tms <- function(data,
 validate_input_args_calculate_company_aggregate_alignment_tms <- function(scenario_source,
                                                                           scenario) {
   if (!length(scenario_source) == 1) {
-    stop("Argument scenario_source must be of length 1. Please check your input.")
+    cli::cli_abort("Argument scenario_source must be of length 1. Please check your input.")
   }
   if (!inherits(scenario_source, "character")) {
-    stop("Argument scenario_source must be of class character. Please check your input.")
+    cli::cli_abort("Argument scenario_source must be of class character. Please check your input.")
   }
   if (!length(scenario) == 1) {
-    stop("Argument scenario must be of length 1. Please check your input.")
+    cli::cli_abort("Argument scenario must be of length 1. Please check your input.")
   }
   if (!inherits(scenario, "character")) {
-    stop("Argument scenario must be of length 1. Please check your input.")
+    cli::cli_abort("Argument scenario must be of length 1. Please check your input.")
   }
 
   invisible()
@@ -671,10 +674,11 @@ validate_input_data_calculate_company_aggregate_alignment_tms <- function(data,
 check_consistency_calculate_company_aggregate_alignment_tms <- function(data,
                                                                         scenario_source) {
   if (!scenario_source %in% unique(data$scenario_source)) {
-    stop(
-      paste0(
-        "input value of `scenario_source` not found in `data$scenario_source`. You provided ",
-        scenario_source, ". Available values are: ", toString(unique(data$scenario_source))
+    cli::cli_abort(
+      message = c(
+        x = "input value of {.arg scenario_source} not found in {.arg data$scenario_source}",
+        i = "You provided: {scenario_source}",
+        i = "Available values are: {unique(data$scenario_source)}"
       )
     )
   }
@@ -712,22 +716,22 @@ validate_input_args_calculate_company_aggregate_alignment_sda <- function(scenar
                                                                           scenario,
                                                                           time_frame) {
   if (!length(scenario_source) == 1) {
-    stop("Argument scenario_source must be of length 1. Please check your input.")
+    cli::cli_abort("Argument scenario_source must be of length 1. Please check your input.")
   }
   if (!inherits(scenario_source, "character")) {
-    stop("Argument scenario_source must be of class character. Please check your input.")
+    cli::cli_abort("Argument scenario_source must be of class character. Please check your input.")
   }
   if (!length(scenario) == 1) {
-    stop("Argument scenario must be of length 1. Please check your input.")
+    cli::cli_abort("Argument scenario must be of length 1. Please check your input.")
   }
   if (!inherits(scenario, "character")) {
-    stop("Argument scenario must be of class character. Please check your input.")
+    cli::cli_abort("Argument scenario must be of class character. Please check your input.")
   }
   if (!length(time_frame) == 1) {
-    stop("Argument scenario must be of length 1. Please check your input.")
+    cli::cli_abort("Argument scenario must be of length 1. Please check your input.")
   }
   if (!inherits(time_frame, "integer")) {
-    stop("Argument time_frame must be of class integer. Please check your input.")
+    cli::cli_abort("Argument time_frame must be of class integer. Please check your input.")
   }
 
   invisible()
@@ -750,10 +754,11 @@ check_consistency_calculate_company_aggregate_alignment_sda <- function(data,
                                                                         scenario_source,
                                                                         scenario) {
   if (!scenario_source %in% unique(data$scenario_source)) {
-    stop(
-      paste0(
-        "input value of `scenario_source` not found in `data$scenario_source`. You provided: ",
-        scenario_source, ". Available values are: ", toString(unique(data$scenario_source))
+    cli::cli_abort(
+      message = c(
+        x = "input value of {.arg scenario_source} not found in {.arg data$scenario_source}",
+        i = "You provided: {scenario_source}",
+        i = "Available values are: {unique(data$scenario_source)}"
       )
     )
   }
@@ -763,10 +768,11 @@ check_consistency_calculate_company_aggregate_alignment_sda <- function(data,
     dplyr::pull(.data$emission_factor_metric) %>%
     unique()
   if (!scenario %in% available_scenarios) {
-    stop(
-      paste0(
-        "input value of `scenario` not found in `data$emission_factor_metric`. You provided ",
-        scenario, ". Available values are: ", toString(available_scenarios)
+    cli::cli_abort(
+      message = c(
+        x = "input value of {.arg scenario} not found in {.arg data$emission_factor_metric}",
+        i = "You provided: {scenario}",
+        i = "Available values are: {available_scenarios}"
       )
     )
   }
