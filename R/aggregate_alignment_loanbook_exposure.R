@@ -44,7 +44,7 @@ aggregate_alignment_loanbook_exposure <- function(data,
   if (!is.null(.by)) {
     if (!inherits(.by, "character")) {
       cli::cli_abort(c(
-        x = "{.arg .by} must a {.cls character} vector",
+        x = "{.arg .by} must be a {.cls character} vector",
         i = "your input is a{.cls {typeof(.by)}}"
       ))
     }
