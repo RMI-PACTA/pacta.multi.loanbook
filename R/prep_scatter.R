@@ -96,7 +96,7 @@ check_prep_scatter <- function(data,
                                groups_to_plot,
                                name_col,
                                value_col) {
-  assert_missing_names(
+  assert_no_missing_names(
     data,
     c(
       group_var,
@@ -108,8 +108,8 @@ check_prep_scatter <- function(data,
       value_col
     )
   )
-  assert_unknown_values(sector, data, "sector")
-  assert_unknown_values(region, data, "region")
-  assert_unknown_values(year, data, "year")
-  assert_unknown_values(groups_to_plot, data, group_var)
+  assert_no_unknown_values(sector, data, "sector")
+  assert_no_unknown_values(region, data, "region")
+  assert_no_unknown_values(year, data, "year")
+  assert_no_unknown_values(groups_to_plot, data, group_var)
 }

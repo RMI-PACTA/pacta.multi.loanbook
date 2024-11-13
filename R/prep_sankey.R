@@ -92,7 +92,7 @@ check_prep_sankey <- function(data_alignment,
                               middle_node2) {
   names_all <- c(group_var, "name_abcd", "sector")
   names_aggergate <- c("region", "year")
-  assert_missing_names(data_alignment, c(names_all, names_aggergate))
+  assert_no_missing_names(data_alignment, c(names_all, names_aggergate))
   if (!(region %in% unique(data_alignment$region))) {
     cli::cli_abort(c(
       x = "{.arg region} value not found in {.var data_alignment} dataset",
@@ -110,13 +110,13 @@ check_prep_sankey <- function(data_alignment,
       i = "the value{?s} in {.arg year} {?is/are}: {.val {unique(year)}}"
     ))
   }
-  assert_middle_node_column_not_found(data_alignment, middle_node, env = list(data = substitute(data_alignment)))
+  assert_middle_node_column_exists(data_alignment, middle_node, env = list(data = substitute(data_alignment)))
   if (!is.null(middle_node2)) {
-    assert_middle_node_column_not_found(data_alignment, middle_node2, list(data = substitute(data_alignment)))
+    assert_middle_node_column_exists(data_alignment, middle_node2, list(data = substitute(data_alignment)))
   }
 }
 
-assert_middle_node_column_not_found <- function(data, name, env = parent.frame()) {
+assert_middle_node_column_exists <- function(data, name, env = parent.frame()) {
   .data <- deparse1(substitute(data, env = env))
 
   if (!(name %in% names(data))) {

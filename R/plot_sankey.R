@@ -167,7 +167,7 @@ check_plot_sankey <- function(data,
                               group_var,
                               capitalise_node_labels) {
   crucial_names <- c(group_var, "middle_node", "is_aligned", "loan_size_outstanding")
-  assert_missing_names(data, crucial_names)
+  assert_no_missing_names(data, crucial_names)
   if (!is.logical(capitalise_node_labels)) {
     cli::cli_abort(c(
       x = "`capitalise_node_labels` must have a {.cls logical} value.",

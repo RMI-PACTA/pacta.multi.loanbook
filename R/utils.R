@@ -7,7 +7,7 @@ beautify_scenario_label <- function(label) {
 
 #' Check if a named object contains expected names
 #'
-#' Based on fgeo.tool::assert_missing_names()
+#' Based on fgeo.tool::abort_if_missing_names()
 #'
 #' @param x A named object.
 #' @param expected_names String; expected names of `x`.
@@ -16,12 +16,12 @@ beautify_scenario_label <- function(label) {
 #'
 #' @examples
 #' x <- c(a = 1)
-#' assert_missing_names(x, "a")
-#' try(assert_missing_names(x, "bad"))
+#' assert_no_missing_names(x, "a")
+#' try(assert_no_missing_names(x, "bad"))
 #'
 #' @noRd
 
-assert_missing_names <- function(data, expected_names) {
+assert_no_missing_names <- function(data, expected_names) {
   if (!rlang::is_named(data)) {
     cli::cli_abort(
       message = c(x = "{.arg data} must be named"),
@@ -51,7 +51,7 @@ assert_missing_names <- function(data, expected_names) {
 }
 
 
-assert_unknown_values <- function(value, data, column) {
+assert_no_unknown_values <- function(value, data, column) {
   if (is.null(value)) {
     return(invisible(value))
   }
