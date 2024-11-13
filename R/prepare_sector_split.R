@@ -34,7 +34,7 @@ prepare_sector_split <- function(config) {
   config <- load_config(config)
 
   if (!get_apply_sector_split(config)) {
-    warning("`apply_sector_split` is `FALSE` in your config, so the `prepare_sector_split()` function will do nothing.")
+    cli::cli_warn("{.arg apply_sector_split} is {.val FALSE} in your config, so the {.fn prepare_sector_split} function will do nothing.")
     return(invisible())
   }
 
