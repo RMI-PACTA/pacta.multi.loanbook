@@ -17,7 +17,7 @@
 #' @return data.frame
 #'
 #' @rdname plot_scatter
-#' 
+#'
 #' @noRd
 
 prep_scatter <- function(data_bopo,
@@ -32,10 +32,10 @@ prep_scatter <- function(data_bopo,
 
   if (!is.null(group_var)) {
     if (!inherits(group_var, "character")) {
-      stop("group_var must be of class character")
+      cli::cli_abort("{.arg group_var} must be of class {.cls character}")
     }
     if (!length(group_var) == 1) {
-      stop("group_var must be of length 1")
+      cli::cli_abort("{.arg group_var} must be of length 1")
     }
   } else {
     data_bopo <- data_bopo %>%
@@ -96,7 +96,7 @@ check_prep_scatter <- function(data,
                                groups_to_plot,
                                name_col,
                                value_col) {
-  abort_if_missing_names(
+  assert_no_missing_names(
     data,
     c(
       group_var,
@@ -108,8 +108,8 @@ check_prep_scatter <- function(data,
       value_col
     )
   )
-  abort_if_unknown_values(sector, data, "sector")
-  abort_if_unknown_values(region, data, "region")
-  abort_if_unknown_values(year, data, "year")
-  abort_if_unknown_values(groups_to_plot, data, group_var)
+  assert_no_unknown_values(sector, data, "sector")
+  assert_no_unknown_values(region, data, "region")
+  assert_no_unknown_values(year, data, "year")
+  assert_no_unknown_values(groups_to_plot, data, group_var)
 }

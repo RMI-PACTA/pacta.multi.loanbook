@@ -12,7 +12,7 @@
 #' @return data.frame
 #'
 #' @rdname plot_sankey
-#' 
+#'
 #' @noRd
 
 prep_sankey <- function(data_alignment,
@@ -23,10 +23,10 @@ prep_sankey <- function(data_alignment,
                         middle_node2 = NULL) {
   if (!is.null(group_var)) {
     if (!inherits(group_var, "character")) {
-      stop("group_var must be of class character")
+      cli::cli_abort("{.arg group_var} must be of class {.cls character}")
     }
     if (!length(group_var) == 1) {
-      stop("group_var must be of length 1")
+      cli::cli_abort("{.arg group_var} must be of length 1")
     }
   } else {
     data_alignment <- data_alignment %>%
@@ -92,40 +92,39 @@ check_prep_sankey <- function(data_alignment,
                               middle_node2) {
   names_all <- c(group_var, "name_abcd", "sector")
   names_aggergate <- c("region", "year")
-  abort_if_missing_names(data_alignment, c(names_all, names_aggergate))
+  assert_no_missing_names(data_alignment, c(names_all, names_aggergate))
   if (!(region %in% unique(data_alignment$region))) {
-    rlang::abort(c(
-      "`region_tms` value not found in `data_alignment` dataset.",
-      i = glue::glue("Regions in `data_alignment` are: {toString(unique(data_alignment$region))}"),
-      x = glue::glue("You provided region = {region}.")
+    cli::cli_abort(c(
+      x = "{.arg region} value not found in {.var data_alignment} dataset",
+      i = "{cli::qty(length(unique(data_alignment$region)))}region{?s} in
+           {.var data_alignment} {?is/are}:
+          {.val {as.character(unique(data_alignment$region))}}",
+      i = "the value{?s} in {.arg region} {?is/are}: {.val {region}}"
     ))
   }
   if (!(year %in% unique(data_alignment$year))) {
-    rlang::abort(c(
-      "`year` value not found in `data_alignment`.",
-      i = glue::glue(
-        "Years in `data_alignment` are: {toString(unique(data_alignment$year))}
-        "
-      ),
-      x = glue::glue("You provided year = {year}.")
+    cli::cli_abort(c(
+      x = "{.arg year} value not found in {.var data_alignment} dataset",
+      i = "{cli::qty(length(unique(data_alignment$year)))}year{?s} in
+           {.var data_alignment} {?is/are}: {.val {unique(data_alignment$year)}}",
+      i = "the value{?s} in {.arg year} {?is/are}: {.val {unique(year)}}"
     ))
   }
-  abort_if_middle_node_column_not_found(data_alignment, middle_node, env = list(data = substitute(data_alignment)))
+  assert_middle_node_column_exists(data_alignment, middle_node, env = list(data = substitute(data_alignment)))
   if (!is.null(middle_node2)) {
-    abort_if_middle_node_column_not_found(data_alignment, middle_node2, list(data = substitute(data_alignment)))
+    assert_middle_node_column_exists(data_alignment, middle_node2, list(data = substitute(data_alignment)))
   }
 }
 
-abort_if_middle_node_column_not_found <- function(data, name, env = parent.frame()) {
+assert_middle_node_column_exists <- function(data, name, env = parent.frame()) {
   .data <- deparse1(substitute(data, env = env))
 
   if (!(name %in% names(data))) {
-    rlang::abort(c(
-      glue::glue("Column name you passed as one of the middle nodes not found in {.data}."),
-      i = glue::glue(
-        "Column names in `{.data}` are: {toString(names(data))}"
-      ),
-      x = glue::glue("You asked to use column named: `{name}`.")
+    cli::cli_abort(c(
+      x = "column name you passed as one of the middle nodes not found in {.var {(.data)}}",
+      i = "{cli::qty(length(names(data)))}column name{?s} in
+           {.var {(.data)}} {?is/are}: {.val {names(data)}}",
+      i = "you asked to use column named: {.val {name}}"
     ))
   }
 }
