@@ -5,7 +5,7 @@
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![R-CMD-check](https://github.com/RMI-PACTA/pacta.multi.loanbook/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/RMI-PACTA/pacta.multi.loanbook/actions/workflows/R-CMD-check.yaml)
 [![CRAN
-status](https://www.r-pkg.org/badges/version/pacta.multi.loanbook)](https://CRAN.R-project.org/package=pacta.multi.loanbook)
+status](https://www.r-pkg.org/badges/version/pacta.multi.loanbook)](https://CRAN.R-project.org/package=pacta.multi.loanbook){.pkgdown-release}
 [![pacta.multi.loanbook status badge](https://rmi-pacta.r-universe.dev/badges/pacta.multi.loanbook)](https://rmi-pacta.r-universe.dev/pacta.multi.loanbook)
 <!-- badges: end -->
 
@@ -14,16 +14,19 @@ The `pacta.multi.loanbook` package offers a standardized, user-friendly way to c
 Designed for financial supervisory contexts, it simplifies climate alignment analysis across many lending institutions. The package streamlines steps to prevent repetition while allowing flexibility to tailor the analysis for specific project needs, providing valuable insights into transition alignment and risk.
 
 ## Installation
-Install the development version of the package from GitHub with:
+
+<!--
+You can install the release version of the package by running the following command in R:
 
 ``` r
-# install.packages("pak")
-pak::pak("RMI-PACTA/pacta.multi.loanbook")
+install.packages("pacta.multi.loanbook")
 ```
+-->
 
-Verify the installation with: 
+You can install the development version of the package from GitHub with:
+
 ``` r
-library(pacta.multi.loanbook)
+pak::pak("RMI-PACTA/pacta.multi.loanbook")
 ```
 
 ## Usage
