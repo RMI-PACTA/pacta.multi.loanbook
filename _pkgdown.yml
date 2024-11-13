@@ -2,6 +2,9 @@ url: https://rmi-pacta.github.io/pacta.multi.loanbook/
 template:
   package: pacta.pkgdown.rmitemplate
 
+development:
+  mode: auto
+
 reference:
 - title: Analysis
   desc:  Run the analysis.

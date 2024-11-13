@@ -55,7 +55,7 @@ plot_scatter <- function(data,
       caption <- glue::glue("{caption}Region: {r2dii.plot::to_title(region)}", .trim = FALSE)
     }
   } else {
-    rlang::warn("No information to display in caption provided. Please provide scenario_source and/or scenario and/or region if you want them to be included in the graph", frequency = "once")
+    cli::cli_warn("No information to display in caption provided. Please provide scenario_source and/or scenario and/or region if you want them to be included in the graph", frequency = "once")
   }
 
   if (is.null(title)) {

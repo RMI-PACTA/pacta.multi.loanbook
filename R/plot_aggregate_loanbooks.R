@@ -163,7 +163,7 @@ plot_aggregate_loanbooks <- function(config) {
       nodes_order_from_data = TRUE
     )
   } else {
-    warning("Sankey plot (by sector) cannot be generated. Skipping!")
+    cli::cli_warn("Sankey plot (by sector) cannot be generated. Skipping!")
   }
 
   if (!is.null(company_aggregated_alignment_net)) {
@@ -198,7 +198,7 @@ plot_aggregate_loanbooks <- function(config) {
       png_name = glue::glue("plot_{output_file_sankey_company_sector}.png")
     )
   } else {
-    warning("Sankey plot (by sector and company) cannot be generated. Skipping!")
+    cli::cli_warn("Sankey plot (by sector and company) cannot be generated. Skipping!")
   }
 
   ### scatter plot alignment by exposure and sector comparison----
@@ -252,7 +252,7 @@ plot_aggregate_loanbooks <- function(config) {
       )
     }
   } else {
-    warning("Scatter plot exposure by alignment cannot be generated. Skipping!")
+    cli::cli_warn("Scatter plot exposure by alignment cannot be generated. Skipping!")
   }
 
   ### scatter plot for group level comparison----
@@ -311,9 +311,7 @@ plot_aggregate_loanbooks <- function(config) {
       )
     }
   } else {
-    warning(
-      glue::glue("Scatter plot BO/PO cannot be generated. Skipping!")
-    )
+    cli::cli_warn("Scatter plot BO/PO cannot be generated. Skipping!")
   }
 
   # power
@@ -369,9 +367,7 @@ plot_aggregate_loanbooks <- function(config) {
       )
     }
   } else {
-    warning(
-      glue::glue("Scatter plot BO/PO cannot be generated. Skipping!")
-    )
+    cli::cli_warn("Scatter plot BO/PO cannot be generated. Skipping!")
   }
 
   # group level plots ----
@@ -466,9 +462,7 @@ plot_aggregate_loanbooks <- function(config) {
       }
     }
   } else {
-    warning(
-      glue::glue("Scatter plot BO/PO cannot be generated at company level. Skipping!")
-    )
+    cli::cli_warn("Scatter plot BO/PO cannot be generated at company level. Skipping!")
   }
 
   # power
@@ -532,8 +526,6 @@ plot_aggregate_loanbooks <- function(config) {
       }
     }
   } else {
-    warning(
-      glue::glue("Scatter plot BO/PO cannot be generated at company level. Skipping!")
-    )
+    cli::cli_warn("Scatter plot BO/PO cannot be generated at company level. Skipping!")
   }
 }
