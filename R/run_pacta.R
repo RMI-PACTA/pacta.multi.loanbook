@@ -153,222 +153,54 @@ run_pacta <- function(config) {
 
   ## run automatic result generation ----------
 
-  ### automotive----
-  sector_select <- "automotive"
-  for (tms_i in unique_groups_tms) {
-    available_rows <- results_tms_total %>%
-      dplyr::filter(
-        .data[[by_group]] == .env[["tms_i"]],
-        .data[["scenario_source"]] == .env[["scenario_source_input"]],
-        grepl(.env[["scenario_select"]], .data[["metric"]]),
-        .data[["region"]] == .env[["region_select"]],
-        .data[["sector"]] == .env[["sector_select"]]
-      ) %>%
-      nrow()
-    if (available_rows > 0) {
-      generate_individual_outputs(
-        data = results_tms_total,
-        matched_prioritized = matched_prioritized,
-        output_directory = dir_analysis_standard,
-        target_type = "tms",
-        by_group = by_group,
-        by_group_value = tms_i,
-        scenario_source = scenario_source_input,
-        scenario = scenario_select,
-        region = region_select,
-        sector = sector_select,
-        start_year = start_year,
-        time_horizon = time_frame_select
-      )
-    } else {
-      next()
-    }
-  }
-  ### coal----
-  sector_select <- "coal"
-  for (tms_i in unique_groups_tms) {
-    available_rows <- results_tms_total %>%
-      dplyr::filter(
-        .data[[by_group]] == .env[["tms_i"]],
-        .data[["scenario_source"]] == .env[["scenario_source_input"]],
-        grepl(.env[["scenario_select"]], .data[["metric"]]),
-        .data[["region"]] == .env[["region_select"]],
-        .data[["sector"]] == .env[["sector_select"]]
-      ) %>%
-      nrow()
-    if (available_rows > 0) {
-      generate_individual_outputs(
-        data = results_tms_total,
-        matched_prioritized = matched_prioritized,
-        output_directory = dir_analysis_standard,
-        target_type = "tms",
-        by_group = by_group,
-        by_group_value = tms_i,
-        scenario_source = scenario_source_input,
-        scenario = scenario_select,
-        region = region_select,
-        sector = sector_select,
-        start_year = start_year,
-        time_horizon = time_frame_select
-      )
-    } else {
-      next()
-    }
-  }
-  ### oil and gas----
-  sector_select <- "oil and gas"
-  for (tms_i in unique_groups_tms) {
-    available_rows <- results_tms_total %>%
-      dplyr::filter(
-        .data[[by_group]] == .env[["tms_i"]],
-        .data[["scenario_source"]] == .env[["scenario_source_input"]],
-        grepl(.env[["scenario_select"]], .data[["metric"]]),
-        .data[["region"]] == .env[["region_select"]],
-        .data[["sector"]] == .env[["sector_select"]]
-      ) %>%
-      nrow()
-    if (available_rows > 0) {
-      generate_individual_outputs(
-        data = results_tms_total,
-        matched_prioritized = matched_prioritized,
-        output_directory = dir_analysis_standard,
-        target_type = "tms",
-        by_group = by_group,
-        by_group_value = tms_i,
-        scenario_source = scenario_source_input,
-        scenario = scenario_select,
-        region = region_select,
-        sector = sector_select,
-        start_year = start_year,
-        time_horizon = time_frame_select
-      )
-    } else {
-      next()
-    }
-  }
-  ### power----
-  sector_select <- "power"
-  for (tms_i in unique_groups_tms) {
-    available_rows <- results_tms_total %>%
-      dplyr::filter(
-        .data[[by_group]] == .env[["tms_i"]],
-        .data[["scenario_source"]] == .env[["scenario_source_input"]],
-        grepl(.env[["scenario_select"]], .data[["metric"]]),
-        .data[["region"]] == .env[["region_select"]],
-        .data[["sector"]] == .env[["sector_select"]]
-      ) %>%
-      nrow()
-    if (available_rows > 0) {
-      generate_individual_outputs(
-        data = results_tms_total,
-        matched_prioritized = matched_prioritized,
-        output_directory = dir_analysis_standard,
-        target_type = "tms",
-        by_group = by_group,
-        by_group_value = tms_i,
-        scenario_source = scenario_source_input,
-        scenario = scenario_select,
-        region = region_select,
-        sector = sector_select,
-        start_year = start_year,
-        time_horizon = time_frame_select
-      )
-    } else {
-      next()
-    }
-  }
+  generate_individual_outputs_in_groups <-
+    function(sector_select, target_type) {
+      if (target_type == "tms") {
+        results <- results_tms_total
+        unique_groups <- unique_groups_tms
+        metric_col <- "metric"
+      } else {
+        results <- results_sda_total
+        unique_groups <- unique_groups_sda
+        metric_col <- "emission_factor_metric"
+      }
 
-  ### aviation----
-  sector_select <- "aviation"
-  for (sda_i in unique_groups_sda) {
-    available_rows <- results_sda_total %>%
-      dplyr::filter(
-        .data[[by_group]] == .env[["sda_i"]],
-        .data[["scenario_source"]] == .env[["scenario_source_input"]],
-        grepl(.env[["scenario_select"]], .data[["emission_factor_metric"]]),
-        .data[["region"]] == .env[["region_select"]],
-        .data[["sector"]] == .env[["sector_select"]]
-      ) %>%
-      nrow()
-    if (available_rows > 0) {
-      generate_individual_outputs(
-        data = results_sda_total,
-        matched_prioritized = matched_prioritized,
-        output_directory = dir_analysis_standard,
-        target_type = "sda",
-        by_group = by_group,
-        by_group_value = sda_i,
-        scenario_source = scenario_source_input,
-        scenario = scenario_select,
-        region = region_select,
-        sector = sector_select,
-        start_year = start_year,
-        time_horizon = time_frame_select
-      )
-    } else {
-      next()
+      for (unique_group_i in unique_groups) {
+        available_rows <-
+          results %>%
+          dplyr::filter(
+            .data[[by_group]] == .env[["unique_group_i"]],
+            .data[["scenario_source"]] == .env[["scenario_source_input"]],
+            grepl(.env[["scenario_select"]], .data[[metric_col]]),
+            .data[["region"]] == .env[["region_select"]],
+            .data[["sector"]] == .env[["sector_select"]]
+          ) %>%
+          nrow()
+
+        if (available_rows > 0) {
+          generate_individual_outputs(
+            data = results,
+            matched_prioritized = matched_prioritized,
+            output_directory = dir_analysis_standard,
+            target_type = target_type,
+            by_group = by_group,
+            by_group_value = unique_group_i,
+            scenario_source = scenario_source_input,
+            scenario = scenario_select,
+            region = region_select,
+            sector = sector_select,
+            start_year = start_year,
+            time_horizon = time_frame_select
+          )
+        }
+      }
     }
-  }
-  ### cement----
-  sector_select <- "cement"
-  for (sda_i in unique_groups_sda) {
-    available_rows <- results_sda_total %>%
-      dplyr::filter(
-        .data[[by_group]] == .env[["sda_i"]],
-        .data[["scenario_source"]] == .env[["scenario_source_input"]],
-        grepl(.env[["scenario_select"]], .data[["emission_factor_metric"]]),
-        .data[["region"]] == .env[["region_select"]],
-        .data[["sector"]] == .env[["sector_select"]]
-      ) %>%
-      nrow()
-    if (available_rows > 0) {
-      generate_individual_outputs(
-        data = results_sda_total,
-        matched_prioritized = matched_prioritized,
-        output_directory = dir_analysis_standard,
-        target_type = "sda",
-        by_group = by_group,
-        by_group_value = sda_i,
-        scenario_source = scenario_source_input,
-        scenario = scenario_select,
-        region = region_select,
-        sector = sector_select,
-        start_year = start_year,
-        time_horizon = time_frame_select
-      )
-    } else {
-      next()
-    }
-  }
-  ### steel----
-  sector_select <- "steel"
-  for (sda_i in unique_groups_sda) {
-    available_rows <- results_sda_total %>%
-      dplyr::filter(
-        .data[[by_group]] == .env[["sda_i"]],
-        .data[["scenario_source"]] == .env[["scenario_source_input"]],
-        grepl(.env[["scenario_select"]], .data[["emission_factor_metric"]]),
-        .data[["region"]] == .env[["region_select"]],
-        .data[["sector"]] == .env[["sector_select"]]
-      ) %>%
-      nrow()
-    if (available_rows > 0) {
-      generate_individual_outputs(
-        data = results_sda_total,
-        matched_prioritized = matched_prioritized,
-        output_directory = dir_analysis_standard,
-        target_type = "sda",
-        by_group = by_group,
-        by_group_value = sda_i,
-        scenario_source = scenario_source_input,
-        scenario = scenario_select,
-        region = region_select,
-        sector = sector_select,
-        start_year = start_year,
-        time_horizon = time_frame_select
-      )
-    } else {
-      next()
-    }
-  }
+
+  generate_individual_outputs_in_groups("automotive", "tms")
+  generate_individual_outputs_in_groups("coal", "tms")
+  generate_individual_outputs_in_groups("oil and gas", "tms")
+  generate_individual_outputs_in_groups("power", "tms")
+  generate_individual_outputs_in_groups("aviation", "sda")
+  generate_individual_outputs_in_groups("cement", "sda")
+  generate_individual_outputs_in_groups("steel", "sda")
 }
