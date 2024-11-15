@@ -1,4 +1,3 @@
-# TODO: move to `r2dii.plot` and export
 plot_match_success_rate <- function(data,
                                     metric_type = c("absolute", "relative"),
                                     match_success_type = c("n", "outstanding", "credit_limit"),
