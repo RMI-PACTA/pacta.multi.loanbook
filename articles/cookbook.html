@@ -428,15 +428,14 @@ tool and free of charge. You can download RStudio from the <a href="https://posi
 <code>pacta.multi.loanbook</code> R package<a class="anchor" aria-label="anchor" href="#pacta-multi-loanbook-r-package"></a>
 </h4>
 <p>The <code>pacta.multi.loanbook</code> package is the main software
-tool that you will use to run the PACTA for Supervisors analysis. You
-can install the package from the <a href="https://cran.r-project.org/web/packages/pacta.multi.loanbook/index.html" class="external-link">RStudio
-CRAN mirror</a> by running the following command in R:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"pacta.multi.loanbook"</span><span class="op">)</span></span></code></pre></div>
-<p>Alternatively, you can install the development version of the package
-from GitHub by running the following command in R:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"RMI-PACTA/pacta.multi.loanbook"</span><span class="op">)</span></span></code></pre></div>
+tool that you will use to run the PACTA for Supervisors analysis.</p>
+
+<div class="pkgdown-devel">
+<p>You can install the development version of pkgdown from GitHub
+with:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"r-lib/pkgdown"</span><span class="op">)</span></span></code></pre></div>
+</div>
 </div>
 <div class="section level4">
 <h4 id="required-r-packages">Required R packages<a class="anchor" aria-label="anchor" href="#required-r-packages"></a>
@@ -484,7 +483,7 @@ any issues with the installation of the required packages, you can
 install them manually by running the following command in R, where …
 should be replaced with the package names from the list above, separated
 by commas:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">...</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
@@ -684,7 +683,7 @@ setup, as each of the functions will require the path to the
 may have prepared, you will likely want to load the
 <code>pacta.multi.loanbook</code> package and save the path to the
 <code>config.yml</code> file in a variable first:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rmi-pacta.github.io/pacta.multi.loanbook/">pacta.multi.loanbook</a></span><span class="op">)</span></span>
 <span><span class="va">config_path</span> <span class="op">&lt;-</span> <span class="st">"config.yml"</span></span></code></pre></div>
 <p>This allows you passing the relevant config information easily to
@@ -703,7 +702,7 @@ intermediary files in the directory that you have indicated as the value
 corresponding to the key <code>dir_prepared_abcd</code> in the
 <code>config.yml</code>. This step only has to be run once for an
 analysis. You can run this function as follows:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">pacta.multi.loanbook</span><span class="fu">::</span><span class="fu"><a href="../reference/prepare_abcd.html">prepare_abcd</a></span><span class="op">(</span><span class="va">config_path</span><span class="op">)</span></span></code></pre></div>
 <div class="section level4">
 <h4 id="options-for-the-prepare_abcd-function">Options for the <code>prepare_abcd()</code> function<a class="anchor" aria-label="anchor" href="#options-for-the-prepare_abcd-function"></a>
@@ -737,7 +736,7 @@ function will store matched loan book files in a directory that you have
 indicated as the value corresponding to the key
 <code>dir_matched_loanbooks</code> in the <code>config.yml</code>. You
 can run this function as follows:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">pacta.multi.loanbook</span><span class="fu">::</span><span class="fu"><a href="../reference/match_loanbooks.html">match_loanbooks</a></span><span class="op">(</span><span class="va">config_path</span><span class="op">)</span></span></code></pre></div>
 <p>After the matching process is complete, you will need to do some
 manual matching. This means that you will need to manually inspect the
@@ -894,7 +893,7 @@ store matched prioritized loan book files and coverage diagnostics in a
 directory that you have indicated as the value corresponding to the key
 <code>dir_prioritized_loanbooks_and_diagnostics</code> in the
 <code>config.yml</code>. You can then run the function as follows:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">pacta.multi.loanbook</span><span class="fu">::</span><span class="fu"><a href="../reference/prioritise_and_diagnose.html">prioritise_and_diagnose</a></span><span class="op">(</span><span class="va">config_path</span><span class="op">)</span></span></code></pre></div>
 <div class="section level4">
 <h4 id="options-for-the-prioritise_and_diagnose-function">Options for the <code>prioritise_and_diagnose()</code> function<a class="anchor" aria-label="anchor" href="#options-for-the-prioritise_and_diagnose-function"></a>
@@ -929,7 +928,7 @@ indicated as the value corresponding to the key
 these sub directories will comprise tabular outputs and plots. To run
 the analysis on all of your previously matched and prioritized loan
 books, you will use the <code><a href="../reference/analyse.html">analyse()</a></code> function as follows:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">pacta.multi.loanbook</span><span class="fu">::</span><span class="fu"><a href="../reference/analyse.html">analyse</a></span><span class="op">(</span><span class="va">config_path</span><span class="op">)</span></span></code></pre></div>
 <div class="section level4">
 <h4 id="options-for-the-analysis-function-and-the-overall-analysis">Options for the <code>analysis()</code> function and the overall
