@@ -269,6 +269,13 @@ dd_lbk_match_success_rate <- dplyr::tribble(
   "lbk_match_success_rate", "match_success_credit_limit_rel", "double", "Share of the matched amount of credit limit in a sector relative to the total credit limit in that sector", "Numerical value between 0 and 1"
 )
 
+dd_lost_companies_sector_split <- dplyr::tribble(
+  ~dataset, ~column, ~typeof, ~definition, ~value,
+  "lost_companies_sector_split", "group_id", "character", "The name of the loan book as defined by the input file name.", "Any name is permissible, that is not already used otherwise.",
+  "lost_companies_sector_split", "name_abcd", "character", "The name of the company", "The name of the company"
+)
+
+
 
 data_dictionary <- dplyr::bind_rows(
   dd_company_technology_deviation_tms,
@@ -289,7 +296,8 @@ data_dictionary <- dplyr::bind_rows(
   dd_data_emission_intensity,
   dd_companies_included,
   dd_summary_statistics_loanbook_coverage,
-  dd_lbk_match_success_rate
+  dd_lbk_match_success_rate,
+  dd_lost_companies_sector_split
 )
 
 usethis::use_data(
