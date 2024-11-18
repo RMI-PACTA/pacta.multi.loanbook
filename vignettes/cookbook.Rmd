@@ -374,7 +374,7 @@ The `prepare_abcd()` function has a number of options that can be set in the `co
 
 ### Sector split
 
-If you want to use the sector split, you can specify which company identifiers the split should be applied on by providing a CSV file with the company identifiers in the `split_company_ids.csv` file in the input directory. The file should contain the columns `company_id` and `name_company` to identify the relevant companies.
+If you want to use the sector split, you can specify which company identifiers the split should be applied on by providing a CSV file with the company identifiers in the `split_company_ids.csv` file in the input directory. The file should contain the columns `company_id` and `name_company` to identify the relevant companies. Before deciding to apply the sector split, it is strongly recommended to read the documentation on the sector split in `vignette("sector_split")` first.
 
 ## Matching process
 

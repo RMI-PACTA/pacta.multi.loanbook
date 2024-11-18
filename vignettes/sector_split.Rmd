@@ -30,7 +30,9 @@ There are three types of loans with regard to sector split requirements:
 3.1 ... not more than one of the in scope sectors is an energy sector
 3.2 ... more than one of the in scope sectors are energy sectors
 
-The user is ultimately best positioned to decide if any sector split is needed beyond the sector classifications provided in the loan book. The methodology outlined below focuses on the third type of loan, where the loan is not clearly earmarked for one of the sectors. It explains the basic treatment of such loans and the refinement for energy companies.
+The methodology outlined below focuses on the third type of loan, where the loan is not clearly earmarked for one of the sectors. It explains the basic treatment of such loans and the refinement for energy companies.
+
+The user is ultimately best positioned to decide if any sector split is needed beyond the sector classifications provided in the loan book. In practice, if the sector classifications in a loan book are considered to be sufficiently granular and reflective of where the loan proceeds are used, no further sector split is needed and the process should not be applied. It is more likely that the process will be needed, when the sector classifications available are not sufficiently granular or not available at all for the loan book. If the user decides that a sector split is needed, the methodology outlined below can be used.
 
 ## 2.2 Sector split methodology
 
