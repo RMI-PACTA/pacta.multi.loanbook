@@ -16,8 +16,6 @@ lost_companies_sector_split <- function(abcd, companies_sector_split) {
 apply_sector_split_to_loans <- function(data,
                                         abcd,
                                         companies_sector_split) {
-  unique_companies_pre_split <- dplyr::distinct(.data = data, .data[["name_abcd"]])
-
   abcd_id <-
     dplyr::distinct(
       .data = abcd,
@@ -55,22 +53,6 @@ apply_sector_split_to_loans <- function(data,
       )
     ) %>%
     dplyr::select(-"sector_split")
-
-  unique_companies_post_split <-
-    dplyr::distinct(
-      .data = data,
-      .data[["name_abcd"]]
-    )
-
-  if (nrow(unique_companies_pre_split) != nrow(unique_companies_post_split)) {
-    n_pre <- nrow(unique_companies_pre_split)
-    n_post <- nrow(unique_companies_post_split)
-    cli::cli_warn(c(
-      "!" = "Applying the sector split has lead to changes in the number of unique companies covered in the analysis.",
-      "i" = "Prior to the split, there {?was/were} {.strong {n_pre}} unique compan{?y/ies}.",
-      "i" = "After the split, there {?is/are} {.strong {n_post}} unique compan{?y/ies}."
-    ))
-  }
 
   data
 }
