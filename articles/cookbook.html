@@ -47,6 +47,7 @@
     <li><h6 class="dropdown-header" data-toc-skip>Methodology</h6></li>
     <li><a class="dropdown-item" href="../articles/company_alignment_metric.html">Calculation of a company alignment metric</a></li>
     <li><a class="dropdown-item" href="../articles/loanbook_aggregated_alignment_metric.html">Calculation of exposure-weighted aggregated alignment metric</a></li>
+    <li><a class="dropdown-item" href="../articles/sector_split.html">Splitting loans of multi sector companies</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Documentation</h6></li>
     <li><a class="dropdown-item" href="../articles/config_yml.html">Configuring the application</a></li>
@@ -382,9 +383,7 @@ required for the primary energy based sector split.</p>
 provide a list of companies for which the sector split should be based
 on primary energy content. For all other companies, a simple equal
 weights split will be applied. For more information on the sector split,
-see the <a href="https://github.com/RMI-PACTA/workflow.aggregate.loanbooks?tab=readme-ov-file#optional-calculate-sector-splits-for-multi-sector-companies" class="external-link">documentation</a>.</p>
-<p><strong>TODO:</strong> Move the sector split documentation to this
-repo!</p>
+see the documentation in <code><a href="../articles/sector_split.html">vignette("sector_split")</a></code>.</p>
 </div>
 <div class="section level4">
 <h4 id="manual-sector-classification">Manual Sector Classification<a class="anchor" aria-label="anchor" href="#manual-sector-classification"></a>
@@ -718,10 +717,22 @@ section on preparing the ABCD</a> in the
 <li>if and how a company sector split should be applied in the
 calculations (For more information on the options available, see the <a href="https://rmi-pacta.github.io/pacta.multi.loanbook/articles/config_yml.html#sector_split">relevant
 section on the sector split</a> in the
-<code><a href="../articles/config_yml.html">vignette("config_yml")</a></code>). Additionally, see the <a href="https://github.com/RMI-PACTA/workflow.aggregate.loanbooks?tab=readme-ov-file#methodological-note-sector-split-for-energy-companies" class="external-link">documentation
-of the sector split methodology</a>.</li>
+<code><a href="../articles/config_yml.html">vignette("config_yml")</a></code>). Additionally, see the
+documentation of the sector split methodology in
+<code><a href="../articles/sector_split.html">vignette("sector_split")</a></code>.</li>
 </ul>
-<!--- TODO: move sector split documentation to this repository-->
+</div>
+<div class="section level4">
+<h4 id="sector-split">Sector split<a class="anchor" aria-label="anchor" href="#sector-split"></a>
+</h4>
+<p>If you want to use the sector split, you can specify which company
+identifiers the split should be applied on by providing a CSV file with
+the company identifiers in the <code>split_company_ids.csv</code> file
+in the input directory. The file should contain the columns
+<code>company_id</code> and <code>name_company</code> to identify the
+relevant companies. Before deciding to apply the sector split, it is
+strongly recommended to read the documentation on the sector split in
+<code><a href="../articles/sector_split.html">vignette("sector_split")</a></code> first.</p>
 </div>
 </div>
 <div class="section level3">
@@ -757,7 +768,7 @@ same <code>.../matched_loanbooks</code> folder and rename that copy by
 adding the suffix <code>_manual</code> to the file name. The following
 steps of the analysis expect this pattern, so it is important to follow
 this naming convention.</p>
-<p>You can find more detaied information about the matching process in
+<p>You can find more detailed information about the matching process in
 the training material on the <a href="https://pacta.rmi.org/pacta-for-banks-2020/" class="external-link">PACTA for Banks
 website</a> in the section “PACTA for Banks Training Webinar 2” and in
 the <a href="https://pacta.rmi.org/wp-content/uploads/2020/12/PACTA-for-Banks-Training-Webinar-2-Matching-a-loan-book-to-physical-assets-in-the-real-economy-.pdf" class="external-link">corresponding
@@ -856,7 +867,7 @@ or desired, the calculation of the match success rate can be corrected
 by adding a file <code>loans_to_remove.csv</code> to the input
 directory. This file should include the columns <code>id_loan</code> and
 <code>group_id</code> to indicate the precise mis-classified loan and
-the loan book in which it was found. This combnation of loan and loan
+the loan book in which it was found. This combination of loan and loan
 book will then be excluded from the match success calculation.</li>
 </ol>
 <p>The reason why it is a good idea to either correct mis-classified
@@ -868,6 +879,19 @@ baseline. Technically, the user is not forced to correct
 misclassifications, and there may be a limit to how much time should be
 spent on this, but it is recommended to at least correct large
 mis-classified loans.</p>
+</div>
+<div class="section level4">
+<h4 id="sector-split-1">Sector split<a class="anchor" aria-label="anchor" href="#sector-split-1"></a>
+</h4>
+<p>If you want to apply the sector split to the loan books, you should
+keep all relevant sectors in the matched loan book, instead of only one
+sector. This is because the sector split will be applied to the matched
+loan books, and the sector split will be based on the sectors in the
+matched loan books. If you only keep one sector in the matched loan
+books, the sector split will not be applied correctly and may wrongly
+appear to reduce overall matched financial exposure. The sector split
+will be applied to the matched loan books in the next step of the
+analysis.</p>
 </div>
 </div>
 <div class="section level3">

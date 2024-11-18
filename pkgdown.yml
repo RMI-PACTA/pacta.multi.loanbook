@@ -7,7 +7,8 @@ articles:
   cookbook: cookbook.html
   data_dictionary: data_dictionary.html
   loanbook_aggregated_alignment_metric: loanbook_aggregated_alignment_metric.html
-last_built: 2024-11-18T15:41Z
+  sector_split: sector_split.html
+last_built: 2024-11-18T15:48Z
 urls:
   reference: https://rmi-pacta.github.io/pacta.multi.loanbook/reference
   article: https://rmi-pacta.github.io/pacta.multi.loanbook/articles
