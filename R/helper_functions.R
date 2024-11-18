@@ -1,18 +1,3 @@
-lost_companies_sector_split <- function(abcd, companies_sector_split) {
-  abcd_id <-
-    dplyr::distinct(
-      .data = abcd,
-      .data[["company_id"]],
-      .data[["name_company"]]
-    )
-
-  dplyr::anti_join(
-    x = companies_sector_split,
-    y = abcd_id,
-    by = c("company_id")
-  )
-}
-
 apply_sector_split_to_loans <- function(data,
                                         abcd,
                                         companies_sector_split) {
