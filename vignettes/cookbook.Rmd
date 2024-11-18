@@ -372,6 +372,8 @@ The `prepare_abcd()` function has a number of options that can be set in the `co
 - whether or not inactive companies should be removed from the ABCD data (For more information on the options available, see the [relevant section on preparing the ABCD](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/config_yml.html#prepare_abcd) in the `vignette("config_yml")`.)
 - if and how a company sector split should be applied in the calculations (For more information on the options available, see the [relevant section on the sector split](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/config_yml.html#sector_split) in the `vignette("config_yml")`). Additionally, see the documentation of the sector split methodology in `vignette("sector_split")`.
 
+If you want to use the sector split, you can specify which company identifiers the split should be applied on by providing a CSV file with the company identifiers in the `split_company_ids.csv` file in the input directory. The file should contain the columns `company_id` and `name_company` to identify the relevant companies.
+
 ## Matching process
 
 The next step in the analysis is to run the matching process. Assuming you have prepared the raw loan books as explained in [the section on preparing the input data sets](### Raw Loan Books), you can now use the `match_loanbooks()` function. This will read the raw loan books from your inputs and attempt to match them to the prepared ABCD data from the previous step. The function will store matched loan book files in a directory that you have indicated as the value corresponding to the key `dir_matched_loanbooks` in the `config.yml`. You can run this function as follows:
@@ -384,7 +386,7 @@ After the matching process is complete, you will need to do some manual matching
 
 The manual matching process is not automated and will require some time and effort on your part. You can find the matched loan books in the `.../matched_loanbooks` folder. The matched loan books will be stored in CSV files, one for each raw loan book. You can open these files in a spreadsheet program to verify the matches. Importantly, you will need to make a copy for each of the matched loan book files in the same `.../matched_loanbooks` folder and rename that copy by adding the suffix `_manual` to the file name. The following steps of the analysis expect this pattern, so it is important to follow this naming convention.
 
-You can find more detaied information about the matching process in the training material on the [PACTA for Banks website](https://pacta.rmi.org/pacta-for-banks-2020/) in the section "PACTA for Banks Training Webinar 2" and in the [corresponding slide deck](https://pacta.rmi.org/wp-content/uploads/2020/12/PACTA-for-Banks-Training-Webinar-2-Matching-a-loan-book-to-physical-assets-in-the-real-economy-.pdf).
+You can find more detailed information about the matching process in the training material on the [PACTA for Banks website](https://pacta.rmi.org/pacta-for-banks-2020/) in the section "PACTA for Banks Training Webinar 2" and in the [corresponding slide deck](https://pacta.rmi.org/wp-content/uploads/2020/12/PACTA-for-Banks-Training-Webinar-2-Matching-a-loan-book-to-physical-assets-in-the-real-economy-.pdf).
 
 ### Some expectations for the matching process
 
@@ -407,9 +409,13 @@ The `match_loanbooks()` function has a number of options that can be set in the 
 There are two ways to appropriately handle misclassified loans that are identified as in-scope in the raw data set but are then not matched.
 
 1. Correct the classification in the raw loan book and re-run the matching process. If the loan was clearly mis-classified, this may be the most appropriate way to handle the issue. It may be a good idea to record any such changes made in the input data though. The upsdie of this approach is that the loan will now either be matched correctly, as it will be assigned the sector that the company should have and therefore find an entry in the ABCD data set to match against. Or, if there is still no match to be found in the ABCD, the loan will correctly be missing in the appropriate sector and therefore indicate a lower match success rate where it should.
-2. If a manual re-classification of the raw loan book is not possible or desired, the calculation of the match success rate can be corrected by adding a file `loans_to_remove.csv` to the input directory. This file should include the columns `id_loan` and `group_id` to indicate the precise mis-classified loan and the loan book in which it was found. This combnation of loan and loan book will then be excluded from the match success calculation.
+2. If a manual re-classification of the raw loan book is not possible or desired, the calculation of the match success rate can be corrected by adding a file `loans_to_remove.csv` to the input directory. This file should include the columns `id_loan` and `group_id` to indicate the precise mis-classified loan and the loan book in which it was found. This combination of loan and loan book will then be excluded from the match success calculation.
 
 The reason why it is a good idea to either correct mis-classified loans or disregard them in the calculation of the match success rate is that a mis-classified loan cannot possibly be matched in a given sector. Therefore, no amount of work would be sufficient to improve the sector match success rate, because it is calculated against an incorrect baseline. Technically, the user is not forced to correct misclassifications, and there may be a limit to how much time should be spent on this, but it is recommended to at least correct large mis-classified loans.
+
+### Sector split
+
+If you want to apply the sector split to the loan books, you should keep all relevant sectors in the matched loan book, instead of only one sector. This is because the sector split will be applied to the matched loan books, and the sector split will be based on the sectors in the matched loan books. If you only keep one sector in the matched loan books, the sector split will not be applied correctly and may wrongly appear to reduce overall matched financial exposure. The sector split will be applied to the matched loan books in the next step of the analysis.
 
 ## Prioritization of loan books; Match success and coverage diagnostics
 
