@@ -181,9 +181,7 @@ In case the user wants to split company exposures across sectors of in scope act
 - self-prepared
 - CSV file
 
-When applying the sector split on company exposures, the user can provide a list of companies for which the sector split should be based on primary energy content. For all other companies, a simple equal weights split will be applied. For more information on the sector split, see the [documentation](https://github.com/RMI-PACTA/workflow.aggregate.loanbooks?tab=readme-ov-file#optional-calculate-sector-splits-for-multi-sector-companies).
-
-**TODO:** Move the sector split documentation to this repo!
+When applying the sector split on company exposures, the user can provide a list of companies for which the sector split should be based on primary energy content. For all other companies, a simple equal weights split will be applied. For more information on the sector split, see the documentation in `vignette("sector_split")`.
 
 ### Manual Sector Classification
 
@@ -372,9 +370,7 @@ pacta.multi.loanbook::prepare_abcd(config_path)
 The `prepare_abcd()` function has a number of options that can be set in the `config.yml` file. These options include:
 
 - whether or not inactive companies should be removed from the ABCD data (For more information on the options available, see the [relevant section on preparing the ABCD](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/config_yml.html#prepare_abcd) in the `vignette("config_yml")`.)
-- if and how a company sector split should be applied in the calculations (For more information on the options available, see the [relevant section on the sector split](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/config_yml.html#sector_split) in the `vignette("config_yml")`). Additionally, see the [documentation of the sector split methodology](https://github.com/RMI-PACTA/workflow.aggregate.loanbooks?tab=readme-ov-file#methodological-note-sector-split-for-energy-companies).
-
-<!--- TODO: move sector split documentation to this repository-->
+- if and how a company sector split should be applied in the calculations (For more information on the options available, see the [relevant section on the sector split](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/config_yml.html#sector_split) in the `vignette("config_yml")`). Additionally, see the documentation of the sector split methodology in `vignette("sector_split")`.
 
 ## Matching process
 
