@@ -11,7 +11,6 @@ run_match_prioritize <- function(config) {
   match_prio_priority <- get_match_priority(config)
 
   apply_sector_split <- get_apply_sector_split(config)
-  sector_split_type_select <- get_sector_split_type(config)
 
   # validate config values----
   assert_length(dir_prepared_abcd, 1L)
@@ -22,10 +21,6 @@ run_match_prioritize <- function(config) {
   assert_inherits(dir_matched_loanbooks, "character")
   assert_dir_exists(dir_matched_loanbooks, desc = "Output - Matched loanbooks")
   assert_inherits(apply_sector_split, "logical")
-
-  if (apply_sector_split) {
-    assert_inherits(sector_split_type_select, "character")
-  }
 
   if (!is.null(match_prio_priority)) {
     if (
@@ -61,19 +56,17 @@ run_match_prioritize <- function(config) {
 
   ## optional: load sector split----
   if (apply_sector_split) {
-    if (sector_split_type_select == "equal_weights") {
-      companies_sector_split <- readr::read_csv(
-        file.path(dir_prepared_abcd, "companies_sector_split.csv"),
-        col_types = col_types_companies_sector_split,
-        col_select = dplyr::all_of(col_select_companies_sector_split)
-      )
+    companies_sector_split <- readr::read_csv(
+      file.path(dir_prepared_abcd, "companies_sector_split.csv"),
+      col_types = col_types_companies_sector_split,
+      col_select = dplyr::all_of(col_select_companies_sector_split)
+    )
 
-      abcd <- readr::read_csv(
-        file.path(dir_prepared_abcd, "abcd_final.csv"),
-        col_select = dplyr::all_of(cols_abcd),
-        col_types = col_types_abcd_final
-      )
-    }
+    abcd <- readr::read_csv(
+      file.path(dir_prepared_abcd, "abcd_final.csv"),
+      col_select = dplyr::all_of(cols_abcd),
+      col_types = col_types_abcd_final
+    )
   }
 
   # prioritize and save files----
@@ -87,41 +80,38 @@ run_match_prioritize <- function(config) {
 
     # optional: apply sector split----
     if (apply_sector_split) {
-      if (sector_split_type_select == "equal_weights") {
+      unique_companies_pre_split <- dplyr::distinct(
+        .data = matched_prio_i,
+        .data[["group_id"]],
+        .data[["name_abcd"]]
+      )
 
-        unique_companies_pre_split <- dplyr::distinct(
+      matched_prio_i <- matched_prio_i %>%
+        apply_sector_split_to_loans(
+          abcd = abcd,
+          companies_sector_split = companies_sector_split
+        )
+
+      unique_companies_post_split <-
+        dplyr::distinct(
           .data = matched_prio_i,
           .data[["group_id"]],
           .data[["name_abcd"]]
         )
 
-        matched_prio_i <- matched_prio_i %>%
-          apply_sector_split_to_loans(
-            abcd = abcd,
-            companies_sector_split = companies_sector_split
+      if (nrow(unique_companies_pre_split) != nrow(unique_companies_post_split)) {
+        lost_companies_i <- unique_companies_pre_split %>%
+          dplyr::anti_join(
+            y = unique_companies_post_split,
+            by = c("group_id", "name_abcd")
           )
-
-        unique_companies_post_split <-
-          dplyr::distinct(
-            .data = matched_prio_i,
-            .data[["group_id"]],
-            .data[["name_abcd"]]
-          )
-
-        if (nrow(unique_companies_pre_split) != nrow(unique_companies_post_split)) {
-          lost_companies_i <- unique_companies_pre_split %>%
-            dplyr::anti_join(
-              y = unique_companies_post_split,
-              by = c("group_id", "name_abcd")
-            )
-          lost_companies_i %>% readr::write_csv(
-            file = file.path(
-              output_prio_diagnostics_dir,
-              glue::glue("lost_companies_sector_split_{group_name}.csv")
-            ),
-            na = ""
-          )
-        }
+        lost_companies_i %>% readr::write_csv(
+          file = file.path(
+            output_prio_diagnostics_dir,
+            glue::glue("lost_companies_sector_split_{group_name}.csv")
+          ),
+          na = ""
+        )
       }
     }
 
