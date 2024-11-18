@@ -62,7 +62,7 @@ The main steps that generate output tables are:
 
 ## Diagnostics
 
-The diagnostics section is split into determining the match success rate of the loan books analysed and inspecting the real economy activity related to the financing made by the banks through the matched loan books. The former is influenced by the quality of the input loan book data and the completeness of the reference production data against which the loan books are matched. The latter, while it depends on a solid match success rate, is mainly driven by the financing decisions and the portfolio allocation made by the banks.
+The diagnostics section is split into determining the match success rate of the loan books analysed and inspecting the real economy activity related to the financing made by the banks through the matched loan books. The former is influenced by the quality of the input loan book data and the completeness of the reference production data against which the loan books are matched. The latter, while it depends on a solid match success rate, is mainly driven by the financing decisions and the portfolio allocation made by the banks. If a sector split is applied to the loan book, any companies that are lost in the process are documented for every loan book.
 
 ### Match success rate
 
@@ -85,6 +85,18 @@ dplyr::filter(data_dictionary, .data[["dataset"]] == "summary_statistics_loanboo
 table <- dplyr::filter(data_dictionary, .data[["dataset"]] == "summary_statistics_loanbook_coverage")
 plot_table(table)
 ```
+
+### Companies lost in sector split
+
+```{r dd_lost_companies_sector_split, results = FALSE}
+dplyr::filter(data_dictionary, .data[["dataset"]] == "lost_companies_sector_split")
+```
+
+```{r dd_lost_companies_sector_split_table, echo = FALSE}
+table <- dplyr::filter(data_dictionary, .data[["dataset"]] == "lost_companies_sector_split")
+plot_table(table)
+```
+
 
 ## Standard PACTA analysis
 
