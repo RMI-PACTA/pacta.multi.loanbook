@@ -88,11 +88,40 @@ run_match_prioritize <- function(config) {
     # optional: apply sector split----
     if (apply_sector_split) {
       if (sector_split_type_select == "equal_weights") {
+
+        unique_companies_pre_split <- dplyr::distinct(
+          .data = matched_prio_i,
+          .data[["group_id"]],
+          .data[["name_abcd"]]
+        )
+
         matched_prio_i <- matched_prio_i %>%
           apply_sector_split_to_loans(
             abcd = abcd,
             companies_sector_split = companies_sector_split
           )
+
+        unique_companies_post_split <-
+          dplyr::distinct(
+            .data = matched_prio_i,
+            .data[["group_id"]],
+            .data[["name_abcd"]]
+          )
+
+        if (nrow(unique_companies_pre_split) != nrow(unique_companies_post_split)) {
+          lost_companies_i <- unique_companies_pre_split %>%
+            dplyr::anti_join(
+              y = unique_companies_post_split,
+              by = c("group_id", "name_abcd")
+            )
+          lost_companies_i %>% readr::write_csv(
+            file = file.path(
+              output_prio_diagnostics_dir,
+              glue::glue("lost_companies_sector_split_{group_name}.csv")
+            ),
+            na = ""
+          )
+        }
       }
     }
 
@@ -108,19 +137,5 @@ run_match_prioritize <- function(config) {
         file = file.path(output_prio_diagnostics_dir, glue::glue("matched_prio_{group_name}.csv")),
         na = ""
       )
-  }
-
-  # optional: apply sector split----
-  if (apply_sector_split) {
-    if (sector_split_type_select == "equal_weights") {
-      lost_companies_sector_split(
-        abcd = abcd,
-        companies_sector_split = companies_sector_split
-      ) %>%
-        readr::write_csv(
-          file = file.path(output_prio_diagnostics_dir, glue::glue("lost_companies_sector_split.csv.csv")),
-          na = ""
-        )
-    }
   }
 }
