@@ -136,7 +136,7 @@ prepare_sector_split <- function(config) {
   # optional: remove inactive companies
   if (remove_inactive_companies) {
     advanced_company_indicators <- advanced_company_indicators %>%
-      dplyr::anti_join(abcd_removed_inactive_companies, by = "company_id")
+      dplyr::anti_join(abcd_removed_inactive_companies, by = c("company_id", "sector"))
   }
 
   ## determine sector splits by company----

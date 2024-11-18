@@ -25,6 +25,7 @@ articles:
   contents:
   - company_alignment_metric
   - loanbook_aggregated_alignment_metric
+  - sector_split
 
 - title: Documentation
   desc: Documentation of files and objects used for input and output

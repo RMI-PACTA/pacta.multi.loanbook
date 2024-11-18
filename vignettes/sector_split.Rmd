@@ -1,0 +1,76 @@
+---
+title: "Splitting loans of multi sector companies"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Splitting loans of multi sector companies}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+PACTA methodology note\
+**Splitting loans of multi sector companies**
+
+Prepared by Jacob Kastl
+
+# 1. Background
+
+Sometimes companies that receive loans operate in multiple sectors. For cases where multiple such sectors are within PACTA scope, there needs to be a process for deciding which of the in scope sectors to allocate the loan to. In case, the proceeds are clearly indicated for use in one of the sectors, this can be achieved simply by using the sector code provided in the loan book. Where the loan is not specifically earmarked for a particular sector or use, a choice needs to be made on how to allocate the loan to the different sectors the company operates in. In this note, we describe the how the user can decide to split the loan between the different sectors of a company and what methodological assumptions are made.
+
+# 2. Sector split
+
+## 2.1 Types of loans
+
+This section describes the types of loans that are relevant for the PACTA analysis, meaning that they are loans to companies that can be matched to at least one sector in the PACTA scope.
+
+There are three types of loans with regard to sector split requirements:
+
+1. Loans to companies that only operate in one PACTA sector
+2. Loans to companies that operate in multiple PACTA sectors, but where the loan is clearly earmarked for one of the sectors
+3. Loans to companies that operate in multiple PACTA sectors and where the loan is not clearly earmarked for one of the sectors
+3.1 ... not more than one of the in scope sectors is an energy sector
+3.2 ... more than one of the in scope sectors are energy sectors
+
+The methodology outlined below focuses on the third type of loan, where the loan is not clearly earmarked for one of the sectors. It explains the basic treatment of such loans and the refinement for energy companies.
+
+The user is ultimately best positioned to decide if any sector split is needed beyond the sector classifications provided in the loan book. In practice, if the sector classifications in a loan book are considered to be sufficiently granular and reflective of where the loan proceeds are used, no further sector split is needed and the process should not be applied. It is more likely that the process will be needed, when the sector classifications available are not sufficiently granular or not available at all for the loan book. If the user decides that a sector split is needed, the methodology outlined below can be used.
+
+## 2.2 Sector split methodology
+
+Where the decision is made to use a sector split, the general approach is to split the financial exposure evenly across the sectors the company operates in. This "equal wights" split implies that every sector the company operates in gets an equal share of the funding from the loan. The approach is chosen, because it requires minimal additional information. Balance sheet information on revenue splits between the sectors may be a preferable proxy in theory, but such information is not readily accessible in practice.
+
+Another approach would be to use production numbers as a proxy for the importance of each sector to the company overall. But for most sectors, output units cannot be compared, as they measure fundamentally different things. The energy sectors (coal mining, upstream oil and gas, power generation) are an exception to this rule, as they can be converted to a common unit of primary energy. This is the approach that we opt for and that refines the equal weights approach.
+
+Overall, we still assign each sector the weight inverse to the number of sectors the company operates in, e.g. one third for each sector if the company operates in three PACTA sectors. However, for the energy sectors, these weights are lumped together and then split between them based on primary energy in GJ. For example, if that same company is active across three PACTA sectors, two of which are energy sectors, the non-energy sector will be assigned a weight of one third and the energy sectors split a weight of two thirds among themselves based on their relative shares of primary energy. The methodological assumptions on the primary energy based split are described in detail in the next section.
+
+### 2.2.1 Primary-energy based sector split for energy companies
+
+Where a company has activities in multiple energy-related sectors, a common output unit of primary energy is needed to compare quantities across sectors. The chosen common unit of primary energy is million tons of oil equivalent (Mtoe) and is converted for the respective sectors as follows:
+
+- coal mining sector is converted from metric tonnes of coal (t coal)
+- upstream oil & gas is converted from gigajoules (GJ)
+- power generation is converted from megawatt hours (MWh)
+
+A methodological distinction between fossil fuel-based high carbon power generation and fossil-free low carbon power generation is made:
+
+- In order to compare the power generation sector to the upstream fossil fuel extraction sectors a further conversion is needed to account for the primary energy efficiency of fossil fuel-based power generation. This is because a large proportion of the thermal energy from burning fuel is not converted into electricity. This loss is taken into account by using primary energy efficiency factors for the respective technologies in the power sector.
+- This step is not required for low carbon technologies because even though some have relatively low primary energy efficiency (e.g. geothermal power at 10%) the input energy is not a fossil fuel and so from an accounting point of view does not contribute to the exposure of a company to fossil fuel production and use.
+
+It follows that to calculate the primary energy use ($E$) for a company $c$ per technology $a$ in sector $b = Power$ after accounting for primary energy efficiency factor $P$ (where $g$ is initial electricity generation before conversion to primary energy use) the following formula shall be used:
+
+$$E_{a,b=power,c} = \dfrac{g_{a,b=power,c}}{P_{a}}$$
+
+The primary energy efficiency factors are taken from the IEA[^1].
+
+[^1]: IEA (2008) Energy efficiency indicators for public electricity production from fossil fuels, IEA Information Paper, OECD/IEA, July 2008
+
+Then in the next step the conversion to common units of primary energy across the three respective sectors mentioned is made. The conversion factors ($F$) are taken from the [IEA World Energy Balances 2022](http://wds.iea.org/wds/pdf/WORLDBAL_Documentation.pdf) publication and the [IEA Unit Converter](https://www.iea.org/data-and-statistics/data-tools/unit-converter).
+
+The output in Mtoe for $a$ company $c$ in sector $b$ with conversion factor $F$ is:
+
+$$E_{b,c}^{Mtoe} = \sum_{\forall a \in b} E_{a,b,c} \times F_{b}$$
+
+The relative production weighting per sector $b$ for a company $c$, is then calculated as:
+
+$$sector\ share_{a,b,c} = \dfrac{E_{b,c}^{Mtoe}}{\sum_{b} E_{b,c}^{Mtoe}}$$
+
+This company level sector split can now be used as a proxy to attribute parts of a loan to different transition relevant sectors a company operates in, taking into account the relative importance of each sector in the companies production profile. Note that the split only refers to the energy related in-scope PACTA sectors. This means that if a company additionally operates in another non-energy PACTA sector, the split should only be applied to the share of a loan that is attributed to the energy sectors.
