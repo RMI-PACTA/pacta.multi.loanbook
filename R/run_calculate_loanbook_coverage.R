@@ -47,7 +47,6 @@ run_calculate_loanbook_coverage <- function(config) {
   )
 
   # add helper column to facilitate calculation of meta results----
-  # TODO: decide if this should be removed from outputs
   if (is.null(by_group)) {
     by_group <- "meta"
     matched_prioritized <- dplyr::mutate(.data = matched_prioritized, meta = "meta")
