@@ -27,6 +27,23 @@ plot_aggregate_loanbooks <- function(config) {
   by_group <- get_by_group(config)
   by_group <- check_and_prepare_by_group(by_group)
 
+  # validate config values ----
+
+  assert_length(scenario_source_input, 1L)
+  assert_inherits(scenario_source_input, "character")
+
+  assert_length(scenario_select, 1L)
+  assert_inherits(scenario_select, "character")
+
+  assert_length(region_select, 1L)
+  assert_inherits(region_select, "character")
+
+  assert_length(start_year, 1L)
+  assert_inherits(start_year, "integer")
+
+  assert_length(time_frame_select, 1L)
+  assert_inherits(time_frame_select, "integer")
+
   # load required data----
 
   if (is.null(by_group)) {
