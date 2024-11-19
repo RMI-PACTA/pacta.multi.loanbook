@@ -250,7 +250,6 @@ dd_summary_statistics_loanbook_coverage <- dplyr::tribble(
   "summary_statistics_loanbook_coverage", "share_production_financed", "double", "Share of production of companies identified for analysis relative to production by all companies in the reference dataset. This is a proxy for how much of the output of a region is covered by the analysis", "Numerical value between 0 and 1"
 )
 
-# TODO: probably better to export data_lbk_match_success_rate, which is actual format used in plots
 dd_lbk_match_success_rate <- dplyr::tribble(
   ~dataset, ~column, ~typeof, ~definition, ~value,
   "lbk_match_success_rate", "<by_group>", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
