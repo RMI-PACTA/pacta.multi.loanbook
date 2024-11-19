@@ -225,7 +225,6 @@ dd_data_emission_intensity <- dplyr::tribble(
   "data_emission_intensity", "label", "character", "Same as 'emission_factor_metric', formatted for display in plot", "Must be one of the following: 'projected', 'corporate_economy', or 'target_<scenario>', but formatted for display"
 )
 
-# TODO: possibly deprecate this output
 dd_companies_included <- dplyr::tribble(
   ~dataset, ~column, ~typeof, ~definition, ~value,
   "companies_included", "<by_group>", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
