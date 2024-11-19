@@ -41,7 +41,8 @@ match_loanbooks <- function(config) {
   matching_by_sector <- get_match_by_sector(config)
   matching_min_score <- get_match_min_score(config)
   matching_method <- get_match_method(config)
-  matching_p <- get_match_p(config)
+  # argument p only applies for Jaro-Winkler method
+  if (matching_method == "jw") {matching_p <- get_match_p(config)}
   matching_overwrite <- get_match_overwrite(config)
   matching_join_id <- get_match_join_id(config)
 
@@ -73,16 +74,24 @@ match_loanbooks <- function(config) {
   assert_length(matching_method, 1L)
   assert_inherits(matching_method, "character")
 
-  assert_length(matching_p, 1L)
-  assert_inherits(matching_p, "numeric")
+  if (matching_method == "jw") {
+    assert_length(matching_p, 1L)
+    assert_inherits(matching_p, "numeric")
+  }
 
-  # TODO: check for data.frame
-  # assert_length(matching_overwrite, 1L)
-  # assert_inherits(matching_overwrite, "numeric")
-  #
-  # TODO: check for join_object
-  # assert_length(matching_join_id, 1L)
-  # assert_inherits(matching_join_id, "numeric")
+  if (!is.null(matching_overwrite)) {
+    assert_inherits(matching_overwrite, "data.frame")
+    # cols are based on r2dii.data::overwrite_demo
+    assert_expected_columns(
+      data = matching_overwrite,
+      cols = c("level", "id_2dii", "name", "sector", "source"),
+      desc = "matching_overwrite"
+    )
+  }
+
+  if (!is.null(matching_join_id)) {
+    assert_inherits(matching_join_id, "character")
+  }
 
   assert_length(matching_use_manual_sector_classification, 1L)
   assert_inherits(matching_use_manual_sector_classification, "logical")
@@ -147,7 +156,6 @@ match_loanbooks <- function(config) {
             p = matching_p,
             overwrite = matching_overwrite,
             join_id = matching_join_id
-            # TODO: allow surfacing the other match_name args
           )
         }
       )

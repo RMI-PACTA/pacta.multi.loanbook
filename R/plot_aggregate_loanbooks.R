@@ -27,6 +27,23 @@ plot_aggregate_loanbooks <- function(config) {
   by_group <- get_by_group(config)
   by_group <- check_and_prepare_by_group(by_group)
 
+  # validate config values ----
+
+  assert_length(scenario_source_input, 1L)
+  assert_inherits(scenario_source_input, "character")
+
+  assert_length(scenario_select, 1L)
+  assert_inherits(scenario_select, "character")
+
+  assert_length(region_select, 1L)
+  assert_inherits(region_select, "character")
+
+  assert_length(start_year, 1L)
+  assert_inherits(start_year, "integer")
+
+  assert_length(time_frame_select, 1L)
+  assert_inherits(time_frame_select, "integer")
+
   # load required data----
 
   if (is.null(by_group)) {
@@ -129,7 +146,6 @@ plot_aggregate_loanbooks <- function(config) {
 
   # generate plots for system-wide analysis----
   ### sankey plot----
-  # TODO: when benchmarks get re-introduced, they need to be removed here
   # Plot sankey plot of financial flows scenario alignment - examples
   if (!is.null(company_aggregated_alignment_net)) {
     data_sankey_sector <- prep_sankey(
@@ -372,8 +388,6 @@ plot_aggregate_loanbooks <- function(config) {
 
   # group level plots ----
   # create sub directories for each relevant group.
-  # TODO: Note that this implies that no groups across different .by variables
-  # should have the same values, as this will confuse output directories
 
   if (
     length(by_group) == 1 &

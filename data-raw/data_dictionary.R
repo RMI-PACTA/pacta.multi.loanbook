@@ -143,7 +143,6 @@ dd_data_scatter_alignment_exposure <- dplyr::tribble(
   "data_scatter_alignment_exposure", "sum_loan_size_outstanding", "double", "Sum of outstanding loan size at the banking book-by-sector level of all loans analysed within this (group of) banking book(s)", "Numerical value greater or equal to 0"
 )
 
-# TODO: currently the sector is only indicated by the file name, not by a column in the data
 dd_data_scatter_sector <- dplyr::tribble(
   ~dataset, ~column, ~typeof, ~definition, ~value,
   "data_scatter_sector", "name", "character", "Name of the entity to analyse. If analysed at group level, this variable contains the values of <by_group>. If analysed at company level, it contains the values of 'name_abcd'", "An identifying name of the entity",
@@ -226,7 +225,6 @@ dd_data_emission_intensity <- dplyr::tribble(
   "data_emission_intensity", "label", "character", "Same as 'emission_factor_metric', formatted for display in plot", "Must be one of the following: 'projected', 'corporate_economy', or 'target_<scenario>', but formatted for display"
 )
 
-# TODO: possibly deprecate this output
 dd_companies_included <- dplyr::tribble(
   ~dataset, ~column, ~typeof, ~definition, ~value,
   "companies_included", "<by_group>", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
@@ -252,7 +250,6 @@ dd_summary_statistics_loanbook_coverage <- dplyr::tribble(
   "summary_statistics_loanbook_coverage", "share_production_financed", "double", "Share of production of companies identified for analysis relative to production by all companies in the reference dataset. This is a proxy for how much of the output of a region is covered by the analysis", "Numerical value between 0 and 1"
 )
 
-# TODO: probably better to export data_lbk_match_success_rate, which is actual format used in plots
 dd_lbk_match_success_rate <- dplyr::tribble(
   ~dataset, ~column, ~typeof, ~definition, ~value,
   "lbk_match_success_rate", "<by_group>", "character", "Any additional descriptor either at the loan level or at the banking book level. This is used to calculate grouped results by additional dimensions of interest, such as types of FIs or types of loans", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",

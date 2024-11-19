@@ -35,7 +35,35 @@ run_pacta <- function(config) {
   by_group <- check_and_prepare_by_group(by_group)
   by_group_ext <- if (is.null(by_group)) { "_meta" } else { paste0("_", by_group) }
 
-  # TODO: add check if all files exist, resort to test files if not
+  # validate config values ----
+
+  assert_length(dir_prepared_abcd, 1L)
+  assert_inherits(dir_prepared_abcd, "character")
+  assert_dir_exists(dir_prepared_abcd, desc = "Output - prepare ABCD")
+  assert_file_exists(file.path(dir_prepared_abcd, "abcd_final.csv"), desc = "ABCD final")
+
+  assert_length(path_scenario_tms, 1L)
+  assert_inherits(path_scenario_tms, "character")
+  assert_file_exists(path_scenario_tms, desc = "Input - Scenario: target market share (TMS)")
+
+  assert_length(path_scenario_sda, 1L)
+  assert_inherits(path_scenario_sda, "character")
+  assert_file_exists(path_scenario_sda, desc = "Input - Scenario: sectoral decarbonization approach (SDA)")
+
+  assert_length(scenario_source_input, 1L)
+  assert_inherits(scenario_source_input, "character")
+
+  assert_length(scenario_select, 1L)
+  assert_inherits(scenario_select, "character")
+
+  assert_length(region_select, 1L)
+  assert_inherits(region_select, "character")
+
+  assert_length(start_year, 1L)
+  assert_inherits(start_year, "integer")
+
+  assert_length(time_frame_select, 1L)
+  assert_inherits(time_frame_select, "integer")
 
   # load input data----
   region_isos_select <- r2dii.data::region_isos %>%
@@ -73,7 +101,6 @@ run_pacta <- function(config) {
   )
 
   # add helper column to facilitate calculation of meta results----
-  # TODO: decide if this should be removed from outputs
   if (is.null(by_group)) {
     by_group <- "meta"
     matched_prioritized <- matched_prioritized %>%

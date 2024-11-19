@@ -20,6 +20,36 @@ run_aggregate_alignment_metric <- function(config) {
   by_group <- get_by_group(config)
   by_group <- check_and_prepare_by_group(by_group)
 
+  # validate config values ----
+
+  assert_length(dir_prepared_abcd, 1L)
+  assert_inherits(dir_prepared_abcd, "character")
+  assert_dir_exists(dir_prepared_abcd, desc = "Output - prepare ABCD")
+  assert_file_exists(file.path(dir_prepared_abcd, "abcd_final.csv"), desc = "ABCD final")
+
+  assert_length(path_scenario_tms, 1L)
+  assert_inherits(path_scenario_tms, "character")
+  assert_file_exists(path_scenario_tms, desc = "Input - Scenario: target market share (TMS)")
+
+  assert_length(path_scenario_sda, 1L)
+  assert_inherits(path_scenario_sda, "character")
+  assert_file_exists(path_scenario_sda, desc = "Input - Scenario: sectoral decarbonization approach (SDA)")
+
+  assert_length(scenario_source_input, 1L)
+  assert_inherits(scenario_source_input, "character")
+
+  assert_length(scenario_select, 1L)
+  assert_inherits(scenario_select, "character")
+
+  assert_length(region_select, 1L)
+  assert_inherits(region_select, "character")
+
+  assert_length(start_year, 1L)
+  assert_inherits(start_year, "integer")
+
+  assert_length(time_frame, 1L)
+  assert_inherits(time_frame, "integer")
+
   # load input data----
   region_isos_select <- r2dii.data::region_isos %>%
     dplyr::filter(
@@ -93,7 +123,6 @@ run_aggregate_alignment_metric <- function(config) {
     dplyr::select(-"increasing_or_decreasing")
 
   # remove non standard columns from matched_prioritzed when calling r2dii.analysis
-  # TODO: check if this needs to be adjusted to remove other by_group columns
   matched_prio_non_standard_cols <- names(matched_prioritized)[!names(matched_prioritized) %in% col_standard_matched_prioritized]
 
   # only calculate net aggregated aligment results if the selected scenario has a trajectory for at least one sector in the matched_prioritzed loan book

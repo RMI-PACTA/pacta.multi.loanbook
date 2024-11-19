@@ -90,7 +90,6 @@ run_calculate_match_success_rate <- function(config) {
   )
 
   # add helper column to facilitate calculation of meta results----
-  # TODO: decide if this should be removed from outputs
   if (is.null(by_group)) {
     by_group <- "meta"
     raw_lbk <- raw_lbk %>%
