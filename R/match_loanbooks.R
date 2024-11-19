@@ -41,7 +41,8 @@ match_loanbooks <- function(config) {
   matching_by_sector <- get_match_by_sector(config)
   matching_min_score <- get_match_min_score(config)
   matching_method <- get_match_method(config)
-  matching_p <- get_match_p(config)
+  # argument p only applies for Jaro-Winkler method
+  if (matching_method == "jw") {matching_p <- get_match_p(config)}
   matching_overwrite <- get_match_overwrite(config)
   matching_join_id <- get_match_join_id(config)
 
@@ -73,8 +74,10 @@ match_loanbooks <- function(config) {
   assert_length(matching_method, 1L)
   assert_inherits(matching_method, "character")
 
-  assert_length(matching_p, 1L)
-  assert_inherits(matching_p, "numeric")
+  if (matching_method == "jw") {
+    assert_length(matching_p, 1L)
+    assert_inherits(matching_p, "numeric")
+  }
 
   # TODO: check for data.frame
   # assert_length(matching_overwrite, 1L)
