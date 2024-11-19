@@ -93,7 +93,6 @@ run_aggregate_alignment_metric <- function(config) {
     dplyr::select(-"increasing_or_decreasing")
 
   # remove non standard columns from matched_prioritzed when calling r2dii.analysis
-  # TODO: check if this needs to be adjusted to remove other by_group columns
   matched_prio_non_standard_cols <- names(matched_prioritized)[!names(matched_prioritized) %in% col_standard_matched_prioritized]
 
   # only calculate net aggregated aligment results if the selected scenario has a trajectory for at least one sector in the matched_prioritzed loan book
