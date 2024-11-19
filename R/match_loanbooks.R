@@ -89,9 +89,9 @@ match_loanbooks <- function(config) {
     )
   }
 
-  # TODO: check for join_object
-  # assert_length(matching_join_id, 1L)
-  # assert_inherits(matching_join_id, "numeric")
+  if (!is.null(matching_join_id)) {
+    assert_inherits(matching_join_id, "character")
+  }
 
   assert_length(matching_use_manual_sector_classification, 1L)
   assert_inherits(matching_use_manual_sector_classification, "logical")
