@@ -79,10 +79,16 @@ match_loanbooks <- function(config) {
     assert_inherits(matching_p, "numeric")
   }
 
-  # TODO: check for data.frame
-  # assert_length(matching_overwrite, 1L)
-  # assert_inherits(matching_overwrite, "numeric")
-  #
+  if (!is.null(matching_overwrite)) {
+    assert_inherits(matching_overwrite, "data.frame")
+    # cols are based on r2dii.data::overwrite_demo
+    assert_expected_columns(
+      data = matching_overwrite,
+      cols = c("level", "id_2dii", "name", "sector", "source"),
+      desc = "matching_overwrite"
+    )
+  }
+
   # TODO: check for join_object
   # assert_length(matching_join_id, 1L)
   # assert_inherits(matching_join_id, "numeric")
