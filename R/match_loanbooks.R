@@ -156,7 +156,6 @@ match_loanbooks <- function(config) {
             p = matching_p,
             overwrite = matching_overwrite,
             join_id = matching_join_id
-            # TODO: allow surfacing the other match_name args
           )
         }
       )
