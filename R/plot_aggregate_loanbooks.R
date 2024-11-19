@@ -146,7 +146,6 @@ plot_aggregate_loanbooks <- function(config) {
 
   # generate plots for system-wide analysis----
   ### sankey plot----
-  # TODO: when benchmarks get re-introduced, they need to be removed here
   # Plot sankey plot of financial flows scenario alignment - examples
   if (!is.null(company_aggregated_alignment_net)) {
     data_sankey_sector <- prep_sankey(
