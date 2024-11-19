@@ -143,7 +143,6 @@ dd_data_scatter_alignment_exposure <- dplyr::tribble(
   "data_scatter_alignment_exposure", "sum_loan_size_outstanding", "double", "Sum of outstanding loan size at the banking book-by-sector level of all loans analysed within this (group of) banking book(s)", "Numerical value greater or equal to 0"
 )
 
-# TODO: currently the sector is only indicated by the file name, not by a column in the data
 dd_data_scatter_sector <- dplyr::tribble(
   ~dataset, ~column, ~typeof, ~definition, ~value,
   "data_scatter_sector", "name", "character", "Name of the entity to analyse. If analysed at group level, this variable contains the values of <by_group>. If analysed at company level, it contains the values of 'name_abcd'", "An identifying name of the entity",
