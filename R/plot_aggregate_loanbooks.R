@@ -388,8 +388,6 @@ plot_aggregate_loanbooks <- function(config) {
 
   # group level plots ----
   # create sub directories for each relevant group.
-  # TODO: Note that this implies that no groups across different .by variables
-  # should have the same values, as this will confuse output directories
 
   if (
     length(by_group) == 1 &
