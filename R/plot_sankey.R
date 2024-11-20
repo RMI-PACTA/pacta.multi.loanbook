@@ -107,7 +107,6 @@ plot_sankey <- function(data,
     dplyr::arrange(.data[["source"]], .data[["group"]]) %>%
     as.data.frame()
 
-  # TODO: colour the companies if fully aligned or not
   nodes <- data.frame(
     name = unique(c(as.character(links$source), as.character(links$target)))
   ) %>%
