@@ -1,8 +1,8 @@
 ---
-title: Cookbook
+title: "Cookbook - (5) Advanced Use Cases"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Cookbook}
+  %\VignetteIndexEntry{cookbook_advanced_use_cases}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
