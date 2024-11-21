@@ -100,7 +100,7 @@ If you want to use the sector split, you can specify which company identifiers t
 
 ## Matching process
 
-The next step in the analysis is to run the matching process. Assuming you have prepared the raw loan books as explained in [the section on preparing the input data sets](### Raw Loan Books), you can now use the `match_loanbooks()` function. This will read the raw loan books from your inputs and attempt to match them to the prepared ABCD data from the previous step. The function will store matched loan book files in a directory that you have indicated as the value corresponding to the key `dir_matched_loanbooks` in the `config.yml`. You can run this function as follows:
+The next step in the analysis is to run the matching process. Assuming you have prepared the raw loan books as explained in [the section on preparing the input data sets](#raw-loan-books), you can now use the `match_loanbooks()` function. This will read the raw loan books from your inputs and attempt to match them to the prepared ABCD data from the previous step. The function will store matched loan book files in a directory that you have indicated as the value corresponding to the key `dir_matched_loanbooks` in the `config.yml`. You can run this function as follows:
 
 ```r
 pacta.multi.loanbook::match_loanbooks(config_path)
@@ -110,7 +110,7 @@ After the matching process is complete, you will need to do some manual matching
 
 The manual matching process is not automated and will require some time and effort on your part. You can find the matched loan books in the `.../matched_loanbooks` folder. The matched loan books will be stored in CSV files, one for each raw loan book. You can open these files in a spreadsheet program to verify the matches. Importantly, you will need to make a copy for each of the matched loan book files in the same `.../matched_loanbooks` folder and rename that copy by adding the suffix `_manual` to the file name. The following steps of the analysis expect this pattern, so it is important to follow this naming convention.
 
-You can find more detailed information about the matching process in the training material on the [PACTA for Banks website](https://pacta.rmi.org/pacta-for-banks-2020/) in the section "PACTA for Banks Training Webinar 2" and in the [corresponding slide deck](https://pacta.rmi.org/wp-content/uploads/2020/12/PACTA-for-Banks-Training-Webinar-2-Matching-a-loan-book-to-physical-assets-in-the-real-economy-.pdf).
+You can find more detailed information about the matching process in the [training material on the PACTA for Banks website](https://pacta.rmi.org/pacta-for-banks-2020/) in the section "PACTA for Banks Training Webinar 2" and in the [corresponding slide deck](https://pacta.rmi.org/wp-content/uploads/2020/12/PACTA-for-Banks-Training-Webinar-2-Matching-a-loan-book-to-physical-assets-in-the-real-economy-.pdf).
 
 ### Some expectations for the matching process
 
@@ -119,7 +119,7 @@ You can find more detailed information about the matching process in the trainin
   - The ABCD data set may not cover all companies that are in scope of the PACTA analysis. While coverage of the real economy sectors is usually rather high in the data sets that are commonly used for PACTA, there are gaps. This implies that some in-scope companies cannot be matched because the ABCD data set does not include them. Advanced users may research the production profiles of such companies by themselves and add them to the ABCD data manually, however this is a very involved process and not standard procedure and will therefore not be covered in this cookbook.
   - If you are using sector classifications for the matching process (which is recommended whenever possible), some matches may not be identified in case the companies in the raw loan book are misclassified. For example, if a utility that is focused on coal-fired power generation is classified as a coal mining company, the matching function will not suggest a match.
 - Given that it is unlikely to match all loans, it is recommended to try and match the companies with the largest financial exposures first, as this ensures the best possible financial coverage of the loan book in the analysis.
-- It is also recommended to run multiple iterations of the matching process, potentially adjusting the matching parameters in the `config.yml` file, to see if you can improve the match success rate. The match success rate can be obtained based on the manually validated matched loan books and the raw loan books as described in [the next section on prioritization and diagnostics](### Prioritization of loan books; Match success and coverage diagnostics).
+- It is also recommended to run multiple iterations of the matching process, potentially adjusting the matching parameters in the `config.yml` file, to see if you can improve the match success rate. The match success rate can be obtained based on the manually validated matched loan books and the raw loan books as described in [the next section on prioritization and diagnostics](#prioritization-of-loan-books-match-success-and-coverage-diagnostics).
 
 ### Options for the `match_loanbooks()` function
 
