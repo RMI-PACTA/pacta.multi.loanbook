@@ -1,3 +1,12 @@
+#' Initialize a project directory and its config file
+#'
+#' @param path an absolute or relative path pointing to the location you would
+#'   like the project directory to be created
+#'
+#' @returns NULL
+#'
+#' @export
+
 initialize_default_project <- function(path = "project") {
   if (dir.exists(path)) {
     cli::cli_abort("The path {.path {normalizePath(path)}} already exists. Cannot overwrite an existing path.")
