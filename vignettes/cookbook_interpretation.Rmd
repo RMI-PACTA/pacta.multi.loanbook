@@ -158,7 +158,7 @@ The technology mix metric compares the technology mix of the production capacity
 
 The technology mix can only be calculated for sectors that have technology level scenario pathways. Generally, those tend to be sectors for which scalable low carbon alternatives exist. The technology mix can also be calculated for sectors in which all technologies are projected to phase down or out, but the results are less meaningful in those cases, as the technology mix cannot show the absolute requirements for a phasedown.
 
-**LINK** to some more general tech mix explanation?
+For a general explanation of the technology mix, see also the [PACTA for Investors website](https://pacta.rmi.org/pacta-for-investors/) under the "Metrics" tab.
 
 #### Example Plots Technology Mix
 
@@ -206,7 +206,7 @@ The production volume trajectory metric compares the future production capacity 
 
 The production volume trajectory metric can only be calculated for sectors that have technology level scenario pathways. Generally, those tend to be sectors for which scalable low carbon alternatives exist, or sectors in which all technologies are projected to phase down or out.
 
-**LINK** to some more general volume trajectory explanation?
+For a general explanation of the production volume trajectory, see also the [PACTA for Investors website](https://pacta.rmi.org/pacta-for-investors/) under the "Metrics" tab.
 
 #### Example Plots Production Volume Trajectory
 
@@ -268,8 +268,7 @@ The emission intensity metric can be calculated for any sector that has sector l
 
 As the emission intensity metric is compared to scenario values based on the SDA approach, the calculation of the scenario values for each portfolio follows different rules than the market share approach used in the technology mix and the production volume trajectory. The SDA approach is a convergence approach and does not necessarily require stable market share for all companies and/or loan books. Rather, it requires that all participants in a sector approach the same emission intensity target at the end year of the scenario. Notice that the end year of the scenario is usually much farther in the future than the five year forward looking horizon of the analysis, which is why the loan book value is not expected to have converged with the scenario value after five years.
 
-For more information on how to calculate the SDA, see the [PACTA for Banks documentation](https://rmi-pacta.github.io/r2dii.analysis/articles/target-sda.html).
-
+For a general explanation of the emission intensity metric, see also the [PACTA for Investors website](https://pacta.rmi.org/pacta-for-investors/) under the "Metrics" tab.
 
 #### Example Plots Emission Intensity Pathway
 
@@ -290,6 +289,8 @@ knitr::include_graphics("../man/figures/plot_emission_intensity_steel_meta.png")
 The emission intensity pathway plots show the physical emission intensity trajectory of the portfolio weighted companies that the loan book is exposed to and contrast this with the physical emission intensity pathway of all companies in the relevant region of the real economy. Physical emission intensity in this case refers to the amount of CO2(eq) emissions per unit of real economic output from the sector at hand. Since the units of output are interchangeable per sector, but not across sectors, the physical emission intensity is a useful sector level metric. Since the emission intensity metric does not require technology level production pathways to be available, it can be used for sectors that do now have market-ready low carbon alternatives to replace high-carbon technologies yet. For the PACTA sectors, this is the case for the hard-to-abate sectors, such as cement, steel, and aviation. It can be applied to all other PACTA sectors as well though, although it may not be equally meaningful in all cases (for example, for a phaseout of coal mining, the emission intensity of coal mining may not be the most actionable metric).
 
 The emission intensity of different loan books will vary within the same sector, depending on the companies that the loan books are exposed to. Accordingly, the effort required by each of the banks to align their loan books with the target scenario in that sector will differ as well. With the SDA approach being a convergence approach, any loan book with a higher than average emission intensity will be expected to follow a steeper decline in emission intensity than a loan book with a lower than average emission intensity. This is a necessary requirement of the convergence approach to scenario allocation. However, the initial level of the physical emission intensity of the loan book does not impact the alignment of the loan book. Whether or not alignment is achieved, depends solely on the rate of change of the emission intensity relative to the loan book specific decarbonization pathway.
+
+For more information on how to calculate the SDA, see the [PACTA for Banks documentation](https://rmi-pacta.github.io/r2dii.analysis/articles/target-sda.html).
 
 #### Data Dictionary Emission Intensity Pathway
 
