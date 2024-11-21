@@ -34,11 +34,15 @@ articles:
   - config_yml
   - data_dictionary
 
-- title: Cookbooks
-  desc: Cookbooks demonstrating how to use this package for your own projects
-  navbar: Cookbooks
+- title: Cookbook
+  desc: Cookbook demonstrating how to use this package for your own projects
+  navbar: Cookbook
   contents:
-  - cookbook
+  - cookbook_overview
+  - cookbook_preparatory_steps
+  - cookbook_running_the_analysis
+  - cookbook_interpretation
+  - cookbook_advanced_use_cases
 
 navbar:
   structure:
