@@ -2,7 +2,7 @@
 title: "Cookbook - (2) Preparatory Steps"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{cookbook_preparatory_steps}
+  %\VignetteIndexEntry{Cookbook - (2) Preparatory Steps}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -287,3 +287,7 @@ Before running the PACTA for Supervisors analysis, you should make sure that you
   - [ ] Placed the other input data sets in the `input` folder
   - [ ] Created appropriate values for all input and ouput directories in the `config.yml` file
 
+
+**PREVIOUS CHAPTER:** [1 - Overview](cookbook_overview.html)
+
+**NEXT CHAPTER:** [3 - Running the Analysis](cookbook_running_the_analysis.html)

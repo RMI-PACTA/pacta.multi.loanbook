@@ -2,7 +2,7 @@
 title: "Cookbook - (4) Interpretation of Results"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{cookbook_interpretation}
+  %\VignetteIndexEntry{Cookbook - (4) Interpretation of Results}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -430,3 +430,6 @@ The variables in the table map to the figures as follows:
 - `net`: The net aggregate alignment metric of the loan book or company. Maps to the hue of the dot. Aligned loan books or companies have a positive value (green hue), misaligned ones have a negative value (red hue).
 - `datapoint`: Indicates if the results are calculated at loan book or company level.
 
+**PREVIOUS CHAPTER:** [3 - Running the Analysis](cookbook_running_the_analysis.html)
+
+**NEXT CHAPTER:** [5 - Advanced Use Cases](cookbook_advanced_use_cases.html)
