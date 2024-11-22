@@ -32,20 +32,6 @@ pak::pak("RMI-PACTA/pacta.multi.loanbook")
 
 ## Usage
 
-Please consult the following resources for instructions on using the package. The cookbook provides a detailed overview covering the setup of the necessary software environment, obtaining and preparing input data, running the analysis, and interpreting the results.
+Please consult the following resource for instructions on using the package. The cookbook provides a detailed overview covering the setup of the necessary software environment, obtaining and preparing input data, running the analysis, and interpreting the results.
 
-- [Cookbook](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/cookbook.html): A comprehensive guide for setting up and running the analysis.
-
-In particular, we recommend focusing on the sections:
-
-- [Preparatory Steps](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/cookbook.html#preparatory-steps): for setting up required input data and software.
-- [Running the Analysis](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/cookbook.html#running-the-analysis) for generating outputs.
-
-
-## Intepretation
-
-Understanding your analysis outputs is key to drawing meaningful conclusions. The following sections of the cookbook guide how to read and interpret the generated outputs:
-
-- [Interpretation of Results](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/cookbook.html#interpretation-of-results): for guidance on how to interpret the generated outputs
-- [Understanding the Data](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/data_dictionary.html): for a precise description of every dataset. 
-- [Advanced Use Cases](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/cookbook.html#advanced-use-cases): for complex, real-world scenarios, with guidance on adapting analyses to address specific research questions.
+- [Cookbook](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/cookbook_overview.html): A comprehensive guide for setting up, running and interpreting the analysis.
