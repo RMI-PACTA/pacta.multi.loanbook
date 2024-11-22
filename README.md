@@ -32,6 +32,6 @@ pak::pak("RMI-PACTA/pacta.multi.loanbook")
 
 ## Usage
 
-Please consult the following resources for instructions on using the package. The cookbook provides a detailed overview covering the setup of the necessary software environment, obtaining and preparing input data, running the analysis, and interpreting the results.
+Please consult the following resource for instructions on using the package. The cookbook provides a detailed overview covering the setup of the necessary software environment, obtaining and preparing input data, running the analysis, and interpreting the results.
 
 - [Cookbook](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/cookbook.html): A comprehensive guide for setting up, running and interpreting the analysis.
