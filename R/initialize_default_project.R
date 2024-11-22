@@ -9,36 +9,31 @@
 
 initialise_default_project <- function(path = "project") {
   if (dir.exists(path)) {
-    cli::cli_abort("The path {.path {normalizePath(path)}} already exists. Cannot overwrite an existing path.")
+    cli::cli_abort(c(
+      x = "Cannot overwrite an existing path.",
+      i = "The specified path already exists: {.path {normalizePath(path)}}"
+    ))
   }
 
   dir.create(path)
+  path <- normalizePath(path)
 
   default_cfg <- yaml::read_yaml(file = system.file("default_config.yml", package = "pacta.multi.loanbook"))
 
-  input_dir <- file.path(path, "input")
-  dir.create(input_dir)
-  default_cfg$default$directories$dir_input <- normalizePath(input_dir)
+  default_cfg$default$directories$dir_input <- file.path(path, "input")
+  dir.create(default_cfg$default$directories$dir_input)
 
-  prepared_abcd_dir <- file.path(path, "prepared_abcd")
-  dir.create(prepared_abcd_dir)
   default_cfg$default$directories$dir_prepared_abcd <-
-    normalizePath(prepared_abcd_dir)
+    file.path(path, "prepared_abcd")
 
-  matched_loanbooks_dir <- file.path(path, "matched_loanbooks")
-  dir.create(matched_loanbooks_dir)
   default_cfg$default$directories$dir_matched_loanbooks <-
-    normalizePath(matched_loanbooks_dir)
+    file.path(path, "matched_loanbooks")
 
-  prioritized_loanbooks_and_diagnostics_dir <- file.path(path, "prioritized_loanbooks_and_diagnostics")
-  dir.create(prioritized_loanbooks_and_diagnostics_dir)
   default_cfg$default$directories$dir_prioritized_loanbooks_and_diagnostics <-
-    normalizePath(prioritized_loanbooks_and_diagnostics_dir)
+    file.path(path, "prioritized_loanbooks_and_diagnostics")
 
-  analysis_dir <- file.path(path, "analysis")
-  dir.create(analysis_dir)
   default_cfg$default$directories$dir_analysis <-
-    normalizePath(analysis_dir)
+    file.path(path, "analysis")
 
   yaml::write_yaml(
     x = default_cfg,
@@ -51,8 +46,9 @@ initialise_default_project <- function(path = "project") {
   )
 
   cli::cli_inform(c(
-    "Project directory has been initialised here: {.path {normalizePath(path)}}",
-    "You should review and edit if necessary your config file here: {.file {normalizePath(file.path(path, 'config.yml'))}}"
+    i = "Project directory has been initialised here: {.path {path}}",
+    i = "Put your input files in the directory here: {.path {default_cfg$default$directories$dir_input}}",
+    i = "You should review and edit if necessary your config file here: {.file {file.path(path, 'config.yml')}}"
   ))
 }
 
