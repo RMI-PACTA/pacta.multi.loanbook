@@ -1,4 +1,4 @@
-#' Initialize a project directory and its config file
+#' Initialise a project directory and its config file
 #'
 #' @param path an absolute or relative path pointing to the location you would
 #'   like the project directory to be created
@@ -7,7 +7,7 @@
 #'
 #' @export
 
-initialize_default_project <- function(path = "project") {
+initialise_default_project <- function(path = "project") {
   if (dir.exists(path)) {
     cli::cli_abort("The path {.path {normalizePath(path)}} already exists. Cannot overwrite an existing path.")
   }
@@ -51,7 +51,12 @@ initialize_default_project <- function(path = "project") {
   )
 
   cli::cli_inform(c(
-    "Project directory has been initialized here: {.path {normalizePath(path)}}",
+    "Project directory has been initialised here: {.path {normalizePath(path)}}",
     "You should review and edit if necessary your config file here: {.file {normalizePath(file.path(path, 'config.yml'))}}"
   ))
 }
+
+
+#' @rdname initialise_default_project
+#' @export
+initialize_default_project <- initialise_default_project

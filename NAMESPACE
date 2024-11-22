@@ -2,6 +2,7 @@
 
 export(analyse)
 export(analyze)
+export(initialise_default_project)
 export(initialize_default_project)
 export(match_loanbooks)
 export(prepare_abcd)
