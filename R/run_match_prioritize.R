@@ -46,7 +46,7 @@ run_match_prioritize <- function(config) {
   # load data----
   ## load manually matched files----
   list_matched_manual <- list.files(path = dir_matched_loanbooks, pattern = "^matched_lbk_.*_manual[.]csv$")
-  assert_any_file_exists(list_matched_manual, dir_matched_loanbooks, "dir_output", "manually matched loan book CSVs matching the pattern {.code ^matched_lbk_.*_manual[.]csv$}")
+  assert_any_file_exists(list_matched_manual, dir_matched_loanbooks, "dir_matched_loanbooks", "manually matched loan book CSVs matching the pattern {.code ^matched_lbk_.*_manual[.]csv$}")
 
   matched_lbk_manual <- readr::read_csv(
     file = file.path(dir_matched_loanbooks, list_matched_manual),
