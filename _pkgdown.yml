@@ -9,7 +9,7 @@ reference:
 - title: Analysis
   desc:  Run the analysis.
 - contents:
-  - initialize_default_project
+  - initialise_default_project
   - prepare_abcd
   - match_loanbooks
   - prioritise_and_diagnose
