@@ -1,8 +1,8 @@
 ---
-title: "Cookbook - (4) Interpretation of Results"
+title: "Interpretation of Results"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Cookbook - (4) Interpretation of Results}
+  %\VignetteIndexEntry{Interpretation of Results}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

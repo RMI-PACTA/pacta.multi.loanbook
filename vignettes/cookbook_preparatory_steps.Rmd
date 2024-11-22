@@ -1,8 +1,8 @@
 ---
-title: "Cookbook - (2) Preparatory Steps"
+title: "Preparatory Steps"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Cookbook - (2) Preparatory Steps}
+  %\VignetteIndexEntry{Preparatory Steps}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
