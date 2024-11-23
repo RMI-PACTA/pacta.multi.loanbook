@@ -23,6 +23,3 @@ output directory  specified in the \code{config.yml}.
 
 \code{analyse()} and \code{analyze()} are synonyms.
 }
-\examples{
-# TODO
-}

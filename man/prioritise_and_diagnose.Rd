@@ -23,6 +23,3 @@ output directory  specified in the \code{config.yml}.
 
 \code{prioritise_and_diagnose()} and \code{prioritize_and_diagnose()} are synonyms.
 }
-\examples{
-# TODO
-}
