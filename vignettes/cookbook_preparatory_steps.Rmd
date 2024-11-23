@@ -154,8 +154,6 @@ When applying the sector split on company exposures, the user can provide a list
 - self-prepared
 - CSV file
 
-**TODO:** Add once we have a stable implementation of this feature
-
 ## Required Software
 
 Using the `pacta.multi.loanbook` package for the PACTA for Supervisors analysis requires the following software to be installed on your system:
