@@ -38,6 +38,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - run: echo ${{ github.job }} # Will only return the job_id: "my-job"
+      - run: |
+          JOB_NAME="OS ${{ matrix.os }}"
+          echo $JOB_NAME
+          echo "JOB_NAME=$JOB_NAME" >> $GITHUB_ENV
+
+      - name: Print JOB_NAME
+        run: |
+          echo "JOB NAME:" ${{ env.JOB_NAME }}
+
       - run: echo "matrix.os is ${{ matrix.os }}"
         shell: bash
 
