@@ -39,7 +39,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Remove pkg-config@0.29.2
-        if: matrix.os == 'macos-latest'
+        if: ${{ matrix.os }} == 'macos-latest'
         run: |
           brew uninstall pkg-config@0.29.2
         shell: bash
