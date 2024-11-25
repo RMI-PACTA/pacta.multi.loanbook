@@ -38,6 +38,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Display matrix and index
+        run: |
+          echo "Running on ${{ matrix.os }} with Node.js ${{ matrix.node }}"
+          echo "This is matrix job #${{ strategy.job-index }}"
+
+      - name: test on ${{ matrix.os }}
+      
       - run: echo ${{ github.job }} # Will only return the job_id: "my-job"
       - run: |
           JOB_NAME="OS ${{ matrix.os }}"
