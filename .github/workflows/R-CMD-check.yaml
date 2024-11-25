@@ -43,26 +43,6 @@ jobs:
           echo "Running on ${{ matrix.os }} with Node.js ${{ matrix.node }}"
           echo "This is matrix job #${{ strategy.job-index }}"
 
-      - name: test on ${{ matrix.os }}
-      
-      - run: echo ${{ github.job }} # Will only return the job_id: "my-job"
-      - run: |
-          JOB_NAME="OS ${{ matrix.os }}"
-          echo $JOB_NAME
-          echo "JOB_NAME=$JOB_NAME" >> $GITHUB_ENV
-
-      - name: Print JOB_NAME
-        run: |
-          echo "JOB NAME:" ${{ env.JOB_NAME }}
-
-      - run: echo "matrix.os is ${{ matrix.os }}"
-        shell: bash
-
-      - run: echo ${{ matrix.project }}
-      - run: echo ${{ matrix.config }}
-      - run: echo ${{ matrix.os }}
-      - run: echo ${{ matrix.r }}
-
       - name: Remove pkg-config@0.29.2
         if: matrix.os == 'macos-latest'
         run: |
