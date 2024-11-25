@@ -41,6 +41,11 @@ jobs:
       - run: echo "matrix.os is ${{ matrix.os }}"
         shell: bash
 
+      - run: echo ${{ matrix.project }}
+      - run: echo ${{ matrix.config }}
+      - run: echo ${{ matrix.os }}
+      - run: echo ${{ matrix.r }}
+
       - name: Remove pkg-config@0.29.2
         if: matrix.os == 'macos-latest'
         run: |
