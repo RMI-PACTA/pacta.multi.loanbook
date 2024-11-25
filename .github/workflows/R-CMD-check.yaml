@@ -38,6 +38,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - run: echo "matrix.os is ${{ matrix.os }}"
+        shell: bash
+
       - name: Remove pkg-config@0.29.2
         if: matrix.os == 'macos-latest'
         run: |
