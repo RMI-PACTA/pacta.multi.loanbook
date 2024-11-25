@@ -38,11 +38,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Display matrix and index
-        run: |
-          echo "Running on ${{ matrix.config.os }} with R ${{ matrix.config.r }}"
-          echo "This is matrix job #${{ strategy.job-index }}"
-
       - name: Remove pkg-config@0.29.2
         if: matrix.config.os == 'macos-latest'
         run: |
