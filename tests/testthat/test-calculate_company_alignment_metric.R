@@ -65,14 +65,12 @@ test_data_remove_tech_no_plans_no_target_4 <- tibble::tribble(
   "automotive",       "ice",  2027, "global", "scenario_source", "test_company",         75,               60
 )
 # 5) NAs in projected and target values
-# TODO: reconsider if this needs to be handled somewhere else, effectively NAs are treated like zero
 test_data_remove_tech_no_plans_no_target_5 <- tibble::tribble(
        ~sector, ~technology, ~year,  ~region,  ~scenario_source,     ~name_abcd, ~projected, ~target_scenario,
   "automotive",  "electric",  2027, "global", "scenario_source", "test_company",   NA_real_,         NA_real_,
   "automotive",       "ice",  2027, "global", "scenario_source", "test_company",   NA_real_,         NA_real_
 )
 # 6) NA in one of projected and target values
-# TODO: reconsider if this needs to be handled somewhere else, effectively NAs are treated like zero
 test_data_remove_tech_no_plans_no_target_6 <- tibble::tribble(
        ~sector, ~technology, ~year,  ~region,  ~scenario_source,     ~name_abcd, ~projected, ~target_scenario,
   "automotive",  "electric",  2027, "global", "scenario_source", "test_company",   NA_real_,         NA_real_,
@@ -135,7 +133,6 @@ test_data_remove_sector_no_target_3 <- tibble::tribble(
   "automotive",       "ice",  2027, "global", "scenario_source", "test_company",          0,                5
 )
 # 4) NA values in all target values of sector
-# TODO: reconsider if this needs to be handled somewhere else, effectively NAs are treated like zero
 test_data_remove_sector_no_target_4 <- tibble::tribble(
        ~sector, ~technology, ~year,  ~region,  ~scenario_source,     ~name_abcd, ~projected, ~target_scenario,
   "automotive",  "electric",  2027, "global", "scenario_source", "test_company",         25,         NA_real_,
