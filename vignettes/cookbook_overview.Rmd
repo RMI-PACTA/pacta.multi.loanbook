@@ -78,4 +78,4 @@ The main steps of the analysis are as follows:
 
 This cookbook will guide you through each of the steps of the analysis in detail, explain the required input data sets and software, and provide guidance on how to interpret the results.
 
-**NEXT CHAPTER:** [2 - Preparatory Steps](cookbook_preparatory_steps.html)
+**NEXT CHAPTER:** [Preparatory Steps](cookbook_preparatory_steps.html)

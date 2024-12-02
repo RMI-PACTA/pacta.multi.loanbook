@@ -431,6 +431,6 @@ The variables in the table map to the figures as follows:
 - `net`: The net aggregate alignment metric of the loan book or company. Maps to the hue of the dot. Aligned loan books or companies have a positive value (green hue), misaligned ones have a negative value (red hue).
 - `datapoint`: Indicates if the results are calculated at loan book or company level.
 
-**PREVIOUS CHAPTER:** [3 - Running the Analysis](cookbook_running_the_analysis.html)
+**PREVIOUS CHAPTER:** [Running the Analysis](cookbook_running_the_analysis.html)
 
-**NEXT CHAPTER:** [5 - Advanced Use Cases](cookbook_advanced_use_cases.html)
+**NEXT CHAPTER:** [Advanced Use Cases](cookbook_advanced_use_cases.html)

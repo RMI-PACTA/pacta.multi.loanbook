@@ -194,4 +194,4 @@ We can now check if:
 - One way to circumvent this slighlty cumbersome process would be to create a combined variable in the loan books, that includes information on both the bank and the net zero pledge. This would allow getting the required information in one run.
 - Any bank that we identify that has made a net zero pledge but is strongly misaligned may be at risk of losing reputation and/or being sued over noncompliance with its pledge. Of course, misalignment is rarely ever a sufficient criterion to judge if reputational damage or legal risk is likely to materialize. Other factors, such as progress made in past efforts, implementation of transition plans, lending strategy with regard to transition finance, etc. should be considered too. But strong misalignment should be considered a warning signal, that warrants further investigation into these other aspects and possibly a dialogue with the affected bank.
 
-**PREVIOUS CHAPTER:** [4 - Interpretation of Results](cookbook_interpretation.html)
+**PREVIOUS CHAPTER:** [Interpretation of Results](cookbook_interpretation.html)

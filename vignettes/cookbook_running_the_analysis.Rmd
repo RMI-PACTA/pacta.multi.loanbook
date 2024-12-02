@@ -182,6 +182,6 @@ All these options are documented in more detail the [section on project paramete
 
 Usually, it will be interesting to run the analysis for more than one by_group, possibly also for multiple combinations of the other parameters. You will therefore have to run the analysis as many times as there are combinations of interest that you wish to generate results for.
 
-**PREVIOUS CHAPTER:** [2 - Preparatory Steps](cookbook_preparatory_steps.html)
+**PREVIOUS CHAPTER:** [Preparatory Steps](cookbook_preparatory_steps.html)
 
-**NEXT CHAPTER:** [4 - Interpretation of Results](cookbook_interpretation.html)
+**NEXT CHAPTER:** [Interpretation of Results](cookbook_interpretation.html)

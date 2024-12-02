@@ -286,6 +286,6 @@ Before running the PACTA for Supervisors analysis, you should make sure that you
   - [ ] Created appropriate values for all input and ouput directories in the `config.yml` file
 
 
-**PREVIOUS CHAPTER:** [1 - Overview](cookbook_overview.html)
+**PREVIOUS CHAPTER:** [Overview](cookbook_overview.html)
 
-**NEXT CHAPTER:** [3 - Running the Analysis](cookbook_running_the_analysis.html)
+**NEXT CHAPTER:** [Running the Analysis](cookbook_running_the_analysis.html)
