@@ -282,7 +282,6 @@ test_output_calculate_company_aggregate_alignment_tms_2 <- calculate_company_agg
   level = test_level_bo_po
 )
 
-# TODO: add expectations for the actual output values
 test_that("calculate_company_aggregate_alignment_tms returns expected directions", {
   expect_equal(sort(unique(test_output_calculate_company_aggregate_alignment_tms_1$direction)), c("net"))
   expect_equal(sort(unique(test_output_calculate_company_aggregate_alignment_tms_2$direction)), c("buildout", "phaseout"))
