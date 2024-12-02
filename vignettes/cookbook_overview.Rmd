@@ -49,6 +49,14 @@ plot_table <- function(table) {
 
 This cookbook provides a step-by-step guide to running the PACTA for Supervisors analysis using the `pacta.multi.loanbook` package. The analysis is designed to help financial supervisors assess the alignment of banks' loan books with the Paris Agreement goals.
 
+The sections of the cookbook are as follows:
+
+1. **Overview**: This section provides an overview of the PACTA for Supervisors analysis and its main steps.
+2. **Preparatory Steps**: Prepare the ABCD data and optionally a custom sector split.
+3. **Running the Analysis**: Match the raw loan books to the ABCD data and run the PACTA for Supervisors analysis.
+4. **Interpretation of Results**: Interpret the results of the analysis and understand the outputs.
+5. **Advanced Topics**: Learn about advanced topics such as custom grouping of results and how to adjust the analysis parameters for best results on advanced research questions.
+
 ## What is the PACTA for Supervisors analysis?
 
 PACTA for Supervisors is based on the PACTA methodology, which assesses the alignment of financial portfolios with climate goals utilizing forward-looking asset-based company data (ABCD) that is linked to financial assets and compares the production profiles of those companies with technology and emissions pathways from climate transition scenarios at the sector and/or technology level.
