@@ -142,21 +142,16 @@ match_loanbooks <- function(config) {
 
     ## match data----
     if (matching_use_manual_sector_classification) {
-      withr::with_options(
-        new = list(r2dii.match.sector_classifications = sector_classification_system),
-        code = {
-          getOption("r2dii.match.sector_classifications")
-          matched_lbk_i <- r2dii.match::match_name(
-            loanbook = raw_lbk[[i]],
-            abcd = abcd,
-            by_sector = matching_by_sector,
-            min_score = matching_min_score,
-            method = matching_method,
-            p = matching_p,
-            overwrite = matching_overwrite,
-            join_id = matching_join_id
-          )
-        }
+      matched_lbk_i <- r2dii.match::match_name(
+        loanbook = raw_lbk[[i]],
+        abcd = abcd,
+        by_sector = matching_by_sector,
+        min_score = matching_min_score,
+        method = matching_method,
+        p = matching_p,
+        overwrite = matching_overwrite,
+        join_id = matching_join_id,
+        sector_classification = sector_classification_system
       )
     } else {
       matched_lbk_i <- r2dii.match::match_name(

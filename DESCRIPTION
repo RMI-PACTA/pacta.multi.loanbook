@@ -52,7 +52,6 @@ Imports:
     scales,
     tidyr,
     webshot,
-    withr,
     yaml,
     yesno
 Depends:
@@ -67,6 +66,7 @@ Suggests:
     usethis,
     testthat (>= 3.1.9),
     tibble,
+    withr,
     writexl
 Config/testthat/edition: 3
 Roxygen: list(markdown = TRUE)
