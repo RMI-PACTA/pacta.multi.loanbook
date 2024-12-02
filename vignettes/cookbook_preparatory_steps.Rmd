@@ -250,7 +250,7 @@ project_folder
 
 Notice that the names of the directories can be changed to something the user may prefer. The names were chosen for illustrative purposes to reflect the corresponding user-facing functions that create the outputs.
 
-### Initialise a project
+### Initialise a Project
 
 You can use the following code to initialise a project folder structure:
 
