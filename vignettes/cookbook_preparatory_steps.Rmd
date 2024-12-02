@@ -250,6 +250,24 @@ project_folder
 
 Notice that the names of the directories can be changed to something the user may prefer. The names were chosen for illustrative purposes to reflect the corresponding user-facing functions that create the outputs.
 
+### Initialise a project
+
+You can use the following code to initialise a project folder structure:
+
+``` r
+library(pacta.multi.loanbook)
+initialise_default_project(path = "path/to/project_folder")
+```
+
+This will create a minimal project folder structure similar to the one shown above.
+
+* Note that the target path that you pass to `initialise_default_project()` must be a path that does not exist yet, as it will be newly set up and cannot overwrite any existing files.
+* Within this path, an `input` sub-directory and a `config.yml` file will be created. The `ìnput` sub-directory will be empty and you will have to populate it with the files described above and following the structure as outlined.
+* The `config.yml` file will be created with default settings. Output paths in the config.yml file will point to sub directories of the path you pass to `initialise_default_project()`, so that running the remaining steps of the analysis will keep all inputs and outputs in one common project folder. You can then edit the `config.yml` file to adjust the settings to your needs, as described in the corresponding documentation (see `vignette("config_yml")`).
+
+It is not strictly necessary to use the `initialise_default_project()` function to set up your project folder. If you prefer setting up another folder structure manually and creating the `config.yml` from scratch, you can do that. But it can be helpful to ensure that you have all the necessary files and folders in place.
+
+
 ## Checklist of Preparatory Steps
 
 Before running the PACTA for Supervisors analysis, you should make sure that you have completed the following preparatory steps:
@@ -274,9 +292,9 @@ Before running the PACTA for Supervisors analysis, you should make sure that you
 - [ ] OPTIONAL - Installed the suggested R packages:
   - [ ] `pacta.multi.loanbook` suggests
 - [ ] Setup the project folder and file structure:
-  - [ ] Created a project folder
-  - [ ] Created a `config.yml` file and placed it in the project folder
-  - [ ] Created an `input` folder in the project folder
+  - [ ] Created a project folder (can be handled by `initialise_default_project()`)
+  - [ ] Created a `config.yml` file and placed it in the project folder (can be handled by `initialise_default_project()`)
+  - [ ] Created an `input` folder in the project folder (can be handled by `initialise_default_project()`)
   - [ ] Placed the raw loan books in the `input/loanbooks` sub-directory
   - [ ] Placed the other input data sets in the `input` folder
   - [ ] Created appropriate values for all input and ouput directories in the `config.yml` file
