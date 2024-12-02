@@ -255,7 +255,6 @@ test_that("total_tech_deviation is less or equal 0 for all technologies in bridg
 
 # calculate_company_aggregate_alignment_tms----
 # styler: off
-# TODO: add a case of a pure phaseout sector
 test_data_calculate_company_aggregate_alignment_tms <- tibble::tribble(
   ~sector,     ~technology, ~year,  ~region, ~scenario_source,       ~name_abcd, ~projected, ~target_scenario, ~direction, ~total_tech_deviation, ~activity_unit,
   "power",        "gascap",  2027, "global",    "test_source",   "test_company",        100,               80, "phaseout",                   -20,           "MW",
