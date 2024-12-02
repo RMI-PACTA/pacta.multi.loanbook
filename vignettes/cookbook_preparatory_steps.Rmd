@@ -66,7 +66,6 @@ This data set provides information on the production profiles and emission inten
 The ABCD data set must be an XLSX file and contains the following columns:
 
 ```{r cols_abcd, echo = FALSE, results = 'asis'}
-# TODO: should this be in the data dictionary?
 cat(paste0("- `", pacta.multi.loanbook:::cols_abcd, "`", collapse = "\n"))
 ```
 
@@ -85,7 +84,6 @@ For sectors with technology level trajectories, the data set provides the TMSR a
 The target market share scenario data set must be a CSV file and contains the following columns:
 
 ```{r cols_tms_scenario, echo = FALSE, results = 'asis'}
-# TODO: should this be in the data dictionary?
 cat(paste0("- `", names(pacta.multi.loanbook:::col_types_scenario_tms[["cols"]]), "`", collapse = "\n"))
 ```
 
@@ -94,7 +92,6 @@ For sectors that do not have technology level pathways, PACTA uses the Sectoral 
 The SDA scenario data set must be a CSV file and contains the following columns:
 
 ```{r cols_sda_scenario, echo = FALSE, results = 'asis'}
-# TODO: should this be in the data dictionary?
 cat(paste0("- `", names(pacta.multi.loanbook:::col_types_scenario_sda[["cols"]]), "`", collapse = "\n"))
 ```
 
@@ -116,7 +113,6 @@ The raw loan books are the financial data sets that you would like to analyze. T
 The raw loan books must be prepared as CSV files and contain at a minimum the following columns:
 
 ```{r cols_raw_loanbooks, echo = FALSE, results = 'asis'}
-# TODO: should this be in the data dictionary?
 cat(paste0("- `", names(pacta.multi.loanbook:::col_types_raw[["cols"]]), "`", collapse = "\n"))
 ```
 
