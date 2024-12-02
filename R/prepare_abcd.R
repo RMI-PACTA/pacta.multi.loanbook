@@ -13,10 +13,9 @@
 #' @param config either a path to a config.yml file or a list of parameters
 #'
 #' @return NULL
-#' @export
 #'
-#' @examples
-#' # TODO
+#' @export
+
 prepare_abcd <- function(config) {
   config <- load_config(config)
 

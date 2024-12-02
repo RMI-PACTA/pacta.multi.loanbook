@@ -20,6 +20,3 @@ options available in \code{r2dii.match::match_name}. The function is called for 
 side effects and writes the prepared data sets to the directory \code{output/match},
 where \code{output} is the output directory specified in the \code{config.yml}.
 }
-\examples{
-# TODO
-}

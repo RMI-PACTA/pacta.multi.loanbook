@@ -19,6 +19,3 @@ called for its side effects and writes the prepared data sets to the directory
 \code{output/prepare}, where \code{output} is the output directory specified in the
 \code{config.yml}.
 }
-\examples{
-# TODO
-}
