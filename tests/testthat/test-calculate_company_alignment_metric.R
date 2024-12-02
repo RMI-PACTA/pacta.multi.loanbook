@@ -65,14 +65,12 @@ test_data_remove_tech_no_plans_no_target_4 <- tibble::tribble(
   "automotive",       "ice",  2027, "global", "scenario_source", "test_company",         75,               60
 )
 # 5) NAs in projected and target values
-# TODO: reconsider if this needs to be handled somewhere else, effectively NAs are treated like zero
 test_data_remove_tech_no_plans_no_target_5 <- tibble::tribble(
        ~sector, ~technology, ~year,  ~region,  ~scenario_source,     ~name_abcd, ~projected, ~target_scenario,
   "automotive",  "electric",  2027, "global", "scenario_source", "test_company",   NA_real_,         NA_real_,
   "automotive",       "ice",  2027, "global", "scenario_source", "test_company",   NA_real_,         NA_real_
 )
 # 6) NA in one of projected and target values
-# TODO: reconsider if this needs to be handled somewhere else, effectively NAs are treated like zero
 test_data_remove_tech_no_plans_no_target_6 <- tibble::tribble(
        ~sector, ~technology, ~year,  ~region,  ~scenario_source,     ~name_abcd, ~projected, ~target_scenario,
   "automotive",  "electric",  2027, "global", "scenario_source", "test_company",   NA_real_,         NA_real_,
@@ -135,7 +133,6 @@ test_data_remove_sector_no_target_3 <- tibble::tribble(
   "automotive",       "ice",  2027, "global", "scenario_source", "test_company",          0,                5
 )
 # 4) NA values in all target values of sector
-# TODO: reconsider if this needs to be handled somewhere else, effectively NAs are treated like zero
 test_data_remove_sector_no_target_4 <- tibble::tribble(
        ~sector, ~technology, ~year,  ~region,  ~scenario_source,     ~name_abcd, ~projected, ~target_scenario,
   "automotive",  "electric",  2027, "global", "scenario_source", "test_company",         25,         NA_real_,
@@ -258,7 +255,6 @@ test_that("total_tech_deviation is less or equal 0 for all technologies in bridg
 
 # calculate_company_aggregate_alignment_tms----
 # styler: off
-# TODO: add a case of a pure phaseout sector
 test_data_calculate_company_aggregate_alignment_tms <- tibble::tribble(
   ~sector,     ~technology, ~year,  ~region, ~scenario_source,       ~name_abcd, ~projected, ~target_scenario, ~direction, ~total_tech_deviation, ~activity_unit,
   "power",        "gascap",  2027, "global",    "test_source",   "test_company",        100,               80, "phaseout",                   -20,           "MW",
@@ -286,7 +282,6 @@ test_output_calculate_company_aggregate_alignment_tms_2 <- calculate_company_agg
   level = test_level_bo_po
 )
 
-# TODO: add expectations for the actual output values
 test_that("calculate_company_aggregate_alignment_tms returns expected directions", {
   expect_equal(sort(unique(test_output_calculate_company_aggregate_alignment_tms_1$direction)), c("net"))
   expect_equal(sort(unique(test_output_calculate_company_aggregate_alignment_tms_2$direction)), c("buildout", "phaseout"))
