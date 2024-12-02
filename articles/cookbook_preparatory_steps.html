@@ -469,6 +469,41 @@ the user may prefer. The names were chosen for illustrative purposes to
 reflect the corresponding user-facing functions that create the
 outputs.</p>
 </div>
+<div class="section level4">
+<h4 id="initialise-a-project">Initialise a Project<a class="anchor" aria-label="anchor" href="#initialise-a-project"></a>
+</h4>
+<p>You can use the following code to initialise a project folder
+structure:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rmi-pacta.github.io/pacta.multi.loanbook/">pacta.multi.loanbook</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/initialise_default_project.html">initialise_default_project</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"path/to/project_folder"</span><span class="op">)</span></span></code></pre></div>
+<p>This will create a minimal project folder structure similar to the
+one shown above.</p>
+<ul>
+<li>Note that the target path that you pass to
+<code><a href="../reference/initialise_default_project.html">initialise_default_project()</a></code> must be a path that does not
+exist yet, as it will be newly set up and cannot overwrite any existing
+files.</li>
+<li>Within this path, an <code>input</code> sub-directory and a
+<code>config.yml</code> file will be created. The <code>ìnput</code>
+sub-directory will be empty and you will have to populate it with the
+files described above and following the structure as outlined.</li>
+<li>The <code>config.yml</code> file will be created with default
+settings. Output paths in the config.yml file will point to sub
+directories of the path you pass to
+<code><a href="../reference/initialise_default_project.html">initialise_default_project()</a></code>, so that running the remaining
+steps of the analysis will keep all inputs and outputs in one common
+project folder. You can then edit the <code>config.yml</code> file to
+adjust the settings to your needs, as described in the corresponding
+documentation (see <code><a href="../articles/config_yml.html">vignette("config_yml")</a></code>).</li>
+</ul>
+<p>It is not strictly necessary to use the
+<code><a href="../reference/initialise_default_project.html">initialise_default_project()</a></code> function to set up your
+project folder. If you prefer setting up another folder structure
+manually and creating the <code>config.yml</code> from scratch, you can
+do that. But it can be helpful to ensure that you have all the necessary
+files and folders in place.</p>
+</div>
 </div>
 <div class="section level3">
 <h3 id="checklist-of-preparatory-steps">Checklist of Preparatory Steps<a class="anchor" aria-label="anchor" href="#checklist-of-preparatory-steps"></a>
@@ -542,12 +577,14 @@ suggests</label></li>
 <label><input type="checkbox">Setup the project folder and file
 structure:</label>
 <ul class="task-list">
-<li><label><input type="checkbox">Created a project
-folder</label></li>
+<li><label><input type="checkbox">Created a project folder (can be
+handled by <code><a href="../reference/initialise_default_project.html">initialise_default_project()</a></code>)</label></li>
 <li><label><input type="checkbox">Created a <code>config.yml</code>
-file and placed it in the project folder</label></li>
+file and placed it in the project folder (can be handled by
+<code><a href="../reference/initialise_default_project.html">initialise_default_project()</a></code>)</label></li>
 <li><label><input type="checkbox">Created an <code>input</code> folder
-in the project folder</label></li>
+in the project folder (can be handled by
+<code><a href="../reference/initialise_default_project.html">initialise_default_project()</a></code>)</label></li>
 <li><label><input type="checkbox">Placed the raw loan books in the
 <code>input/loanbooks</code> sub-directory</label></li>
 <li><label><input type="checkbox">Placed the other input data sets in
