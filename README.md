@@ -14,6 +14,8 @@ The `pacta.multi.loanbook` package offers a standardized, user-friendly way to c
 
 Designed for financial supervisory contexts, it simplifies climate alignment analysis across many lending institutions. The package streamlines steps to prevent repetition while allowing flexibility to tailor the analysis for specific project needs, providing valuable insights into transition alignment and risk.
 
+<img src="man/figures/pml_readme_viz.png" width="100%" style="display: block; margin: auto auto auto 0;" />
+
 ## Installation
 
 <!--
