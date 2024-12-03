@@ -150,6 +150,8 @@ When applying the sector split on company exposures, the user can provide a list
 - self-prepared
 - CSV file
 
+In case the user cannot obtain sector classification codes of any of the classification systems featured in `r2dii.data::sector_classifications` (currently the following classification systems are featured: `r unique(r2dii.data::sector_classifications$code_system)`), the user can provide a manually created sector classification file for matching the loan book to the ABCD instead. Generally, any such manually prepared sector classification file must follow the format of `r2dii.data::sector_classifications`. More information on the appropriate settings needed in the configuration file can be found in the [documentation of the `config.yml` file](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/config_yml.html#manual_sector_classification). It is recommended to use the built in sector classifications if possible, as mapping your own sector classification to the PACTA sectors can be complex and time consuming.
+
 ## Required Software
 
 Using the `pacta.multi.loanbook` package for the PACTA for Supervisors analysis requires the following software to be installed on your system:
