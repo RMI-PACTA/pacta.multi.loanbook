@@ -327,6 +327,20 @@ see the documentation in <code><a href="../articles/sector_split.html">vignette(
 <li>self-prepared</li>
 <li>CSV file</li>
 </ul>
+<p>In case the user cannot obtain sector classification codes of any of
+the classification systems featured in
+<code><a href="https://rmi-pacta.github.io/r2dii.data/reference/sector_classifications.html" class="external-link">r2dii.data::sector_classifications</a></code> (currently the following
+classification systems are featured: GICS, ISIC, NACE, NAICS, PSIC,
+SIC), the user can provide a manually created sector classification file
+for matching the loan book to the ABCD instead. Generally, any such
+manually prepared sector classification file must follow the format of
+<code><a href="https://rmi-pacta.github.io/r2dii.data/reference/sector_classifications.html" class="external-link">r2dii.data::sector_classifications</a></code>. More information on the
+appropriate settings needed in the configuration file can be found in
+the <a href="https://rmi-pacta.github.io/pacta.multi.loanbook/articles/config_yml.html#manual_sector_classification">documentation
+of the <code>config.yml</code> file</a>. It is recommended to use the
+built in sector classifications if possible, as mapping your own sector
+classification to the PACTA sectors can be complex and time
+consuming.</p>
 </div>
 </div>
 <div class="section level3">
@@ -377,8 +391,8 @@ when you install the <code>pacta.multi.loanbook</code> package. The
 required packages are:</p>
 <p>cli (&gt;= 3.2.0), config, dplyr, ggplot2, glue, networkD3,
 r2dii.analysis (&gt;= 0.3.0), r2dii.data (&gt;= 0.5.0), r2dii.match
-(&gt;= 0.2.0), r2dii.plot (&gt;= 0.4.0), readr (&gt;= 2.0.0), readxl,
-rlang, scales, tidyr, webshot, withr, yaml, yesno</p>
+(&gt;= 0.3.0), r2dii.plot (&gt;= 0.4.0), readr (&gt;= 2.0.0), readxl,
+rlang, scales, tidyr, webshot, yaml, yesno</p>
 </div>
 <div class="section level4">
 <h4 id="suggested-r-packages">Suggested R packages<a class="anchor" aria-label="anchor" href="#suggested-r-packages"></a>
@@ -386,7 +400,7 @@ rlang, scales, tidyr, webshot, withr, yaml, yesno</p>
 <p>The suggested packages are not required to run the analysis, but they
 are used in the examples and vignettes provided with the package:</p>
 <p>gt, knitr, pkgdown, rmarkdown, usethis, testthat (&gt;= 3.1.9),
-tibble, writexl</p>
+tibble, withr, writexl</p>
 </div>
 <div class="section level4">
 <h4 id="faq">FAQ<a class="anchor" aria-label="anchor" href="#faq"></a>

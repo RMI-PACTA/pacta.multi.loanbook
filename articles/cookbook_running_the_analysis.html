@@ -310,8 +310,18 @@ identifiers.</li>
 <li>whether to use a manually prepared sector classification system for
 matching the loan books to in-scope PACTA sectors, see the <a href="https://rmi-pacta.github.io/pacta.multi.loanbook/articles/config_yml.html#matching">relevant
 section on matching</a> in the <code><a href="../articles/config_yml.html">vignette("config_yml")</a></code>), or
-not. If not, the sector classification systems provided in
-<code><a href="https://rmi-pacta.github.io/r2dii.data/reference/sector_classifications.html" class="external-link">r2dii.data::sector_classifications</a></code> can be used.</li>
+not. If there is no need to use a manually prepared sector
+classification file, the sector classification systems provided in
+<code><a href="https://rmi-pacta.github.io/r2dii.data/reference/sector_classifications.html" class="external-link">r2dii.data::sector_classifications</a></code> can be used, which
+currently cover the following sector classifications: GICS, ISIC, NACE,
+NAICS, PSIC, SIC. If it is not possible to map the loans in your loan
+books to any of these systems, you can prepare your own mapping file
+that follows the same structure as the sector classification files in
+<code><a href="https://rmi-pacta.github.io/r2dii.data/reference/sector_classifications.html" class="external-link">r2dii.data::sector_classifications</a></code> and use the config file
+to instruct the code to use this file for matching. Notice that this
+will only be a promising approach, if the classifications you are using
+are sufficiently granular to map to PACTA sectors without excessive
+ambiguity.</li>
 </ul>
 </div>
 <div class="section level4">
