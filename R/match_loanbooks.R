@@ -112,13 +112,15 @@ match_loanbooks <- function(config) {
     col_types = col_types_abcd_final
   )
 
-  ## optionally load manual classification system----
+  ## load sector classification system----
   if (matching_use_manual_sector_classification) {
     sector_classification_system <- readr::read_csv(
       file = path_manual_sector_classification,
       col_types = col_types_sector_classification,
       col_select = dplyr::all_of(col_select_sector_classification)
     )
+  } else {
+    sector_classification_system <- r2dii.data::sector_classifications
   }
 
   ## load raw loan books----
@@ -142,35 +144,17 @@ match_loanbooks <- function(config) {
     group_name <- unique(raw_lbk[[i]][["group_id"]])
 
     ## match data----
-    if (matching_use_manual_sector_classification) {
-      withr::with_options(
-        new = list(r2dii.match.sector_classifications = sector_classification_system),
-        code = {
-          getOption("r2dii.match.sector_classifications")
-          matched_lbk_i <- r2dii.match::match_name(
-            loanbook = raw_lbk[[i]],
-            abcd = abcd,
-            by_sector = matching_by_sector,
-            min_score = matching_min_score,
-            method = matching_method,
-            p = matching_p,
-            overwrite = matching_overwrite,
-            join_id = matching_join_id
-          )
-        }
-      )
-    } else {
-      matched_lbk_i <- r2dii.match::match_name(
-        loanbook = raw_lbk[[i]],
-        abcd = abcd,
-        by_sector = matching_by_sector,
-        min_score = matching_min_score,
-        method = matching_method,
-        p = matching_p,
-        overwrite = matching_overwrite,
-        join_id = matching_join_id
-      )
-    }
+    matched_lbk_i <- r2dii.match::match_name(
+      loanbook = raw_lbk[[i]],
+      abcd = abcd,
+      by_sector = matching_by_sector,
+      min_score = matching_min_score,
+      method = matching_method,
+      p = matching_p,
+      overwrite = matching_overwrite,
+      join_id = matching_join_id,
+      sector_classification = sector_classification_system
+    )
 
     ## write matched data to file----
     matched_lbk_i %>%
