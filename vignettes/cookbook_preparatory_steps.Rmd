@@ -47,7 +47,7 @@ plot_table <- function(table) {
 ```
 # Preparatory Steps
 
-This section provides an overview of the preparatory steps that need to be taken before running the PACTA for Supervisors analysis. It includes information on the required input data sets, the required software, and the how to setup the project folder and file structure. Finally, it provides a checklist of the steps that need to be taken before running the analysis, summarizing in brief the steps explained in more detail before.
+This section provides an overview of the preparatory steps that need to be taken before running the PACTA for Supervisors analysis. It includes information on the required input data sets, the required software, and how to setup the project folder and file structure. Finally, it provides a checklist of the steps that need to be taken before running the analysis, summarizing in brief the steps explained in more detail before.
 
 ## Required Input Data Sets
 
