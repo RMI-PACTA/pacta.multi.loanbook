@@ -51,7 +51,7 @@ This section provides an overview of the preparatory steps that need to be taken
 
 ## Required Input Data Sets
 
-The PACTA for Supervisors analysis requires a number of input data sets to run. Some of these can be obtained from external sources, while others need to be prepared by the user. Furthermore, some of the input data sets are optional and there inclusion will depend on the settings provided in the `config.yml` file. 
+The PACTA for Supervisors analysis requires a number of input data sets to run. Some of these can be obtained from external sources, while others need to be prepared by the user. Furthermore, some of the input data sets are optional and their inclusion will depend on the settings provided in the `config.yml` file. 
 
 The main input data sets required for the analysis are the following:
 
