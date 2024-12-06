@@ -209,12 +209,13 @@ strongly recommended to read the documentation on the sector split in
 <h3 id="matching-process">Matching process<a class="anchor" aria-label="anchor" href="#matching-process"></a>
 </h3>
 <p>The next step in the analysis is to run the matching process.
-Assuming you have prepared the raw loan books as explained in <a href="#raw-loan-books">the section on preparing the input data sets</a>,
-you can now use the <code><a href="../reference/match_loanbooks.html">match_loanbooks()</a></code> function. This will
-read the raw loan books from your inputs and attempt to match them to
-the prepared ABCD data from the previous step. The function will store
-matched loan book files in a directory that you have indicated as the
-value corresponding to the key <code>dir_matched_loanbooks</code> in the
+Assuming you have prepared the raw loan books as explained in <a href="https://rmi-pacta.github.io/pacta.multi.loanbook/articles/cookbook_preparatory_steps.html#raw-loan-books">the
+section on preparing the input data sets</a>, you can now use the
+<code><a href="../reference/match_loanbooks.html">match_loanbooks()</a></code> function. This will read the raw loan
+books from your inputs and attempt to match them to the prepared ABCD
+data from the previous step. The function will store matched loan book
+files in a directory that you have indicated as the value corresponding
+to the key <code>dir_matched_loanbooks</code> in the
 <code>config.yml</code>. You can run this function as follows:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">pacta.multi.loanbook</span><span class="fu">::</span><span class="fu"><a href="../reference/match_loanbooks.html">match_loanbooks</a></span><span class="op">(</span><span class="va">config_path</span><span class="op">)</span></span></code></pre></div>
