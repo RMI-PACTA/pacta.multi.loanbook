@@ -100,7 +100,7 @@ If you want to use the sector split, you can specify which company identifiers t
 
 ## Matching process
 
-The next step in the analysis is to run the matching process. Assuming you have prepared the raw loan books as explained in [the section on preparing the input data sets](#raw-loan-books), you can now use the `match_loanbooks()` function. This will read the raw loan books from your inputs and attempt to match them to the prepared ABCD data from the previous step. The function will store matched loan book files in a directory that you have indicated as the value corresponding to the key `dir_matched_loanbooks` in the `config.yml`. You can run this function as follows:
+The next step in the analysis is to run the matching process. Assuming you have prepared the raw loan books as explained in [the section on preparing the input data sets](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/cookbook_preparatory_steps.html#raw-loan-books), you can now use the `match_loanbooks()` function. This will read the raw loan books from your inputs and attempt to match them to the prepared ABCD data from the previous step. The function will store matched loan book files in a directory that you have indicated as the value corresponding to the key `dir_matched_loanbooks` in the `config.yml`. You can run this function as follows:
 
 ```r
 pacta.multi.loanbook::match_loanbooks(config_path)
