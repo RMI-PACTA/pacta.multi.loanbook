@@ -175,18 +175,18 @@ You can install the package from the [RStudio CRAN mirror](https://cran.r-projec
 install.packages("pacta.multi.loanbook")
 ```
 
-You can install the development version of pkgdown from GitHub with:
+You can install the development version of `pacta.multi.loanbook` from GitHub with:
 
 ``` r
-pak::pak("r-lib/pkgdown")
+pak::pak("RMI-PACTA/pacta.multi.loanbook")
 ```
 :::
 
 ::: {.pkgdown-devel}
-You can install the development version of pkgdown from GitHub with:
+You can install the development version of `pacta.multi.loanbook` from GitHub with:
 
 ``` r
-pak::pak("r-lib/pkgdown")
+pak::pak("RMI-PACTA/pacta.multi.loanbook")
 ```
 :::
 
