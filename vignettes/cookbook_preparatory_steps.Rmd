@@ -210,7 +210,7 @@ cat(utils::packageDescription("pacta.multi.loanbook")[["Suggests"]])
 
 #### How do I install the `pacta.multi.loanbook` package?
 
-The most common ways to install R packages are via CRAN or GitHub. Public institutions often have restrictions on the installation of packages from GitHub, so you may need to install the package from CRAN. In some cases, your institution may mirror CRAN in their internal application registry, so you may need to install the package from there. Should you have any issues with the installation from the internal application registry, it is best to reach out to your IT department. If you cannot obtain the package through/in/with any of these ways, please reach out to the package maintainers directly for exploring other options.
+The most common ways to install R packages are via CRAN or GitHub. Public institutions often have restrictions on the installation of packages from GitHub, so you may need to install the package from CRAN. In some cases, your institution may mirror CRAN in their internal application registry, so you may need to install the package from there. Should you have any issues with the installation from the internal application registry, it is best to reach out to your IT department. If you cannot obtain the package in any of these ways, please reach out to the package maintainers directly for exploring other options.
 
 #### How do I install the required R packages?
 
