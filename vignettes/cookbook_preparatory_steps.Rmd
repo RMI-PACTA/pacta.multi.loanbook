@@ -77,7 +77,7 @@ While PACTA is data agnostic and allows using data from any provider that offers
 - external source
 - CSV file(s)
 
-The scenario data set provides information on the trajectories of technologies/fuel types and of emission intensities pathways for each of (or a subset of) the sectors covered in PACTA.
+The scenario data set provides information on the trajectories of technologies/fuel types and of emission intensity pathways for each of (or a subset of) the sectors covered in PACTA.
 
 For sectors with technology level trajectories, the data set provides the TMSR and SMSP pathways based on the Market Share Approach, an allocation rule that implies all companies active in a sector have to adjust their production in a way that keeps market shares constant and solves for the aggregate climate transition scenario. For more information on how to calculate the TMSR and the SMSP, see the [PACTA for Banks documentation](https://rmi-pacta.github.io/r2dii.analysis/articles/target-market-share.html).
 
