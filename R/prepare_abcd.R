@@ -12,7 +12,16 @@
 #'
 #' @param config either a path to a config.yml file or a list of parameters
 #'
-#' @return NULL
+#' @return
+#'
+#' `prepare_abcd()` returns NULL invisibly. It is called for its side-effect of
+#' creating the prepared ABCD file in your `output/prepare` directory.
+#'
+#' @examples
+#' \dontrun{
+#' config <- "path/to/config.yml"
+#' prepare_abcd(config)
+#' }
 #'
 #' @export
 

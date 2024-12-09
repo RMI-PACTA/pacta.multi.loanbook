@@ -12,6 +12,11 @@ prioritize_and_diagnose(config)
 \arguments{
 \item{config}{either a path to a config.yml file or a list of parameters}
 }
+\value{
+\code{prioritise_and_diagnose()} returns NULL invisibly. It is called for its
+side-effect of creating the prepared and diagnosed data sets in your
+\code{output/prioritise_and_diagnose} directory.
+}
 \description{
 \code{prioritise_and_diagnose()} runs the necessary steps to prioritise the matched
 loan books and diagnose both the match success rate and the coverage of the
@@ -22,4 +27,11 @@ to the directory \code{output/prioritise_and_diagnose}, where \code{output} is t
 output directory  specified in the \code{config.yml}.
 
 \code{prioritise_and_diagnose()} and \code{prioritize_and_diagnose()} are synonyms.
+}
+\examples{
+\dontrun{
+config <- "path/to/config.yml"
+prioritise_and_diagnose(config)
+}
+
 }

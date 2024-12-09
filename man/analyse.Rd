@@ -12,6 +12,11 @@ analyze(config)
 \arguments{
 \item{config}{either a path to a config.yml file or a list of parameters}
 }
+\value{
+\code{analyse()} returns NULL invisibly. It is called for its side-effect of
+creating the outputs of the standard PACTA analysis and the outputs of the
+net aggregated alignment metric in your \code{output/analysis} directory.
+}
 \description{
 \code{analyse()} runs the necessary steps to analyse the matched loan books,
 producing both the outputs of the standard PACTA analysis and the outputs of
@@ -22,4 +27,11 @@ to the directory \code{output/analysis}, where \code{output} is the
 output directory  specified in the \code{config.yml}.
 
 \code{analyse()} and \code{analyze()} are synonyms.
+}
+\examples{
+\dontrun{
+config <- "path/to/config.yml"
+analyse(config)
+}
+
 }

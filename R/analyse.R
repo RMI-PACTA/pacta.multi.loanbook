@@ -13,7 +13,17 @@
 #'
 #' @param config either a path to a config.yml file or a list of parameters
 #'
-#' @return NULL
+#' @return
+#'
+#' `analyse()` returns NULL invisibly. It is called for its side-effect of
+#' creating the outputs of the standard PACTA analysis and the outputs of the
+#' net aggregated alignment metric in your `output/analysis` directory.
+#'
+#' @examples
+#' \dontrun{
+#' config <- "path/to/config.yml"
+#' analyse(config)
+#' }
 #'
 #' @export
 

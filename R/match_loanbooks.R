@@ -14,7 +14,16 @@
 #'
 #' @param config either a path to a config.yml file or a list of parameters
 #'
-#' @return NULL
+#' @return
+#'
+#' `match_loanbooks()` returns NULL invisibly. It is called for its side-effect
+#' of creating the matched loan books in your `output/match` directory.
+#'
+#' @examples
+#' \dontrun{
+#' config <- "path/to/config.yml"
+#' match_loanbooks(config)
+#' }
 #'
 #' @export
 

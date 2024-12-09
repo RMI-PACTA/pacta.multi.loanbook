@@ -9,6 +9,10 @@ match_loanbooks(config)
 \arguments{
 \item{config}{either a path to a config.yml file or a list of parameters}
 }
+\value{
+\code{match_loanbooks()} returns NULL invisibly. It is called for its side-effect
+of creating the matched loan books in your \code{output/match} directory.
+}
 \description{
 \code{match_loanbooks()} runs the necessary steps to match the raw input loan
 books with the asset based company data (ABCD) used in the PACTA for
@@ -20,4 +24,11 @@ file and follow the options available in \code{r2dii.match::match_name}. The
 function is called for its side effects and writes the prepared data sets to
 the directory \code{output/match}, where \code{output} is the output directory
 specified in the \code{config.yml}.
+}
+\examples{
+\dontrun{
+config <- "path/to/config.yml"
+match_loanbooks(config)
+}
+
 }
