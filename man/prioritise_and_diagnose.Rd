@@ -13,7 +13,7 @@ prioritize_and_diagnose(config)
 \item{config}{either a path to a config.yml file or a list of parameters}
 }
 \value{
-\code{prioritise_and_diagnose()} returns NULL invisibly. It is called for its
+\code{prioritise_and_diagnose()} returns \code{NULL} invisibly. It is called for its
 side-effect of creating the prepared and diagnosed data sets in your
 \code{output/prioritise_and_diagnose} directory.
 }

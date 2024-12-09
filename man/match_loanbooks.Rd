@@ -10,8 +10,9 @@ match_loanbooks(config)
 \item{config}{either a path to a config.yml file or a list of parameters}
 }
 \value{
-\code{match_loanbooks()} returns NULL invisibly. It is called for its side-effect
-of creating the matched loan books in your \code{output/match} directory.
+\code{match_loanbooks()} returns \code{NULL} invisibly. It is called for its
+side-effect of creating the matched loan books in your \code{output/match}
+directory.
 }
 \description{
 \code{match_loanbooks()} runs the necessary steps to match the raw input loan

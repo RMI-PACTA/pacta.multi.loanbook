@@ -15,7 +15,7 @@
 #'
 #' @return
 #'
-#' `analyse()` returns NULL invisibly. It is called for its side-effect of
+#' `analyse()` returns `NULL` invisibly. It is called for its side-effect of
 #' creating the outputs of the standard PACTA analysis and the outputs of the
 #' net aggregated alignment metric in your `output/analysis` directory.
 #'

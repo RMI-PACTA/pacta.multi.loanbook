@@ -10,8 +10,8 @@ prepare_abcd(config)
 \item{config}{either a path to a config.yml file or a list of parameters}
 }
 \value{
-\code{prepare_abcd()} returns NULL invisibly. It is called for its side-effect of
-creating the prepared ABCD file in your \code{output/prepare} directory.
+\code{prepare_abcd()} returns \code{NULL} invisibly. It is called for its side-effect
+of creating the prepared ABCD file in your \code{output/prepare} directory.
 }
 \description{
 \code{prepare_abcd()} runs the necessary steps to prepare the input data sets for

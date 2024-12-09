@@ -16,8 +16,9 @@
 #'
 #' @return
 #'
-#' `match_loanbooks()` returns NULL invisibly. It is called for its side-effect
-#' of creating the matched loan books in your `output/match` directory.
+#' `match_loanbooks()` returns `NULL` invisibly. It is called for its
+#' side-effect of creating the matched loan books in your `output/match`
+#' directory.
 #'
 #' @examples
 #' \dontrun{

@@ -15,7 +15,7 @@
 #'
 #' @return
 #'
-#' `prioritise_and_diagnose()` returns NULL invisibly. It is called for its
+#' `prioritise_and_diagnose()` returns `NULL` invisibly. It is called for its
 #' side-effect of creating the prepared and diagnosed data sets in your
 #' `output/prioritise_and_diagnose` directory.
 #'

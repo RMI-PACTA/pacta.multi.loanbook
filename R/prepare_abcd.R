@@ -14,8 +14,8 @@
 #'
 #' @return
 #'
-#' `prepare_abcd()` returns NULL invisibly. It is called for its side-effect of
-#' creating the prepared ABCD file in your `output/prepare` directory.
+#' `prepare_abcd()` returns `NULL` invisibly. It is called for its side-effect
+#' of creating the prepared ABCD file in your `output/prepare` directory.
 #'
 #' @examples
 #' \dontrun{

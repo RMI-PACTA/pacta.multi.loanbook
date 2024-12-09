@@ -10,7 +10,7 @@
 #'
 #' @return
 #'
-#' `initialise_default_project()` returns NULL invisibly. It is called for its
+#' `initialise_default_project()` returns `NULL` invisibly. It is called for its
 #' side-effect of creating a default project directory at the specified path.
 #'
 #' @examples
