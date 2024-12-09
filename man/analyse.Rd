@@ -12,14 +12,25 @@ analyze(config)
 \arguments{
 \item{config}{either a path to a config.yml file or a list of parameters}
 }
+\value{
+\code{analyse()} returns \code{NULL} invisibly. The function is called for its side
+effects and writes the prepared and diagnosed data sets in the directory
+specified by \code{dir_analysis} in the \code{config.yml}.
+}
 \description{
 \code{analyse()} runs the necessary steps to analyse the matched loan books,
 producing both the outputs of the standard PACTA analysis and the outputs of
-the net aggregated alignment metric, including tables and plots.
-Parameters for all steps are read from a \code{config.yml} file. The function is
-called for its side effects and writes the prepared and diagnosed data sets
-to the directory \code{output/analysis}, where \code{output} is the
-output directory  specified in the \code{config.yml}.
+the net aggregated alignment metric, including tables and plots. Parameters
+for all steps are read from a \code{config.yml} file. The function is called for
+its side effects and writes the prepared and diagnosed data sets in the
+directory specified by \code{dir_analysis} in the \code{config.yml}.
 
 \code{analyse()} and \code{analyze()} are synonyms.
+}
+\examples{
+\dontrun{
+config <- "path/to/config.yml"
+analyse(config)
+}
+
 }
