@@ -22,6 +22,7 @@ initialise_default_project <- function(path = "project") {
 
   default_cfg$default$directories$dir_input <- file.path(path, "input")
   dir.create(default_cfg$default$directories$dir_input)
+  dir.create(file.path(path, "input", "loanbooks"))
 
   default_cfg$default$directories$dir_prepared_abcd <-
     file.path(path, "prepared_abcd")

@@ -264,7 +264,7 @@ initialise_default_project(path = "path/to/project_folder")
 This will create a minimal project folder structure similar to the one shown above.
 
 * Note that the target path that you pass to `initialise_default_project()` must be a path that does not exist yet, as it will be newly set up and cannot overwrite any existing files.
-* Within this path, an `input` sub-directory and a `config.yml` file will be created. The `ìnput` sub-directory will be empty and you will have to populate it with the files described above and following the structure as outlined.
+* Within this path, an `input` sub-directory and a `config.yml` file will be created. The `ìnput` sub-directory will contain another sub-directory `loanbooks`. Neither `input` nor `input/loanbooks` will contain any files at this stage and you will have to populate them with the files described above and following the structure as outlined.
 * The `config.yml` file will be created with default settings. Output paths in the config.yml file will point to sub directories of the path you pass to `initialise_default_project()`, so that running the remaining steps of the analysis will keep all inputs and outputs in one common project folder. You can then edit the `config.yml` file to adjust the settings to your needs, as described in the corresponding documentation (see `vignette("config_yml")`).
 
 It is not strictly necessary to use the `initialise_default_project()` function to set up your project folder. If you prefer setting up another folder structure manually and creating the `config.yml` from scratch, you can do that. But it can be helpful to ensure that you have all the necessary files and folders in place.
