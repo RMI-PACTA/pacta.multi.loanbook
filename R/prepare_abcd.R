@@ -4,18 +4,18 @@
 #' `prepare_abcd()` runs the necessary steps to prepare the input data sets for
 #' the PACTA for Supervisors analysis. Specifically it prepares the abcd_final
 #' data set by removing inactive companies if desired. And it allows preparing
-#' the ratios by which the exposures to counterparties are split along the sectors.
-#' Parameters for both steps are read from a `config.yml` file. The function is
-#' called for its side effects and writes the prepared data sets to the directory
-#' `output/prepare`, where `output` is the output directory specified in the
-#' `config.yml`.
+#' the ratios by which the exposures to counterparties are split along the
+#' sectors. Parameters for both steps are read from a `config.yml` file. The
+#' function is called for its side effects and writes the prepared data sets in
+#' the directory specified by `dir_prepared_abcd` in the `config.yml`.
 #'
 #' @param config either a path to a config.yml file or a list of parameters
 #'
 #' @return
 #'
-#' `prepare_abcd()` returns `NULL` invisibly. It is called for its side-effect
-#' of creating the prepared ABCD file in your `output/prepare` directory.
+#' `prepare_abcd()` returns `NULL` invisibly. The function is called for its
+#' side effects and writes the prepared data sets in the directory specified by
+#' `dir_prepared_abcd` in the `config.yml`.
 #'
 #' @examples
 #' \dontrun{

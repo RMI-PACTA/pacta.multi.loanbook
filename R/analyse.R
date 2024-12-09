@@ -3,11 +3,10 @@
 #' @description
 #' `analyse()` runs the necessary steps to analyse the matched loan books,
 #' producing both the outputs of the standard PACTA analysis and the outputs of
-#' the net aggregated alignment metric, including tables and plots.
-#' Parameters for all steps are read from a `config.yml` file. The function is
-#' called for its side effects and writes the prepared and diagnosed data sets
-#' to the directory `output/analysis`, where `output` is the
-#' output directory  specified in the `config.yml`.
+#' the net aggregated alignment metric, including tables and plots. Parameters
+#' for all steps are read from a `config.yml` file. The function is called for
+#' its side effects and writes the prepared and diagnosed data sets in the
+#' directory specified by `dir_analysis` in the `config.yml`.
 #'
 #' `analyse()` and `analyze()` are synonyms.
 #'
@@ -15,9 +14,9 @@
 #'
 #' @return
 #'
-#' `analyse()` returns `NULL` invisibly. It is called for its side-effect of
-#' creating the outputs of the standard PACTA analysis and the outputs of the
-#' net aggregated alignment metric in your `output/analysis` directory.
+#' `analyse()` returns `NULL` invisibly. The function is called for its side
+#' effects and writes the prepared and diagnosed data sets in the directory
+#' specified by `dir_analysis` in the `config.yml`.
 #'
 #' @examples
 #' \dontrun{

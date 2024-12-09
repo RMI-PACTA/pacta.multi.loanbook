@@ -14,8 +14,9 @@ initialize_default_project(path = "project")
 like the project directory to be created}
 }
 \value{
-\code{initialise_default_project()} returns \code{NULL} invisibly. It is called for its
-side-effect of creating a default project directory at the specified path.
+\code{initialise_default_project()} returns \code{NULL} invisibly. The function is
+called for its side effects of creating a default project directory at the
+specified path.
 }
 \description{
 \code{initialise_default_project()} sets up a default project directory, including

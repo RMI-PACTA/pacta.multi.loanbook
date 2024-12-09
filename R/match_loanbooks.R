@@ -9,16 +9,15 @@
 #' processing. Parameters for the matching step are read from a `config.yml`
 #' file and follow the options available in `r2dii.match::match_name`. The
 #' function is called for its side effects and writes the prepared data sets to
-#' the directory `output/match`, where `output` is the output directory
-#' specified in the `config.yml`.
+#' the directory specified by `dir_matched_loanbooks` in the `config.yml`.
 #'
 #' @param config either a path to a config.yml file or a list of parameters
 #'
 #' @return
 #'
-#' `match_loanbooks()` returns `NULL` invisibly. It is called for its
-#' side-effect of creating the matched loan books in your `output/match`
-#' directory.
+#' `match_loanbooks()` returns `NULL` invisibly. The function is called for its
+#' side effects and writes the prepared data sets to the directory specified by
+#' `dir_matched_loanbooks` in the `config.yml`.
 #'
 #' @examples
 #' \dontrun{

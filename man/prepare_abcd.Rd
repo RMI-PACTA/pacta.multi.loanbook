@@ -10,18 +10,18 @@ prepare_abcd(config)
 \item{config}{either a path to a config.yml file or a list of parameters}
 }
 \value{
-\code{prepare_abcd()} returns \code{NULL} invisibly. It is called for its side-effect
-of creating the prepared ABCD file in your \code{output/prepare} directory.
+\code{prepare_abcd()} returns \code{NULL} invisibly. The function is called for its
+side effects and writes the prepared data sets in the directory specified by
+\code{dir_prepared_abcd} in the \code{config.yml}.
 }
 \description{
 \code{prepare_abcd()} runs the necessary steps to prepare the input data sets for
 the PACTA for Supervisors analysis. Specifically it prepares the abcd_final
 data set by removing inactive companies if desired. And it allows preparing
-the ratios by which the exposures to counterparties are split along the sectors.
-Parameters for both steps are read from a \code{config.yml} file. The function is
-called for its side effects and writes the prepared data sets to the directory
-\code{output/prepare}, where \code{output} is the output directory specified in the
-\code{config.yml}.
+the ratios by which the exposures to counterparties are split along the
+sectors. Parameters for both steps are read from a \code{config.yml} file. The
+function is called for its side effects and writes the prepared data sets in
+the directory specified by \code{dir_prepared_abcd} in the \code{config.yml}.
 }
 \examples{
 \dontrun{
