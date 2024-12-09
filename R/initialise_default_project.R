@@ -1,9 +1,23 @@
 #' Initialise a project directory and its config file
 #'
+#' @description
+#' `initialise_default_project()` sets up a default project directory, including
+#' a project directory, a default `config.yml` configuration file, an `input`
+#' sub-directory, and a `loanbooks` sub-directory.
+#'
 #' @param path an absolute or relative path pointing to the location you would
 #'   like the project directory to be created
 #'
-#' @returns NULL
+#' @return
+#'
+#' `initialise_default_project()` returns NULL invisibly. It is called for its
+#' side-effect of creating a default project directory at the specified path.
+#'
+#' @examples
+#' \dontrun{
+#' project_dir <- "path/to/project"
+#' initialise_default_project(project_dir)
+#' }
 #'
 #' @export
 
