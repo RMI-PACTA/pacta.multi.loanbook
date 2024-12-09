@@ -13,38 +13,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup, echo = FALSE}
-library(pacta.multi.loanbook)
-
-plot_table <- function(table) {
-  table_plot <- gt::gt(dplyr::select(table, -"dataset"))
-  
-  table_plot <- 
-    gt::cols_width(
-      .data = table_plot,
-      column ~ gt::px(150),
-      typeof ~ gt::px(90)
-    )
-  
-  table_plot <-
-    gt::tab_style(
-      data = table_plot,
-      style = gt::cell_text(size = "smaller"),
-      locations = gt::cells_body(columns = 1:2)
-    )
-  
-  table_plot <-
-    gt::tab_options(
-      data = table_plot,
-      ihtml.active = TRUE,
-      ihtml.use_pagination = FALSE,
-      ihtml.use_sorting = TRUE,
-      ihtml.use_highlight = TRUE
-    )
-  
-  gt::fmt_passthrough(table_plot)
-}
-```
 # Interpretation of Results
 
 Running the analysis will produce a number of outputs that can be used to gain insights into the alignment of financial institutions with climate transition scenarios and to approximate transition risk. The two main pieces of the analysis are the PACTA for Banks analysis and the net aggregate alignment metric. The PACTA for Banks analysis will provide insights into the alignment of the financial institution with the climate transition scenarios for each of the sectors covered by PACTA. The net aggregate alignment metric is intended be used as a high level overview alignment metric for the financial sector. The analyses thus complement each other where the net aggregate alignment metric can serve as a starting point to identify sectors or groups of financial institutions that seem to require particular attention. The PACTA for Banks analysis can then be used to drill down into the details of the alignment of the financial institution with the climate transition scenarios.
@@ -94,16 +62,9 @@ If after following and concluding the matching procedure the match success rate 
 - There may be data quality issues in the raw loan book. For example, the company names may have been entered wrongly, or the sector classification may be incorrect. Problems with the sector classification may be corrected to some degree through desk research. However, there are limits to inferring sector codes like that and it is a time consuming process.
 - There may be coverage issues in the ABCD. It is possible that all entries in the raw loan book are correct and the match success rate remains low, because the companies the loan book is exposed to are not covered in the ABCD. Since the ABCD is an externally sourced data set, there are two main approaches to tackling this. One is to reach out to the data provider and try to understand/add the missing data points. The other is to try and add the relevant data points manually based on your own data or research. This is a very involved process and not standard procedure and will therefore not be covered in this cookbook. Beyond those options, it is recommended to highlight coverage issues, if they cannot be fixed.
 
-#### Data Dictionary Match Success Rate
-
-The underlying data set used to generate these plots contains the following information:
-
-```{r dd_lbk_match_success_rate_table, echo = FALSE}
-table <- dplyr::filter(data_dictionary, .data[["dataset"]] == "lbk_match_success_rate")
-plot_table(table)
-```
-
 #### Mapping the Data Dictionary to the Match Success Rate Plots
+
+For detailed descriptions of the columns in the corresponding output files, please refer to the [relevant section on the match success rate in the data dictionary](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/data_dictionary.html#match-success-rate).
 
 The variables in the table map to the figures as follows:
 
@@ -133,14 +94,9 @@ Assuming a solid match success rate, the loan book production coverage tells you
 
 #### Data Dictionary Loan Book Production Coverage
 
-The data set contains the following information:
+For detailed descriptions of the columns in the output files, please refer to the [relevant section on the loan book coverage in the data dictionary](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/data_dictionary.html#loan-book-coverage).
 
-```{r dd_summary_statistics_loanbook_coverage_table, echo = FALSE}
-table <- dplyr::filter(data_dictionary, .data[["dataset"]] == "summary_statistics_loanbook_coverage")
-plot_table(table)
-```
-
-There is no standard plot that this package provides for visualizing the loan book production coverage.
+There is currently no standard plot that this package provides for visualizing the loan book production coverage.
 
 ## PACTA for Banks Outputs and Graphs
 
@@ -180,16 +136,9 @@ The technology mix plots show the exposure to underlying technologies by sector,
 
 For the corporate economy bars, the technology mix is based on the unweighted sum of underlying physical production capacity and for the scenario bar, the technology mix is based on the initial technology mix of the portfolio, extrapolated with required changes based on the market share approach that assumes all companies maintain their overall production shares in the sector.
 
-#### Data Dictionary Technology Mix
-
-The underlying data set used to generate the technology mix plots contains the following information:
-
-```{r dd_data_tech_mix_table, echo = FALSE}
-table <- dplyr::filter(data_dictionary, .data[["dataset"]] == "data_tech_mix")
-plot_table(table)
-```
-
 #### Mapping the Data Dictionary to the Technology Mix Plots
+
+For detailed descriptions of the columns in the output files, please refer to the [relevant section on the technology mix in the data dictionary](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/data_dictionary.html#data-tech-mix).
 
 The variables in the table map to the figures as follows:
 
@@ -232,16 +181,9 @@ For more information on how to calculate the TMSR and the SMSP, see the [PACTA f
 
 Also notice that alignment for one technology of a sector does not imply alignment of the entire sector. For example, building out electric vehicle production capacity in line with the IEA NZE by 2050 scenario does not say anything about the alignment of internal combustion engine production capacity. If ICE production does not decrease sufficiently fast, the sector as a whole will not be aligned. This would show both in the technology mix chart, where the slow decrease in ICE production would depress the share of EV production and in the production volume trajectory for the ICE production capacity.
 
-#### Data Dictionary Production Volume Trajectory
-
-The underlying data set used to generate the production volume trajectory plots contains the following information:
-
-```{r dd_data_trajectory_table, echo = FALSE}
-table <- dplyr::filter(data_dictionary, .data[["dataset"]] == "data_trajectory")
-plot_table(table)
-```
-
 #### Mapping the Data Dictionary to the Production Volume Trajectory Plots
+
+For detailed descriptions of the columns in the output files, please refer to the [relevant section on the production volume trajectory in the data dictionary](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/data_dictionary.html#data-trajectory).
 
 The variables in the table map to the figures as follows:
 
@@ -292,16 +234,9 @@ The emission intensity of different loan books will vary within the same sector,
 
 For more information on how to calculate the SDA, see the [PACTA for Banks documentation](https://rmi-pacta.github.io/r2dii.analysis/articles/target-sda.html).
 
-#### Data Dictionary Emission Intensity Pathway
-
-The underlying data set used to generate the emission intensity pathway plots contains the following information:
-
-```{r dd_data_emission_intensity_table, echo = FALSE}
-table <- dplyr::filter(data_dictionary, .data[["dataset"]] == "data_emission_intensity")
-plot_table(table)
-```
-
 #### Mapping the Data Dictionary to the Emission Intensity Pathway Plots
+
+For detailed descriptions of the columns in the output files, please refer to the [relevant section on the emission intensity pathway in the data dictionary](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/data_dictionary.html#data-emission-intensity).
 
 The variables in the table map to the figures as follows:
 
@@ -334,16 +269,9 @@ knitr::include_graphics("../man/figures/plot_sankey_sector.png")
 
 The sankey plot emphasizes the distribution of the financial exposure of the analyzed loan books across sectors and aligned or misaligned counterparties. The plot necessitate categorical variables for the types of nodes, which means that the net aggregate alignment metric is transformed into a binary variable. The size of each group in a node along the y axis is the financial exposure to that group and that is the only continuous variable in this plot. In effect, the statements you can make based on this plot are along the lines of "XY USD of the financial exposure of the loan books is concentrated in the power sector. Among the exposure to power companies, the largest share goes to companies that are misaligned with the selected scenario". As we can see, this reveals more about howw much money is lent to how many companies that are misaligned ins oem form. It says nothing about how misaligned these companies are. They might all be very close to, but just behind, the scenario target. Or they might all be grossly off target. The reason why this is still a useful plot is because you get a very quick over view, in which sectors are the largest shares of your misaligned companies. This makes it easier to prioritize which company analytics to look at first. Additionally, you can validate the severity of the misalignment in a given sector, by inspecting the alignment-by-exposure plots, which will be explained next.
 
-#### Data Dictionary Net Aggregate Alignment Metric - Sankey Plot
-
-The underlying data set used to generate the net aggregate alignment sankey plot contains the following information:
-
-```{r dd_data_sankey_table, echo = FALSE}
-table <- dplyr::filter(data_dictionary, .data[["dataset"]] == "data_sankey")
-plot_table(table)
-```
-
 #### Mapping the Data Dictionary to the Sankey Plot
+
+For detailed descriptions of the columns in the output files, please refer to the [relevant section on the sankey plot in the data dictionary](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/data_dictionary.html#input-data-for-sankey-plot).
 
 The variables in the table map to the figures as follows:
 
@@ -370,16 +298,9 @@ Generally, the alignment by exposure sector is very useful for interpretations o
 
 Of course, since the net aggregate alignment at loan book level is a weighted average of the underlying company level net aggregate alignments, a positive y-value does not mean that there are no misaligned companies to be found in the loan book for this sector. If individual company level alignment is of concern for your use case, you will have to check company level results to validate that. The most comprehensive output data set to inspect company level net alignment metrics is the `../analysis/aggregated/company_exposure_net_aggregate_alignment<...>.csv` file. Documentation for its contents can be found in [the relevant section of the data dictionary](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/data_dictionary.html#company-net-aggregate-alignment-metric-with-financial-exposures).
 
-#### Data Dictionary Alignment by Exposure
-
-The underlying data set used to generate the net aggregate alignment by financial exposure plot contains the following information:
-
-```{r dd_data_scatter_alignment_exposure_table, echo = FALSE}
-table <- dplyr::filter(data_dictionary, .data[["dataset"]] == "data_scatter_alignment_exposure")
-plot_table(table)
-```
-
 #### Mapping the Data Dictionary to the Alignment by Exposure Plots
+
+For detailed descriptions of the columns in the output files, please refer to the [relevant section on the alignment-by-exposure scatter plot in the data dictionary](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/data_dictionary.html#input-data-for-alignment-by-exposure-scatter-plot).
 
 The variables in the table map to the figures as follows:
 
@@ -412,16 +333,9 @@ knitr::include_graphics("../man/figures/plot_scatter_automotive_company_by_bank_
 
 The buildout-phaseout scatter plots show the disaggregation of the net aggregate alignment metric into build out and phase out components. The x-axis shows the alignment of the loan book with the build out technologies of the sector, while the y-axis shows the alignment with the phase out technologies of the sector. The diagonal line from the top left to the bottom right of the plot indicates the threshold above which the sum of the build out and phase out components correspond to a positive net aggregate alignment value. The color of the dots indicates the net aggregate alignment of the loan book. Green dots indicate a positive net aggregate alignment, while red dots indicate a negative net aggregate alignment. The plot is also available at company level. If generated for loan books, one dot corresponds to one group of loan books, e.g. if there are three bank types, the aggregate loan books by bank types will be represented by three dots. It generated for companies, one dot corresponds to one company, where only companies are shown that have any exposure for the given `by_group`, e.g. if results are generated for `by_group = "bank_type"` and there are three bank types, then we will get three company level plots, each one containing only dots for companies that the corresponding bank type has an exposure to. The plot can be used to identify which of the two components of the net aggregate alignment metric is driving the alignment or misalignment of the loan book.
 
-#### Data Dictionary Buildout-Phaseout Aggregate Alignment
-
-The underlying data set used to generate the buildout-phaseout aggregate alignment scatter plot contains the following information:
-
-```{r dd_data_scatter_sector_table, echo = FALSE}
-table <- dplyr::filter(data_dictionary, .data[["dataset"]] == "data_scatter_sector")
-plot_table(table)
-```
-
 #### Mapping the Data Dictionary to the Buildout-Phaseout Scatter Plot for the Aggregate Alignment Metric
+
+For detailed descriptions of the columns in the output files, please refer to the [relevant section on the buildout/phaseout scatter plot in the data dictionary](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/data_dictionary.html#input-data-for-buildoutphaseout-scatter-plot).
 
 The variables in the table map to the figures as follows:
 
