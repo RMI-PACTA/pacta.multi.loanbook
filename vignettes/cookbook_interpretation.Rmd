@@ -13,38 +13,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup, echo = FALSE}
-library(pacta.multi.loanbook)
-
-plot_table <- function(table) {
-  table_plot <- gt::gt(dplyr::select(table, -"dataset"))
-  
-  table_plot <- 
-    gt::cols_width(
-      .data = table_plot,
-      column ~ gt::px(150),
-      typeof ~ gt::px(90)
-    )
-  
-  table_plot <-
-    gt::tab_style(
-      data = table_plot,
-      style = gt::cell_text(size = "smaller"),
-      locations = gt::cells_body(columns = 1:2)
-    )
-  
-  table_plot <-
-    gt::tab_options(
-      data = table_plot,
-      ihtml.active = TRUE,
-      ihtml.use_pagination = FALSE,
-      ihtml.use_sorting = TRUE,
-      ihtml.use_highlight = TRUE
-    )
-  
-  gt::fmt_passthrough(table_plot)
-}
-```
 # Interpretation of Results
 
 Running the analysis will produce a number of outputs that can be used to gain insights into the alignment of financial institutions with climate transition scenarios and to approximate transition risk. The two main pieces of the analysis are the PACTA for Banks analysis and the net aggregate alignment metric. The PACTA for Banks analysis will provide insights into the alignment of the financial institution with the climate transition scenarios for each of the sectors covered by PACTA. The net aggregate alignment metric is intended be used as a high level overview alignment metric for the financial sector. The analyses thus complement each other where the net aggregate alignment metric can serve as a starting point to identify sectors or groups of financial institutions that seem to require particular attention. The PACTA for Banks analysis can then be used to drill down into the details of the alignment of the financial institution with the climate transition scenarios.

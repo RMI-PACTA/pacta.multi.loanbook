@@ -13,38 +13,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup, echo = FALSE}
-library(pacta.multi.loanbook)
-
-plot_table <- function(table) {
-  table_plot <- gt::gt(dplyr::select(table, -"dataset"))
-  
-  table_plot <- 
-    gt::cols_width(
-      .data = table_plot,
-      column ~ gt::px(150),
-      typeof ~ gt::px(90)
-    )
-  
-  table_plot <-
-    gt::tab_style(
-      data = table_plot,
-      style = gt::cell_text(size = "smaller"),
-      locations = gt::cells_body(columns = 1:2)
-    )
-  
-  table_plot <-
-    gt::tab_options(
-      data = table_plot,
-      ihtml.active = TRUE,
-      ihtml.use_pagination = FALSE,
-      ihtml.use_sorting = TRUE,
-      ihtml.use_highlight = TRUE
-    )
-  
-  gt::fmt_passthrough(table_plot)
-}
-```
 # Running the Analysis
 
 This section provides a step-by-step guide to running the PACTA for Supervisors analysis using the `pacta.multi.loanbook` package. It includes information on the structure of the workflow, the required functions, and the interpretation of the results.
