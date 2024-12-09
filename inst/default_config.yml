@@ -6,17 +6,17 @@ default:
     dir_prioritized_loanbooks_and_diagnostics: "path/to/prioritized_loanbooks_and_diagnostics"
     dir_analysis: "path/to/analysis"
   file_names:
-    filename_scenario_tms: "scenarios_2022_tms.csv"
-    filename_scenario_sda: "scenarios_2022_sda.csv"
-    filename_abcd: "abcd.xlsx"
+    filename_scenario_tms: "2023 IEA JRC ISF Auto Fossil Fuel Power (start year 2023).csv"
+    filename_scenario_sda: "2023 CO2 Intensity IEA JRC ISF Steel Cement Aviation (start year 2023).csv"
+    filename_abcd: "2023-02-17_AI_RMI_PACTA for Banks Free dataset_EO_2022Q4.xlsx"
     sheet_abcd: "Company Indicators - PACTA Comp"
   project_parameters:
-    scenario_source: "weo_2022"
+    scenario_source: "weo_2023"
     scenario_select: "nze_2050"
     region_select: "global"
     # normally the start year should correspond with year of the publication of
     # the scenario in use
-    start_year: 2022
+    start_year: 2023
     time_frame: 5
     by_group: "group_id"
   sector_split:
