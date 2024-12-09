@@ -13,45 +13,13 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup, echo = FALSE}
-library(pacta.multi.loanbook)
-
-plot_table <- function(table) {
-  table_plot <- gt::gt(dplyr::select(table, -"dataset"))
-  
-  table_plot <- 
-    gt::cols_width(
-      .data = table_plot,
-      column ~ gt::px(150),
-      typeof ~ gt::px(90)
-    )
-  
-  table_plot <-
-    gt::tab_style(
-      data = table_plot,
-      style = gt::cell_text(size = "smaller"),
-      locations = gt::cells_body(columns = 1:2)
-    )
-  
-  table_plot <-
-    gt::tab_options(
-      data = table_plot,
-      ihtml.active = TRUE,
-      ihtml.use_pagination = FALSE,
-      ihtml.use_sorting = TRUE,
-      ihtml.use_highlight = TRUE
-    )
-  
-  gt::fmt_passthrough(table_plot)
-}
-```
 # Preparatory Steps
 
-This section provides an overview of the preparatory steps that need to be taken before running the PACTA for Supervisors analysis. It includes information on the required input data sets, the required software, and the how to setup the project folder and file structure. Finally, it provides a checklist of the steps that need to be taken before running the analysis, summarizing in brief the steps explained in more detail before.
+This section provides an overview of the preparatory steps that need to be taken before running the PACTA for Supervisors analysis. It includes information on the required input data sets, the required software, and how to setup the project folder and file structure. Finally, it provides a checklist of the steps that need to be taken before running the analysis, summarizing in brief the steps explained in more detail before.
 
 ## Required Input Data Sets
 
-The PACTA for Supervisors analysis requires a number of input data sets to run. Some of these can be obtained from external sources, while others need to be prepared by the user. Furthermore, some of the input data sets are optional and there inclusion will depend on the settings provided in the `config.yml` file. 
+The PACTA for Supervisors analysis requires a number of input data sets to run. Some of these can be obtained from external sources, while others need to be prepared by the user. Furthermore, some of the input data sets are optional and their inclusion will depend on the settings provided in the `config.yml` file. 
 
 The main input data sets required for the analysis are the following:
 
@@ -77,7 +45,7 @@ While PACTA is data agnostic and allows using data from any provider that offers
 - external source
 - CSV file(s)
 
-The scenario data set provides information on the trajectories of technologies/fuel types and of emission intensities pathways for each of (or a subset of) the sectors covered in PACTA.
+The scenario data set provides information on the trajectories of technologies/fuel types and of emission intensity pathways for each of (or a subset of) the sectors covered in PACTA.
 
 For sectors with technology level trajectories, the data set provides the TMSR and SMSP pathways based on the Market Share Approach, an allocation rule that implies all companies active in a sector have to adjust their production in a way that keeps market shares constant and solves for the aggregate climate transition scenario. For more information on how to calculate the TMSR and the SMSP, see the [PACTA for Banks documentation](https://rmi-pacta.github.io/r2dii.analysis/articles/target-market-share.html).
 
@@ -116,7 +84,7 @@ The raw loan books must be prepared as CSV files and contain at a minimum the fo
 cat(paste0("- `", names(pacta.multi.loanbook:::col_types_raw[["cols"]]), "`", collapse = "\n"))
 ```
 
-**NOTE:** The tool will automatically add a column `group_id` to each of the loan books, which uses the file name as a value. This allows you to group the results the analysis by loan book, using the `by_group` parameter in the `config.yml` file. For any other variable that you may want to group the results by, you need to add a column to the raw loan book files that you then provide as the `by_group` parameter in the `config.yml` file.
+**NOTE:** The tool will automatically add a column `group_id` to each of the loan books, which uses the file name as a value. This allows you to group the results of the analysis by loan book, using the `by_group` parameter in the `config.yml` file. For any other variable that you may want to group the results by, you need to add a column to the raw loan book files that you then provide as the `by_group` parameter in the `config.yml` file.
 
 For detailed descriptions of how to prepare raw loan books, see the [PACTA for Banks documentation](https://pacta.rmi.org/pacta-for-banks-2020/) and navigate to the "Training Materials" tab of the "PACTA for Banks" section. The **"User Guide 2"**, the **"Data Dictionary"**, and the **"Loan Book Template"** files can all be helpful in preparing your data.
 
@@ -175,18 +143,18 @@ You can install the package from the [RStudio CRAN mirror](https://cran.r-projec
 install.packages("pacta.multi.loanbook")
 ```
 
-You can install the development version of pkgdown from GitHub with:
+You can install the development version of `pacta.multi.loanbook` from GitHub with:
 
 ``` r
-pak::pak("r-lib/pkgdown")
+pak::pak("RMI-PACTA/pacta.multi.loanbook")
 ```
 :::
 
 ::: {.pkgdown-devel}
-You can install the development version of pkgdown from GitHub with:
+You can install the development version of `pacta.multi.loanbook` from GitHub with:
 
 ``` r
-pak::pak("r-lib/pkgdown")
+pak::pak("RMI-PACTA/pacta.multi.loanbook")
 ```
 :::
 
@@ -210,7 +178,7 @@ cat(utils::packageDescription("pacta.multi.loanbook")[["Suggests"]])
 
 #### How do I install the `pacta.multi.loanbook` package?
 
-The most common ways to install R packages are via CRAN or GitHub. Public institutions often have restrictions on the installation of packages from GitHub, so you may need to install the package from CRAN. In some cases, your institution may mirror CRAN in their internal application registry, so you may need to install the package from there. Should you have any issues with the installation from the internal application registry, it is best to reach out to your IT department. If you cannot obtain the package any of these ways, please reach out to the package maintainers directly for exploring other options.
+The most common ways to install R packages are via CRAN or GitHub. Public institutions often have restrictions on the installation of packages from GitHub, so you may need to install the package from CRAN. In some cases, your institution may mirror CRAN in their internal application registry, so you may need to install the package from there. Should you have any issues with the installation from the internal application registry, it is best to reach out to your IT department. If you cannot obtain the package in any of these ways, please reach out to the package maintainers directly for exploring other options.
 
 #### How do I install the required R packages?
 
@@ -264,7 +232,7 @@ initialise_default_project(path = "path/to/project_folder")
 This will create a minimal project folder structure similar to the one shown above.
 
 * Note that the target path that you pass to `initialise_default_project()` must be a path that does not exist yet, as it will be newly set up and cannot overwrite any existing files.
-* Within this path, an `input` sub-directory and a `config.yml` file will be created. The `ìnput` sub-directory will be empty and you will have to populate it with the files described above and following the structure as outlined.
+* Within this path, an `input` sub-directory and a `config.yml` file will be created. The `ìnput` sub-directory will contain another sub-directory `loanbooks`. Neither `input` nor `input/loanbooks` will contain any files at this stage and you will have to populate them with the files described above and following the structure as outlined.
 * The `config.yml` file will be created with default settings. Output paths in the config.yml file will point to sub directories of the path you pass to `initialise_default_project()`, so that running the remaining steps of the analysis will keep all inputs and outputs in one common project folder. You can then edit the `config.yml` file to adjust the settings to your needs, as described in the corresponding documentation (see `vignette("config_yml")`).
 
 It is not strictly necessary to use the `initialise_default_project()` function to set up your project folder. If you prefer setting up another folder structure manually and creating the `config.yml` from scratch, you can do that. But it can be helpful to ensure that you have all the necessary files and folders in place.

@@ -13,38 +13,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup, echo = FALSE}
-library(pacta.multi.loanbook)
-
-plot_table <- function(table) {
-  table_plot <- gt::gt(dplyr::select(table, -"dataset"))
-  
-  table_plot <- 
-    gt::cols_width(
-      .data = table_plot,
-      column ~ gt::px(150),
-      typeof ~ gt::px(90)
-    )
-  
-  table_plot <-
-    gt::tab_style(
-      data = table_plot,
-      style = gt::cell_text(size = "smaller"),
-      locations = gt::cells_body(columns = 1:2)
-    )
-  
-  table_plot <-
-    gt::tab_options(
-      data = table_plot,
-      ihtml.active = TRUE,
-      ihtml.use_pagination = FALSE,
-      ihtml.use_sorting = TRUE,
-      ihtml.use_highlight = TRUE
-    )
-  
-  gt::fmt_passthrough(table_plot)
-}
-```
 # Running the Analysis
 
 This section provides a step-by-step guide to running the PACTA for Supervisors analysis using the `pacta.multi.loanbook` package. It includes information on the structure of the workflow, the required functions, and the interpretation of the results.
@@ -100,7 +68,7 @@ If you want to use the sector split, you can specify which company identifiers t
 
 ## Matching process
 
-The next step in the analysis is to run the matching process. Assuming you have prepared the raw loan books as explained in [the section on preparing the input data sets](#raw-loan-books), you can now use the `match_loanbooks()` function. This will read the raw loan books from your inputs and attempt to match them to the prepared ABCD data from the previous step. The function will store matched loan book files in a directory that you have indicated as the value corresponding to the key `dir_matched_loanbooks` in the `config.yml`. You can run this function as follows:
+The next step in the analysis is to run the matching process. Assuming you have prepared the raw loan books as explained in [the section on preparing the input data sets](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/cookbook_preparatory_steps.html#raw-loan-books), you can now use the `match_loanbooks()` function. This will read the raw loan books from your inputs and attempt to match them to the prepared ABCD data from the previous step. The function will store matched loan book files in a directory that you have indicated as the value corresponding to the key `dir_matched_loanbooks` in the `config.yml`. You can run this function as follows:
 
 ```r
 pacta.multi.loanbook::match_loanbooks(config_path)
@@ -108,7 +76,7 @@ pacta.multi.loanbook::match_loanbooks(config_path)
 
 After the matching process is complete, you will need to do some manual matching. This means that you will need to manually inspect the suggested matches that the tool has found and decide which ones to keep or to remove. This is especially important when using text based matching, as there is no guarantee that similar company names as identified by the algorithms will actually refer to the same companies in the raw loan books and the ABCD. Thus, a manual validation step is crucial in the analysis, as the quality of the matches will determine the quality of the results of any further calculations.
 
-The manual matching process is not automated and will require some time and effort on your part. You can find the matched loan books in the `.../matched_loanbooks` folder. The matched loan books will be stored in CSV files, one for each raw loan book. You can open these files in a spreadsheet program to verify the matches. Importantly, you will need to make a copy for each of the matched loan book files in the same `.../matched_loanbooks` folder and rename that copy by adding the suffix `_manual` to the file name. The following steps of the analysis expect this pattern, so it is important to follow this naming convention.
+The manual matching process is not automated and will require some time and effort on your part. You can find the matched loan books in the directory that you have specified as [the `dir_matched_loanbooks` parameter in the `config.yml` file](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/config_yml.html#dir_matched_loanbooks). The matched loan books will be stored in CSV files, one for each raw loan book. You can open these files in a spreadsheet program to verify the matches. Importantly, you will need to make a copy for each of the matched loan book files in the same directory and rename that copy by adding the suffix `_manual` to the file name. The following steps of the analysis expect this pattern, so it is important to follow this naming convention.
 
 You can find more detailed information about the matching process in the [training material on the PACTA for Banks website](https://pacta.rmi.org/pacta-for-banks-2020/) in the section "PACTA for Banks Training Webinar 2" and in the [corresponding slide deck](https://pacta.rmi.org/wp-content/uploads/2020/12/PACTA-for-Banks-Training-Webinar-2-Matching-a-loan-book-to-physical-assets-in-the-real-economy-.pdf).
 

@@ -12,14 +12,26 @@ prioritize_and_diagnose(config)
 \arguments{
 \item{config}{either a path to a config.yml file or a list of parameters}
 }
+\value{
+\code{prioritise_and_diagnose()} returns \code{NULL} invisibly. The function is called
+for its side effects and writes the prepared and diagnosed data sets in the
+directory specified by \code{dir_prioritized_loanbooks_and_diagnostics} in the
+\code{config.yml}.
+}
 \description{
-\code{prioritise_and_diagnose()} runs the necessary steps to prioritise the matched
-loan books and diagnose both the match success rate and the coverage of the
-real economy assets by the matched loan books.
-Parameters for all steps are read from a \code{config.yml} file. The function is
-called for its side effects and writes the prepared and diagnosed data sets
-to the directory \code{output/prioritise_and_diagnose}, where \code{output} is the
-output directory  specified in the \code{config.yml}.
+\code{prioritise_and_diagnose()} runs the necessary steps to prioritise the
+matched loan books and diagnose both the match success rate and the coverage
+of the real economy assets by the matched loan books. Parameters for all
+steps are read from a \code{config.yml} file. The function is called for its side
+effects and writes the prepared and diagnosed data sets in the directory
+specified by \code{dir_prioritized_loanbooks_and_diagnostics} in the \code{config.yml}.
 
 \code{prioritise_and_diagnose()} and \code{prioritize_and_diagnose()} are synonyms.
+}
+\examples{
+\dontrun{
+config <- "path/to/config.yml"
+prioritise_and_diagnose(config)
+}
+
 }

@@ -13,6 +13,20 @@ initialize_default_project(path = "project")
 \item{path}{an absolute or relative path pointing to the location you would
 like the project directory to be created}
 }
+\value{
+\code{initialise_default_project()} returns \code{NULL} invisibly. The function is
+called for its side effects of creating a default project directory at the
+specified path.
+}
 \description{
-Initialise a project directory and its config file
+\code{initialise_default_project()} sets up a default project directory, including
+a project directory, a default \code{config.yml} configuration file, an \code{input}
+sub-directory, and a \code{loanbooks} sub-directory.
+}
+\examples{
+\dontrun{
+project_dir <- "path/to/project"
+initialise_default_project(project_dir)
+}
+
 }
