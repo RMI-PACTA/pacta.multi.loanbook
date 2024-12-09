@@ -225,7 +225,7 @@ suggested matches that the tool has found and decide which ones to keep
 or to remove. This is especially important when using text based
 matching, as there is no guarantee that similar company names as
 identified by the algorithms will actually refer to the same companies
-in the raw loan books and the ABCD. Thus, a manually validation step is
+in the raw loan books and the ABCD. Thus, a manual validation step is
 crucial in the analysis, as the quality of the matches will determine
 the quality of the results of any further calculations.</p>
 <p>The manual matching process is not automated and will require some
@@ -260,7 +260,7 @@ upstream or downstream activities of the sectors covered by PACTA. This
 means that the company activities are not at the part of the value chain
 that is covered by PACTA and accordingly the companies are not matched.
 Examples for this are power distribution companies or companies that
-manufacture air crafts.</li>
+manufacture aircrafts.</li>
 <li>The ABCD data set may not cover all companies that are in scope of
 the PACTA analysis. While coverage of the real economy sectors is
 usually rather high in the data sets that are commonly used for PACTA,
@@ -320,9 +320,9 @@ NAICS, PSIC, SIC. If it is not possible to map the loans in your loan
 books to any of these systems, you can prepare your own mapping file
 that follows the same structure as the sector classification files in
 <code><a href="https://rmi-pacta.github.io/r2dii.data/reference/sector_classifications.html" class="external-link">r2dii.data::sector_classifications</a></code> and use the config file
-to instruct the code to use this file for matching. Notice that this
-will only be a promising approach, if the classifications you are using
-are sufficiently granular to map to PACTA sectors without excessive
+to instruct the code to use this file for matching. Note that this will
+only be a promising approach if the classifications you are using are
+sufficiently granular to map to PACTA sectors without excessive
 ambiguity.</li>
 </ul>
 </div>
@@ -336,7 +336,7 @@ matched.</p>
 <li>Correct the classification in the raw loan book and re-run the
 matching process. If the loan was clearly mis-classified, this may be
 the most appropriate way to handle the issue. It may be a good idea to
-record any such changes made in the input data though. The upsdie of
+record any such changes made in the input data though. The upside of
 this approach is that the loan will now either be matched correctly, as
 it will be assigned the sector that the company should have and
 therefore find an entry in the ABCD data set to match against. Or, if
@@ -392,12 +392,12 @@ the previous step (matching the loan books, likely using different
 parameters for different iterations) and this step (prioritizing the
 matched loan books and analyzing their match success rate) a number of
 times to reach the best possible outcome. To prioritize your matched
-loan books and calculate display the coverage diagnostics, you will use
-the <code><a href="../reference/prioritise_and_diagnose.html">prioritise_and_diagnose()</a></code> function. This call will
-store matched prioritized loan book files and coverage diagnostics in a
+loan books and calculate the coverage diagnostics, you will use the
+<code><a href="../reference/prioritise_and_diagnose.html">prioritise_and_diagnose()</a></code> function. This call will store
+matched prioritized loan book files and coverage diagnostics in a
 directory that you have indicated as the value corresponding to the key
 <code>dir_prioritized_loanbooks_and_diagnostics</code> in the
-<code>config.yml</code>. You can then run the function as follows:</p>
+<code>config.yml</code>. You can run the function as follows:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">pacta.multi.loanbook</span><span class="fu">::</span><span class="fu"><a href="../reference/prioritise_and_diagnose.html">prioritise_and_diagnose</a></span><span class="op">(</span><span class="va">config_path</span><span class="op">)</span></span></code></pre></div>
 <div class="section level4">
@@ -480,7 +480,8 @@ is provided in each of the raw loan books.</li>
 on project parameters</a> in the
 <code><a href="../articles/config_yml.html">vignette("config_yml")</a></code>.</p>
 <p>Usually, it will be interesting to run the analysis for more than one
-by_group, possibly also for multiple combinations of the other
+<a href="https://rmi-pacta.github.io/pacta.multi.loanbook/articles/config_yml.html#by_group"><code>by_group</code>
+value</a>, possibly also for multiple combinations of the other
 parameters. You will therefore have to run the analysis as many times as
 there are combinations of interest that you wish to generate results
 for.</p>
