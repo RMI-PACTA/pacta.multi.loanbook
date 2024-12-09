@@ -42,7 +42,7 @@ If you run PACTA for Supervisors interactively or from a script you may have pre
 
 ```r
 library(pacta.multi.loanbook)
-config_path <- "config.yml"
+config_path <- "path/to/config.yml"
 ```
 
 This allows you passing the relevant config information easily to each of the four main functions.
