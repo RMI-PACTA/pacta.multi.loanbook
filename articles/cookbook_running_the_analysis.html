@@ -487,7 +487,19 @@ on project parameters</a> in the
 value</a>, possibly also for multiple combinations of the other
 parameters. You will therefore have to run the analysis as many times as
 there are combinations of interest that you wish to generate results
-for.</p>
+for. If you do this, you should take into account that running the same
+<code>pacta.multi.loanbooks</code> function multiple times with
+different parameters will overwrite the results of the previous run if
+you do not use new output directories for each run. This is why it is
+recommended to <a href="https://rmi-pacta.github.io/pacta.multi.loanbook/articles/config_yml.html#directories">set
+up a new output directory</a> in the <code>config.yml</code> file for
+each run of the analysis, if you want to keep the results of multiple
+runs so that you can compare the outcomes based on different parameters.
+The last chapter <a href="https://rmi-pacta.github.io/pacta.multi.loanbook/articles/cookbook_advanced_use_cases.html">“Advanced
+Use Cases”</a> describes how you could go about that process in more
+detail. However, it is recommended going through the standard process of
+the analysis completely once, before approaching more advanced use
+cases.</p>
 <p><strong>PREVIOUS CHAPTER:</strong> <a href="cookbook_preparatory_steps.html">Preparatory Steps</a></p>
 <p><strong>NEXT CHAPTER:</strong> <a href="cookbook_interpretation.html">Interpretation of Results</a></p>
 </div>
