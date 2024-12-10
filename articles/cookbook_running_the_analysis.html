@@ -387,15 +387,18 @@ loan books means that you will only keep the best identified match for
 each loan and use that in the following steps of the analysis.</p>
 <p>You will probably want to check the status of your loan book and
 production coverage several times, as it is rare to get to the desired
-level of matching in one iteration. This means you may want to repeat
-the previous step (matching the loan books, likely using different
-parameters for different iterations) and this step (prioritizing the
-matched loan books and analyzing their match success rate) a number of
-times to reach the best possible outcome. To prioritize your matched
-loan books and calculate the coverage diagnostics, you will use the
-<code><a href="../reference/prioritise_and_diagnose.html">prioritise_and_diagnose()</a></code> function. This call will store
-matched prioritized loan book files and coverage diagnostics in a
-directory that you have indicated as the value corresponding to the key
+level of matching in one iteration (see the corresponding <a href="https://rmi-pacta.github.io/pacta.multi.loanbook/articles/cookbook_interpretation.html#coverage-diagnostics">“Coverage
+Diagnostics” section</a> in the next chapter for more details on how to
+interpret the coverage values). This means you may want to repeat the
+previous step (<a href="#matching-process">matching the loan books</a>,
+likely using different parameters for different iterations) and this
+step (prioritizing the matched loan books and analyzing their match
+success rate) a number of times to reach the best possible outcome. To
+prioritize your matched loan books and calculate the coverage
+diagnostics, you will use the <code><a href="../reference/prioritise_and_diagnose.html">prioritise_and_diagnose()</a></code>
+function. This call will store matched prioritized loan book files and
+coverage diagnostics in a directory that you have indicated as the value
+corresponding to the key
 <code>dir_prioritized_loanbooks_and_diagnostics</code> in the
 <code>config.yml</code>. You can run the function as follows:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
