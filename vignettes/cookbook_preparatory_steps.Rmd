@@ -162,7 +162,7 @@ pak::pak("RMI-PACTA/pacta.multi.loanbook")
 
 Note that if you choose to install `pacta.multi.loanbook` from GitHub, you will need to have:
 
-(1) registered a GitHub account,
+(1) registered a [GitHub](https://github.com/) account,
 (2) `git` installed locally,
 (3) set up credentials so that RStudio can communicate with GitHub.
 
