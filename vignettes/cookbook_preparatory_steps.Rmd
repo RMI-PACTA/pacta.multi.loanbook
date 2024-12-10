@@ -158,6 +158,22 @@ pak::pak("RMI-PACTA/pacta.multi.loanbook")
 ```
 :::
 
+#### Connecting to GitHub from RStudio
+
+Note that if you choose to install `pacta.multi.loanbook` from GitHub, you will need to have:
+
+(1) registered a [GitHub](https://github.com/) account,
+(2) `git` installed locally,
+(3) set up credentials so that RStudio can communicate with GitHub.
+
+You can find more information on how to do this using the following resources:
+
+* [Happy Git and GitHub for the useR](https://happygitwithr.com/) is a great and comprehensive resource that takes you through the process of setting up git and GitHub with RStudio, including registering a GitHub account, installing git, and connecting RStudio to GitHub.
+* Additional information on managing your GitHub connection from within RStudio can be found in the usethis package documentation, for example on [managing git credentials](https://usethis.r-lib.org/articles/git-credentials.html).
+
+If you only plan to use GitHub to install this package or other packages as shown above, you will not have to have a deep understanding of all the git commands, so there is no need to be overwhelmed by the complexity of git.
+
+
 ### Required R packages
 
 The `pacta.multi.loanbook` package depends on a number of other R packages. These dependencies will be installed automatically when you install the `pacta.multi.loanbook` package. The required packages are:
@@ -178,7 +194,7 @@ cat(utils::packageDescription("pacta.multi.loanbook")[["Suggests"]])
 
 #### How do I install the `pacta.multi.loanbook` package?
 
-The most common ways to install R packages are via CRAN or GitHub. Public institutions often have restrictions on the installation of packages from GitHub, so you may need to install the package from CRAN. In some cases, your institution may mirror CRAN in their internal application registry, so you may need to install the package from there. Should you have any issues with the installation from the internal application registry, it is best to reach out to your IT department. If you cannot obtain the package in any of these ways, please reach out to the package maintainers directly for exploring other options.
+The most common ways to install R packages are via CRAN or [GitHub](#connecting-to-github-from-rstudio). Public institutions often have restrictions on the installation of packages from GitHub, so you may need to install the package from CRAN. In some cases, your institution may mirror CRAN in their internal application registry, so you may need to install the package from there. Should you have any issues with the installation from the internal application registry, it is best to reach out to your IT department. If you cannot obtain the package in any of these ways, please reach out to the package maintainers directly for exploring other options.
 
 #### How do I install the required R packages?
 
@@ -257,6 +273,7 @@ Before running the PACTA for Supervisors analysis, you should make sure that you
   - [ ] R (version 4.1.0 or higher)
   - [ ] RStudio (optional)
   - [ ] `pacta.multi.loanbook` R package
+  - [ ] [set up git and GitHub](#connecting-to-github-from-rstudio) (optional)
 - [ ] Installed the required R packages:
   - [ ] `pacta.multi.loanbook` dependencies
 - [ ] OPTIONAL - Installed the suggested R packages:
