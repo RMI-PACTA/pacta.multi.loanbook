@@ -1,0 +1,18 @@
+pandoc: 3.1.11
+pkgdown: 2.1.1
+pkgdown_sha: ~
+articles:
+  company_alignment_metric: company_alignment_metric.html
+  config_yml: config_yml.html
+  cookbook_advanced_use_cases: cookbook_advanced_use_cases.html
+  cookbook_interpretation: cookbook_interpretation.html
+  cookbook_overview: cookbook_overview.html
+  cookbook_preparatory_steps: cookbook_preparatory_steps.html
+  cookbook_running_the_analysis: cookbook_running_the_analysis.html
+  data_dictionary: data_dictionary.html
+  loanbook_aggregated_alignment_metric: loanbook_aggregated_alignment_metric.html
+  sector_split: sector_split.html
+last_built: 2024-12-10T10:39Z
+urls:
+  reference: https://rmi-pacta.github.io/pacta.multi.loanbook/reference
+  article: https://rmi-pacta.github.io/pacta.multi.loanbook/articles
