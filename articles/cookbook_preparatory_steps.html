@@ -384,6 +384,36 @@ tool that you will use to run the PACTA for Supervisors analysis.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"RMI-PACTA/pacta.multi.loanbook"</span><span class="op">)</span></span></code></pre></div>
 </div>
+<div class="section level5">
+<h5 id="connecting-to-github-from-rstudio">Connecting to GitHub from RStudio<a class="anchor" aria-label="anchor" href="#connecting-to-github-from-rstudio"></a>
+</h5>
+<p>Note that if you choose to install <code>pacta.multi.loanbook</code>
+from GitHub, you will need to have:</p>
+<ol style="list-style-type: decimal">
+<li>registered a <a href="https://github.com/" class="external-link">GitHub</a> account,</li>
+<li>
+<code>git</code> installed locally,</li>
+<li>set up credentials so that RStudio can communicate with GitHub.</li>
+</ol>
+<p>You can find more information on how to do this using the following
+resources:</p>
+<ul>
+<li>
+<a href="https://happygitwithr.com/" class="external-link">Happy Git and GitHub for the
+useR</a> is a great and comprehensive resource that takes you through
+the process of setting up git and GitHub with RStudio, including
+registering a GitHub account, installing git, and connecting RStudio to
+GitHub.</li>
+<li>Additional information on managing your GitHub connection from
+within RStudio can be found in the usethis package documentation, for
+example on <a href="https://usethis.r-lib.org/articles/git-credentials.html" class="external-link">managing
+git credentials</a>.</li>
+</ul>
+<p>If you only plan to use GitHub to install this package or other
+packages as shown above, you will not have to have a deep understanding
+of all the git commands, so there is no need to be overwhelmed by the
+complexity of git.</p>
+</div>
 </div>
 <div class="section level4">
 <h4 id="required-r-packages">Required R packages<a class="anchor" aria-label="anchor" href="#required-r-packages"></a>
@@ -411,15 +441,15 @@ tibble, withr, writexl</p>
 <div class="section level5">
 <h5 id="how-do-i-install-the-pacta-multi-loanbook-package">How do I install the <code>pacta.multi.loanbook</code> package?<a class="anchor" aria-label="anchor" href="#how-do-i-install-the-pacta-multi-loanbook-package"></a>
 </h5>
-<p>The most common ways to install R packages are via CRAN or GitHub.
-Public institutions often have restrictions on the installation of
-packages from GitHub, so you may need to install the package from CRAN.
-In some cases, your institution may mirror CRAN in their internal
-application registry, so you may need to install the package from there.
-Should you have any issues with the installation from the internal
-application registry, it is best to reach out to your IT department. If
-you cannot obtain the package in any of these ways, please reach out to
-the package maintainers directly for exploring other options.</p>
+<p>The most common ways to install R packages are via CRAN or <a href="#connecting-to-github-from-rstudio">GitHub</a>. Public
+institutions often have restrictions on the installation of packages
+from GitHub, so you may need to install the package from CRAN. In some
+cases, your institution may mirror CRAN in their internal application
+registry, so you may need to install the package from there. Should you
+have any issues with the installation from the internal application
+registry, it is best to reach out to your IT department. If you cannot
+obtain the package in any of these ways, please reach out to the package
+maintainers directly for exploring other options.</p>
 </div>
 <div class="section level5">
 <h5 id="how-do-i-install-the-required-r-packages">How do I install the required R packages?<a class="anchor" aria-label="anchor" href="#how-do-i-install-the-required-r-packages"></a>
@@ -574,6 +604,8 @@ higher)</label></li>
 <li><label><input type="checkbox">RStudio (optional)</label></li>
 <li><label><input type="checkbox"><code>pacta.multi.loanbook</code> R
 package</label></li>
+<li><label><input type="checkbox"><a href="#connecting-to-github-from-rstudio">set up git and GitHub</a>
+(optional)</label></li>
 </ul>
 </li>
 <li>
