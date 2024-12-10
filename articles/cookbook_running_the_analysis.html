@@ -180,12 +180,16 @@ analysis. You can run this function as follows:</p>
 can be set in the <code>config.yml</code> file. These options
 include:</p>
 <ul>
-<li>whether or not inactive companies should be removed from the ABCD
-data (For more information on the options available, see the <a href="https://rmi-pacta.github.io/pacta.multi.loanbook/articles/config_yml.html#prepare_abcd">relevant
+<li>
+<code class="sourceCode yaml"><span class="at">remove_inactive_companies</span></code>:
+whether or not inactive companies should be removed from the ABCD data
+(For more information on the options available, see the <a href="https://rmi-pacta.github.io/pacta.multi.loanbook/articles/config_yml.html#prepare_abcd">relevant
 section on preparing the ABCD</a> in the
 <code><a href="../articles/config_yml.html">vignette("config_yml")</a></code>.)</li>
-<li>if and how a company sector split should be applied in the
-calculations (For more information on the options available, see the <a href="https://rmi-pacta.github.io/pacta.multi.loanbook/articles/config_yml.html#sector_split">relevant
+<li>
+<code class="sourceCode yaml"><span class="at">sector_split</span></code>: if
+and how a company sector split should be applied in the calculations
+(For more information on the options available, see the <a href="https://rmi-pacta.github.io/pacta.multi.loanbook/articles/config_yml.html#sector_split">relevant
 section on the sector split</a> in the
 <code><a href="../articles/config_yml.html">vignette("config_yml")</a></code>). Additionally, see the
 documentation of the sector split methodology in
@@ -298,8 +302,10 @@ next section on prioritization and diagnostics</a>.</li>
 that can be set in the <code>config.yml</code> file. These options
 include:</p>
 <ul>
-<li>specifications for the approach to matching the raw loan book with
-the ABCD <a href="https://rmi-pacta.github.io/pacta.multi.loanbook/articles/config_yml.html#matching">relevant
+<li>
+<code class="sourceCode yaml"><span class="at">params_match_name</span></code>:
+multiple options to specify the approach to matching the raw loan book
+with the ABCD <a href="https://rmi-pacta.github.io/pacta.multi.loanbook/articles/config_yml.html#matching">relevant
 section on matching</a> in the <code><a href="../articles/config_yml.html">vignette("config_yml")</a></code>).
 Note that these parameters are all based on the
 <code><a href="https://rmi-pacta.github.io/r2dii.match/reference/match_name.html" class="external-link">r2dii.match::match_name</a></code> function and pass the parameters
@@ -309,7 +315,9 @@ of the r2dii.match package</a>. This also covers matching based on
 unique identifiers, which is the most reliable way to match companies,
 but requires that both the raw loan books and the ABCD contain such
 identifiers.</li>
-<li>whether to use a manually prepared sector classification system for
+<li>
+<code class="sourceCode yaml"><span class="at">manual_sector_classification</span></code>:
+whether to use a manually prepared sector classification system for
 matching the loan books to in-scope PACTA sectors, see the <a href="https://rmi-pacta.github.io/pacta.multi.loanbook/articles/config_yml.html#matching">relevant
 section on matching</a> in the <code><a href="../articles/config_yml.html">vignette("config_yml")</a></code>), or
 not. If there is no need to use a manually prepared sector
@@ -410,14 +418,34 @@ corresponding to the key
 options that can be set in the <code>config.yml</code> file. These
 options include:</p>
 <ul>
-<li>the option to set a specific order for prioritizing the matches.
-This is an option that is passed directly to the
+<li>
+<code class="sourceCode yaml"><span class="at">priority</span></code>: the
+option to set a specific order for prioritizing the matches. This is an
+option that is passed directly to the
 <code><a href="https://rmi-pacta.github.io/r2dii.match/reference/prioritize.html" class="external-link">r2dii.match::prioritize</a></code> function. <code>NULL</code> is a
 valid default value and is usually a setting that works well, at least
 as a starting point. For more information, see the <a href="https://rmi-pacta.github.io/pacta.multi.loanbook/articles/config_yml.html#match_prioritize">relevant
 section on the prioritization of matched loan books</a> in the
 <code><a href="../articles/config_yml.html">vignette("config_yml")</a></code> or the <a href="https://rmi-pacta.github.io/r2dii.match/reference/prioritize.html" class="external-link">documentation
 of the r2dii.match::prioritize() function here</a>.</li>
+<li>
+<code class="sourceCode yaml"><span class="at">by_group</span></code>: by
+which variables to group the loan books to produce grouped results of
+the analysis. This parameter is used across multiple steps of the
+analysis, both in the diagnostics and in the analysis. This is because
+it slices and/or aggregates the loan books such that the analysis will
+produce results along the indicated dimension. If no <code class="sourceCode yaml"><span class="at">by_group</span></code>
+parameter is passed (i.e. <code class="sourceCode yaml"><span class="ch">NULL</span></code>), all loan
+books will be aggregated. Otherwise, loan books can either be kept
+separate (<code class="sourceCode yaml"><span class="at">group_id</span></code>) or
+grouped by any other variable that is provided in each of the raw loan
+books. Although <code class="sourceCode yaml"><span class="at">by_group</span></code> is
+considered a project parameter mainly relevant to the main section of
+the analysis it does affect the split of the prioritzed loan books and
+how their coverage metrics are returned, so it is good to be aware of
+this parameter at this point. See the <a href="https://rmi-pacta.github.io/pacta.multi.loanbook/articles/config_yml.html#by_group">relevant
+section on the <code>by_group</code> parameter in the documentation of
+the <code>config.yml</code> file</a>.</li>
 </ul>
 </div>
 </div>
@@ -445,39 +473,53 @@ analysis<a class="anchor" aria-label="anchor" href="#options-for-the-analysis-fu
 <p>The <code>analysis()</code> function has a number of options that can
 be set in the <code>config.yml</code> file. These options include:</p>
 <ul>
-<li>which source should be used for allocating climate transition
-scenario pathways to the companies and loan books. This refers to the
-relevant scenario publication and usually contains the name and the year
-of the publication, e.g.: <code>"weo_2023"</code> or
-<code>"geco_2023"</code>.</li>
-<li>which scenario should be used for reference in the net aggregate
-alignment metric. This must be a scenario that is included in the source
+<li>
+<code class="sourceCode yaml"><span class="at">scenario_source</span></code>:
+which source should be used for allocating climate transition scenario
+pathways to the companies and loan books. This refers to the relevant
+scenario publication and usually contains the name and the year of the
+publication, e.g.: <code class="sourceCode yaml"><span class="st">"weo_2023"</span></code>
+or <code class="sourceCode yaml"><span class="st">"geco_2023"</span></code>.</li>
+<li>
+<code class="sourceCode yaml"><span class="at">scenario_select</span></code>:
+which scenario should be used for reference in the net aggregate
+alignment metric. This must be a scenario that is included in the <code class="sourceCode yaml"><span class="at">scenario_source</span></code>
 indicated above.</li>
-<li>which region to use as a reference for the analysis. This will
-filter the underlying production capacity to assets in the relevant
-region and will measure alignment against the scenario trajectory for
-the relevant region. It must therefore be a region, for which scenario
-data is available in the source selected above.</li>
-<li>the start year of the analysis. This must be a year that is
-available both in the ABCD data and for which the scenario data has been
-prepared. The loan book data is assumed to be a snapshot of the end of
-the same year.</li>
-<li>the time frame of the analysis, which refers to the number of
-forward looking years after the start year that are to be considered in
-the alignment analysis. Usually this time frame is set to 5 years.
+<li>
+<code class="sourceCode yaml"><span class="at">region_select</span></code>:
+which region to use as a reference for the analysis. This will filter
+the underlying production capacity to assets in the relevant region and
+will measure alignment against the scenario trajectory for the relevant
+region. It must therefore be a region, for which scenario data is
+available in the source selected above. Note that usually, <code class="sourceCode yaml"><span class="st">"global"</span></code>
+is also a valid region.</li>
+<li>
+<code class="sourceCode yaml"><span class="at">start_year</span></code>: the
+start year of the analysis. This must be a year that is available both
+in the ABCD data and for which the scenario data has been prepared. The
+loan book data is assumed to be a snapshot of the end of the same
+year.</li>
+<li>
+<code class="sourceCode yaml"><span class="at">time_frame</span></code>: the
+time frame of the analysis, which refers to the number of forward
+looking years after the start year that are to be considered in the
+alignment analysis. Usually this time frame is set to 5 years.
 Specifically, it must be a time frame for which scenario data values and
 ABCD data values are available for all sectors that are to be analyzed.
 There are not many cases, in which it is expected to change the time
 frame to something else than its default value of 5 years.</li>
-<li>by which variables to group the loan books to produce grouped
-results of the analysis. This parameter is used across multiple steps of
-the analysis, both in the diagnostics and in the analysis. This is
-because it slices and/or aggregates the loan books such that the
-analysis will produce results along the indicated dimension. If no
-<code>by_group</code> parameter is passed (i.e. <code>NULL</code>), all
-loan books will be aggregated. Otherwise, loan books can either be kept
-separate (<code>group_id</code>) or grouped by any other variable that
-is provided in each of the raw loan books.</li>
+<li>
+<code class="sourceCode yaml"><span class="at">by_group</span></code>: by
+which variables to group the loan books to produce grouped results of
+the analysis. This parameter is used across multiple steps of the
+analysis, both in the diagnostics and in the analysis. This is because
+it slices and/or aggregates the loan books such that the analysis will
+produce results along the indicated dimension. If no <code class="sourceCode yaml"><span class="at">by_group</span></code>
+parameter is passed (i.e. <code class="sourceCode yaml"><span class="ch">NULL</span></code>), all loan
+books will be aggregated. Otherwise, loan books can either be kept
+separate (<code class="sourceCode yaml"><span class="at">group_id</span></code>) or
+grouped by any other variable that is provided in each of the raw loan
+books.</li>
 </ul>
 <p>All these options are documented in more detail the <a href="https://rmi-pacta.github.io/pacta.multi.loanbook/articles/config_yml.html#project_parameters">section
 on project parameters</a> in the
