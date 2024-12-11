@@ -51,11 +51,20 @@ run_aggregate_alignment_metric <- function(config) {
   assert_inherits(time_frame, "integer")
 
   # load input data----
-  region_isos_select <- r2dii.data::region_isos %>%
-    dplyr::filter(
-      .data[["source"]] == .env[["scenario_source_input"]],
-      .data[["region"]] %in% .env[["region_select"]]
-    )
+  # if demo data is expected, use the region_isos_demo data set from r2dii.data
+  if (scenario_source_input %in% unique(r2dii.data::region_isos_demo$source)) {
+    region_isos_select <- r2dii.data::region_isos_demo %>%
+      dplyr::filter(
+        .data[["source"]] == .env[["scenario_source_input"]],
+        .data[["region"]] %in% .env[["region_select"]]
+      )
+  } else {
+    region_isos_select <- r2dii.data::region_isos %>%
+      dplyr::filter(
+        .data[["source"]] == .env[["scenario_source_input"]],
+        .data[["region"]] %in% .env[["region_select"]]
+      )
+  }
 
   scenario_input_tms <- readr::read_csv(
     path_scenario_tms,

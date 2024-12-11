@@ -15,10 +15,13 @@ test_that("with known input, runs without error", {
         sheet_abcd = "Company Indicators - PACTA Comp"
       ),
       project_parameters = list(
-        scenario_source = "weo_2022",
-        scenario_select = "nze_2050",
+        scenario_source = "demo_2020",
+        scenario_select = "sds",
+        # scenario_source = "weo_2022",
+        # scenario_select = "nze_2050",
         region_select = "global",
-        start_year = 2022L,
+        start_year = 2020L,
+        # start_year = 2022L,
         time_frame = 5L,
         by_group = "group_id"
       ),
