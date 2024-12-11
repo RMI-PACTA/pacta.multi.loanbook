@@ -70,6 +70,12 @@ prepare_sector_split <- function(config) {
     )
   }
 
+  # validate input data----
+  validate_input_sector_split(
+    data = advanced_company_indicators_raw,
+    start_year = start_year
+  )
+
   # calculate sector split----
   ## wrangle input data----
   advanced_company_indicators <- advanced_company_indicators_raw %>%
@@ -338,4 +344,24 @@ prepare_sector_split <- function(config) {
       file.path(dir_prepared_abcd, "companies_sector_split.csv"),
       na = ""
     )
+}
+
+validate_input_sector_split <- function(data,
+                                        start_year) {
+  # consistency check
+  available_years <- dplyr::select(data, dplyr::starts_with("Equity Ownership"))
+  available_years <- unique(as.numeric(gsub("Equity Ownership ", "", names(available_years))))
+
+  if (!start_year %in% available_years) {
+    cli::cli_abort(
+      message = c(
+        x = "required {.arg start_year} for sector split not found in {.arg data}",
+        i = "You provided: {.arg start_year} = {start_year}",
+        i = "Available values are: {available_years}",
+        i = "Please ensure that your input data sets and parameter settings are consistent."
+      )
+    )
+  }
+
+  invisible()
 }
