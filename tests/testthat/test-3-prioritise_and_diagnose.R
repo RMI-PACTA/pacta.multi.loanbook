@@ -9,7 +9,7 @@ test_that("with known input, runs without error", {
       ),
       project_parameters = list(
         scenario_source = "weo_2022",
-        scenario_select = "nze_2050",
+        scenario_select = "sds",
         region_select = "global",
         start_year = 2022L,
         time_frame = 5L,
@@ -33,14 +33,14 @@ test_that("with known input, runs without error", {
         plot_resolution = 300L
       )
     )
-  
+
   matched_path <- file.path(test_tmpdir, "output/matched_loanbooks/matched_lbk_raw_loanbook_1.csv")
   manual_path <- file.path(test_tmpdir, "output/matched_loanbooks/matched_lbk_raw_loanbook_1_manual.csv")
-  
+
   readr::read_csv(matched_path, show_col_types = FALSE) %>%
-    dplyr::slice_max(order_by = score, by = id_loan) %>% 
-    dplyr::slice_head(by = id_loan) %>% 
+    dplyr::slice_max(order_by = score, by = id_loan) %>%
+    dplyr::slice_head(by = id_loan) %>%
     readr::write_csv(manual_path, na = "")
-  
+
   expect_no_error(suppressWarnings(prioritise_and_diagnose(config)))
 })
