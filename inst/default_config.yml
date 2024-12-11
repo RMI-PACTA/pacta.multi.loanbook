@@ -8,8 +8,8 @@ default:
   file_names:
     filename_scenario_tms: "2023 IEA JRC ISF Auto Fossil Fuel Power (start year 2023).csv"
     filename_scenario_sda: "2023 CO2 Intensity IEA JRC ISF Steel Cement Aviation (start year 2023).csv"
-    filename_abcd: "2023-02-17_AI_RMI_PACTA for Banks Free dataset_EO_2022Q4.xlsx"
-    sheet_abcd: "Company Indicators - PACTA Comp"
+    filename_abcd: "2024-02-14_AI_2023Q4_RMI-PACTA-Dataset.xlsx"
+    sheet_abcd: "Company PACTA Dataset - EO"
   project_parameters:
     scenario_source: "weo_2023"
     scenario_select: "nze_2050"
@@ -20,9 +20,9 @@ default:
     time_frame: 5
     by_group: "group_id"
   sector_split:
-    apply_sector_split: TRUE
+    apply_sector_split: FALSE
     filename_split_company_id: "split_company_ids.csv"
-    filename_advanced_company_indicators: "advanced_company_indicators.xlsx"
+    filename_advanced_company_indicators: "2024-02-14_AI_2023Q4_RMI-Company-Indicators.xlsx"
     sheet_advanced_company_indicators: "Company Activities"
   matching:
     params_match_name:
