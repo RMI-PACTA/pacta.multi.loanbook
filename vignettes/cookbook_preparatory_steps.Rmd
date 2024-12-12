@@ -146,6 +146,7 @@ install.packages("pacta.multi.loanbook")
 You can install the development version of `pacta.multi.loanbook` from GitHub with:
 
 ``` r
+install.packages("pak")
 pak::pak("RMI-PACTA/pacta.multi.loanbook")
 ```
 :::
@@ -154,9 +155,11 @@ pak::pak("RMI-PACTA/pacta.multi.loanbook")
 You can install the development version of `pacta.multi.loanbook` from GitHub with:
 
 ``` r
+install.packages("pak")
 pak::pak("RMI-PACTA/pacta.multi.loanbook")
 ```
 :::
+We use the [`pak` package](https://pak.r-lib.org/index.html) as a simple [tool to install packages from GitHub](https://pak.r-lib.org/reference/pak.html).
 
 #### Connecting to GitHub from RStudio
 
