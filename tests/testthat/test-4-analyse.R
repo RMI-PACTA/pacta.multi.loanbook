@@ -16,7 +16,7 @@ test_that("with known input, runs without error", {
       ),
       project_parameters = list(
         scenario_source = "weo_2022",
-        scenario_select = "nze_2050",
+        scenario_select = "sds",
         region_select = "global",
         start_year = 2022L,
         time_frame = 5L,
