@@ -1,4 +1,4 @@
-# pacta.multi.loanbook <a href="https://rmi-pacta.github.io/pacta.multi.loanbook"><img src="man/figures/logo.png" align="right" height="31" /></a>
+# pacta.multi.loanbook <a href="https://rmi-pacta.github.io/pacta.multi.loanbook/"><img src="man/figures/logo.png" align="right" height="31" /></a>
 
 
 <!-- badges: start -->
