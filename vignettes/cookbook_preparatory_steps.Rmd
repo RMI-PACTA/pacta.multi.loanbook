@@ -179,7 +179,9 @@ If you only plan to use GitHub to install this package or other packages as show
 The `pacta.multi.loanbook` package depends on a number of other R packages. These dependencies will be installed automatically when you install the `pacta.multi.loanbook` package. The required packages are:
 
 ```{r imports, echo = FALSE, results = 'asis'}
-cat(utils::packageDescription("pacta.multi.loanbook")[["Imports"]])
+imports <- utils::packageDescription("pacta.multi.loanbook")[["Imports"]]
+imports <- unlist(strsplit(x = imports, split = ",[[:space:]]"))
+cat(paste0("`", paste0(imports, collapse = "`, `"), "`"))
 ```
 
 ### Suggested R packages
@@ -187,7 +189,9 @@ cat(utils::packageDescription("pacta.multi.loanbook")[["Imports"]])
 The suggested packages are not required to run the analysis, but they are used in the examples and vignettes provided with the package:
 
 ```{r suggests, echo = FALSE, results = 'asis'}
-cat(utils::packageDescription("pacta.multi.loanbook")[["Suggests"]])
+imports <- utils::packageDescription("pacta.multi.loanbook")[["Suggests"]]
+imports <- unlist(strsplit(x = imports, split = ",[[:space:]]"))
+cat(paste0("`", paste0(imports, collapse = "`, `"), "`"))
 ```
 
 ### FAQ
