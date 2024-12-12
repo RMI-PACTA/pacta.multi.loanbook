@@ -18,17 +18,16 @@ Designed for financial supervisory contexts, it simplifies climate alignment ana
 
 ## Installation
 
-<!--
 You can install the release version of the package by running the following command in R:
 
 ``` r
 install.packages("pacta.multi.loanbook")
 ```
--->
 
 You can install the development version of the package from GitHub with:
 
 ``` r
+# install.packages("pak")
 pak::pak("RMI-PACTA/pacta.multi.loanbook")
 ```
 
