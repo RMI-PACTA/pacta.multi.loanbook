@@ -40,7 +40,7 @@ In terms of implementation, suppose we want to run the analysis at the aggregate
 Assuming you have followed the naming convention described here, your project folder should look something like this:
 
 ```
-project_folder
+your_project_folder
 ├── config.yml
 ├── input
 │   ├── ABCD.xlsx
@@ -85,7 +85,7 @@ The implementation of this use case is relatively straight-forward:
 Assuming you have followed the naming convention described here, your project folder should look something like this:
 
 ```
-project_folder
+your_project_folder
 ├── config.yml
 ├── input
 │   ├── ABCD.xlsx
@@ -136,7 +136,7 @@ The following steps should be followed to implement this use case:
 Assuming you have followed the naming convention described here, your project folder should look something like this:
 
 ```
-project_folder
+your_project_folder
 ├── config.yml
 ├── input
 │   ├── ABCD.xlsx
