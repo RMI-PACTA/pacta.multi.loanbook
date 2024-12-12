@@ -126,7 +126,7 @@ Using the `pacta.multi.loanbook` package for the PACTA for Supervisors analysis 
 
 ### R (version 4.1.0 or higher)
 
-R is the programming language that the `pacta.multi.loanbook` package is written in. You can download R from the [Comprehensive R Archive Network ()](https://.r-project.org/).
+R is the programming language that the `pacta.multi.loanbook` package is written in. You can download R from the [Comprehensive R Archive Network (CRAN)](https://cran.r-project.org/).
 
 ### RStudio (optional)
 
