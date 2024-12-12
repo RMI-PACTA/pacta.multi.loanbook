@@ -7,8 +7,9 @@
 # capacity by this efficiency factor to derive the physical energy input.
 # We apply such factors for fossil fuel based power generation only, since we
 # are interested in approximating the exposure to fossil fuels.
-# Values for efficiency of electricity production are taken from IEA "Energy
-# Efficiency Indicators for Public Electricity Prodcution from Fossil Fuels" at
+# Values for efficiency of electricity production (of coal, gas, and oil-fired
+# power generation are taken from IEA "Energy Efficiency Indicators for Public
+# Electricity Prodcution from Fossil Fuels" at
 # https://iea.blob.core.windows.net/assets/acaecb98-4430-4395-a4fa-d1a4d5ccb3d3/EnergyEfficiencyIndicatorsforPublicElectricityProductionfromFossilFuels.pdf
 # last accessed on 15 March, 2023.
 
@@ -21,7 +22,7 @@ primary_energy_efficiency <- dplyr::tribble(
   "global", "power",    "nuclearcap",                                 1,
   "global", "power", "renewablescap",                                 1
 )
-
+# Source: IEA (2008) Energy Efficiency Indicators for Public Electricity Production From Fossil Fuels. All rights reserved.
 
 # unit conversions -------------------------------------------------------------
 
@@ -34,7 +35,7 @@ unit_conversion <- dplyr::tribble(
   "oil and gas", "GJ",              2.3885e-08,
   "power",       "MWh",             8.598e-08
 )
-
+# Source: IEA (2023) World Energy Balances Database documentation. All rights reserved.
 
 # activity units ---------------------------------------------------------------
 
