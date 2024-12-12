@@ -1,4 +1,4 @@
-# pacta.multi.loanbook <a href="https://rmi-pacta.github.io/pacta.multi.loanbook"><img src="man/figures/logo.png" align="right" height="31" /></a>
+# pacta.multi.loanbook <a href="https://rmi-pacta.github.io/pacta.multi.loanbook/"><img src="man/figures/logo.png" align="right" height="31" /></a>
 
 
 <!-- badges: start -->
@@ -6,7 +6,7 @@
 [![R-CMD-check](https://github.com/RMI-PACTA/pacta.multi.loanbook/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/RMI-PACTA/pacta.multi.loanbook/actions/workflows/R-CMD-check.yaml)
 <!-- [![CRAN
 status](https://www.r-pkg.org/badges/version/pacta.multi.loanbook)](https://CRAN.R-project.org/package=pacta.multi.loanbook) -->
-[![codecov](https://codecov.io/gh/RMI-PACTA/pacta.multi.loanbook/graph/badge.svg)](https://codecov.io/gh/RMI-PACTA/pacta.multi.loanbook)
+[![codecov](https://app.codecov.io/gh/RMI-PACTA/pacta.multi.loanbook/graph/badge.svg)](https://app.codecov.io/gh/RMI-PACTA/pacta.multi.loanbook)
 [![pacta.multi.loanbook status badge](https://rmi-pacta.r-universe.dev/badges/pacta.multi.loanbook)](https://rmi-pacta.r-universe.dev/pacta.multi.loanbook)
 <!-- badges: end -->
 
@@ -35,4 +35,4 @@ pak::pak("RMI-PACTA/pacta.multi.loanbook")
 
 Please consult the following resource for instructions on using the package. The cookbook provides a detailed overview covering the setup of the necessary software environment, obtaining and preparing input data, running the analysis, and interpreting the results.
 
-- [Cookbook](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/cookbook_overview.html): A comprehensive guide for setting up, running and interpreting the analysis.
+- [Cookbook](https://rmi-pacta.github.io/pacta.multi.loanbook//articles/cookbook_overview.html): A comprehensive guide for setting up, running and interpreting the analysis.
