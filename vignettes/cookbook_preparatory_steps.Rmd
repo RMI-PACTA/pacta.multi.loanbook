@@ -137,8 +137,13 @@ RStudio is an integrated development environment (IDE) for R developed by Posit.
 The `pacta.multi.loanbook` package is the main software tool that you will use to run the PACTA for Supervisors analysis.
 
 ::: {.pkgdown-release}
-You can install the package from the [RStudio CRAN mirror](https://CRAN.R-project.org/package=pacta.multi.loanbook) by running the following command in R:
+You can install the package from the RStudio CRAN mirror by running the following command in R:
 
+<!--
+The above will be replaced with the actual CRAN link once the package is on CRAN.
+
+You can install the package from the [RStudio CRAN mirror](https://CRAN.R-project.org/package=pacta.multi.loanbook) by running the following command in R:
+-->
 ``` r
 install.packages("pacta.multi.loanbook")
 ```
