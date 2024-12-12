@@ -1,5 +1,19 @@
 ## R CMD check results
 
-0 errors | 0 warnings | 1 note
+❯ checking CRAN incoming feasibility ... [3s/20s] NOTE
+  Maintainer: ‘Jacob Kastl <jacob.kastl@gmail.com>’
+  
+  New submission
+  
+  Version contains large components (0.0.0.9000)
 
-* This is a new release.
+❯ checking for future file timestamps ... NOTE
+  unable to verify current time
+
+0 errors ✔ | 0 warnings ✔ | 2 notes ✖
+
+## revdepcheck results
+
+── CHECK ───────────────────────────────────────────────────────────────────────────────────────── 0 packages ──
+OK: 0
+BROKEN: 0
