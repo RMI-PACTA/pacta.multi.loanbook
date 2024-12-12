@@ -146,7 +146,7 @@ install.packages("pacta.multi.loanbook")
 You can install the development version of `pacta.multi.loanbook` from GitHub with:
 
 ``` r
-install.packages("pak")
+# install.packages("pak")
 pak::pak("RMI-PACTA/pacta.multi.loanbook")
 ```
 :::
