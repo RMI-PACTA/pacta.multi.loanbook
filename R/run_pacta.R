@@ -90,6 +90,13 @@ run_pacta <- function(config) {
     col_types = col_types_abcd_final
   )
 
+  # validate input data ----
+  validate_input_run_pacta(
+    scenario_data_tms = scenario_input_tms,
+    scenario_data_sda = scenario_input_sda,
+    start_year = start_year
+  )
+
   # read matched and prioritized loan book----
   list_matched_prioritized <- list.files(path = dir_prioritized_loanbooks_and_diagnostics, pattern = "^matched_prio_.*csv$")
   assert_any_file_exists(list_matched_prioritized, dir_prioritized_loanbooks_and_diagnostics, "dir_prioritized_loanbooks_and_diagnostics", "matched prioritized loan book CSVs")
@@ -231,3 +238,33 @@ run_pacta <- function(config) {
   generate_individual_outputs_in_groups("cement", "sda")
   generate_individual_outputs_in_groups("steel", "sda")
 }
+
+validate_input_run_pacta <- function(scenario_data_tms,
+                                     scenario_data_sda,
+                                     start_year) {
+  # consistency check
+  if (!min(scenario_data_tms$year) == start_year) {
+    cli::cli_abort(
+      message = c(
+        x = "required {.arg start_year} for running pacta is not the initial year found in {.arg scenario_data_tms}",
+        i = "You provided: {.arg start_year} = {start_year}",
+        i = "Initial year in {.arg scenario_data_tms} is: {min(scenario_data_tms$year)}",
+        i = "Please ensure that your input data sets and parameter settings are consistent."
+      )
+    )
+  }
+
+  if (!min(scenario_data_sda$year) == start_year) {
+    cli::cli_abort(
+      message = c(
+        x = "required {.arg start_year} for running pacta is not the initial year found in {.arg scenario_data_sda}",
+        i = "You provided: {.arg start_year} = {start_year}",
+        i = "Initial year in {.arg scenario_data_sda} is: {min(scenario_data_sda$year)}",
+        i = "Please ensure that your input data sets and parameter settings are consistent."
+      )
+    )
+  }
+
+  invisible()
+}
+

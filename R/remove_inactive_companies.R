@@ -37,6 +37,13 @@ remove_inactive_companies <- function(config) {
   abcd <- read_abcd_raw(path_abcd, sheet_abcd)
   assert_expected_columns(abcd, cols_abcd, desc = "ABCD")
 
+  # validate input----
+  validate_input_remove_inactive_companies(
+    data = abcd,
+    start_year = start_year,
+    time_frame = time_frame
+  )
+
   # optional: remove inactive companies----
 
   # (1) remove company-sector combinations where production in t5 = 0 when
@@ -128,4 +135,23 @@ remove_inactive_companies <- function(config) {
       file.path(dir_prepared_abcd, "abcd_final.csv"),
       na = ""
     )
+}
+
+validate_input_remove_inactive_companies <- function(data,
+                                                     start_year,
+                                                     time_frame) {
+  # consistency check
+  if (!all(seq(from = start_year, to = start_year + time_frame) %in% unique(data$year))) {
+    cli::cli_abort(
+      message = c(
+        x = "required set of years for analysis based on  {.arg start_year} and {.arg time_frame} not found in {.arg data}",
+        i = "You provided: {.arg start_year} = {start_year} and {.arg time_frame} = {time_frame}, which requires years: {seq(from = start_year, to = start_year + time_frame)}",
+        i = "Available values are: {unique(data$year)}",
+        i = "Missing years in  {.arg data}: {setdiff(seq(from = start_year, to = start_year + time_frame), unique(data$year))}",
+        i = "Please ensure that your input data sets and parameter settings are consistent."
+      )
+    )
+  }
+
+  invisible()
 }
