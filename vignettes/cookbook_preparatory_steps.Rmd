@@ -221,7 +221,7 @@ The `config.yml` file then points to an input directory and to four output direc
 An example of how the project folder could be structured:
 
 ```
-project_folder
+your_project_folder
 ├── config.yml
 ├── input
 │   ├── ABCD.xlsx
@@ -246,7 +246,7 @@ You can use the following code to initialise a project folder structure:
 
 ``` r
 library(pacta.multi.loanbook)
-initialise_default_project(path = "path/to/project_folder")
+initialise_default_project(path = "path/to/your_project_folder")
 ```
 
 This will create a minimal project folder structure similar to the one shown above.
