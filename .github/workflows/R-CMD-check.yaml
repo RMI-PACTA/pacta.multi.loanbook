@@ -60,3 +60,5 @@ jobs:
           upload-snapshots: true
           build_args: 'c("--no-manual","--compact-vignettes=gs+qpdf")'
           error-on: '"note"'
+        env:
+          _R_CHECK_CRAN_INCOMING_: true
