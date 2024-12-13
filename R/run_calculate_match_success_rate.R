@@ -75,8 +75,8 @@ run_calculate_match_success_rate <- function(config) {
 
   raw_lbk <- raw_lbk %>%
     dplyr::mutate(
-      group_id = gsub(glue::glue("{dir_loanbooks}/"), "", .data[["group_id"]]),
-      group_id = gsub(".csv", "", .data[["group_id"]])
+      group_id = basename(.data[["group_id"]]),
+      group_id = sub("[.]csv$", "", .data[["group_id"]])
     )
 
   ## load matched prioritized loan books----
