@@ -152,7 +152,7 @@ plot_sankey <- function(data,
       # you convert it as png
       webshot::webshot(temp_html, path.expand(file_name), vwidth = 1000, vheight = 900)
     } else {
-      cli::cli_abort(
+      cli::cli_warn(
         "In order to save the plot as PNG, you need to have {.pkg phantomjs}
         installed. Please run {.run webshot::install_phantomjs()} if you don't
         and try running the function again."
