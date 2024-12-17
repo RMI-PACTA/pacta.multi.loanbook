@@ -162,6 +162,10 @@ plot_aggregate_loanbooks <- function(config) {
       output_file_sankey_sector <- glue::glue("sankey_sector_{by_group}")
     }
 
+    if (is.null(by_group)) {
+      by_group <- "aggregate_loan_book"
+    }
+
     data_sankey_sector %>%
       readr::write_csv(
         file = file.path(
@@ -171,50 +175,27 @@ plot_aggregate_loanbooks <- function(config) {
         na = ""
       )
 
-    plot_sankey(
-      data_sankey_sector,
-      group_var = by_group,
-      save_png_to = path.expand(analysis_aggregated_dir),
-      png_name = glue::glue("plot_{output_file_sankey_sector}.png"),
-      nodes_order_from_data = TRUE
+    p_sankey <- plot_sankey(
+      data = data_sankey_sector,
+      y_axis = "loan_size_outstanding",
+      initial_node = by_group,
+      middle_node = "sector",
+      end_node = "is_aligned",
+      stratum = "is_aligned"
     )
+
+    ggplot2::ggsave(
+      plot = p_sankey,
+      filename = glue::glue("plot_{output_file_sankey_sector}.png"),
+      path = analysis_aggregated_dir,
+      width = 8,
+      height = 5,
+      dpi = 300,
+      units = "in",
+    )
+
   } else {
     cli::cli_warn("Sankey plot (by sector) cannot be generated. Skipping!")
-  }
-
-  if (!is.null(company_aggregated_alignment_net)) {
-    data_sankey_company_sector <- prep_sankey(
-      company_aggregated_alignment_net,
-      region = "global",
-      year = start_year + time_frame_select,
-      group_var = by_group,
-      middle_node = "name_abcd",
-      middle_node2 = "sector"
-    )
-
-    if (is.null(by_group)) {
-      output_file_sankey_company_sector <- "sankey_company_sector"
-    } else {
-      output_file_sankey_company_sector <- glue::glue("sankey_company_sector_{by_group}")
-    }
-
-    data_sankey_company_sector %>%
-      readr::write_csv(
-        file = file.path(
-          analysis_aggregated_dir,
-          glue::glue("data_{output_file_sankey_company_sector}.csv")
-        ),
-        na = ""
-      )
-
-    plot_sankey(
-      data_sankey_company_sector,
-      group_var = by_group,
-      save_png_to = path.expand(analysis_aggregated_dir),
-      png_name = glue::glue("plot_{output_file_sankey_company_sector}.png")
-    )
-  } else {
-    cli::cli_warn("Sankey plot (by sector and company) cannot be generated. Skipping!")
   }
 
   ### scatter plot alignment by exposure and sector comparison----

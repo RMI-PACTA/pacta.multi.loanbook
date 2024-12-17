@@ -6,8 +6,6 @@
 #' @param group_var Character. Vector of length 1. Variable to group by.
 #' @param middle_node Character. Column specifying the middle nodes to be
 #'   plotted in sankey plot. Must be present in `data_alignment`.
-#' @param middle_node2 Character. Column specifying the middle nodes to be
-#'   plotted in sankey plot. Must be present in `data_alignment`.
 #'
 #' @return data.frame
 #'
@@ -19,8 +17,7 @@ prep_sankey <- function(data_alignment,
                         region,
                         year,
                         group_var,
-                        middle_node,
-                        middle_node2 = NULL) {
+                        middle_node) {
   if (!is.null(group_var)) {
     if (!inherits(group_var, "character")) {
       cli::cli_abort("{.arg group_var} must be of class {.cls character}")
@@ -39,8 +36,7 @@ prep_sankey <- function(data_alignment,
     region = region,
     year = year,
     group_var = group_var,
-    middle_node = middle_node,
-    middle_node2 = middle_node2
+    middle_node = middle_node
   )
 
   data_alignment <- data_alignment %>%
@@ -49,47 +45,30 @@ prep_sankey <- function(data_alignment,
       .data[["year"]] == .env[["year"]]
     )
 
-  if (is.null(middle_node2)) {
-    data_out <- data_alignment %>%
-      dplyr::mutate(
-        is_aligned = dplyr::case_when(
-          alignment_metric >= 0 ~ "Aligned",
-          alignment_metric < 0 ~ "Not aligned",
-          TRUE ~ "Unknown"
-        ),
-        middle_node = !!rlang::sym(middle_node)
-      ) %>%
-      dplyr::select(group_var, "middle_node", "is_aligned", "loan_size_outstanding") %>%
-      dplyr::group_by(!!rlang::sym(group_var), .data[["middle_node"]], .data[["is_aligned"]]) %>%
-      dplyr::summarise(loan_size_outstanding = sum(.data[["loan_size_outstanding"]], na.rm = TRUE)) %>%
-      dplyr::ungroup() %>%
-      dplyr::arrange(!!rlang::sym(group_var), .data[["is_aligned"]])
-  } else {
-    data_out <- data_alignment %>%
-      dplyr::mutate(
-        is_aligned = dplyr::case_when(
-          .data[["alignment_metric"]] >= 0 ~ "Aligned",
-          .data[["alignment_metric"]] < 0 ~ "Not aligned",
-          TRUE ~ "Unknown"
-        ),
-        middle_node = !!rlang::sym(middle_node),
-        middle_node2 = !!rlang::sym(middle_node2)
-      ) %>%
-      dplyr::select(group_var, "middle_node", "middle_node2", "is_aligned", "loan_size_outstanding") %>%
-      dplyr::group_by(!!rlang::sym(group_var), .data[["middle_node"]], .data[["middle_node2"]], .data[["is_aligned"]]) %>%
-      dplyr::summarise(loan_size_outstanding = sum(.data[["loan_size_outstanding"]], na.rm = TRUE)) %>%
-      dplyr::ungroup() %>%
-      dplyr::arrange(!!rlang::sym(group_var), .data[["is_aligned"]])
-  }
-  data_out
+  data_out <- data_alignment %>%
+    dplyr::mutate(
+      is_aligned = dplyr::case_when(
+        alignment_metric >= 0 ~ "Aligned",
+        alignment_metric < 0 ~ "Not aligned",
+        TRUE ~ "Unknown"
+      ),
+      middle_node = !!rlang::sym(middle_node),
+      sector = !!rlang::sym(middle_node)
+    ) %>%
+    dplyr::select(group_var, "middle_node", "sector", "is_aligned", "loan_size_outstanding") %>%
+    dplyr::group_by(!!rlang::sym(group_var), .data[["middle_node"]], .data[["sector"]], .data[["is_aligned"]]) %>%
+    dplyr::summarise(loan_size_outstanding = sum(.data[["loan_size_outstanding"]], na.rm = TRUE)) %>%
+    dplyr::ungroup() %>%
+    dplyr::arrange(!!rlang::sym(group_var), .data[["is_aligned"]])
+
+    data_out
 }
 
 check_prep_sankey <- function(data_alignment,
                               region,
                               year,
                               group_var,
-                              middle_node,
-                              middle_node2) {
+                              middle_node) {
   names_all <- c(group_var, "name_abcd", "sector")
   names_aggergate <- c("region", "year")
   assert_no_missing_names(data_alignment, c(names_all, names_aggergate))
@@ -111,9 +90,6 @@ check_prep_sankey <- function(data_alignment,
     ))
   }
   assert_middle_node_column_exists(data_alignment, middle_node, env = list(data = substitute(data_alignment)))
-  if (!is.null(middle_node2)) {
-    assert_middle_node_column_exists(data_alignment, middle_node2, list(data = substitute(data_alignment)))
-  }
 }
 
 assert_middle_node_column_exists <- function(data, name, env = parent.frame()) {
