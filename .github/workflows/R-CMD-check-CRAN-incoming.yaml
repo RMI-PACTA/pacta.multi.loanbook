@@ -40,7 +40,7 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::rcmdcheck, any::crayon
+          extra-packages: any::rcmdcheck, any::crayon, any::xml2
           needs: check
 
       - name: Install aspell on Windows
