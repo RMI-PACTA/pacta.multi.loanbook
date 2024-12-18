@@ -162,10 +162,6 @@ plot_aggregate_loanbooks <- function(config) {
       output_file_sankey_sector <- glue::glue("sankey_sector_{by_group}")
     }
 
-    if (is.null(by_group)) {
-      by_group <- "aggregate_loan_book"
-    }
-
     data_sankey_sector %>%
       readr::write_csv(
         file = file.path(
@@ -179,9 +175,7 @@ plot_aggregate_loanbooks <- function(config) {
       data = data_sankey_sector,
       y_axis = "loan_size_outstanding",
       initial_node = by_group,
-      middle_node = "sector",
-      end_node = "is_aligned",
-      stratum = "is_aligned"
+      middle_node = "sector"
     )
 
     ggplot2::ggsave(

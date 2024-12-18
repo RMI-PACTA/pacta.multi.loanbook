@@ -1,18 +1,21 @@
 #' Make a sankey plot
 #'
 #' @param data data.frame. Should have the same format as output of
-#'   `prep_sankey()` and contain columns: `"middle_node"`, optionally
-#'   `"middle_node2"`, `"is_aligned"`, `"loan_size_outstanding"`, and any column
-#'   implied by `group_var`.
-#' @param y_axis Character. Vector of length 1. Variable to group by.
-#' @param initial_node Logical. Flag indicating if node labels should
-#'   be converted into better looking capitalised form.
-#' @param middle_node Character. Path where the output in png format should be
-#'   saved
-#' @param end_node Logical. Flag indicating if nodes order should
-#'   be determined by an algorithm (in case of big datasets often results in a
-#'   better looking plot) or should they be ordered based on data.
-#' @param stratum Character. File name of the output.
+#'   `prep_sankey()` and contain columns: `"y_axis"`, `"initial_node"`,
+#'   `"middle_node"`, `"end_node"`, `"stratum"`.
+#' @param y_axis Character. Vector of length 1. Variable to determine the
+#'   vertical size of the ribbons, e.g. `"loan_size_outstanding"`.
+#' @param initial_node Character. Vector of length 1. Variable to determine the
+#'   initial node of the sankey chart. Usually, this will be the groups by which
+#'   the loan books are aggregated.
+#' @param middle_node Character. Vector of length 1. Variable to determine the
+#'   middle node of the sankey chart. Usually, this will be the PACTA sectors.
+#' @param end_node Character. Vector of length 1. Variable to determine the
+#'   end node of the sankey chart. Usually, this will be a binary indicator of
+#'   alignment.
+#' @param stratum  Character. Vector of length 1. Variable to determine the
+#'   grouping and fill of the ribbons of the sankey chart. Usually, this will be
+#'   a binary indicator of alignment.
 #'
 #' @return NULL
 #'
@@ -24,15 +27,10 @@ plot_sankey <- function(data,
                         middle_node = "sector",
                         end_node = "is_aligned",
                         stratum = "is_aligned") {
-  data <- data %>%
-    dplyr::mutate(
-      y_axis = .data[[y_axis]],
-      initial_node = .data[[initial_node]],
-      middle_node = .data[[middle_node]],
-      end_node = .data[[end_node]],
-      stratum = .data[[stratum]]
-    ) %>%
-    dplyr::select(!dplyr::all_of(c(y_axis, initial_node, middle_node, end_node, stratum)))
+  # since the initial node is the loan book aggregation, NULL grouping corresponds to the aggregate loan book
+  if (is.null(initial_node)) {
+    initial_node <- "aggregate_loan_book"
+  }
 
   p <- ggplot2::ggplot(
     data = data,
@@ -44,28 +42,26 @@ plot_sankey <- function(data,
     )
   ) +
     ggplot2::scale_x_discrete(
-      limits = c(initial_node, middle_node, end_node), expand = c(.2, .05)
+      limits = c(initial_node, middle_node, end_node),
+      expand = c(.2, .05)
     ) +
+    ggplot2::scale_y_continuous(labels = scales::comma) +
     ggplot2::xlab("Counterparty alignment") +
     ggplot2::ylab("Financial exposure") +
     ggalluvial::geom_alluvium(ggplot2::aes(fill = .data[["stratum"]])) +
     ggplot2::scale_fill_manual(
-      values = c("Aligned" = "green4", "Not aligned" = "red3", "Unknown" = "gray")#,
-      # labels = c("Aligned", "Not aligned", "Unknown")
+      values = c("Aligned" = "green4", "Not aligned" = "red3", "Unknown" = "gray")
     ) +
-    ggalluvial::geom_stratum() +
-    # ggplot2::geom_text(
-    #   stat = ggalluvial::StatStratum,
-    #   ggplot2::aes(label = ggplot2::after_stat(stratum))
-    # ) +
+    ggalluvial::geom_stratum(ggplot2::aes(fill = "gray60")) +
     ggrepel::geom_text_repel(
       ggplot2::aes(label = ggplot2::after_stat(stratum)),
       stat = ggalluvial::StatStratum, size = 4, direction = "y", nudge_x = .5
     ) +
-    ggplot2::theme_minimal() +
-    ggplot2::ggtitle("Sankey chart of counterparty alignment by financial exposure",
-                     "stratified by counterpaty alignment and sector")
+    r2dii.plot::theme_2dii() +
+    ggplot2::ggtitle(
+      "Sankey chart of counterparty alignment by financial exposure",
+      paste0("stratified by counterpaty alignment and ", middle_node)
+    )
 
   p
 }
-

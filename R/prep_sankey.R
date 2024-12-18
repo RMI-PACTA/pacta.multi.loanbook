@@ -52,16 +52,38 @@ prep_sankey <- function(data_alignment,
         alignment_metric < 0 ~ "Not aligned",
         TRUE ~ "Unknown"
       ),
-      middle_node = !!rlang::sym(middle_node),
-      sector = !!rlang::sym(middle_node)
+      middle_node = !!rlang::sym(middle_node)
     ) %>%
-    dplyr::select(group_var, "middle_node", "sector", "is_aligned", "loan_size_outstanding") %>%
-    dplyr::group_by(!!rlang::sym(group_var), .data[["middle_node"]], .data[["sector"]], .data[["is_aligned"]]) %>%
-    dplyr::summarise(loan_size_outstanding = sum(.data[["loan_size_outstanding"]], na.rm = TRUE)) %>%
-    dplyr::ungroup() %>%
-    dplyr::arrange(!!rlang::sym(group_var), .data[["is_aligned"]])
+    dplyr::select(
+      group_var,
+      "middle_node",
+      "is_aligned",
+      "loan_size_outstanding"
+    ) %>%
+    dplyr::summarise(
+      loan_size_outstanding = sum(.data[["loan_size_outstanding"]], na.rm = TRUE),
+      .by = c(group_var, "middle_node", "is_aligned")
+    ) %>%
+    dplyr::arrange(!!rlang::sym(group_var), .data[["is_aligned"]]) %>%
+    dplyr::mutate(
+      y_axis = .data$loan_size_outstanding,
+      initial_node = .data[[group_var]],
+      end_node = .data$is_aligned,
+      stratum = .data$is_aligned
+    ) %>%
+    dplyr::select(
+      dplyr::all_of(
+        c(
+          "y_axis",
+          "initial_node",
+          "middle_node",
+          "end_node",
+          "stratum"
+        )
+      )
+    )
 
-    data_out
+  data_out
 }
 
 check_prep_sankey <- function(data_alignment,
