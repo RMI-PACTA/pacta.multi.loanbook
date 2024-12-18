@@ -72,7 +72,7 @@ jobs:
           check_results <- rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), build_args = c("--no-manual", "--compact-vignettes=gs+qpdf"), error_on = "warning", check_dir = "check")
           writeLines(paste0("```\n", check_results$stdout, "\n```"), Sys.getenv("GITHUB_STEP_SUMMARY"))
           notes <- unlist(strsplit(check_results$notes, "\\n"))
-          notes <- grep("^checking CRAN incoming feasibility|^Maintainer: |^New submission$|^Version contains large components (|^$", notes, value = TRUE, invert = TRUE)
+          notes <- grep("^checking CRAN incoming feasibility|^Maintainer: |^New submission$|^Version contains large components |^$", notes, value = TRUE, invert = TRUE)
           writeLines(paste0("R CMD check CRAN incoming feasibility check notes found:\n```\n", paste(notes, collapse = "\n"), "\n```"), "notes.md")
           if (length(notes) > 0L) cat("::error::Notes found in CRAN incoming feasibility check\n"); cat(paste(notes, collapse = "\n")); quit(status=1)
         shell: Rscript {0}
