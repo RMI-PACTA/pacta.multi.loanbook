@@ -49,4 +49,3 @@ jobs:
           force: false
           clean-exclude: |
             pr-preview/
-            dev/
