@@ -60,6 +60,7 @@ Depends:
 License: MIT + file LICENSE
 RoxygenNote: 7.3.2
 Suggests: 
+    DiagrammeR,
     gt,
     knitr,
     pkgdown,
