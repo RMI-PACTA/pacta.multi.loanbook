@@ -175,7 +175,9 @@ plot_aggregate_loanbooks <- function(config) {
       data = data_sankey_sector,
       y_axis = "loan_size_outstanding",
       initial_node = by_group,
-      middle_node = "sector"
+      middle_node = "sector",
+      end_node = "is_aligned",
+      stratum = "is_aligned"
     )
 
     ggplot2::ggsave(

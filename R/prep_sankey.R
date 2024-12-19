@@ -52,17 +52,22 @@ prep_sankey <- function(data_alignment,
         alignment_metric < 0 ~ "Not aligned",
         TRUE ~ "Unknown"
       ),
-      middle_node = !!rlang::sym(middle_node)
+      middle_node = tools::toTitleCase(!!rlang::sym(middle_node))
     ) %>%
     dplyr::select(
-      group_var,
-      "middle_node",
-      "is_aligned",
-      "loan_size_outstanding"
+      dplyr::all_of(
+        c(
+          group_var,
+          "middle_node",
+          "is_aligned",
+          "loan_size_outstanding",
+          "loan_size_outstanding_currency"
+        )
+      )
     ) %>%
     dplyr::summarise(
       loan_size_outstanding = sum(.data[["loan_size_outstanding"]], na.rm = TRUE),
-      .by = c(group_var, "middle_node", "is_aligned")
+      .by = c(group_var, "middle_node", "is_aligned", "loan_size_outstanding_currency")
     ) %>%
     dplyr::arrange(!!rlang::sym(group_var), .data[["is_aligned"]]) %>%
     dplyr::mutate(
@@ -78,7 +83,8 @@ prep_sankey <- function(data_alignment,
           "initial_node",
           "middle_node",
           "end_node",
-          "stratum"
+          "stratum",
+          currency = "loan_size_outstanding_currency"
         )
       )
     )

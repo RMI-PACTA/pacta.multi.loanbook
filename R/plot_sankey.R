@@ -2,7 +2,7 @@
 #'
 #' @param data data.frame. Should have the same format as output of
 #'   `prep_sankey()` and contain columns: `"y_axis"`, `"initial_node"`,
-#'   `"middle_node"`, `"end_node"`, `"stratum"`.
+#'   `"middle_node"`, `"end_node"`, `"stratum"`, `"currency"`.
 #' @param y_axis Character. Vector of length 1. Variable to determine the
 #'   vertical size of the ribbons, e.g. `"loan_size_outstanding"`.
 #' @param initial_node Character. Vector of length 1. Variable to determine the
@@ -32,6 +32,8 @@ plot_sankey <- function(data,
     initial_node <- "aggregate_loan_book"
   }
 
+  currency <- unique(data[["currency"]])
+
   p <- ggplot2::ggplot(
     data = data,
     ggplot2::aes(
@@ -41,23 +43,23 @@ plot_sankey <- function(data,
       y = .data[["y_axis"]]
     )
   ) +
-    ggplot2::scale_x_discrete(
-      limits = c(initial_node, middle_node, end_node),
-      expand = c(.2, .05)
-    ) +
     ggplot2::scale_y_continuous(labels = scales::comma) +
-    ggplot2::xlab("Counterparty alignment") +
-    ggplot2::ylab("Financial exposure") +
+    ggplot2::ylab(glue::glue("Financial exposure (in {currency})")) +
     ggalluvial::geom_alluvium(ggplot2::aes(fill = .data[["stratum"]])) +
     ggplot2::scale_fill_manual(
-      values = c("Aligned" = "green4", "Not aligned" = "red3", "Unknown" = "gray")
+      values = c("Aligned" = "green4", "Not aligned" = "red3", "Unknown" = "gray40")
     ) +
-    ggalluvial::geom_stratum(ggplot2::aes(fill = "gray60")) +
+    ggalluvial::geom_stratum(fill = "gray85", color = "gray50") +
     ggrepel::geom_text_repel(
       ggplot2::aes(label = ggplot2::after_stat(stratum)),
-      stat = ggalluvial::StatStratum, size = 4, direction = "y", nudge_x = .5
+      stat = ggalluvial::StatStratum, size = 4, direction = "y", nudge_x = .3
     ) +
     r2dii.plot::theme_2dii() +
+    ggplot2::theme(
+      axis.title.x = ggplot2::element_blank(),
+      axis.text.x = ggplot2::element_blank(),
+      axis.ticks.x = ggplot2::element_blank()
+    ) +
     ggplot2::ggtitle(
       "Sankey chart of counterparty alignment by financial exposure",
       paste0("stratified by counterpaty alignment and ", middle_node)
