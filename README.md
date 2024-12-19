@@ -10,7 +10,7 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 [![R-CMD-check](https://github.com/RMI-PACTA/pacta.multi.loanbook/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/RMI-PACTA/pacta.multi.loanbook/actions/workflows/R-CMD-check.yaml)
 <!-- [![CRAN
 status](https://www.r-pkg.org/badges/version/pacta.multi.loanbook)](https://CRAN.R-project.org/package=pacta.multi.loanbook) -->
-[![codecov](https://app.codecov.io/gh/RMI-PACTA/pacta.multi.loanbook/graph/badge.svg)](https://app.codecov.io/gh/RMI-PACTA/pacta.multi.loanbook)
+[![codecov](https://codecov.io/gh/RMI-PACTA/pacta.multi.loanbook/graph/badge.svg)](https://app.codecov.io/gh/RMI-PACTA/pacta.multi.loanbook)
 [![pacta.multi.loanbook status
 badge](https://rmi-pacta.r-universe.dev/badges/pacta.multi.loanbook)](https://rmi-pacta.r-universe.dev/pacta.multi.loanbook)
 <!-- badges: end -->
