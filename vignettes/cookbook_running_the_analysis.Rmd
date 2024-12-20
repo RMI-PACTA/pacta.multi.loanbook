@@ -29,10 +29,17 @@ The PACTA for Supervisors analysis consists of four main steps:
 The following diagram illustrates the structure of the workflow:
 
 ```{r workflow_structure, echo=FALSE, fig.cap='Fig. 1: Structure of the Workflow', fig.align='center'}
-DiagrammeR::mermaid('graph TD
-  id1("prepare_abcd()") --> id2("match_loanbooks()")
-  id2("match_loanbooks()") --> id3("prioritise_and_diagnose()")
-  id3("prioritise_and_diagnose()") --> id4("analyse()")
+DiagrammeR::mermaid('
+  graph TB;
+    id1("prepare_abcd()") --> id2("match_loanbooks()");
+    id2("match_loanbooks()") --> id3("prioritise_and_diagnose()");
+    id3("prioritise_and_diagnose()") --> id4("analyse()");
+    classDef nodeStyle fill: #45cfcc, stroke: #000, stroke-width: 2px;
+    class id1,id2,id3,id4 nodeStyle;
+    click id1 "../reference/prepare_abcd.html";
+    click id2 "../reference/match_loanbooks.html";
+    click id3 "../reference/prioritise_and_diagnose.html";
+    click id4 "../reference/analyse.html";
 ')
 ```
 
