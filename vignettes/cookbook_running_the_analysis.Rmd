@@ -28,8 +28,19 @@ The PACTA for Supervisors analysis consists of four main steps:
 
 The following diagram illustrates the structure of the workflow:
 
-```{r workflow_structure, echo=FALSE, fig.cap='Fig. 1: Structure of the Workflow', fig.align='center', out.width='200px'}
-knitr::include_graphics("../man/figures/p4s_workflow_structure.png")
+```{r workflow_structure, echo=FALSE, fig.cap='Fig. 1: Structure of the Workflow', fig.align='center'}
+DiagrammeR::mermaid('
+  graph TB;
+    id1("prepare_abcd()") --> id2("match_loanbooks()");
+    id2("match_loanbooks()") --> id3("prioritise_and_diagnose()");
+    id3("prioritise_and_diagnose()") --> id4("analyse()");
+    classDef nodeStyle fill: #45cfcc, stroke: #000, stroke-width: 2px;
+    class id1,id2,id3,id4 nodeStyle;
+    click id1 "../reference/prepare_abcd.html";
+    click id2 "../reference/match_loanbooks.html";
+    click id3 "../reference/prioritise_and_diagnose.html";
+    click id4 "../reference/analyse.html";
+')
 ```
 
 As the diagram shows, there is a logical sequence to how to run the functions. For any of the functions to work, the previous functions must have been run already and their outputs must be accessible as inputs to the next functions. If you want to keep different versions of the calculations, i.e. you want to avoid overwriting past outputs, you will have to (1) ensure that each run is done with a new value for the corresponding output directory set in the `config.yml` and (2) that the relevant function refers to the appropriate directories of upstream outputs. For example, if you want to run the analysis twice and keep both results, all `dir_*` entries of the `config.yml` should remain identical for both runs, except for the `dir_analysis` entry, which should be different for each run.
