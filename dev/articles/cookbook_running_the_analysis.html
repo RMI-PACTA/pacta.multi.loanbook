@@ -87,8 +87,10 @@
 
 
 
-
-<div class="row">
+<link href="cookbook_running_the_analysis_files/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
+<script src="cookbook_running_the_analysis_files/htmlwidgets-1.6.4/htmlwidgets.js"></script><script src="cookbook_running_the_analysis_files/d3-3.3.8/d3.min.js"></script><script src="cookbook_running_the_analysis_files/dagre-0.4.0/dagre-d3.min.js"></script><link href="cookbook_running_the_analysis_files/mermaid-0.3.0/dist/mermaid.css" rel="stylesheet">
+<script src="cookbook_running_the_analysis_files/mermaid-0.3.0/dist/mermaid.slim.min.js"></script><link href="cookbook_running_the_analysis_files/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
+<script src="cookbook_running_the_analysis_files/chromatography-0.1/chromatography.js"></script><script src="cookbook_running_the_analysis_files/DiagrammeR-binding-1.0.11/DiagrammeR.js"></script><div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Running the Analysis</h1>
             
@@ -124,7 +126,8 @@ production-based alignment analysis.</li>
 </ul>
 <p>The following diagram illustrates the structure of the workflow:</p>
 <div class="figure" style="text-align: center">
-<img src="../reference/figures/p4s_workflow_structure.png" alt="Fig. 1: Structure of the Workflow" width="200px"><p class="caption">
+<div class="DiagrammeR html-widget html-fill-item" id="htmlwidget-ac96cb3ee4656e2e9ec3" style="width:700px;height:432.632880098888px;"></div>
+<script type="application/json" data-for="htmlwidget-ac96cb3ee4656e2e9ec3">{"x":{"diagram":"\n  graph TB;\n    id1(\"prepare_abcd()\") --> id2(\"match_loanbooks()\");\n    id2(\"match_loanbooks()\") --> id3(\"prioritise_and_diagnose()\");\n    id3(\"prioritise_and_diagnose()\") --> id4(\"analyse()\");\n    classDef nodeStyle fill: #45cfcc, stroke: #000, stroke-width: 2px;\n    class id1,id2,id3,id4 nodeStyle;\n    click id1 \"../reference/prepare_abcd.html\";\n    click id2 \"../reference/match_loanbooks.html\";\n    click id3 \"../reference/prioritise_and_diagnose.html\";\n    click id4 \"../reference/analyse.html\";\n"},"evals":[],"jsHooks":[]}</script><p class="caption">
 Fig. 1: Structure of the Workflow
 </p>
 </div>
