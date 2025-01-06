@@ -125,11 +125,12 @@ dd_loanbook_exposure_net_aggregate_alignment <- dplyr::tribble(
 
 dd_data_sankey <- dplyr::tribble(
   ~dataset, ~column, ~typeof, ~definition, ~value,
-  "data_sankey", "<by_group>", "character", "Leftmost node in the sankey plot. Defines the split of the banking books into groups. Any additional descriptor either at the loan level or at the banking book level", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
-  "data_sankey", "middle_node", "character", "Middle node in the sankey plot. A different grouping of interest. E.g. 'sector' would split the financial exposures according to sectoral exposure", "Must be available in the exposure alignment results used as input for the graph",
-  "data_sankey", "middle_node2", "character", "Optional: An additional middle node can be added for further disaggregation of exposures in the sankey plot", "Must be available in the exposure alignment results used as input for the graph",
-  "data_sankey", "is_aligned", "logical", "End node and color indicator. A dummy variable that indicates if the underlying counterparty related to the exposure is aligned based on the net alignment metric or not", "Value is either 'Aligned' or 'Not aligned'",
-  "data_sankey", "loan_size_outstanding", "double", "Remaining outstanding loan value to the underlying counterparty", "Numerical value greater or equal to 0"
+  "data_sankey", "loan_size_outstanding", "double", "Remaining outstanding loan value to the underlying counterparty. Determines the vertical size of each ribbon in the sankey plot", "Numerical value greater or equal to 0",
+  "data_sankey", "initial_node", "character", "Leftmost node in the sankey plot. Defines the split of the banking books into groups. Any additional descriptor either at the loan level or at the banking book level", "Any variable name is permissible, that is not already used otherwise. All entries in the banking book should have a corresponding value. NULL is permissible and implies no grouping",
+  "data_sankey", "middle_node", "character", "Middle node in the sankey plot. Indicates the sectors that the underlying counterparties operate in, which implies this node splits the financial exposures according to sectoral exposure", "Variable `sector` must be available in the exposure alignment results used as input for the graph.",
+  "data_sankey", "end_node", "character", "End node and color indicator. A dummy variable that indicates if the underlying counterparty related to the exposure is aligned based on the net alignment metric or not", "Value is one of 'Aligned', 'Not aligned', or 'Unknown'",
+  "data_sankey", "is_aligned", "character", "Indicates which alignment category any given flow in the sankey plot correponds to. Coincides with end_note and determines the fill of the flows", "Value is one of 'Aligned', 'Not aligned', or 'Unknown'",
+  "data_sankey", "currency", "character", "Shows the currency the financial exposure is denominated in", "Derived from the currency of the analyzed loan books"
 )
 
 dd_data_scatter_alignment_exposure <- dplyr::tribble(
