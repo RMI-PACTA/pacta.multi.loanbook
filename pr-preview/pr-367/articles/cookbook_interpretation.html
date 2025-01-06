@@ -953,11 +953,12 @@ section on the sankey plot in the data dictionary</a>.</p>
 <p>The variables in the table map to the figures as follows:</p>
 <ul>
 <li>
-<code>&lt;by_group&gt;</code>: The variable that the loan books are
+<code>initial_node</code>: The variable that the loan books are
 split by. This corresponds to the leftmost node in the sankey plot and
-the values can either be all the same for the aggregate view on all
-analysed loan books or the values corresponding to each of the
-groups.</li>
+is derived from the <code>by_group</code> parameter set in the
+<code>config.yml</code> file. The values can either be all the same for
+the aggregate view on all analysed loan books or the values
+corresponding to each of the groups.</li>
 <li>
 <code>middle_node</code>: The PACTA sectors for which there is some
 financial exposure in the analyzed loan books.</li>
