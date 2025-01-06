@@ -71,19 +71,21 @@ prep_sankey <- function(data_alignment,
     ) %>%
     dplyr::arrange(!!rlang::sym(group_var), .data[["is_aligned"]]) %>%
     dplyr::mutate(
-      y_axis = .data$loan_size_outstanding,
+      # y_axis = .data$loan_size_outstanding,
       initial_node = .data[[group_var]],
-      end_node = .data$is_aligned,
-      stratum = .data$is_aligned
+      end_node = .data$is_aligned#,
+      # stratum = .data$is_aligned
     ) %>%
     dplyr::select(
       dplyr::all_of(
         c(
-          "y_axis",
+          "loan_size_outstanding",
+          # "y_axis",
           "initial_node",
           "middle_node",
           "end_node",
-          "stratum",
+          "is_aligned",
+          # "stratum",
           currency = "loan_size_outstanding_currency"
         )
       )
