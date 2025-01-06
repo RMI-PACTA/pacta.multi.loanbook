@@ -47,9 +47,9 @@ plot_sankey <- function(data,
     ggplot2::ylab(glue::glue("Financial exposure (in {currency})")) +
     ggalluvial::geom_alluvium(ggplot2::aes(fill = .data[["stratum"]])) +
     ggplot2::scale_fill_manual(
-      values = c("Aligned" = "green4", "Not aligned" = "red3", "Unknown" = "gray40")
+      values = c("Aligned" = "green4", "Not aligned" = "red3", "Unknown" = "gray30")
     ) +
-    ggalluvial::geom_stratum(fill = "gray85", color = "gray50") +
+    ggalluvial::geom_stratum(fill = "gray90", color = "gray50") +
     ggrepel::geom_text_repel(
       ggplot2::aes(label = ggplot2::after_stat(stratum)),
       stat = ggalluvial::StatStratum, size = 4, direction = "y", nudge_x = .3
