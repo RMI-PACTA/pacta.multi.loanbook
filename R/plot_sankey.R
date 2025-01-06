@@ -40,14 +40,12 @@ plot_sankey <- function(data,
       axis1 = .data[["initial_node"]],
       axis2 = .data[["middle_node"]],
       axis3 = .data[["end_node"]],
-      # y = .data[["y_axis"]]
       y = .data[["loan_size_outstanding"]]
     )
   ) +
     ggplot2::scale_y_continuous(labels = scales::comma) +
     ggplot2::ylab(glue::glue("Financial exposure (in {currency})")) +
     ggalluvial::geom_alluvium(ggplot2::aes(fill = .data[["is_aligned"]])) +
-    # ggalluvial::geom_alluvium(ggplot2::aes(fill = .data[["stratum"]])) +
     ggplot2::scale_fill_manual(
       values = c("Aligned" = "green4", "Not aligned" = "red3", "Unknown" = "gray30")
     ) +
