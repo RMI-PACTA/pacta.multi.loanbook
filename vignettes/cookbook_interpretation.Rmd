@@ -275,7 +275,7 @@ For detailed descriptions of the columns in the output files, please refer to th
 
 The variables in the table map to the figures as follows:
 
-- `<by_group>`: The variable that the loan books are split by. This corresponds to the leftmost node in the sankey plot and the values can either be all the same for the aggregate view on all analysed loan books or the values corresponding to each of the groups.
+- `initial_node`: The variable that the loan books are split by. This corresponds to the leftmost node in the sankey plot and is derived from the `by_group` parameter set in the `config.yml` file. The values can either be all the same for the aggregate view on all analysed loan books or the values corresponding to each of the groups.
 - `middle_node`: The PACTA sectors for which there is some financial exposure in the analyzed loan books.
 - `is_aligned`: Binary variable that can have values "aligned" or "not aligned". All exposures that are aligned are represented as green ribbons, all those that are not aligned are red ribbons. The underlying net alignment metric refers to the five year forward-looking values in the final year of the analysis.
 - `loan_size_outstanding`: The financial exposure of the loan books to the individual sectors and grouped by `ìs_aligned`. This is the continuous variable that determines the size of the ribbons in the plot along the y-axis.
