@@ -27,10 +27,6 @@ jobs:
           extra-packages: any::covr
           needs: coverage
 
-      - name: install phantomJS
-        run: webshot::install_phantomjs()
-        shell: Rscript {0}
-
       - name: Test coverage
         run: |
           token <- Sys.getenv("CODECOV_TOKEN", "")
