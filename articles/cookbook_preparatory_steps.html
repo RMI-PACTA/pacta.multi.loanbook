@@ -30,7 +30,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">pacta.multi.loanbook</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,6 +61,7 @@
     <li><a class="dropdown-item" href="../articles/sector_split.html">Splitting loans of multi sector companies</a></li>
   </ul>
 </li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -92,7 +93,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>Preparatory Steps</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/RMI-PACTA/pacta.multi.loanbook/blob/v0.1.0/vignettes/cookbook_preparatory_steps.Rmd" class="external-link"><code>vignettes/cookbook_preparatory_steps.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/RMI-PACTA/pacta.multi.loanbook/blob/main/vignettes/cookbook_preparatory_steps.Rmd" class="external-link"><code>vignettes/cookbook_preparatory_steps.Rmd</code></a></small>
       <div class="d-none name"><code>cookbook_preparatory_steps.Rmd</code></div>
     </div>
 
@@ -136,14 +137,20 @@ yourself or complement an external data set with entries that may not be
 covered out of the box.</p>
 <p>The ABCD data set must be an XLSX file and contains the following
 columns:</p>
-<p>Error in get(paste0(generic, “.”, class), envir = get_method_env()) :
-object ‘type_sum.accel’ not found - <code>company_id</code> -
-<code>name_company</code> - <code>lei</code> -
-<code>is_ultimate_owner</code> - <code>sector</code> -
-<code>technology</code> - <code>plant_location</code> -
-<code>year</code> - <code>production</code> -
-<code>production_unit</code> - <code>emission_factor</code> -
-<code>emission_factor_unit</code></p>
+<ul>
+<li><code>company_id</code></li>
+<li><code>name_company</code></li>
+<li><code>lei</code></li>
+<li><code>is_ultimate_owner</code></li>
+<li><code>sector</code></li>
+<li><code>technology</code></li>
+<li><code>plant_location</code></li>
+<li><code>year</code></li>
+<li><code>production</code></li>
+<li><code>production_unit</code></li>
+<li><code>emission_factor</code></li>
+<li><code>emission_factor_unit</code></li>
+</ul>
 <p>While PACTA is data agnostic and allows using data from any provider
 that offers the appropriate format, one option to obtain ABCD for this
 analysis is to buy the data from the data provider Asset Impact. Further
@@ -430,22 +437,22 @@ other R packages. These dependencies will be installed automatically
 when you install the <code>pacta.multi.loanbook</code> package. The
 required packages are:</p>
 <p><code>cli (&gt;= 3.2.0)</code>, <code>config</code>,
-<code>dplyr</code>, <code>ggplot2</code>, <code>glue</code>,
-<code>networkD3</code>, <code>r2dii.analysis (&gt;= 0.3.0)</code>,
+<code>dplyr</code>, <code>ggalluvial</code>, <code>ggplot2</code>,
+<code>ggrepel</code>, <code>glue</code>,
+<code>r2dii.analysis (&gt;= 0.3.0)</code>,
 <code>r2dii.data (&gt;= 0.5.0)</code>,
 <code>r2dii.match (&gt;= 0.3.0)</code>,
 <code>r2dii.plot (&gt;= 0.4.0)</code>, <code>readr (&gt;= 2.0.0)</code>,
 <code>readxl</code>, <code>rlang</code>, <code>scales</code>,
-<code>tidyr</code>, <code>webshot</code>, <code>yaml</code>,
-<code>yesno</code></p>
+<code>tidyr</code>, <code>yaml</code>, <code>yesno</code></p>
 </div>
 <div class="section level4">
 <h4 id="suggested-r-packages">Suggested R packages<a class="anchor" aria-label="anchor" href="#suggested-r-packages"></a>
 </h4>
 <p>The suggested packages are not required to run the analysis, but they
 are used in the examples and vignettes provided with the package:</p>
-<p><code>gt</code>, <code>knitr</code>, <code>pkgdown</code>,
-<code>rmarkdown</code>, <code>usethis</code>,
+<p><code>DiagrammeR</code>, <code>gt</code>, <code>knitr</code>,
+<code>pkgdown</code>, <code>rmarkdown</code>, <code>usethis</code>,
 <code>testthat (&gt;= 3.1.9)</code>, <code>tibble</code>,
 <code>withr</code>, <code>writexl</code></p>
 </div>
