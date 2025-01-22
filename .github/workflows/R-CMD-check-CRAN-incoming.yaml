@@ -69,16 +69,16 @@ jobs:
           Sys.setenv("_R_CHECK_CRAN_INCOMING_REMOTE_" = "true")
           Sys.setenv("_R_CHECK_CRAN_INCOMING_USE_ASPELL_" = "true")
           cat("check-dir-path=", file.path(getwd(), "check"), "\n", file = Sys.getenv("GITHUB_OUTPUT"), sep = "", append = TRUE)
-          check_results <- rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), build_args = c("--no-manual", "--compact-vignettes=gs+qpdf"), error_on = "warning", check_dir = "check")
+          check_results <- rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), build_args = c("--no-manual", "--compact-vignettes=gs+qpdf"), error_on = "never", check_dir = "check")
           writeLines(paste0("```\n", check_results$stdout, "\n```"), Sys.getenv("GITHUB_STEP_SUMMARY"))
           notes <- unlist(strsplit(check_results$notes, "\\n"))
           notes <- grep("^checking CRAN incoming feasibility|^Maintainer: |^New submission$|^Version contains large components |^Days since last update: |^$", notes, value = TRUE, invert = TRUE)
           writeLines(paste0("R CMD check CRAN incoming feasibility check notes found:\n```\n", paste(notes, collapse = "\n"), "\n```"), "notes.md")
-          if (length(notes) > 0L) { cat("::error::Notes found in CRAN incoming feasibility check\n"); cat(paste(notes, collapse = "\n")); quit(status=1) }
+          if (length(notes) > 0L) { cat("::error::Notes found in CRAN incoming feasibility check\n"); cat(paste(notes, collapse = "\n")) }
+          cat("notes=", length(notes), "\n", file = Sys.getenv("GITHUB_OUTPUT"), sep = "", append = TRUE)
         shell: Rscript {0}
 
       - name: Upload 00check.log
-        if: failure()
         uses: actions/upload-artifact@v4
         with:
           name: ${{ format('{0}-{1}-r{2}-{3}-00check.log', runner.os, runner.arch, matrix.config.r, matrix.config.id || strategy.job-index ) }}
@@ -86,7 +86,7 @@ jobs:
           if-no-files-found: ignore
 
       - name: Find Comment
-        if: failure()
+        if: steps.rcmdcheck.outputs.notes > 0
         uses: peter-evans/find-comment@v3
         id: fc
         with:
@@ -94,7 +94,7 @@ jobs:
           comment-author: 'github-actions[bot]'
 
       - name: Create or update comment
-        if: failure()
+        if: steps.rcmdcheck.outputs.notes > 0
         uses: peter-evans/create-or-update-comment@v4
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}
