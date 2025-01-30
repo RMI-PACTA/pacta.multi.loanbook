@@ -114,7 +114,7 @@ The technology mix metric compares the technology mix of the production capacity
 
 The technology mix can only be calculated for sectors that have technology level scenario pathways. Generally, those tend to be sectors for which scalable low carbon alternatives exist. The technology mix can also be calculated for sectors in which all technologies are projected to phase down or out, but the results are less meaningful in those cases, as the technology mix cannot show the absolute requirements for a phasedown.
 
-For a general explanation of the technology mix, see also the [PACTA for Investors website](https://pacta.rmi.org/pacta-for-investors/) under the "Metrics" tab.
+For a general explanation of the technology mix, see also the [Metrics section of the PACTA for Investors website](https://pacta.rmi.org/pacta-for-investors/metrics/).
 
 #### Example Plots Technology Mix
 
@@ -155,7 +155,7 @@ The production volume trajectory metric compares the future production capacity 
 
 The production volume trajectory metric can only be calculated for sectors that have technology level scenario pathways. Generally, those tend to be sectors for which scalable low carbon alternatives exist, or sectors in which all technologies are projected to phase down or out.
 
-For a general explanation of the production volume trajectory, see also the [PACTA for Investors website](https://pacta.rmi.org/pacta-for-investors/) under the "Metrics" tab.
+For a general explanation of the production volume trajectory, see also the [Metrics section of the PACTA for Investors website](https://pacta.rmi.org/pacta-for-investors/metrics/).
 
 #### Example Plots Production Volume Trajectory
 
@@ -210,7 +210,7 @@ The emission intensity metric can be calculated for any sector that has sector l
 
 As the emission intensity metric is compared to scenario values based on the SDA approach, the calculation of the scenario values for each portfolio follows different rules than the market share approach used in the technology mix and the production volume trajectory. The SDA approach is a convergence approach and does not necessarily require stable market share for all companies and/or loan books. Rather, it requires that all participants in a sector approach the same emission intensity target at the end year of the scenario. Notice that the end year of the scenario is usually much farther in the future than the five year forward looking horizon of the analysis, which is why the loan book value is not expected to have converged with the scenario value after five years.
 
-For a general explanation of the emission intensity metric, see also the [PACTA for Investors website](https://pacta.rmi.org/pacta-for-investors/) under the "Metrics" tab.
+For a general explanation of the emission intensity metric, see also the [Metrics section of the PACTA for Investors website](https://pacta.rmi.org/pacta-for-investors/metrics/).
 
 #### Example Plots Emission Intensity Pathway
 
