@@ -89,7 +89,7 @@ After the matching process is complete, you will need to do some manual matching
 
 The manual matching process is not automated and will require some time and effort on your part. You can find the matched loan books in the directory that you have specified as [the `dir_matched_loanbooks` parameter in the `config.yml` file](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/config_yml.html#dir_matched_loanbooks). The matched loan books will be stored in CSV files, one for each raw loan book. You can open these files in a spreadsheet program to verify the matches. Importantly, you will need to make a copy for each of the matched loan book files in the same directory and rename that copy by adding the suffix `_manual` to the file name. The following steps of the analysis expect this pattern, so it is important to follow this naming convention.
 
-You can find more detailed information about the matching process in the [training material on the PACTA for Banks website](https://pacta.rmi.org/pacta-for-banks-2020/) in the section "PACTA for Banks Training Webinar 2" and in the [corresponding slide deck](https://pacta.rmi.org/wp-content/uploads/2020/12/PACTA-for-Banks-Training-Webinar-2-Matching-a-loan-book-to-physical-assets-in-the-real-economy-.pdf).
+You can find more detailed information about the matching process in the [training material on the PACTA for Banks website](https://pacta.rmi.org/pacta-for-banks-2020/training-materials/) in the section "PACTA for Banks Training Webinar 2" and in the [corresponding slide deck](https://pacta.rmi.org/wp-content/uploads/2020/12/PACTA-for-Banks-Training-Webinar-2-Matching-a-loan-book-to-physical-assets-in-the-real-economy-.pdf).
 
 ### Some expectations for the matching process
 
