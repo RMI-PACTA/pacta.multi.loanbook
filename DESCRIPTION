@@ -78,3 +78,5 @@ URL:
     https://rmi-pacta.github.io/pacta.multi.loanbook/,
     https://github.com/RMI-PACTA/pacta.multi.loanbook/
 LazyData: true
+Remotes: 
+    RMI-PACTA/r2dii.match@calculate_match_success_rate

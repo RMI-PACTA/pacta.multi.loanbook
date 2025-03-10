@@ -272,18 +272,29 @@ calculate_match_success_rate <- function(raw_lbk,
                                          sector_classification_system,
                                          misclassfied_loans = NULL,
                                          by_group) {
-  # combine data----
-  # add sectors to raw loan books
-  raw_lbk_with_sectors <- add_sectors_to_raw_lbk(
-    raw_lbk = raw_lbk,
-    sector_classification_system = sector_classification_system
+  datasets_with_by_group <- c(
+    raw_lbk = by_group %in% names(raw_lbk),
+    matched_prioritized = by_group %in% names(matched_prioritized)
   )
 
-  lbk_match_success <- combine_raw_and_matched_loan_books(
-    raw_lbk_with_sectors = raw_lbk_with_sectors,
-    matched_prioritized = matched_prioritized,
-    by_group = by_group
-  )
+  if(any(!datasets_with_by_group)) {
+    datasets_missing_by_group <- names(datasets_with_by_group)[!datasets_with_by_group]
+    cli::cli_abort(c(
+      x = "column {.val {by_group}} not found in {.arg {datasets_missing_by_group}} dataset{?s}",
+      i = "The value set in {.arg by_group} must refer to a column in both the {.arg raw_lbk} and {.arg matched_prioritized} datasets"
+    ))
+  }
+
+  group_names <- unique(c(raw_lbk[[by_group]], matched_prioritized[[by_group]]))
+
+  lbk_match_success <-
+    lapply(group_names, function(group_name) {
+      r2dii.match::calculate_match_success_rate(
+        matched = dplyr::filter(matched_prioritized, .data[[by_group]] == group_name),
+        loanbook = dplyr::filter(raw_lbk, .data[[by_group]] == group_name)
+      )
+    }) %>%
+    dplyr::bind_rows()
 
   ## remove misclassified loans----
   # optional: manually exclude loans from the match success calculation
