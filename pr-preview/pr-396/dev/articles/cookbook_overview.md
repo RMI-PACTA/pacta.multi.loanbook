@@ -1,0 +1,98 @@
+# Overview
+
+## Overview
+
+This cookbook provides a step-by-step guide to running the PACTA for
+Supervisors analysis using the `pacta.multi.loanbook` package. The
+analysis is designed to help financial supervisors assess the alignment
+of banks’ loan books with the Paris Agreement goals.
+
+The sections of the cookbook are as follows:
+
+1.  **Overview**: This section provides an overview of the PACTA for
+    Supervisors analysis and its main steps.
+2.  **[Preparatory
+    Steps](https://rmi-pacta.github.io/pacta.multi.loanbook/dev/articles/cookbook_preparatory_steps.md)**:
+    Prepare the ABCD data and optionally a custom sector split.
+3.  **[Running the
+    Analysis](https://rmi-pacta.github.io/pacta.multi.loanbook/dev/articles/cookbook_running_the_analysis.md)**:
+    Match the raw loan books to the ABCD data and run the PACTA for
+    Supervisors analysis.
+4.  **[Interpretation of
+    Results](https://rmi-pacta.github.io/pacta.multi.loanbook/dev/articles/cookbook_interpretation.md)**:
+    Interpret the results of the analysis and understand the outputs.
+5.  **[Advanced
+    Topics](https://rmi-pacta.github.io/pacta.multi.loanbook/dev/articles/cookbook_advanced_use_cases.md)**:
+    Learn about advanced topics such as custom grouping of results and
+    how to adjust the analysis parameters for best results on advanced
+    research questions.
+
+### What is the PACTA for Supervisors analysis?
+
+PACTA for Supervisors is based on the PACTA methodology, which assesses
+the alignment of financial portfolios with climate goals utilizing
+forward-looking asset-based company data (ABCD) that is linked to
+financial assets and compares the production profiles of those companies
+with technology and emissions pathways from climate transition scenarios
+at the sector and/or technology level.
+
+### Who is this tool built for?
+
+The PACTA for Supervisors analysis is primarily designed to be run by
+financial supervisors on their own, with minimal additional guidance.
+However, it can also be a useful tool for any other user, in case they
+would like to run a PACTA analysis on multiple loan books.
+
+The main difference between this tool and the individual PACTA for Banks
+software packages is that this tool aims to facilitate the analysis of
+multiple loan books at once, streamlining the process as much as
+possible, to keep the burden for the user to a minimum. As such it is a
+helpful tool for anyone who would like to run a PACTA analysis on
+multiple loan books.
+
+### What can the results of the PACTA for Supervisors analysis be used for?
+
+Financial supervisors or regulators can use the results of the analysis
+to assess the alignment of banks’ loan books with the Paris Agreement
+goals, to identify sectors where banks may need to take action to
+improve alignment, and to screen the financial system for potential
+climate-related transition risks. The analysis can be parameterised in
+different ways to explore patterns across the analysed loan books. If
+run by private institutions, the results may additionally be used to
+identify opportunities for climate-aligned investments, as well as for
+detecting individual counterparties that may be exposed to
+climate-related transition risks and may therefore require dedicated
+focus in the risk management process.
+
+Users will be able to obtain both tabular outputs and plots that can be
+used for any of the above use cases. The tabular output further enables
+processing of the alignment results in other models or tools, for
+example as an input into financial risk models, or as a recurring input
+into internal monitoring systems.
+
+The level of granularity of the outputs allows for a systematic analysis
+of climate alignment starting at the financial system level (across all
+analyzed loan books together), down to the individual counterparty
+level, and across sectors and technologies. Grouping of the results at
+any of these levels by additional dimensions can easily be achieved
+using the configuration file.
+
+### What are the main steps of the analysis?
+
+The main steps of the analysis are as follows:
+
+1.  Data preparation: Prepare the ABCD data and optionally a custom
+    sector split.
+2.  Matching process: Match the raw loan books to the ABCD data.
+3.  Prioritization of loan books; Match success and coverage
+    diagnostics: Prioritize the matched loan books and analyze their
+    coverage.
+4.  Run PACTA for Supervisors analysis: Run the analysis based on the
+    parameters set in the `config.yml` file.
+
+This cookbook will guide you through each of the steps of the analysis
+in detail, explain the required input data sets and software, and
+provide guidance on how to interpret the results.
+
+**NEXT CHAPTER:** [Preparatory
+Steps](https://rmi-pacta.github.io/pacta.multi.loanbook/dev/articles/cookbook_preparatory_steps.md)

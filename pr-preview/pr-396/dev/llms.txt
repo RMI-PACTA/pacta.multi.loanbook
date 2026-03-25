@@ -1,0 +1,110 @@
+# pacta.multi.loanbook
+
+[![Project Status:
+Unsupported](https://www.repostatus.org/badges/latest/unsupported.svg)](https://www.repostatus.org/#unsupported)
+
+**This project is archived for future reference, but no new work is
+expected in this repository.**
+
+The `pacta.multi.loanbook` package offers a standardized, user-friendly
+way to calculate climate alignment metrics for multiple loan books,
+based on the PACTA methodology.
+
+Designed for financial supervisory contexts, it simplifies climate
+alignment analysis across many lending institutions. The package
+streamlines steps to prevent repetition while allowing flexibility to
+tailor the analysis for specific project needs, providing valuable
+insights into transition alignment and risk.
+
+![](reference/figures/pml_readme_viz.png)
+
+## Installation
+
+You can install the release version of the package by running the
+following command in R:
+
+``` r
+install.packages("pacta.multi.loanbook")
+```
+
+You can install the development version of the package from GitHub with:
+
+``` r
+# install.packages("pak")
+pak::pak("RMI-PACTA/pacta.multi.loanbook")
+```
+
+## Usage
+
+Please consult the following resource for instructions on using the
+package. The cookbook provides a detailed overview covering the setup of
+the necessary software environment, obtaining and preparing input data,
+running the analysis, and interpreting the results.
+
+- [Cookbook](https://rmi-pacta.github.io/pacta.multi.loanbook//articles/cookbook_overview.html):
+  A comprehensive guide for setting up, running and interpreting the
+  analysis.
+
+# Package index
+
+## Analysis
+
+Run the analysis.
+
+- [`initialise_default_project()`](https://rmi-pacta.github.io/pacta.multi.loanbook/dev/reference/initialise_default_project.md)
+  [`initialize_default_project()`](https://rmi-pacta.github.io/pacta.multi.loanbook/dev/reference/initialise_default_project.md)
+  : Initialise a project directory and its config file
+- [`prepare_abcd()`](https://rmi-pacta.github.io/pacta.multi.loanbook/dev/reference/prepare_abcd.md)
+  : Prepare input data sets for PACTA for Supervisors analysis
+- [`match_loanbooks()`](https://rmi-pacta.github.io/pacta.multi.loanbook/dev/reference/match_loanbooks.md)
+  : Match raw input loan books with ABCD for PACTA for Supervisors
+  analysis
+- [`prioritise_and_diagnose()`](https://rmi-pacta.github.io/pacta.multi.loanbook/dev/reference/prioritise_and_diagnose.md)
+  [`prioritize_and_diagnose()`](https://rmi-pacta.github.io/pacta.multi.loanbook/dev/reference/prioritise_and_diagnose.md)
+  : Prioritise and diagnose the loan book data sets used in the PACTA
+  for Supervisors analysis
+- [`analyse()`](https://rmi-pacta.github.io/pacta.multi.loanbook/dev/reference/analyse.md)
+  [`analyze()`](https://rmi-pacta.github.io/pacta.multi.loanbook/dev/reference/analyse.md)
+  : Analyse the loan book data sets used in the PACTA for Supervisors
+  analysis
+
+## Data
+
+Datasets that are included.
+
+- [`data_dictionary`](https://rmi-pacta.github.io/pacta.multi.loanbook/dev/reference/data_dictionary.md)
+  : Data dictionary
+
+# Articles
+
+### Cookbook
+
+Cookbook demonstrating how to use this package for your own projects
+
+- [Overview](https://rmi-pacta.github.io/pacta.multi.loanbook/dev/articles/cookbook_overview.md):
+- [Preparatory
+  Steps](https://rmi-pacta.github.io/pacta.multi.loanbook/dev/articles/cookbook_preparatory_steps.md):
+- [Running the
+  Analysis](https://rmi-pacta.github.io/pacta.multi.loanbook/dev/articles/cookbook_running_the_analysis.md):
+- [Interpretation of
+  Results](https://rmi-pacta.github.io/pacta.multi.loanbook/dev/articles/cookbook_interpretation.md):
+- [Advanced Use
+  Cases](https://rmi-pacta.github.io/pacta.multi.loanbook/dev/articles/cookbook_advanced_use_cases.md):
+
+### Documentation
+
+Documentation of files and objects used for input and output
+
+- [Configuring the
+  application](https://rmi-pacta.github.io/pacta.multi.loanbook/dev/articles/config_yml.md):
+- [Understanding the
+  data](https://rmi-pacta.github.io/pacta.multi.loanbook/dev/articles/data_dictionary.md):
+
+### Methodology
+
+- [Calculation of a company alignment
+  metric](https://rmi-pacta.github.io/pacta.multi.loanbook/dev/articles/company_alignment_metric.md):
+- [Calculation of exposure-weighted aggregated alignment
+  metric](https://rmi-pacta.github.io/pacta.multi.loanbook/dev/articles/loanbook_aggregated_alignment_metric.md):
+- [Splitting loans of multi sector
+  companies](https://rmi-pacta.github.io/pacta.multi.loanbook/dev/articles/sector_split.md):

@@ -1,0 +1,521 @@
+# Preparatory Steps
+
+## Preparatory Steps
+
+This section provides an overview of the preparatory steps that need to
+be taken before running the PACTA for Supervisors analysis. It includes
+information on the required input data sets, the required software, and
+how to setup the project folder and file structure. Finally, it provides
+a checklist of the steps that need to be taken before running the
+analysis, summarizing in brief the steps explained in more detail
+before.
+
+### Required Input Data Sets
+
+The PACTA for Supervisors analysis requires a number of input data sets
+to run. Some of these can be obtained from external sources, while
+others need to be prepared by the user. Furthermore, some of the input
+data sets are optional and their inclusion will depend on the settings
+provided in the `config.yml` file.
+
+The main input data sets required for the analysis are the following:
+
+#### Asset-based Company Data (ABCD)
+
+- required input
+- external source
+- XLSX file
+
+This data set provides information on the production profiles and
+emission intensities of companies active in the following real economy
+sectors: Automotive (light-duty vehicles) manufacturing, aviation,
+cement production, coal mining, upstream oil & gas extraction, power
+generation, and steel production. The ABCD is typically obtained from
+third party data providers. However, it is possible to prepare the ABCD
+yourself or complement an external data set with entries that may not be
+covered out of the box.
+
+The ABCD data set must be an XLSX file and contains the following
+columns:
+
+- `company_id`
+- `name_company`
+- `lei`
+- `is_ultimate_owner`
+- `sector`
+- `technology`
+- `plant_location`
+- `year`
+- `production`
+- `production_unit`
+- `emission_factor`
+- `emission_factor_unit`
+
+While PACTA is data agnostic and allows using data from any provider
+that offers the appropriate format, one option to obtain ABCD for this
+analysis is to buy the data from the data provider Asset Impact. Further
+information on how to obtain ABCD for PACTA and documentation of the
+individual sectors and data points can be found on the [Asset Impact
+website](https://asset-impact.gresb.com/).
+
+#### Scenario Data
+
+- required input(s)
+- external source
+- CSV file(s)
+
+The scenario data set provides information on the trajectories of
+technologies/fuel types and of emission intensity pathways for each of
+(or a subset of) the sectors covered in PACTA.
+
+For sectors with technology level trajectories, the data set provides
+the TMSR and SMSP pathways based on the Market Share Approach, an
+allocation rule that implies all companies active in a sector have to
+adjust their production in a way that keeps market shares constant and
+solves for the aggregate climate transition scenario. For more
+information on how to calculate the TMSR and the SMSP, see the [PACTA
+for Banks
+documentation](https://rmi-pacta.github.io/r2dii.analysis/articles/target-market-share.html).
+
+The target market share scenario data set must be a CSV file and
+contains the following columns:
+
+- `scenario_source`
+- `region`
+- `scenario`
+- `sector`
+- `technology`
+- `year`
+- `smsp`
+- `tmsr`
+
+For sectors that do not have technology level pathways, PACTA uses the
+Sectoral Decarbonization Approach (SDA), an allocation rule that implies
+that all companies in a sector have to converge their physical emission
+intensity at a future scenario value - e.g. in the year 2050. This
+implies that more polluting companies have to reduce their physical
+emissions intensity more drastically than companies using cleaner
+technology. It does not have any direct implications on the amount of
+units produced by any company. For further information on calculating
+the SDA in PACTA, please see the [PACTA for Banks
+documentation](https://rmi-pacta.github.io/r2dii.analysis/articles/target-sda.html).
+
+The SDA scenario data set must be a CSV file and contains the following
+columns:
+
+- `scenario_source`
+- `region`
+- `scenario`
+- `sector`
+- `year`
+- `emission_factor`
+- `emission_factor_unit`
+
+While the raw input values of the scenarios are based on models from
+external third party organisations - such as the [World Energy
+Outlook](https://www.iea.org/reports/world-energy-outlook-2024) by the
+[International Energy Agency (IEA)](https://www.iea.org/), the [Global
+Energy and Climate Outlook by the Joint Research Center of the European
+Commission
+(JRC)](https://joint-research-centre.ec.europa.eu/scientific-activities-z/geco_en),
+or the [One Earth Climate Model by the Institute for Sustainable Futures
+(ISF)](https://www.uts.edu.au/oecm) - the input data set for PACTA must
+be prepared using additional steps, which are documented publicly on the
+following GitHub repositories:
+
+- [pacta.scenario.data.preparation](https://github.com/RMI-PACTA/pacta.scenario.data.preparation)
+- [workflow.scenario.preparation](https://github.com/RMI-PACTA/workflow.scenario.preparation)
+
+Since RMI has taken over stewardship of PACTA, the prepared scenario
+files can also be accessed as CSV downloads in the [“Methodology and
+Supporting Documents” section of the PACTA
+website](https://pacta.rmi.org/pacta-for-banks-2020/methodology-and-supporting-materials/).
+The files are usually updated annually based on the latest scenario
+publications and as a general rule, the year of the publication defines
+the initial year of the scenario data set. This is commonly also used as
+the start year of the analysis, which is specified in the `config.yml`
+file.
+
+#### Raw Loan Books
+
+- required input
+- self-prepared
+- CSV file(s)
+
+The raw loan books are the financial data sets that you would like to
+analyze. They contain information on the loans that banks have provided
+to companies. As a supervisor, the data required to construct these data
+sets will typically be available to you through regulatory filings that
+are accessed via internal data bases or similar. As a bank, the data
+required will be available in your internal systems.
+
+The raw loan books must be prepared as CSV files and contain at a
+minimum the following columns:
+
+- `id_loan`
+- `id_direct_loantaker`
+- `name_direct_loantaker`
+- `id_ultimate_parent`
+- `name_ultimate_parent`
+- `loan_size_outstanding`
+- `loan_size_outstanding_currency`
+- `loan_size_credit_limit`
+- `loan_size_credit_limit_currency`
+- `sector_classification_system`
+- `sector_classification_direct_loantaker`
+- `lei_direct_loantaker`
+- `isin_direct_loantaker`
+
+**NOTE:** The tool will automatically add a column `group_id` to each of
+the loan books, which uses the file name as a value. This allows you to
+group the results of the analysis by loan book, using the `by_group`
+parameter in the `config.yml` file. For any other variable that you may
+want to group the results by, you need to add a column to the raw loan
+book files that you then provide as the `by_group` parameter in the
+`config.yml` file.
+
+For detailed descriptions of how to prepare raw loan books, see the
+[“Training Materials” section of the PACTA for Banks
+documentation](https://pacta.rmi.org/pacta-for-banks-2020/training-materials/).
+The [“User Guide
+2”](https://pacta.rmi.org/wp-content/uploads/2020/10/User-Guide-2..pdf),
+the [“Data
+Dictionary”](https://pacta.rmi.org/wp-content/uploads/2020/09/data_dictionary.xlsx),
+and the [“Loan Book
+Template”](https://pacta.rmi.org/wp-content/uploads/2020/09/loanbook_demo.xlsx)
+files can all be helpful in preparing your data.
+
+#### Misclassified Loans
+
+- optional input
+- self-prepared
+- CSV file
+
+The user can provide a list of loans that have been misclassified in the
+raw loan books. The aim here is specifically to remove false positives,
+that is, loans that are classified in scope of one of the PACTA sectors,
+but where manual research shows that the companies do not actually
+operate within the PACTA scope. Such a false positive may be due to
+erroneous data entry in the raw loan book, for example. Removing these
+loans from the falsely indicated sector in the calculation of the match
+success rate will give a more accurate picture of what match success
+rate can really be reached.
+
+#### Asset-Based Company Data (ABCD) for company sector split
+
+- optional input
+- external source
+- XLSX file
+
+In case the user wants to split company exposures across sectors of in
+scope activity, the user must provide a version of the ABCD data set
+that follows the format of the Advanced Company Indicators data set by
+Asset Impact. This data set includes power generation values which are
+required for the primary energy based sector split. Again, more
+information on data from Asset Impact can be found on the [Asset Impact
+website](https://asset-impact.gresb.com/).
+
+#### Companies to apply primary energy split on
+
+- optional input
+- self-prepared
+- CSV file
+
+When applying the sector split on company exposures, the user can
+provide a list of companies for which the sector split should be based
+on primary energy content. For all other companies, a simple equal
+weights split will be applied. For more information on the sector split,
+see the documentation in
+[`vignette("sector_split")`](https://rmi-pacta.github.io/pacta.multi.loanbook/dev/articles/sector_split.md).
+
+#### Manual Sector Classification
+
+- optional input
+- self-prepared
+- CSV file
+
+In case the user cannot obtain sector classification codes of any of the
+classification systems featured in
+[`r2dii.data::sector_classifications`](https://rmi-pacta.github.io/r2dii.data/reference/sector_classifications.html)
+(currently the following classification systems are featured: GICS,
+ISIC, NACE, NAICS, PSIC, SIC), the user can provide a manually created
+sector classification file for matching the loan book to the ABCD
+instead. Generally, any such manually prepared sector classification
+file must follow the format of
+[`r2dii.data::sector_classifications`](https://rmi-pacta.github.io/r2dii.data/reference/sector_classifications.html).
+More information on the appropriate settings needed in the configuration
+file can be found in the [documentation of the `config.yml`
+file](https://rmi-pacta.github.io/pacta.multi.loanbook/articles/config_yml.html#manual_sector_classification).
+It is recommended to use the built in sector classifications if
+possible, as mapping your own sector classification to the PACTA sectors
+can be complex and time consuming.
+
+### Required Software
+
+Using the `pacta.multi.loanbook` package for the PACTA for Supervisors
+analysis requires the following software to be installed on your system:
+
+#### R (version 4.1.0 or higher)
+
+R is the programming language that the `pacta.multi.loanbook` package is
+written in. You can download R from the [Comprehensive R Archive Network
+(CRAN)](https://cran.r-project.org/).
+
+#### RStudio (optional)
+
+RStudio is an integrated development environment (IDE) for R developed
+by Posit. It is not strictly required to run the analysis, but it can be
+helpful for managing your project and running the analysis. Generally,
+RStudio is very widely used among the R community and probably the
+easiest way to interact with most R tools, such as
+`pacta.multi.loanbook`. RStudio Desktop is an open source tool and free
+of charge. You can download RStudio from the [Posit RStudio
+website](https://posit.co/downloads/).
+
+#### `pacta.multi.loanbook` R package
+
+The `pacta.multi.loanbook` package is the main software tool that you
+will use to run the PACTA for Supervisors analysis.
+
+You can install the development version of `pacta.multi.loanbook` from
+GitHub with:
+
+``` r
+# install.packages("pak")
+pak::pak("RMI-PACTA/pacta.multi.loanbook")
+```
+
+We use the [`pak` package](https://pak.r-lib.org/index.html) as a simple
+[tool to install packages from
+GitHub](https://pak.r-lib.org/reference/pak.html).
+
+##### Connecting to GitHub from RStudio
+
+Note that if you choose to install `pacta.multi.loanbook` from GitHub,
+you will need to have:
+
+1.  registered a [GitHub](https://github.com/) account,
+2.  `git` installed locally,
+3.  set up credentials so that RStudio can communicate with GitHub.
+
+You can find more information on how to do this using the following
+resources:
+
+- [Happy Git and GitHub for the useR](https://happygitwithr.com/) is a
+  great and comprehensive resource that takes you through the process of
+  setting up git and GitHub with RStudio, including registering a GitHub
+  account, installing git, and connecting RStudio to GitHub.
+- Additional information on managing your GitHub connection from within
+  RStudio can be found in the usethis package documentation, for example
+  on [managing git
+  credentials](https://usethis.r-lib.org/articles/git-credentials.html).
+
+If you only plan to use GitHub to install this package or other packages
+as shown above, you will not have to have a deep understanding of all
+the git commands, so there is no need to be overwhelmed by the
+complexity of git.
+
+#### Required R packages
+
+The `pacta.multi.loanbook` package depends on a number of other R
+packages. These dependencies will be installed automatically when you
+install the `pacta.multi.loanbook` package. The required packages are:
+
+`cli (>= 3.2.0)`, `config`, `dplyr`, `ggalluvial`, `ggplot2`, `ggrepel`,
+`glue`, `r2dii.analysis (>= 0.3.0)`, `r2dii.data (>= 0.5.0)`,
+`r2dii.match (>= 0.3.0)`, `r2dii.plot (>= 0.4.0)`, `readr (>= 2.0.0)`,
+`readxl`, `rlang`, `scales`, `tidyr`, `yaml`, `yesno`
+
+#### Suggested R packages
+
+The suggested packages are not required to run the analysis, but they
+are used in the examples and vignettes provided with the package:
+
+`DiagrammeR`, `gt`, `knitr`, `pkgdown`, `rmarkdown`, `usethis`,
+`testthat (>= 3.1.9)`, `tibble`, `withr`, `writexl`
+
+#### FAQ
+
+##### How do I install the `pacta.multi.loanbook` package?
+
+The most common ways to install R packages are via CRAN or
+[GitHub](#connecting-to-github-from-rstudio). Public institutions often
+have restrictions on the installation of packages from GitHub, so you
+may need to install the package from CRAN. In some cases, your
+institution may mirror CRAN in their internal application registry, so
+you may need to install the package from there. Should you have any
+issues with the installation from the internal application registry, it
+is best to reach out to your IT department. If you cannot obtain the
+package in any of these ways, please reach out to the package
+maintainers directly for exploring other options.
+
+##### How do I install the required R packages?
+
+In principle, all dependencies required to run the
+`pacta.multi.loanbook` package will be installed automatically when you
+install the package. However, if you encounter any issues with the
+installation of the required packages, you can install them manually by
+running the following command in R, where … should be replaced with the
+package names from the list above, separated by commas:
+
+``` r
+install.packages(c(...))
+```
+
+### Project Setup
+
+#### Config
+
+All of the functions needed to run a PACTA for Supervisors analysis take
+a `config` argument, which can either be a path to a `config.yml` file
+(see
+[`vignette("config_yml")`](https://rmi-pacta.github.io/pacta.multi.loanbook/dev/articles/config_yml.md))
+or a config list object containing previously imported settings from a
+`config.yml` file. All of the settings/options are configured with this
+`config.yml` file.
+
+#### Input/Output folder structure
+
+The `config.yml` file then points to an input directory and to four
+output directories, one for each user-facing function, that the user can
+choose anywhere on their system, as long as R has read and write access
+to these directories. A recommendable choice to structure an analysis
+project would be to place all these folders and the `config.yml` file in
+a project folder. The input folder must contain all input files as
+described above, with the raw loan books being placed in a sub-directory
+that must be named `"loanbooks"`. The output folders will automatically
+be created at the locations indicated in the `config.yml` file. They
+will be populated by running the analysis. **NOTE:** Re-running a step
+of the analysis will replace the entire corresponding output directory,
+if the directory already exists.
+
+An example of how the project folder could be structured:
+
+    your_project_folder
+    ├── config.yml
+    ├── input
+    │   ├── ABCD.xlsx
+    │   ├── loanbooks
+    │   │   ├── raw_loanbook_1.csv
+    │   │   ├── raw_loanbook_2.csv
+    │   │   └── ...
+    │   ├── scenario_data_tms.csv
+    │   ├── scenario_data_sda.csv
+    │   └── ...
+    ├── prepared_abcd
+    ├── matched_loanbooks
+    ├── prioritized_loanbooks_and_diagnostics
+    └── analysis
+
+Notice that the names of the directories can be changed to something the
+user may prefer. The names were chosen for illustrative purposes to
+reflect the corresponding user-facing functions that create the outputs.
+
+#### Initialise a Project
+
+You can use the following code to initialise a project folder structure:
+
+``` r
+library(pacta.multi.loanbook)
+initialise_default_project(path = "path/to/your_project_folder")
+```
+
+This will create a minimal project folder structure similar to the one
+shown above.
+
+- Note that the target path that you pass to
+  [`initialise_default_project()`](https://rmi-pacta.github.io/pacta.multi.loanbook/dev/reference/initialise_default_project.md)
+  must be a path that does not exist yet, as it will be newly set up and
+  cannot overwrite any existing files.
+- Within this path, an `input` sub-directory and a `config.yml` file
+  will be created. The `ìnput` sub-directory will contain another
+  sub-directory `loanbooks`. Neither `input` nor `input/loanbooks` will
+  contain any files at this stage and you will have to populate them
+  with the files described above and following the structure as
+  outlined.
+- The `config.yml` file will be created with default settings. Output
+  paths in the config.yml file will point to sub directories of the path
+  you pass to
+  [`initialise_default_project()`](https://rmi-pacta.github.io/pacta.multi.loanbook/dev/reference/initialise_default_project.md),
+  so that running the remaining steps of the analysis will keep all
+  inputs and outputs in one common project folder. You can then edit the
+  `config.yml` file to adjust the settings to your needs, as described
+  in the corresponding documentation (see
+  [`vignette("config_yml")`](https://rmi-pacta.github.io/pacta.multi.loanbook/dev/articles/config_yml.md)).
+
+It is not strictly necessary to use the
+[`initialise_default_project()`](https://rmi-pacta.github.io/pacta.multi.loanbook/dev/reference/initialise_default_project.md)
+function to set up your project folder. If you prefer setting up another
+folder structure manually and creating the `config.yml` from scratch,
+you can do that. But it can be helpful to ensure that you have all the
+necessary files and folders in place.
+
+### Checklist of Preparatory Steps
+
+Before running the PACTA for Supervisors analysis, you should make sure
+that you have completed the following preparatory steps:
+
+Obtained the required external input data sets:
+
+Asset-based Company Data (ABCD)
+
+Scenario Data
+
+Prepared the required input data sets:
+
+Raw Loan Books
+
+OPTIONAL - Obtained the optional external input data sets:
+
+Asset-based Company Data (ABCD) for company sector split
+
+OPTIONAL - Prepared the optional input data sets:
+
+Companies to apply primary energy split on
+
+Misclassified Loans
+
+Manual Sector Classification
+
+Installed the required software:
+
+R (version 4.1.0 or higher)
+
+RStudio (optional)
+
+`pacta.multi.loanbook` R package
+
+[set up git and GitHub](#connecting-to-github-from-rstudio) (optional)
+
+Installed the required R packages:
+
+`pacta.multi.loanbook` dependencies
+
+OPTIONAL - Installed the suggested R packages:
+
+`pacta.multi.loanbook` suggests
+
+Setup the project folder and file structure:
+
+Created a project folder (can be handled by
+[`initialise_default_project()`](https://rmi-pacta.github.io/pacta.multi.loanbook/dev/reference/initialise_default_project.md))
+
+Created a `config.yml` file and placed it in the project folder (can be
+handled by
+[`initialise_default_project()`](https://rmi-pacta.github.io/pacta.multi.loanbook/dev/reference/initialise_default_project.md))
+
+Created an `input` folder in the project folder (can be handled by
+[`initialise_default_project()`](https://rmi-pacta.github.io/pacta.multi.loanbook/dev/reference/initialise_default_project.md))
+
+Placed the raw loan books in the `input/loanbooks` sub-directory
+
+Placed the other input data sets in the `input` folder
+
+Created appropriate values for all input and ouput directories in the
+`config.yml` file
+
+**PREVIOUS CHAPTER:**
+[Overview](https://rmi-pacta.github.io/pacta.multi.loanbook/dev/articles/cookbook_overview.md)
+
+**NEXT CHAPTER:** [Running the
+Analysis](https://rmi-pacta.github.io/pacta.multi.loanbook/dev/articles/cookbook_running_the_analysis.md)
